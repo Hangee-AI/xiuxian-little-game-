@@ -28217,6 +28217,11 @@ function showGate() {
     finishIntroAll();
     return;
   }
+  if (genderGate.parentElement !== document.body) {
+    genderGate.style.position = "fixed";
+    genderGate.style.zIndex = "9998";
+    document.body.appendChild(genderGate);
+  }
   genderGate.classList.add("on");
   const input = genderGate.querySelector("#gg-input");
   const go = genderGate.querySelector("#gg-go");
