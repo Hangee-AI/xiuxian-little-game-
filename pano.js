@@ -24806,6 +24806,12 @@ function wound(s, r) {
     number(s, `\u2212${r.dmg}`, "hurt");
     reel(s, true);
     flashEl("hurt-flash");
+    const vc = document.getElementById("vitalcard");
+    if (vc) {
+      vc.classList.remove("shake");
+      void vc.offsetWidth;
+      vc.classList.add("shake");
+    }
     sink(s, r);
   } else if (r.blocked) {
     guard(s, r);
@@ -26768,6 +26774,33 @@ function speak(text) {
 }
 var voicing = null;
 var voiceFilesMissing = false;
+var voiceRetry = [];
+var voiceHintEl = null;
+function showVoiceHint() {
+  if (voiceHintEl) return;
+  voiceHintEl = document.createElement("div");
+  voiceHintEl.textContent = "\u70B9\u4E00\u4E0B\uFF0C\u58F0\u97F3\u624D\u4F1A\u51FA\u6765";
+  voiceHintEl.style.cssText = "position:fixed;left:50%;bottom:64px;transform:translateX(-50%);z-index:9998;font-size:11.5px;letter-spacing:.24em;color:rgba(240,226,200,.62);background:rgba(6,9,14,.62);border:1px solid rgba(232,201,138,.28);border-radius:2px;padding:8px 14px;pointer-events:none;transition:opacity .5s";
+  document.body.appendChild(voiceHintEl);
+}
+function wakeVoice() {
+  ambArmed = true;
+  try {
+    ambientStart();
+  } catch {
+  }
+  const q = voiceRetry.splice(0);
+  if (q.length) {
+    q.forEach((f) => f());
+    if (voiceHintEl) {
+      voiceHintEl.style.opacity = "0";
+      setTimeout(() => voiceHintEl && voiceHintEl.remove(), 600);
+      voiceHintEl = null;
+    }
+  }
+}
+document.addEventListener("pointerdown", wakeVoice, { once: true });
+document.addEventListener("keydown", wakeVoice, { once: true });
 function volMul() {
   const vol = settings.volume === void 0 ? 50 : settings.volume;
   return settings.sound === false || !(vol > 0) ? 0 : vol / 100;
@@ -26788,10 +26821,18 @@ function playVoice(file, fallbackText) {
       voiceFilesMissing = true;
       speak(fallbackText);
     };
+    const blocked = (err) => {
+      if (err && err.name === "NotAllowedError") {
+        voiceRetry.push(() => playVoice(file, fallbackText));
+        showVoiceHint();
+        return;
+      }
+      back2();
+    };
     a.onerror = back2;
     voicing = a;
     const p = a.play();
-    if (p && p.catch) p.catch(back2);
+    if (p && p.catch) p.catch(blocked);
   } catch {
     voiceFilesMissing = true;
     speak(fallbackText);
@@ -27110,20 +27151,6 @@ function finishIntroAll() {
   kickBgm();
   scheduleMeet();
 }
-function introTapGate(start2) {
-  const tap = document.createElement("div");
-  tap.style.cssText = "position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle at 50% 45%,rgba(8,12,18,.84),rgba(2,3,6,.97));cursor:pointer;opacity:1;transition:opacity .8s ease";
-  tap.innerHTML = '<div style="font-size:30px;letter-spacing:.62em;color:#f2dfb2;text-indent:.62em">\u7075 \u589F</div><div style="margin-top:22px;font-size:12.5px;letter-spacing:.42em;color:rgba(226,217,200,.55);text-indent:.42em">\u70B9 \u51FB \xB7 \u5165 \u589F</div>';
-  document.body.appendChild(tap);
-  const go = () => {
-    tap.removeEventListener("pointerdown", go);
-    tap.style.opacity = "0";
-    ambArmed = true;
-    start2();
-    setTimeout(() => tap.remove(), 900);
-  };
-  tap.addEventListener("pointerdown", go);
-}
 if (skipVideo) {
   introEl.style.display = "none";
   ended = true;
@@ -27131,9 +27158,9 @@ if (skipVideo) {
   else scheduleMeet();
 } else if (needGender()) {
   gateAfterIntro = true;
-  introTapGate(startIntro);
+  startIntro();
 } else {
-  introTapGate(startIntro);
+  startIntro();
 }
 function tick2() {
   view.lon += (view.tLon - view.lon) * 0.16;

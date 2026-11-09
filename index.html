@@ -362,6 +362,13 @@
     background: radial-gradient(ellipse at center, rgba(180,40,30,0) 42%, rgba(180,40,30,.55) 100%);
     transition: opacity .28s ease; }
   #hurt-flash.on { opacity: 1; animation: hfade .45s ease-out forwards; }
+  #vitalcard.shake { animation: vcShake .34s cubic-bezier(.36,.07,.19,.97); }
+  @keyframes vcShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    45% { transform: translateX(4px); }
+    70% { transform: translateX(-2px); }
+  }
   @keyframes hfade { from { opacity: 1; } to { opacity: 0; } }
 
   /* 斗法 */
@@ -535,6 +542,13 @@
   .ar-slot.foe { text-align: right; }
   .ar-body { position: relative; }
   .ar-fig { display: flex; justify-content: center; animation: arBreath 3.8s ease-in-out infinite; }
+  /* 妖兽是静态图，给它一点呼吸和微摆，不然整场只有玩家在动 */
+  .ar-art { animation: arArtBreath 4.6s ease-in-out infinite; transform-origin: 50% 100%; }
+  .ar-slot.foe .ar-art { animation-delay: -1.7s; }
+  @keyframes arArtBreath {
+    0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+    50% { transform: translateY(-4px) scale(1.012) rotate(-.4deg); }
+  }
   .ar-fig canvas { height: 38vh; width: auto; filter: drop-shadow(0 0 14px rgba(120,160,200,.22)) drop-shadow(0 16px 26px rgba(0,0,0,.8)); }
   .ar-art { max-height: 33vh; max-width: 100%; object-fit: contain;
     filter: drop-shadow(0 18px 30px rgba(0,0,0,.72)); transition: filter .3s ease; }
@@ -572,6 +586,8 @@
   .ar-slot.hit .ar-body { animation: arReel .42s ease-out; }
   .ar-slot.hit-big .ar-body { animation: arReelBig .52s cubic-bezier(.2,.9,.2,1); }
   .ar-slot.hit .ar-fig { animation: arFlashWhite .3s ease-out; }
+  .ar-slot.hit .ar-art { animation: arFlashWhite .3s ease-out; }
+  .ar-slot.hit-big .ar-art { animation: arFlashWhite .38s ease-out; }
   .ar-slot.hit-big .ar-fig { animation: arFlashWhite .38s ease-out; }
   @keyframes arReel { 0% { transform: none; } 16% { transform: translateX(-16px) rotate(-2.4deg); }
     42% { transform: translateX(10px) rotate(1.4deg); } 70% { transform: translateX(-5px); } 100% { transform: none; } }
