@@ -19836,7 +19836,10 @@ function newLife() {
   };
 }
 function ensure(state) {
-  if (!state.life || typeof state.life !== "object") state.life = newLife();
+  if (!state.life || typeof state.life !== "object") {
+    state.life = newLife();
+    applyLineage(state.life);
+  }
   const l = state.life;
   const d = newLife();
   for (const k of Object.keys(d)) if (l[k] === void 0) l[k] = d[k];
@@ -20901,7 +20904,37 @@ NPCCARDS.push(
     ]
   }
 );
+function lineageGain() {
+  const r = readRelic();
+  if (!r) return { span: 0, wu: 0, dao: 0, hp: 0, from: null };
+  const realm = r.realm || 0;
+  const merit = r.merit || 0;
+  return {
+    span: realm >= 3 ? 40 : realm === 2 ? 24 : realm === 1 ? 12 : 0,
+    wu: merit >= 400 ? 3 : merit >= 150 ? 2 : merit >= 40 ? 1 : 0,
+    dao: realm >= 2 ? 20 : realm === 1 ? 10 : 0,
+    hp: realm >= 3 ? 18 : realm === 2 ? 12 : realm === 1 ? 6 : 0,
+    from: { year: r.year, rank: r.rank, merit }
+  };
+}
+function applyLineage(l) {
+  const g2 = lineageGain();
+  if (!g2.from) return g2;
+  l.lineage = g2;
+  l.span = (l.span || 80) + g2.span;
+  l.wu = (l.wu || 0) + g2.wu;
+  l.secBonus = (l.secBonus || 0) + g2.dao;
+  l.lineageHp = g2.hp;
+  return g2;
+}
 var RELIC_KEY = "lingxu.relic.v1";
+function readRelic() {
+  try {
+    return JSON.parse(localStorage.getItem(RELIC_KEY) || "null");
+  } catch {
+    return null;
+  }
+}
 function writeRelic(state) {
   const l = ensure(state);
   const r = rankOf(state);
@@ -22730,7 +22763,7 @@ function hpMax(state) {
   const purity = sp ? sp.purity || 0 : 0;
   const body = sp && (sp.traits || []).some((t) => t.id === "tipo") ? 18 : 0;
   const young = l.year < 20 ? 6 : 0;
-  return Math.round((e.hp || 100) + purity * 0.12 + body + young + (l.artBonus && l.artBonus.hp || 0));
+  return Math.round((e.hp || 100) + purity * 0.12 + body + young + (l.artBonus && l.artBonus.hp || 0) + (l.lineageHp || 0) + (l.relicHp || 0));
 }
 function hpOf(state) {
   settleRegen(state);
@@ -24701,7 +24734,7 @@ function powerOf(state) {
   const grades = sp ? effects(sp).grades : 0;
   const l = ensure(state);
   const base = daoOf(state) * 0.6 + grades * 0.25 + weaponValue(state) * 0.15;
-  return Math.round(base * (1 + (l.artBonus && l.artBonus.power || 0)));
+  return Math.round(base * (1 + (l.artBonus && l.artBonus.power || 0) + (l.relicAtk || 0)));
 }
 function foePower(foe, depth = 0) {
   return Math.round(24 + (foe && foe.danger ? foe.danger * 60 : 0) + depth * 8);

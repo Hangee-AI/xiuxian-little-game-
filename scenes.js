@@ -513,7 +513,10 @@ function newLife() {
   };
 }
 function ensure(state2) {
-  if (!state2.life || typeof state2.life !== "object") state2.life = newLife();
+  if (!state2.life || typeof state2.life !== "object") {
+    state2.life = newLife();
+    applyLineage(state2.life);
+  }
   const l = state2.life;
   const d = newLife();
   for (const k of Object.keys(d)) if (l[k] === void 0) l[k] = d[k];
@@ -2069,6 +2072,29 @@ NPCCARDS.push(
     ]
   }
 );
+function lineageGain() {
+  const r = readRelic();
+  if (!r) return { span: 0, wu: 0, dao: 0, hp: 0, from: null };
+  const realm = r.realm || 0;
+  const merit = r.merit || 0;
+  return {
+    span: realm >= 3 ? 40 : realm === 2 ? 24 : realm === 1 ? 12 : 0,
+    wu: merit >= 400 ? 3 : merit >= 150 ? 2 : merit >= 40 ? 1 : 0,
+    dao: realm >= 2 ? 20 : realm === 1 ? 10 : 0,
+    hp: realm >= 3 ? 18 : realm === 2 ? 12 : realm === 1 ? 6 : 0,
+    from: { year: r.year, rank: r.rank, merit }
+  };
+}
+function applyLineage(l) {
+  const g = lineageGain();
+  if (!g.from) return g;
+  l.lineage = g;
+  l.span = (l.span || 80) + g.span;
+  l.wu = (l.wu || 0) + g.wu;
+  l.secBonus = (l.secBonus || 0) + g.dao;
+  l.lineageHp = g.hp;
+  return g;
+}
 var RELIC_KEY = "lingxu.relic.v1";
 function readRelic() {
   try {
@@ -4363,6 +4389,13 @@ var YEAR_POOL = [
     s: "\u609F +1",
     run: (s) => {
       const l = ensure(s);
+      if (Math.random() < 0.06 && (l.relicAtk || 0) < 0.3) {
+        l.relicAtk = (l.relicAtk || 0) + 0.12;
+        l.relicHp = (l.relicHp || 0) + 6;
+        l.wu += 2;
+        log(s, "omen", "\u4F60\u5728\u84B2\u56E2\u5E95\u4E0B\u6478\u5230\u534A\u5377\u6B8B\u7AE0\u3002\u4E0A\u9762\u53EA\u6709\u4E09\u884C\u5B57\uFF0C\u770B\u4E86\u6574\u6574\u4E00\u5E74\u3002");
+        return ["\u5F97\u6B8B\u7AE0 \xB7 \u653B +12% \xB7 \u6C14\u8840\u4E0A\u9650 +6", "\u6B8B\u7AE0\u53EA\u5269\u4E09\u884C\u3002\u4F60\u628A\u5B83\u8BB0\u4F4F\u4E86\uFF0C\u7EB8\u5C31\u6563\u4E86\u3002"];
+      }
       l.wu += 1;
       log(s, "deed", "\u4F60\u5728\u6D1E\u91CC\u5750\u4E86\u4E00\u5E74\u3002\u4EC0\u4E48\u90FD\u6CA1\u53D1\u751F\uFF0C\u4F46\u4F60\u77E5\u9053\u6709\u4E9B\u4E1C\u897F\u53D8\u4E86\u3002");
       return ["\u609F +1", "\u4EC0\u4E48\u90FD\u6CA1\u53D1\u751F\u3002\u8FD9\u662F\u6700\u597D\u7684\u4E00\u5E74\u3002"];
@@ -4374,6 +4407,11 @@ var YEAR_POOL = [
     s: "\u836F +2 \xB7 16% \u9047\u88AD",
     run: (s) => {
       const l = ensure(s);
+      if (Math.random() < 0.03) {
+        l.year = l.span;
+        log(s, "evil", "\u4F60\u5728\u540E\u5C71\u88AB\u62D6\u8D70\u4E86\u3002\u6CA1\u6709\u4EBA\u627E\u5230\u4F60\u3002");
+        return ["\u5BFF\u5143\u5C3D\u4E86", "\u77F3\u7F1D\u91CC\u4F38\u51FA\u4E00\u53EA\u624B\u3002\u4F60\u518D\u6CA1\u6709\u56DE\u6765\u3002"];
+      }
       if (Math.random() < 0.16) {
         spend(s, 2);
         l.flags = l.flags || {};
@@ -4468,7 +4506,7 @@ function hpMax(state2) {
   const purity = sp ? sp.purity || 0 : 0;
   const body = sp && (sp.traits || []).some((t) => t.id === "tipo") ? 18 : 0;
   const young = l.year < 20 ? 6 : 0;
-  return Math.round((e.hp || 100) + purity * 0.12 + body + young + (l.artBonus && l.artBonus.hp || 0));
+  return Math.round((e.hp || 100) + purity * 0.12 + body + young + (l.artBonus && l.artBonus.hp || 0) + (l.lineageHp || 0) + (l.relicHp || 0));
 }
 function hpOf(state2) {
   settleRegen(state2);
@@ -10935,6 +10973,16 @@ function showDeath() {
     ${deathWords(state, l)}
     <div class="panel-text" style="opacity:.55">${r.name} \xB7 \u9053\u884C ${daoOf(state)} \xB7 \u8D26\u4E0A ${l.chronicle.length} \u884C</div>
     <div class="panel-text" style="margin-top:14px;padding:10px 12px;border-left:2px solid rgba(201,168,106,.55);background:rgba(201,168,106,.07)">${cheer}</div>
+    ${(() => {
+    const g = lineageGain();
+    const parts = [];
+    if (g.span) parts.push(`\u5BFF\u5143 +${g.span} \u5E74`);
+    if (g.wu) parts.push(`\u609F +${g.wu}`);
+    if (g.dao) parts.push(`\u9996\u6B21\u95ED\u5173\u9053\u884C +${g.dao}`);
+    if (g.hp) parts.push(`\u6C14\u8840\u4E0A\u9650 +${g.hp}`);
+    return parts.length ? `<div class="panel-text" style="margin-top:14px;color:#f2dfb2">\u524D\u4E16\u9057\u6CFD \xB7 \u4E0B\u4E00\u4E16\u5E26\u7740\u8D70</div>
+           <div class="panel-text" style="opacity:.66">${parts.join(" \xB7 ")}</div>` : `<div class="panel-text" style="opacity:.4;margin-top:12px">\u8FD9\u4E00\u4E16\u6CA1\u7559\u4E0B\u4EC0\u4E48\u3002\u4E0B\u4E00\u4E16\u8FD8\u662F\u767D\u7EB8\u3002</div>`;
+  })()}
     <button class="btn gold" id="reborn">\u91CD\u5165\u8F6E\u56DE</button>
   </div>`;
   panelRoot.classList.add("open");
