@@ -22515,7 +22515,7 @@ EVENTS.push(
   {
     id: "e_mute_sword",
     scenes: ["map", "sword"],
-    art: "w_mute_swordsman.png",
+    art: "b_09.png",
     who: "\u54D1\u5251\u5BA2",
     title: "\u4E0D\u8BF4\u8BDD\u7684\u4EBA",
     body: "\u54D1\u5251\u5BA2\u5728\u77F3\u4E0A\u523B\u5B57\uFF0C\u523B\u5F97\u5F88\u6162\u3002\u4ED6\u523B\u5B8C\u4E4B\u540E\u628A\u77F3\u5934\u8F6C\u8FC7\u6765\u7ED9\u4F60\u770B\uFF1A\u4E0A\u9762\u662F\u4E09\u4E2A\u5B57\u2014\u2014\u300C\u522B\u5B66\u6211\u300D\u3002",
@@ -27179,7 +27179,7 @@ function openWander(place) {
   cur.cast = cur.cast || {};
   cur.lastNpc = cur.lastNpc || {};
   const prev = cur.lastNpc[key] || "";
-  const list = NPC_POOL.filter((x) => x.file && x.id !== prev);
+  const list = NPC_POOL.filter((x) => x.art && x.id !== prev);
   const pick4 = list.length ? list[Math.floor(Math.random() * list.length)] : null;
   const npc = pick4 ? { id: pick4.id, file: pick4.file, name: pick4.name, gender: pick4.gender } : null;
   if (npc) {
