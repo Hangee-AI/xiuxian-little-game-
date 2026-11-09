@@ -186,6 +186,22 @@ function pickNpc(role, seedStr, tags = []) {
 // src/data_mind.js
 var MINDS = [
   {
+    /* 新入门那一年就落在心上的第一件事：不是任务，是"立住脚" */
+    id: "newbie_start",
+    npc: null,
+    title: "\u5148\u7ACB\u4F4F\u811A",
+    say: "\u7B7E\u4E0A\u5199\u7740\u300C\u8BD5\u4FEE\u4E09\u8F7D\u300D\u3002\u4E09\u5E74\u4E4B\u5185\uFF0C\u4F60\u5F97\u8BA9\u4EBA\u8BB0\u4F4F\u4F60\u7684\u540D\u5B57\u3002",
+    need: [
+      { key: "visit_gate", n: 1, text: "\u53BB\u5B97\u95E8\u5E7F\u573A\u6D4B\u4E00\u6B21\u7075\u6839" },
+      { key: "visit_forest", n: 1, text: "\u53BB\u8FF7\u96FE\u68EE\u6797\u8D70\u4E00\u8D9F" },
+      { key: "herb", n: 1, text: "\u4EB2\u624B\u91C7\u4E00\u682A\u836F" }
+    ],
+    pay: { merit: 10, log: "\u4E09\u4EF6\u4E8B\u90FD\u505A\u5B8C\u4E86\u3002\u4F60\u628A\u836F\u63E3\u8FDB\u8896\u5B50\u91CC\uFF0C\u5FFD\u7136\u89C9\u5F97\u81EA\u5DF1\u7B97\u662F\u8FDB\u4E86\u8FD9\u9053\u95E8\u3002" },
+    due: 8,
+    hint: "\u5E7F\u573A \u2192 \u8FF7\u96FE\u68EE\u6797 \xB7 \u91C7\u836F",
+    weight: 20
+  },
+  {
     id: "chen_herb",
     npc: "chen",
     title: "\u4E24\u682A\u836F",
@@ -484,8 +500,8 @@ function newLife() {
     // 难度一世一算，中途改下一世才生效
     diffApplied: 0,
     /* 心事：答应过别人的、答应过自己的 */
-    mind: [],
-    // 进行中：{ id, got, due }
+    mind: [{ id: "newbie_start", got: START_YEAR, due: START_YEAR + 8 }],
+    // 入门第一件：立住脚
     mindCount: {},
     // 各类事情的累计次数（采药、炼丹、去过某地……）
     mindDone: {},
