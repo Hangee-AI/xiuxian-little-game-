@@ -514,11 +514,11 @@
       .dock-dots { display: flex; gap: 6px; }
       .dock-dot { width: 7px; height: 7px; border-radius: 50%; border: 1px solid rgba(232,201,138,.45); }
       .dock-dot.on { background: #e8c98a; border-color: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,.7); }
-      #dock-next { cursor: pointer; border: 0; background: none; color: #f3e6c6; font: inherit;
+      #dock-next { cursor: default; border: 0; background: none; color: rgba(233,227,211,.82); font: inherit;
         font-size: 12px; letter-spacing: .1em; padding: 2px; text-align: left; max-width: 260px; white-space: nowrap; overflow: hidden; }
       #dock-next span { display: block; }
       #dock-next small { text-overflow: ellipsis; overflow: hidden; }
-      #dock-next:hover { color: #fff3d0; text-decoration: underline; text-underline-offset: 4px; }
+      #dock-next::before { content: '· '; opacity: .45; }
       #dock-next small { display: block; margin-top: 2px; font-size: 10px; letter-spacing: .08em; color: rgba(232,201,138,.5); }
       #btn-year { cursor: pointer; padding: 9px 18px; border-radius: 2px; font: inherit; font-size: 12.5px;
         letter-spacing: .16em; color: #14181f; border: 0;
@@ -633,6 +633,24 @@
         #hud-line { font-size: 11px; gap: 6px; }
         #merit { font-size: 11px; }
       }
+
+      /* 走到那儿，他叫住你 */
+      #mind-call { position: fixed; left: 50%; bottom: 108px; transform: translate(-50%, 12px);
+        width: min(420px, calc(100vw - 40px)); z-index: 18; opacity: 0; pointer-events: none;
+        padding: 16px 18px 14px; border-radius: 12px;
+        background: linear-gradient(180deg, rgba(20,26,36,.96), rgba(12,16,24,.96));
+        border: 1px solid rgba(232,201,138,.34); box-shadow: 0 18px 48px rgba(0,0,0,.62);
+        transition: opacity .3s ease, transform .3s ease; }
+      #mind-call.show { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+      .mc-who { font-size: 12px; letter-spacing: .16em; color: #e8c98a; }
+      .mc-who i { font-style: normal; opacity: .55; margin-left: 9px; font-size: 11px; letter-spacing: .08em; }
+      .mc-line { margin-top: 9px; font-size: 14px; line-height: 1.9; color: rgba(236,226,208,.9); }
+      .mc-acts { display: flex; gap: 8px; justify-content: flex-end; margin-top: 13px; }
+      .mc-acts .btn { margin: 0; padding: 7px 17px; font-size: 12px; }
+      @media (max-width: 700px) {
+        #mind-call { bottom: 92px; padding: 13px 15px 12px; }
+        .mc-line { font-size: 13px; }
+      }
 </style>
   </head>
   <body>
@@ -643,7 +661,7 @@
         <div class="dock-sep"></div>
         <div class="dock-goal"><span>渡劫四事</span><span class="dock-dots" id="dock-dots"></span></div>
         <div class="dock-sep"></div>
-        <button id="dock-next"><span id="dock-next-label">下一步</span><small id="dock-next-sub"></small></button>
+        <div id="dock-next"><span id="dock-next-label">下一步</span><small id="dock-next-sub"></small></div>
       </div>
       <button id="btn-year">静修一年</button>
       <button id="walk-out" hidden>出门走走 · 一年</button>
@@ -704,6 +722,12 @@
     </div>
 
     <div id="toast"></div>
+    <!-- 场景里被人叫住：不打断探索，也不弹大面板 -->
+    <div id="mind-call">
+      <div class="mc-who" id="mc-who"></div>
+      <div class="mc-line" id="mc-line"></div>
+      <div class="mc-acts" id="mc-acts"></div>
+    </div>
     <script type="module" src="./scenes.js"></script>
   </body>
 </html>

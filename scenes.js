@@ -4799,7 +4799,7 @@ function mindTick(state2) {
     }
   }
   if (l.mind.length < MIND_MAX && l.mindLock < l.year) {
-    const cand = MINDS.filter((d) => !l.mindDone[d.id] && !l.mindLost[d.id] && !l.mind.some((m) => m.id === d.id) && (!d.when || d.when(l, state2)) && (!d.npc || !isGone(l, d.npc))).sort((a, b) => (b.weight || 0) - (a.weight || 0));
+    const cand = MINDS.filter((d) => !d.scene && !l.mindDone[d.id] && !l.mindLost[d.id] && !l.mind.some((m) => m.id === d.id) && (!d.when || d.when(l, state2)) && (!d.npc || !isGone(l, d.npc))).sort((a, b) => (b.weight || 0) - (a.weight || 0));
     const pick4 = cand.find((d) => !mindReady(state2, { id: d.id, due: l.year + (d.due || 8) })) || cand[0];
     if (pick4) {
       l.mind.push({ id: pick4.id, got: l.year, due: l.year + (pick4.due || 8) });
@@ -4822,7 +4822,7 @@ function mindFinish(state2, id) {
     return { ok: false, why: "\u8FD9\u4EF6\u4E8B\u8BB0\u4E0D\u6E05\u4E86\u3002" };
   }
   if (!mindReady(state2, m)) return { ok: false, why: "\u8FD8\u6CA1\u5230\u65F6\u5019\u3002" };
-  for (const [k, v] of Object.entries(def.cost || {})) l.bag[k] = Math.max(0, (l.bag[k] || 0) - v);
+  for (const [k2, v] of Object.entries(def.cost || {})) l.bag[k2] = Math.max(0, (l.bag[k2] || 0) - v);
   l.mind.splice(i, 1);
   l.mindDone[id] = l.year;
   const pay = def.pay || {};
@@ -4831,6 +4831,18 @@ function mindFinish(state2, id) {
   if (pay.karma) l.karma += pay.karma;
   if (pay.item) addItem(state2, pay.item[0], pay.item[1] || 1);
   if (pay.log) log(state2, "deed", pay.log, def.npc || null);
+  let keepsake = "";
+  const k = def.keepsake;
+  if (k && !l.keepsakes[k.id]) {
+    l.keepsakes[k.id] = {
+      name: k.name,
+      desc: k.desc,
+      year: l.year,
+      from: def.npc ? (NPCS[def.npc] || {}).name : "\u81EA\u5DF1"
+    };
+    keepsake = k.name;
+    log(state2, "deed", `\u4F60\u6536\u4E0B\u4E86${k.name}\u3002`, def.npc || null);
+  }
   let nextTitle = "";
   if (def.next) {
     const nx = MIND_BY_ID[def.next];
@@ -4841,7 +4853,14 @@ function mindFinish(state2, id) {
       nextTitle = nx.title;
     }
   }
-  return { ok: true, text: pay.log || "\u8FD9\u4EF6\u4E8B\uFF0C\u7B97\u4E86\u4E86\u3002", merit: pay.merit || 0, bond: pay.bond || 0, next: nextTitle };
+  return {
+    ok: true,
+    text: pay.log || "\u8FD9\u4EF6\u4E8B\uFF0C\u7B97\u4E86\u4E86\u3002",
+    merit: pay.merit || 0,
+    bond: pay.bond || 0,
+    next: nextTitle,
+    keepsake
+  };
 }
 function mindDrop(state2, id) {
   const l = ensure(state2);
@@ -4852,6 +4871,76 @@ function mindDrop(state2, id) {
   l.mindLost[id] = l.year;
   log(state2, "omen", `\u4F60\u628A\u300C${def ? def.title : "\u90A3\u4EF6\u4E8B"}\u300D\u653E\u4E0B\u4E86\u3002`, def && def.npc || null);
   return true;
+}
+function mindSceneCall(state2, scene) {
+  const l = ensure(state2);
+  if (!scene) return null;
+  const ready = l.mind.find((m) => {
+    const d = mindDef(m.id);
+    return d && d.scene === scene && mindReady(state2, m);
+  });
+  if (ready) {
+    const rk = "r:" + scene + ":" + ready.id;
+    if (l.mindSeen[rk] === l.year) return null;
+    l.mindSeen[rk] = l.year;
+    const d = mindDef(ready.id);
+    const who = mindWho(state2, ready);
+    return {
+      kind: "ready",
+      id: ready.id,
+      def: d,
+      who,
+      title: d.title,
+      line: `${who.name}\u5F80\u4F60\u624B\u4E0A\u770B\u4E86\u4E00\u773C\u3002\u4E1C\u897F\u5E26\u9F50\u4E86\u3002`
+    };
+  }
+  if (l.mindSeen[scene] === l.year || l.mind.length >= MIND_MAX) return null;
+  const cand = MINDS.filter((d) => d.scene === scene && !l.mindDone[d.id] && !l.mindLost[d.id] && !l.mind.some((m) => m.id === d.id) && (!d.after || l.mindDone[d.after]) && (!d.when || d.when(l, state2)) && (!d.npc || !isGone(l, d.npc))).sort((a, b) => (b.weight || 0) - (a.weight || 0));
+  if (cand.length) {
+    const d = cand[0];
+    l.mindSeen[scene] = l.year;
+    return {
+      kind: "offer",
+      id: d.id,
+      def: d,
+      title: d.title,
+      who: d.npc ? NPCS[d.npc] || { name: d.npc, role: "" } : { name: "\u81EA\u5DF1", role: "\u7B54\u5E94\u8FC7\u81EA\u5DF1\u7684\u4E8B" },
+      line: d.call || d.say
+    };
+  }
+  const hang = l.mind.find((m) => {
+    const d = mindDef(m.id);
+    return d && d.scene === scene && !mindReady(state2, m);
+  });
+  if (hang) {
+    const d = mindDef(hang.id);
+    const who = mindWho(state2, hang);
+    l.mindSeen[scene] = l.year;
+    return {
+      kind: "hint",
+      id: hang.id,
+      def: d,
+      who,
+      title: d.title,
+      line: `${who.name}\u6CA1\u63D0\u90A3\u4EF6\u4E8B\uFF0C\u53EA\u5F80\u4F60\u8FD9\u8FB9\u770B\u4E86\u4E00\u773C\u3002`
+    };
+  }
+  return null;
+}
+function mindOffer(state2, id) {
+  const l = ensure(state2);
+  const d = mindDef(id);
+  if (!d || l.mindDone[id] || l.mindLost[id] || l.mind.some((m) => m.id === id)) return false;
+  if (l.mind.length >= MIND_MAX) return false;
+  if (d.after && !l.mindDone[d.after]) return false;
+  l.mind.push({ id, got: l.year, due: l.year + (d.due || 8) });
+  const who = d.npc ? (NPCS[d.npc] || {}).name : "\u4F60\u81EA\u5DF1";
+  log(state2, "bond", `${who}\u6258\u4F60\u4E00\u4EF6\u4E8B\uFF1A${d.title}\u3002`, d.npc || null);
+  return true;
+}
+function keepsakeList(state2) {
+  const l = ensure(state2);
+  return Object.entries(l.keepsakes || {}).map(([id, v]) => ({ id, ...v }));
 }
 var YEAR_POOL = [
   {
@@ -9230,7 +9319,6 @@ function updateDock() {
   const ns = document.getElementById("dock-next-sub");
   if (nl) nl.textContent = nx.label;
   if (ns) ns.textContent = "";
-  document.getElementById("dock-next").dataset.panel = nx.panel;
 }
 function showYearChoice(done) {
   if (isDead(state)) return showDeath();
@@ -9293,6 +9381,57 @@ function toast(msg) {
   toastEl.classList.add("show");
   clearTimeout(toast._t);
   toast._t = setTimeout(() => toastEl.classList.remove("show"), 1800);
+}
+var mindCallKey = "";
+function hideMindCall() {
+  const el = document.getElementById("mind-call");
+  if (el) el.classList.remove("show");
+}
+function showMindCall(scene) {
+  const el = document.getElementById("mind-call");
+  if (!el) return;
+  const c = mindSceneCall(state, scene);
+  if (!c) {
+    hideMindCall();
+    return;
+  }
+  const key = `${scene}:${c.kind}:${c.id}:${ensure(state).year}`;
+  if (mindCallKey === key) return;
+  mindCallKey = key;
+  save();
+  const who = document.getElementById("mc-who");
+  const line = document.getElementById("mc-line");
+  const acts = document.getElementById("mc-acts");
+  if (!who || !line || !acts) return;
+  who.innerHTML = `${c.who.name}<i>${c.who.role || ""} \xB7 ${c.title}</i>`;
+  line.textContent = c.line;
+  if (c.kind === "offer") {
+    acts.innerHTML = '<button class="btn ghost" data-mc="later">\u5148\u8BB0\u7740</button><button class="btn gold" data-mc="yes">\u5E94\u4E0B</button>';
+  } else if (c.kind === "ready") {
+    acts.innerHTML = '<button class="btn ghost" data-mc="later">\u7A0D\u540E</button><button class="btn gold" data-mc="settle">\u73B0\u5728\u4EA4\u5DEE</button>';
+  } else {
+    acts.innerHTML = '<button class="btn ghost" data-mc="later">\u77E5\u9053\u4E86</button><button class="btn gold" data-mc="open">\u770B\u770B\u5FC3\u4E8B</button>';
+  }
+  acts.querySelectorAll("[data-mc]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const a = b.dataset.mc;
+      if (a === "yes") {
+        if (mindOffer(state, c.id)) {
+          save();
+          syncHud();
+          toast(`\u5FC3\u4E0A\u591A\u4E86\u4E00\u4EF6\u4E8B\uFF1A${c.title}`);
+        }
+      } else if (a === "settle" || a === "open") {
+        openPanel("mind");
+      }
+      hideMindCall();
+    });
+  });
+  el.classList.add("show");
+  clearTimeout(showMindCall._t);
+  showMindCall._t = setTimeout(() => {
+    if (mindCallKey === key) hideMindCall();
+  }, 15e3);
 }
 function renderScene(id) {
   const sc = SCENES[id];
@@ -9364,6 +9503,7 @@ function renderScene(id) {
     navEl.querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.id === id));
     stage.classList.remove("fading");
     syncHud();
+    showMindCall(id);
   }, 260);
 }
 function showPlaceholder(id) {
@@ -9480,13 +9620,6 @@ document.addEventListener("click", async (e) => {
   if (yb) {
     e.preventDefault();
     doYear();
-    return;
-  }
-  const nx = e.target.closest && e.target.closest("#dock-next");
-  if (nx) {
-    e.preventDefault();
-    const pid = nx.dataset.panel;
-    if (pid) openPanel(pid);
     return;
   }
   const wo = e.target.closest && e.target.closest("#walk-out");
@@ -12059,7 +12192,7 @@ function mindCardHtml(m) {
   const cond = [steps, costTxt].filter(Boolean).join(" \xB7 ");
   const tone = left <= 2 ? "#c0705a" : ready ? "#f0d79a" : "inherit";
   return `<div class="craft-row"><div>
-    <b>${who.name}${who.role ? " \xB7 " + who.role : ""}\u3000${def.title}</b>
+    <b>${who.name}${who.role ? " \xB7 " + who.role : ""}\u3000${def.title}${def.chain ? `<i style="font-style:normal;font-size:11px;opacity:.5;margin-left:10px;letter-spacing:.1em">\u8FD9\u6761\u7EBF\u7684\u7B2C ${def.step} \u4EF6</i>` : ""}</b>
     <span style="float:right;color:${tone}">${left > 0 ? `\u8FD8\u5269 ${left} \u5E74` : "\u4ECA\u5E74\u5230\u671F"}</span><br>
     <span style="opacity:.62">\u300C${def.say}\u300D</span><br>
     <span>${cond || "\u53BB\u4E86\u7ED3"}</span>
@@ -12076,8 +12209,8 @@ function panelMind() {
   const doneN = Object.keys(l.mindDone || {}).length;
   const lostN = Object.keys(l.mindLost || {}).length;
   const viewHtml = MIND_VIEW ? `<div class="panel-text" style="color:#f2dfb2">${MIND_VIEW}</div>` : "";
-  const body = mins.length ? mins.map(mindCardHtml).join("") : `<div class="panel-text">\u5FC3\u4E0A\u6682\u65F6\u6CA1\u6709\u4E8B\u3002\u53BB\u8206\u56FE\u4E0A\u8D70\u8D70\uFF0C\u548C\u4EBA\u8BF4\u8BF4\u8BDD\u2014\u2014\u4E8B\u4F1A\u81EA\u5DF1\u627E\u4E0A\u6765\u3002</div>
-       <div class="panel-text" style="opacity:.5">\u6BCF\u8FC7\u4E00\u5E74\uFF0C\u6700\u591A\u4F1A\u6709\u4E00\u4EF6\u4E8B\u843D\u5230\u4F60\u5FC3\u4E0A\u3002</div>`;
+  const body = mins.length ? mins.map(mindCardHtml).join("") : `<div class="panel-text">\u5FC3\u4E0A\u6682\u65F6\u6CA1\u6709\u4E8B\u3002\u53BB\u5E7F\u573A\u3001\u4E39\u623F\u3001\u5251\u51A2\u3001\u6E21\u52AB\u53F0\u8FD9\u4E9B\u5730\u65B9\u8D70\u4E00\u8D70\u2014\u2014\u4EBA\u4F1A\u5F53\u9762\u5F00\u53E3\u3002</div>
+       <div class="panel-text" style="opacity:.5">\u7B54\u5E94\u4E0B\u6765\u7684\u4E8B\u4F1A\u4E00\u76F4\u6302\u5728\u8FD9\u513F\uFF0C\u76F4\u5230\u4F60\u4EA4\u5DEE\u3001\u6216\u8005\u653E\u4E0B\u3002</div>`;
   const readyN = mins.filter((m) => mindReady(state, m)).length;
   const metIds = Object.keys(l.met || {}).filter((id) => NPCS[id]);
   const metRow = metIds.length ? `<div class="panel-text" style="opacity:.55">\u8FD9\u4E00\u4E16\u6253\u8FC7\u4EA4\u9053\uFF1A${metIds.map((id) => `${NPCS[id].name}\uFF08${bondTier(state, id).name}\uFF09`).join("\u3001")}</div>` : "";
@@ -12086,12 +12219,15 @@ function panelMind() {
   const lostTitles = titles(l.mindLost);
   const doneRow = doneTitles.length ? `<div class="panel-text" style="opacity:.5">\u4E86\u7ED3\u8FC7\u7684\uFF1A${doneTitles.join("\u3001")}</div>` : "";
   const lostRow = lostTitles.length ? `<div class="panel-text" style="opacity:.36">\u6CA1\u80FD\u4E86\u7ED3\u7684\uFF1A${lostTitles.slice(-8).join("\u3001")}</div>` : "";
+  const keeps = keepsakeList(state);
+  const keepsRow = keeps.length ? `<div class="panel-text" style="opacity:.72">\u8FD9\u4E00\u4E16\u6512\u4E0B\u7684\u4E1C\u897F\uFF1A${keeps.map((k) => `<br><b style="color:#f2dfb2;font-weight:400">${k.name}</b> \xB7 ${k.desc}<span style="opacity:.5">\uFF08${k.from} \xB7 ${k.year} \u5C81\uFF09</span>`).join("")}</div>` : "";
   const head = `<div class="panel-title">\u5FC3\u4E8B<span>\u7B54\u5E94\u8FC7\u7684\u4EBA\uFF0C\u548C\u7B54\u5E94\u8FC7\u81EA\u5DF1\u7684\u4E8B</span></div>
     ${viewHtml}
     <div class="panel-text">\u8FD9\u4E00\u4E16\u4E86\u7ED3 <b>${doneN}</b> \u4EF6\uFF0C\u672A\u4E86 <b>${lostN}</b> \u4EF6\u3002${mins.length ? `\u5FC3\u4E0A\u8FD8\u6302\u7740 ${mins.length} \u4EF6${readyN ? `\uFF0C\u5176\u4E2D ${readyN} \u4EF6\u53EF\u4EE5\u53BB\u4EA4\u5DEE\u4E86` : ""}\u3002` : ""}</div>
     ${metRow}
     ${doneRow}
-    ${lostRow}`;
+    ${lostRow}
+    ${keepsRow}`;
   return `${head}
     ${body}
     <div class="panel-text" style="opacity:.42">\u91C7\u8FC7\u7684\u836F\u3001\u70BC\u8FC7\u7684\u4E39\u3001\u53BB\u8FC7\u7684\u5C71\u5934\uFF0C\u90FD\u8BB0\u5728\u8FD9\u4E9B\u4E8B\u4E0A\u3002\u671F\u9650\u4E00\u8FC7\uFF0C\u5C31\u53D8\u6210"\u6CA1\u505A\u6210\u7684\u4E8B"\u3002</div>
@@ -12100,10 +12236,10 @@ function panelMind() {
 function bindMind() {
   panelRoot.querySelectorAll("[data-mind-done]").forEach((b) => b.addEventListener("click", () => {
     const r = mindFinish(state, b.dataset.mindDone);
-    MIND_VIEW = r.ok ? `${r.text}${r.merit ? `\uFF08\u9053\u884C +${r.merit}\uFF09` : ""}${r.next ? `<br>\u5FC3\u4E0A\u53C8\u591A\u4E86\u4E00\u4EF6\u4E8B\uFF1A${r.next}\u3002` : ""}` : r.why;
+    MIND_VIEW = r.ok ? `${r.text}${r.merit ? `\uFF08\u9053\u884C +${r.merit}\uFF09` : ""}${r.keepsake ? `<br>\u4F60\u6536\u4E0B\u4E86 <b>${r.keepsake}</b>\u3002` : ""}${r.next ? `<br>\u5FC3\u4E0A\u53C8\u591A\u4E86\u4E00\u4EF6\u4E8B\uFF1A${r.next}\u3002` : ""}` : r.why;
     if (r.ok) {
       sfx("good", true);
-      toast(`\u4E86\u4E86\u4E00\u4EF6\u4E8B${r.merit ? ` \xB7 \u9053\u884C +${r.merit}` : ""}`);
+      toast(r.keepsake ? `\u6536\u4E0B ${r.keepsake}` : `\u4E86\u4E86\u4E00\u4EF6\u4E8B${r.merit ? ` \xB7 \u9053\u884C +${r.merit}` : ""}`);
     }
     save();
     syncHud();

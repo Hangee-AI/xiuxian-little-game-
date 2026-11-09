@@ -23213,7 +23213,7 @@ function mindTick(state) {
     }
   }
   if (l.mind.length < MIND_MAX && l.mindLock < l.year) {
-    const cand = MINDS.filter((d) => !l.mindDone[d.id] && !l.mindLost[d.id] && !l.mind.some((m) => m.id === d.id) && (!d.when || d.when(l, state)) && (!d.npc || !isGone(l, d.npc))).sort((a, b) => (b.weight || 0) - (a.weight || 0));
+    const cand = MINDS.filter((d) => !d.scene && !l.mindDone[d.id] && !l.mindLost[d.id] && !l.mind.some((m) => m.id === d.id) && (!d.when || d.when(l, state)) && (!d.npc || !isGone(l, d.npc))).sort((a, b) => (b.weight || 0) - (a.weight || 0));
     const pick4 = cand.find((d) => !mindReady(state, { id: d.id, due: l.year + (d.due || 8) })) || cand[0];
     if (pick4) {
       l.mind.push({ id: pick4.id, got: l.year, due: l.year + (pick4.due || 8) });
@@ -27308,7 +27308,7 @@ function syncMindLine() {
   const l = ensure(st);
   const mins = l.mind || [];
   if (!mins.length) {
-    el.innerHTML = "";
+    el.innerHTML = '<span style="opacity:.5">\u53BB\u8206\u56FE\u4E0A\u8D70\u8D70\uFF0C\u4F1A\u6709\u4EBA\u53EB\u4F4F\u4F60</span>';
     return;
   }
   const m = mins[0];
