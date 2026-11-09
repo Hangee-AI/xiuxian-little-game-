@@ -4344,7 +4344,7 @@ var YEAR_POOL = [
   {
     id: "seclude",
     t: "\u95ED\u5173\u6253\u5750",
-    s: "\u4E00\u5E74\u4E0D\u95FB\u7A97\u5916\u4E8B",
+    s: "\u609F +1",
     run: (s) => {
       const l = ensure(s);
       l.wu += 1;
@@ -4355,7 +4355,7 @@ var YEAR_POOL = [
   {
     id: "gather",
     t: "\u540E\u5C71\u91C7\u836F",
-    s: "\u4E24\u682A\u836F\uFF0C\u53EF\u80FD\u6709\u522B\u7684\u4E1C\u897F",
+    s: "\u836F +2 \xB7 16% \u9047\u88AD",
     run: (s) => {
       const l = ensure(s);
       if (Math.random() < 0.16) {
@@ -4372,7 +4372,7 @@ var YEAR_POOL = [
   {
     id: "errand",
     t: "\u66FF\u5B97\u95E8\u8DD1\u817F",
-    s: "\u529F\u5FB7\uFF0C\u4E0D\u95EE\u7F18\u7531",
+    s: "\u529F\u5FB7 +8",
     run: (s) => {
       s.merit = (s.merit || 0) + 8;
       log(s, "deed", "\u4F60\u66FF\u5B97\u95E8\u8DD1\u4E86\u4E00\u5E74\u817F\u3002\u6CA1\u4EBA\u8BB0\u5F97\u4F60\u8DD1\u8FC7\u54EA\u513F\u3002");
@@ -4382,7 +4382,7 @@ var YEAR_POOL = [
   {
     id: "copy",
     t: "\u6284\u4E00\u591C\u7ECF",
-    s: "\u609F\uFF0C\u4F46\u5B57\u4F1A\u6B6A",
+    s: "\u609F +2 \xB7 22% \u6284\u5C94",
     run: (s) => {
       const l = ensure(s);
       if (Math.random() < 0.22) {
@@ -4398,7 +4398,7 @@ var YEAR_POOL = [
   {
     id: "visit",
     t: "\u53BB\u8BBF\u4E00\u4E2A\u4EBA",
-    s: "\u4EBA\u60C5\uFF0C\u672A\u5FC5\u6709\u56DE\u62A5",
+    s: "\u4EBA\u60C5 +2",
     run: (s) => {
       const l = ensure(s);
       const folk = (l.folk || []).filter((f2) => f2.state === "\u5728\u5C71\u91CC");
@@ -4416,7 +4416,7 @@ var YEAR_POOL = [
   {
     id: "sleep",
     t: "\u7761\u4E00\u5E74",
-    s: "\u4EC0\u4E48\u90FD\u4E0D\u505A",
+    s: "\u6C14\u8840\u56DE\u6EE1",
     run: (s) => {
       log(s, "deed", "\u4F60\u7761\u4E86\u4E00\u5E74\u3002\u9192\u6765\u7684\u65F6\u5019\uFF0C\u7A97\u7EB8\u6362\u8FC7\u4E86\u3002");
       return ["\u6C14\u8840\u56DE\u6EE1", "\u8FD9\u4E00\u5E74\u4F60\u4EC0\u4E48\u90FD\u6CA1\u505A\u3002\u4E5F\u7B97\u4E00\u79CD\u8FC7\u6CD5\u3002"];
@@ -8713,15 +8713,16 @@ function showYearChoice(done) {
   const opts = yearChoices(state);
   const left = yearsLeft(state);
   panelRoot.dataset.pid = "year";
-  panelBody.innerHTML = `<div class="ev-kicker">\u7B2C ${l.year} \u5E74 \xB7 \u4E00\u5E74\u53EA\u591F\u505A\u4E00\u4EF6</div>
+  panelRoot.innerHTML = `<div class="panel ev-panel">
+    <div class="ev-kicker">\u7B2C ${l.year} \u5E74 \xB7 \u4E00\u5E74\u53EA\u591F\u505A\u4E00\u4EF6</div>
     <div class="ev-age">${numCn(l.year)}\u5C81${left <= 15 ? `<b>\u53EA\u5269 ${left} \u5E74</b>` : ""}</div>
     <div class="ev-title" style="margin-top:10px">\u4ECA\u5E74\u505A\u4EC0\u4E48</div>
-    <div class="ev-opts">${opts.map((o, i) => `<button class="btn ${i === 0 ? "gold" : "ghost"}" data-y="${o.id}">${o.t}<i class="ev-chip">${o.s}</i></button>`).join("")}</div>`;
+    <div class="ev-opts">${opts.map((o, i) => `<button class="btn ${i === 0 ? "gold" : "ghost"}" data-y="${o.id}">${o.t}<i class="ev-chip">${o.s}</i></button>`).join("")}</div>
+  </div>`;
   panelRoot.classList.add("open");
-  panelBody.querySelectorAll("[data-y]").forEach((b) => {
+  panelRoot.querySelectorAll("[data-y]").forEach((b) => {
     b.addEventListener("click", () => {
       const r = pickYear(state, b.dataset.y);
-      spend(state, 0) || 0;
       save();
       syncHud();
       closePanel();
