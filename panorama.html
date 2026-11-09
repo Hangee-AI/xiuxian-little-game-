@@ -410,7 +410,7 @@
   .fx-num.crit::after { content: ' 暴'; font-size: 22px; letter-spacing: .1em; color: #ffd27a; }
 
   /* 胜负印章 */
-  #ar-stamp { position: fixed; left: 50%; top: 34%; z-index: 26; pointer-events: none;
+  #ar-stamp { position: fixed; left: 50%; top: 34%; z-index: 28; pointer-events: none;
     transform: translate(-50%, -50%) scale(.7); opacity: 0;
     font-family: var(--serif); font-size: 132px; line-height: 1; letter-spacing: .1em;
     color: #e8c98a; border: 3px solid rgba(232,201,138,.55); border-radius: 6px;
@@ -528,6 +528,38 @@
   .bt-acts.wait { opacity: .35; pointer-events: none; }
   .bt-end { margin: 12px 0 8px; font-family: var(--serif, serif); font-size: 20px; letter-spacing: .2em; color: #f0dfb6; }
 
+  /* 结算卡：战果、旁白、战利品标签 */
+  .bt-result { margin: 14px 0 16px; padding: 16px 18px 14px; border-radius: 4px;
+    border: 1px solid rgba(232,201,138,.16);
+    background: linear-gradient(180deg, rgba(14,18,25,.92), rgba(8,11,16,.94));
+    box-shadow: 0 16px 40px rgba(0,0,0,.45); }
+  .bt-result.lose { border-color: rgba(181,72,60,.22); }
+  .bt-verdict { font-family: var(--serif, serif); font-size: 22px; letter-spacing: .18em; color: #f0dfb6; }
+  .bt-result.lose .bt-verdict { color: #d59078; }
+  .bt-flavor { margin-top: 8px; font-size: 13px; line-height: 1.85; color: rgba(217,211,198,.72); }
+  .bt-loot-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .bt-loot { display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px 6px 8px;
+    border: 1px solid rgba(232,201,138,.2); border-radius: 3px;
+    background: rgba(232,201,138,.05); font-size: 13px; color: #e3d8c2; }
+  .bt-loot .bag-ico { width: 18px; height: 18px; }
+  .bt-loot em { font-style: normal; color: #e8c98a; letter-spacing: .04em; }
+  .bt-meta { margin-top: 12px; font-size: 12px; letter-spacing: .06em; color: rgba(217,211,198,.42); }
+
+  /* 斗法时压一层雾与暗角，把注意力收到中间 */
+  #bt-veil { position: fixed; inset: 0; z-index: 23; pointer-events: none; opacity: 0;
+    transition: opacity .5s ease;
+    background:
+      radial-gradient(ellipse 62% 54% at 50% 46%, rgba(4,6,10,0) 40%, rgba(4,6,10,.55) 100%),
+      linear-gradient(180deg, rgba(6,9,14,.5) 0%, rgba(6,9,14,0) 22%, rgba(6,9,14,0) 66%, rgba(6,9,14,.62) 100%); }
+  body.in-battle #bt-veil { opacity: 1; }
+
+  /* 玩家挨打：整块画面被撞一下 */
+  @keyframes gotHit { 0% { transform: translate3d(0,0,0) scale(1); }
+    22% { transform: translate3d(-6px,3px,0) scale(1.012); }
+    52% { transform: translate3d(5px,-2px,0) scale(1.006); }
+    100% { transform: translate3d(0,0,0) scale(1); } }
+  body.got-hit #bt-arena { animation: gotHit .34s cubic-bezier(.2,.8,.3,1); }
+
   /* NPC 立绘（奇遇/对话用） */
   .npc-col { float: right; width: 210px; margin: 0 0 10px 18px; text-align: center; }
   .npc-art { width: 100%; max-height: 300px; object-fit: contain;
@@ -632,6 +664,7 @@
   body.in-battle #stage, body.in-beast #stage {
     filter: brightness(.82) saturate(.96); transform: translate(calc(var(--kx, 0px) * .4), calc(var(--ky, 0px) * .4)) scale(1.04); }
   body.in-battle #panel-root, body.in-beast #panel-root {
+    z-index: 27;   /* 面板要压在斗法场上面，不然人物的腿会穿过文字 */
     align-items: flex-end; justify-content: center; padding: 0 0 12px;
     background: linear-gradient(180deg, rgba(2,4,8,0) 42%, rgba(2,4,8,.58) 82%, rgba(2,4,8,.86) 100%);
     backdrop-filter: none; }
@@ -640,6 +673,8 @@
     backdrop-filter: blur(7px) saturate(1.05); -webkit-backdrop-filter: blur(7px);
     max-height: 32vh; overflow: auto; box-shadow: 0 -12px 46px rgba(0,0,0,.66); }
   body.in-battle .panel h2, body.in-beast .panel h2 { font-size: 15px; letter-spacing: .2em; }
+  /* 结算卡比战斗手牌高，单独放宽高度，别让"收起"被裁掉 */
+  body.in-battle .panel:has(.bt-result), body.in-beast .panel:has(.bt-result) { max-height: 52vh; }
   body.in-battle .panel .lede, body.in-beast .panel .lede { margin-top: 8px; line-height: 1.75; }
   body.in-battle .row, body.in-beast .row { margin-top: 12px; gap: 9px; }
   body.in-battle .btn, body.in-beast .btn { padding: 9px 18px; font-size: 12px; }
@@ -656,6 +691,7 @@
 </style>
 </head>
 <body>
+  <div id="bt-veil"></div>
   <div id="panel-root"><div class="panel" id="panel-body"></div></div>
 <div id="stage"></div>
   <div id="grade"></div>
