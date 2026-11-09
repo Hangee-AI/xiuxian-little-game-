@@ -944,8 +944,13 @@ function newLife() {
     // 上次接取心事的年份
     keepsakes: {},
     // 只有某个人会给你的东西（id -> { name, desc, year, from }）
-    mindSeen: {}
+    mindSeen: {},
     // 场景叫住过你的年份（scene -> year），免得反复弹
+    /* 人：亲疏与往来。favor 0..100，l.npc 是它的派生缓存（0..4），老逻辑照旧能读 */
+    people: {},
+    // id -> { favor, gifts, giftYear, talkYear, joinYear, met, lastLine }
+    party: { ids: [], since: null, helpCount: 0 }
+    // 同行小队：最多带两个人
   };
 }
 function ensure(state2) {
@@ -980,6 +985,22 @@ function ensure(state2) {
   if (l.mindLock === void 0) l.mindLock = -1;
   if (!l.keepsakes || typeof l.keepsakes !== "object") l.keepsakes = {};
   if (!l.mindSeen || typeof l.mindSeen !== "object") l.mindSeen = {};
+  if (!l.people || typeof l.people !== "object") l.people = {};
+  if (!l.party || typeof l.party !== "object") l.party = { ids: [], since: null, helpCount: 0 };
+  if (!Array.isArray(l.party.ids)) l.party.ids = [];
+  for (const [id, v] of Object.entries(l.npc || {})) {
+    if (!l.people[id]) {
+      l.people[id] = {
+        favor: Math.max(0, Math.min(100, (Number(v) || 0) * 25)),
+        gifts: 0,
+        giftYear: -1,
+        talkYear: -1,
+        joinYear: -1,
+        met: true,
+        lastLine: ""
+      };
+    }
+  }
   return l;
 }
 var yearsLeft = (state2) => Math.max(0, ensure(state2).span - ensure(state2).year);
@@ -1078,7 +1099,7 @@ function log(state2, kind, text, npc) {
 var karma = (state2, n = 1) => ensure(state2).karma += n;
 function bond(state2, npcId, n) {
   const l = ensure(state2);
-  l.npc[npcId] = (l.npc[npcId] || 0) + n;
+  addFavor(state2, npcId, n * 12);
   if (n > 0) l.met[npcId] = 1;
   const w = initWorld(state2);
   if (n > 0 && !w.folk.some((f) => f.id === npcId)) {
@@ -7171,13 +7192,148 @@ var DARK_CARDS = [
   }
 ];
 
+// src/codex.js
+var KEY = "lingxu.codex.v1";
+var BEASTS = [
+  { id: "beast_01", name: "\u9752\u9762\u7360" },
+  { id: "beast_02", name: "\u96FE\u4E2D\u5F71" },
+  { id: "beast_03", name: "\u72EC\u773C\u9B48" },
+  { id: "beast_04", name: "\u767D\u989D\u864E" },
+  { id: "beast_05", name: "\u9752\u9CDE\u86DF" },
+  { id: "beast_06", name: "\u8D64\u80CC\u87FE" },
+  { id: "beast_07", name: "\u83B2\u5C3E\u72D0" },
+  { id: "beast_08", name: "\u8D1F\u7891\u9F9F" },
+  { id: "beast_09", name: "\u8840\u9E26" },
+  { id: "beast_10", name: "\u9AA8\u9E7F" }
+];
+var ENDINGS = [
+  { id: "stele", name: "\u7891", hint: "\u540D\u5B57\u523B\u4E0A\u5C71\u95E8\u7684\u90A3\u4E00\u79CD" },
+  { id: "return", name: "\u8FD8", hint: "\u628A\u9053\u884C\u5012\u56DE\u4E95\u91CC\u7684\u90A3\u4E00\u79CD" },
+  { id: "push", name: "\u63A8", hint: "\u53F0\u4E0A\u7AD9\u7740\u522B\u4EBA\u7684\u90A3\u4E00\u79CD" },
+  { id: "back", name: "\u56DE", hint: "\u4E0B\u4E86\u5C71\u7684\u90A3\u4E00\u79CD" },
+  { id: "nameless", name: "\u65E0\u540D", hint: "\u6CA1\u6709\u540D\u5B57\u7684\u90A3\u4E00\u79CD" },
+  { id: "thunder", name: "\u96F7", hint: "\u96F7\u843D\u4E0B\u6765\u7684\u90A3\u4E00\u79CD" }
+];
+var PATHS = [
+  { id: "dan", name: "\u70BC\u4E39" },
+  { id: "fu", name: "\u5236\u7B26" },
+  { id: "zhen", name: "\u9635\u6CD5" },
+  { id: "xie", name: "\u90AA\u95E8" }
+];
+var MOUNTS2 = [
+  { id: "crane", name: "\u767D\u9E64" },
+  { id: "deer", name: "\u9752\u9E7F" },
+  { id: "fox", name: "\u8D64\u72D0" }
+];
+var RECIPES = [...DAN_RECIPES, ...CRAFT_RECIPES, ...DARK_RECIPES].map((r) => ({ id: r.id, name: r.name }));
+var ADV = PATH_CARDS.filter((c) => c.path === "shu").map((c) => ({ id: c.id, name: c.title }));
+var PEOPLE2 = NPC_POOL.filter((n) => n.art).map((n) => ({ id: n.id, name: n.name }));
+var MIND_LIST = MINDS.map((m) => ({ id: m.id, name: m.title }));
+var CATS = {
+  people: { label: "\u4F17\u751F", note: "\u8BF4\u8FC7\u8BDD\u7684\u4EBA\uFF0C\u8138\u4F1A\u6362\uFF0C\u540D\u5B57\u4E0D\u4F1A", items: PEOPLE2 },
+  beasts: { label: "\u767E\u5996", note: "\u6597\u8FC7\u7684\u4E0E\u6CA1\u6597\u8FC7\u7684\uFF0C\u90FD\u5728\u8FD9\u5C71\u91CC", items: BEASTS },
+  recipes: { label: "\u65B9\u672F", note: "\u4EB2\u624B\u70BC\u6210\u8FC7\u7684\u65B9\u5B50\uFF08\u4E39\xB7\u7B26\xB7\u9635\xB7\u90AA\u95E8\uFF09", items: RECIPES },
+  adv: { label: "\u6B8B\u9875", note: "\u8DEF\u4E0A\u9047\u89C1\u3001\u542C\u61C2\u4E86\u7684\u6B8B\u9875", items: ADV },
+  paths: { label: "\u9053\u9014", note: "\u62DC\u8FC7\u5C71\u95E8\u7684\u624B\u827A", items: PATHS },
+  mounts: { label: "\u5750\u9A91", note: "\u6536\u670D\u8FC7\u7684\u517D", items: MOUNTS2 },
+  endings: { label: "\u7ED3\u5C40", note: "\u4E00\u4E16\u6536\u573A\u7684\u65B9\u5F0F\uFF0C\u636E\u8BF4\u6709\u516D\u79CD", items: ENDINGS },
+  minds: { label: "\u5FC3\u4E8B", note: "\u4E86\u7ED3\u8FC7\u7684\u5FC3\u4E8B", items: MIND_LIST }
+};
+function read() {
+  try {
+    const d = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (d && d.cats) return d;
+  } catch {
+  }
+  return { v: 1, cats: {}, seeds: {} };
+}
+function write(d) {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(d));
+  } catch {
+  }
+}
+function lifeCount(d, seed) {
+  if (seed != null && !d.seeds[seed]) {
+    d.seeds[seed] = 1;
+    return true;
+  }
+  return false;
+}
+function lives(state2) {
+  const d = read();
+  return Object.keys(d.seeds).length || 1;
+}
+function record(state2, cat, id) {
+  if (!CATS[cat] || !id) return false;
+  const d = read();
+  const l = state2 && state2.life;
+  if (l && l.seed) lifeCount(d, l.seed);
+  const bucket = d.cats[cat] || (d.cats[cat] = {});
+  const isNew = !bucket[id];
+  bucket[id] = (bucket[id] || 0) + 1;
+  write(d);
+  return isNew;
+}
+function totals(d = read()) {
+  let got = 0, all = 0;
+  for (const k of Object.keys(CATS)) {
+    const bucket = d.cats[k] || {};
+    all += CATS[k].items.length;
+    for (const it of CATS[k].items) if (bucket[it.id]) got++;
+  }
+  return { got, all };
+}
+var WU_STEP = 12;
+var WU_CAP = 3;
+function wuClaimable(state2, d = read()) {
+  const l = state2 && state2.life ? state2.life : {};
+  const reached = Math.min(WU_CAP, Math.floor(totals(d).got / WU_STEP));
+  return Math.max(0, reached - (l.codexWu || 0));
+}
+function claimWu(state2) {
+  const d = read();
+  const gain2 = wuClaimable(state2, d);
+  if (!gain2) return 0;
+  const l = state2.life;
+  l.codexWu = (l.codexWu || 0) + gain2;
+  l.wu = (l.wu || 0) + gain2;
+  return gain2;
+}
+var esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+function panelHtml(state2) {
+  const d = read();
+  const t = totals(d);
+  const claim = wuClaimable(state2, d);
+  const claimed = state2 && state2.life && state2.life.codexWu || 0;
+  const secs = Object.keys(CATS).map((k) => {
+    const bucket = d.cats[k] || {};
+    const items = CATS[k].items;
+    const got = items.filter((it) => bucket[it.id]).length;
+    const rows = items.map((it) => {
+      const seen = bucket[it.id];
+      return `<span class="cx-item${seen ? " on" : ""}" title="${seen ? "\u89C1\u8FC7 " + bucket[it.id] + " \u6B21" : "\u8FD8\u6CA1\u9047\u5230\u8FC7"}">${seen ? esc(it.name) : "???"}</span>`;
+    }).join("");
+    return `<details class="cx-sec">
+      <summary><b>${CATS[k].label}</b><span>${CATS[k].note}</span><em>${got} / ${items.length}</em></summary>
+      <div class="cx-grid">${rows}</div>
+    </details>`;
+  }).join("");
+  return `<div class="panel-title">\u767E\u518C \xB7 \u8DE8\u4E16\u56FE\u9274</div>
+    <div class="panel-text">\u8FD9\u662F\u7B2C <b>${lives(state2)}</b> \u4E16\u3002\u4EBA\u3001\u5996\u3001\u65B9\u5B50\u3001\u7ED3\u5C40\u2014\u2014\u89C1\u8FC7\u4E00\u6B21\u5C31\u6C38\u8FDC\u8BB0\u5728\u518C\u5B50\u91CC\uFF0C\u6B7B\u4E86\u4E5F\u4E0D\u4E22\u3002</div>
+    <div class="bar"><span>\u5DF2\u5F55</span><i><b style="width:${Math.min(100, t.got / Math.max(1, t.all) * 100)}%"></b></i><em>${t.got} / ${t.all}</em></div>
+    ${claim > 0 ? `<button class="btn gold" id="cx-claim">\u9886\u524D\u4E16\u4F59\u6CFD \xB7 \u609F +${claim}</button>` : `<div class="panel-text" style="opacity:.48">\u6BCF\u5F55\u6EE1 ${WU_STEP} \u6761\u53EF\u9886 1 \u70B9\u609F\uFF08\u4E00\u4E16\u6700\u591A ${WU_CAP} \u70B9\uFF0C\u8FD9\u4E00\u4E16\u5DF2\u9886 ${claimed}\uFF09</div>`}
+    ${secs}
+    <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
+}
+
 // src/craft.js
 TEACHERS.xie = DARK_TEACHER;
 for (const card of DARK_CARDS) PATH_CARDS.push(card);
 var MATERIALS = [...DAN_MATERIALS, ...CRAFT_MATERIALS, ...DARK_MATERIALS];
-var RECIPES = [...DAN_RECIPES, ...CRAFT_RECIPES, ...DARK_RECIPES];
+var RECIPES2 = [...DAN_RECIPES, ...CRAFT_RECIPES, ...DARK_RECIPES];
 var MAT = Object.fromEntries(MATERIALS.map((m) => [m.id, m]));
-var REC = Object.fromEntries(RECIPES.map((r) => [r.id, r]));
+var REC = Object.fromEntries(RECIPES2.map((r) => [r.id, r]));
 var PATH_KEYS = ["dan", "fu", "zhen"];
 var ADV_KEY = "shu";
 var ADV_NAME = "\u8DEF\u4E0A\u9047\u89C1\u7684\u6B8B\u9875";
@@ -7252,6 +7408,7 @@ function learnPath(state2, p, teacher) {
   c.paths[p] = { at: l.year, teacher: t, track: dark ? "dark" : "orth" };
   c.made[p] = c.made[p] || 0;
   c.tries[p] = c.tries[p] || 0;
+  record(state2, "paths", p);
   if (!dark) {
     const a = awardFromPath(state2, p);
     if (a) c.gift = { id: a.id, name: a.name, year: l.year };
@@ -7264,6 +7421,7 @@ function applyEff2(state2, eff = {}) {
     const c0 = ensureCraft(state2);
     c0.paths[eff.learn] = c0.paths[eff.learn] || { at: ensure(state2).year, teacher: "xie" };
     c0.paths[eff.learn].track = eff.track;
+    record(state2, "paths", eff.learn);
   }
   if (eff.learn) {
     const p = eff.learn;
@@ -7300,7 +7458,10 @@ function asEventCard(card) {
       fx: (s) => {
         const c = ensureCraft(s);
         c.saw[card.id] = 1;
-        if (card.path === ADV_KEY) c.adv[card.id] = ensure(s).year;
+        if (card.path === ADV_KEY) {
+          c.adv[card.id] = ensure(s).year;
+          record(s, "adv", card.id);
+        }
         applyEff2(s, o.eff || {});
       }
     }))
@@ -7448,10 +7609,10 @@ function learnRecipe(state2, r) {
   return { ok: true, years: chk.years };
 }
 function allRecipesFor(state2, path) {
-  return RECIPES.filter((r) => !path || r.path === path);
+  return RECIPES2.filter((r) => !path || r.path === path);
 }
 function recipesFor(state2, path) {
-  return RECIPES.filter((r) => (!path || r.path === path) && recipeKnown(state2, r));
+  return RECIPES2.filter((r) => (!path || r.path === path) && recipeKnown(state2, r));
 }
 function pathTier(state2, p) {
   const c = ensureCraft(state2);
@@ -7527,6 +7688,7 @@ function craft(state2, rid) {
     return { ok: true, bad: true, msg: r.failText || "\u574F\u4E86\u3002", rid, fail };
   }
   c.made[r.path] = (c.made[r.path] || 0) + 1;
+  record(state2, "recipes", r.id);
   const bump = { \u4E0B\u54C1: "\u4E2D\u54C1", \u4E2D\u54C1: "\u4E0A\u54C1", \u4E0A\u54C1: "\u6781\u54C1", \u6781\u54C1: "\u6781\u54C1" };
   const baseQ = r.out.quality || "\u4E2D\u54C1";
   const fine = roll(0.18 + (pathTier(state2, r.path) - 1) * 0.06) ? bump[baseQ] || baseQ : baseQ;
@@ -9130,6 +9292,7 @@ document.getElementById("btn-bio")?.addEventListener("click", () => openPanel("b
 document.getElementById("btn-bag")?.addEventListener("click", () => openPanel("bio", "bag"));
 document.getElementById("btn-seclude")?.addEventListener("click", () => openPanel("seclude"));
 document.getElementById("btn-sect")?.addEventListener("click", () => openPanel("sect"));
+document.getElementById("btn-codex")?.addEventListener("click", () => openPanel("codex"));
 document.getElementById("btn-travel")?.addEventListener("click", () => {
   const r = drawExpedition(state);
   if (!r.ok) {
@@ -9776,7 +9939,7 @@ function openPanel(id, arg) {
     return;
   }
   sfx("open");
-  if (isDead(state) && id !== "archive") return showDeath();
+  if (isDead(state) && id !== "archive" && id !== "codex") return showDeath();
   panelRoot.dataset.pid = id;
   if (id === "tribulation" && !(arg && arg._raw) && nextBeat(state)) {
     drainStory(() => openPanel(id, { _raw: 1 }));
@@ -9802,7 +9965,8 @@ function openPanel(id, arg) {
     jiazi: typeof panelJiazi === "function" ? panelJiazi : null,
     breakthrough: typeof panelBreakthrough === "function" ? panelBreakthrough : null,
     mount: typeof panelMount === "function" ? panelMount : null,
-    archive: typeof panelArchive === "function" ? panelArchive : null
+    archive: typeof panelArchive === "function" ? panelArchive : null,
+    codex: panelCodex
   };
   const fn = fns[id];
   if (typeof fn !== "function") {
@@ -9814,7 +9978,7 @@ function openPanel(id, arg) {
   }
   const html = fn(arg);
   lastPanel = { id, arg };
-  const wide = ["realm", "tribulation", "bio", "seclude", "craft", "world", "folk", "mind", "jiazi", "breakthrough", "mount", "archive", "sect", "cave"].includes(id);
+  const wide = ["realm", "tribulation", "bio", "seclude", "craft", "world", "folk", "mind", "jiazi", "breakthrough", "mount", "archive", "sect", "cave", "codex"].includes(id);
   panelRoot.innerHTML = `<div class="panel ${wide ? "wide" : ""}">${html}</div>`;
   panelRoot.classList.add("open");
   document.addEventListener("keydown", onEsc);
@@ -9920,6 +10084,7 @@ function bindPanel(id, arg) {
   if (id === "world") bindWorld();
   if (id === "folk") bindFolk();
   if (id === "mind") bindMind();
+  if (id === "codex") bindCodex();
   if (id === "jiazi") bindJiazi();
   if (id === "breakthrough") bindBreakthrough();
   if (id === "mount") bindMount();
@@ -10517,6 +10682,7 @@ function bindTrib() {
     if (Math.random() < rate) {
       state.tribulation = { ok: true, rate };
       l.tribBoost = 0;
+      record(state, "endings", endingOf(state, true).key);
       log(state, "deed", `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u6E21\u8FC7\u4E86\u5929\u52AB\u3002\u96F7\u58F0\u6563\u4E86\u3002`);
       save();
       syncHud();
@@ -10524,6 +10690,7 @@ function bindTrib() {
       setTimeout(() => openPanel("tribulation"), 500);
     } else if (qiyun) {
       state.tribulation = { ok: true, rate, saved: true };
+      record(state, "endings", endingOf(state, true).key);
       log(state, "omen", "\u4E00\u9053\u7D2B\u6C14\u62A4\u4F4F\u4E86\u4F60\u2014\u2014\u300C\u6C14\u8FD0\u300D\u6551\u4E86\u4F60\u4E00\u6B21\u3002");
       save();
       syncHud();
@@ -10532,6 +10699,7 @@ function bindTrib() {
     } else {
       state.tribulation = { ok: false, rate };
       l.tribBoost = 0;
+      record(state, "endings", "thunder");
       if ((l.guard || 0) > 0) {
         l.guard -= 1;
         log(state, "omen", "\u96F7\u843D\u4E0B\u6765\u7684\u65F6\u5019\uFF0C\u6709\u4EC0\u4E48\u4E1C\u897F\u66FF\u4F60\u6321\u4E86\u4E00\u4E0B\u3002\u5B83\u788E\u4E86\u3002");
@@ -10777,6 +10945,7 @@ function npcSlot(role, tags = []) {
     npc = pickNpc(role, seed, tags);
     if (npc) {
       state.cast[role] = { id: npc.id, file: npc.file, name: npc.name };
+      record(state, "people", npc.id);
       save();
     }
   }
@@ -11843,6 +12012,20 @@ function panelArchive() {
     <button class="btn ghost" id="ar-wipe">\u91CD\u5165\u8F6E\u56DE\uFF08\u6E05\u7A7A\u5B58\u6863\uFF09</button>
     <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
 }
+function panelCodex() {
+  return panelHtml(state);
+}
+function bindCodex() {
+  document.getElementById("cx-claim")?.addEventListener("click", () => {
+    const gain2 = claimWu(state);
+    if (!gain2) return;
+    log(state, "omen", `\u4F60\u7FFB\u4E86\u4E00\u904D\u767E\u518C\uFF0C\u524D\u4E16\u89C1\u8FC7\u7684\u4E1C\u897F\u90FD\u8FD8\u5728\u3002\u8FD9\u4E00\u4E16\u591A\u609F\u4E86 ${gain2} \u70B9\u3002`);
+    toast(`\u524D\u4E16\u4F59\u6CFD\uFF1A\u609F +${gain2}`);
+    save();
+    syncHud();
+    openPanel("codex");
+  });
+}
 function bindArchive() {
   const refresh = (msg) => {
     ARCHIVE_VIEW = msg || "";
@@ -12238,6 +12421,7 @@ function bindMind() {
     const r = mindFinish(state, b.dataset.mindDone);
     MIND_VIEW = r.ok ? `${r.text}${r.merit ? `\uFF08\u9053\u884C +${r.merit}\uFF09` : ""}${r.keepsake ? `<br>\u4F60\u6536\u4E0B\u4E86 <b>${r.keepsake}</b>\u3002` : ""}${r.next ? `<br>\u5FC3\u4E0A\u53C8\u591A\u4E86\u4E00\u4EF6\u4E8B\uFF1A${r.next}\u3002` : ""}` : r.why;
     if (r.ok) {
+      record(state, "minds", b.dataset.mindDone);
       sfx("good", true);
       toast(r.keepsake ? `\u6536\u4E0B ${r.keepsake}` : `\u4E86\u4E86\u4E00\u4EF6\u4E8B${r.merit ? ` \xB7 \u9053\u884C +${r.merit}` : ""}`);
     }
@@ -12422,7 +12606,8 @@ function panelMount() {
 }
 function bindMount() {
   panelRoot.querySelectorAll("[data-mount]").forEach((b) => b.addEventListener("click", () => {
-    tameMount(state, b.dataset.mount);
+    const m = tameMount(state, b.dataset.mount);
+    if (m) record(state, "mounts", m.id);
     if (!afterYears()) openPanel("mount");
   }));
 }

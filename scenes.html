@@ -481,6 +481,18 @@
       .craft-row i.ok { color: #8fc09a; }
       .craft-row i.lack { color: #c98b6a; }
       .craft-row.dark b { color: #c98b6a; }
+      /* 百册 · 跨世图鉴 */
+      .cx-sec { border-top: 1px solid rgba(216,184,119,.14); }
+      .cx-sec summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 10px;
+        padding: 10px 2px; }
+      .cx-sec summary::-webkit-details-marker { display: none; }
+      .cx-sec summary b { font-weight: 400; font-size: 14px; letter-spacing: .12em; color: #f2dfb2; }
+      .cx-sec summary span { flex: 1; font-size: 11px; color: rgba(200,192,176,.5); }
+      .cx-sec summary em { font-style: normal; font-size: 11.5px; color: rgba(216,184,119,.75); }
+      .cx-grid { display: flex; flex-wrap: wrap; gap: 6px 10px; padding: 2px 2px 12px; }
+      .cx-item { font-size: 12px; padding: 3px 9px; border-radius: 3px;
+        border: 1px solid rgba(216,184,119,.14); color: rgba(214,206,190,.38); background: rgba(255,255,255,.02); }
+      .cx-item.on { color: #f2dfb2; border-color: rgba(216,184,119,.42); background: rgba(216,184,119,.08); }
       .mesh-dark { color: #c98b6a; }
       .dark-line { color: #c98b6a; opacity: 0.8; }
       .mats { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 6px 0 4px; }
@@ -687,6 +699,7 @@
           <button id="btn-folk">人</button>
           <button id="btn-break">破境</button>
           <button id="btn-mount">坐骑</button>
+          <button id="btn-codex">图鉴</button>
           <button id="btn-archive">命簿</button>
         </div>
       </div>

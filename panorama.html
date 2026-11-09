@@ -113,6 +113,21 @@
   .bk-note { margin-top: 14px; padding: 9px 12px; border-left: 2px solid rgba(216,184,119,.5);
     background: rgba(216,184,119,.07); font-family: var(--sans); font-size: 12px; color: #f2dfb2; }
 
+  /* 百册 · 跨世图鉴 */
+  .panel-title { font-size: 21px; letter-spacing: .14em; color: #f5e7c6; }
+  .panel-text { font-family: var(--sans); font-size: 13px; line-height: 1.9; color: rgba(226,217,200,.72); margin-top: 8px; }
+  .cx-sec { border-top: 1px solid rgba(216,184,119,.14); }
+  .cx-sec summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 10px;
+    padding: 10px 2px; font-family: var(--sans); }
+  .cx-sec summary::-webkit-details-marker { display: none; }
+  .cx-sec summary b { font-weight: 400; font-size: 14px; letter-spacing: .12em; color: #f2dfb2; }
+  .cx-sec summary span { flex: 1; font-size: 11px; color: rgba(200,192,176,.5); }
+  .cx-sec summary em { font-style: normal; font-size: 11.5px; color: rgba(216,184,119,.75); }
+  .cx-grid { display: flex; flex-wrap: wrap; gap: 6px 10px; padding: 2px 2px 12px; }
+  .cx-item { font-family: var(--sans); font-size: 12px; padding: 3px 9px; border-radius: 3px;
+    border: 1px solid rgba(216,184,119,.14); color: rgba(214,206,190,.38); background: rgba(255,255,255,.02); }
+  .cx-item.on { color: #f2dfb2; border-color: rgba(216,184,119,.42); background: rgba(216,184,119,.08); }
+
   /* 光点热点 */
   #spots { position: fixed; inset: 0; z-index: 8; pointer-events: none; }
   .spot {
@@ -731,6 +746,7 @@
       <div class="life-line"><span id="pano-age">年 16</span><em id="pano-left">寿元 64</em></div>
       <div id="mind-line"></div>
       <button id="btn-book">命簿 · 设置</button>
+      <button id="btn-codex">图鉴</button>
       <button id="btn-mind">心事</button>
     </div>
   </header>
