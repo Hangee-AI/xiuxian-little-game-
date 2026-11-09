@@ -19440,6 +19440,72 @@ function effects(spirit) {
   };
 }
 
+// src/npc_pool.js
+var NPC_POOL = [
+  // ---------- 丹房：守炉的人 ----------
+  { id: "dan_01", file: "elder_danfeng.png", name: "\u9648\u6267\u4E8B", role: "dan", tags: ["old", "gentle"], gender: "m", age: "old", art: true },
+  { id: "dan_02", file: "dan_old_woman.png", name: "\u67F3\u5A46\u5A46", role: "dan", tags: ["old", "gentle", "motherly"], gender: "f", age: "old" },
+  { id: "dan_03", file: "dan_mid_man.png", name: "\u706B\u5019\u5E08\u5144", role: "dan", tags: ["mid", "rough"], gender: "m", age: "mid" },
+  // ---------- 剑冢：看剑的人 ----------
+  { id: "sword_01", file: "sword_keeper.png", name: "\u5B88\u5251\u4EBA", role: "sword", tags: ["mid", "cold"], gender: "m", age: "mid" },
+  { id: "sword_02", file: "sword_girl.png", name: "\u65E0\u540D\u5251\u4F8D", role: "sword", tags: ["young", "cold"], gender: "f", age: "young" },
+  // ---------- 藏经阁：抄经的人 ----------
+  { id: "lib_01", file: "lib_old_clerk.png", name: "\u6284\u7ECF\u8001\u6267\u4E8B", role: "library", tags: ["old", "gentle"], gender: "m", age: "old", art: true },
+  { id: "lib_02", file: "lib_young_scholar.png", name: "\u6284\u4E66\u5F1F\u5B50", role: "library", tags: ["young", "gentle"], gender: "f", age: "young" },
+  // ---------- 宗门长老（测灵根 / 主持） ----------
+  { id: "elder_01", file: "zongzhu.png", name: "\u5B97\u4E3B", role: "elder", tags: ["mid", "cold"], gender: "m", age: "mid", art: true },
+  { id: "elder_02", file: "elder_measure.png", name: "\u6D4B\u7075\u957F\u8001", role: "elder", tags: ["old", "cold"], gender: "m", age: "old" },
+  { id: "elder_03", file: "elder_woman.png", name: "\u6267\u6CD5\u957F\u8001", role: "elder", tags: ["mid", "cold", "sharp"], gender: "f", age: "mid" },
+  // ---------- 道侣候选（奇遇 / 好感线） ----------
+  { id: "lv_01", file: "dao_lv_wenrou.png", name: "\u9752\u68A7", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young" },
+  { id: "lv_02", file: "dao_lv_mingyan.png", name: "\u6C88\u7EA2\u7EE1", role: "wander", tags: ["young", "sharp"], gender: "f", age: "young" },
+  { id: "lv_03", file: "dao_lv_swordgirl.png", name: "\u767D\u68E0", role: "wander", tags: ["young", "cold"], gender: "f", age: "young" },
+  // ---------- 奇遇路人（男女老少） ----------
+  { id: "w_01", file: "w_young_boy.png", name: "\u5C0F\u5F1F\u5B50", role: "wander", tags: ["young", "rough"], gender: "m", age: "young" },
+  { id: "w_02", file: "w_herb_girl.png", name: "\u91C7\u836F\u4E2B\u5934", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true },
+  { id: "w_03", file: "w_old_tea.png", name: "\u5C71\u811A\u963F\u5A46", role: "wander", tags: ["old", "gentle"], gender: "f", age: "old" },
+  { id: "w_04", file: "w_farm_woman.png", name: "\u519C\u5987", role: "wander", tags: ["mid", "rough"], gender: "f", age: "mid" },
+  { id: "w_05", file: "w_rogue_cultivator.png", name: "\u843D\u9B44\u6563\u4FEE", role: "wander", tags: ["mid", "rough"], gender: "m", age: "mid" },
+  { id: "w_06", file: "w_storyteller.png", name: "\u8BF4\u4E66\u4EBA", role: "wander", tags: ["mid", "sharp"], gender: "m", age: "mid" },
+  { id: "w_07", file: "w_demon_woman.png", name: "\u9B54\u9053\u5973\u5B50", role: "wander", tags: ["young", "dark", "sharp"], gender: "f", age: "young" },
+  { id: "w_08", file: "w_mute_swordsman.png", name: "\u54D1\u5251\u5BA2", role: "wander", tags: ["mid", "cold"], gender: "m", age: "mid" },
+  { id: "w_09", file: "w_blind_cook.png", name: "\u76F2\u53A8\u5B50", role: "wander", tags: ["old", "gentle"], gender: "m", age: "old" },
+  { id: "w_10", file: "w_child_ghost.png", name: "\u5C0F\u7AE5", role: "wander", tags: ["young", "dark"], gender: "m", age: "young" },
+  { id: "w_11", file: "w_demon_boy.png", name: "\u5996\u4FEE\u5C11\u5E74", role: "wander", tags: ["young", "dark"], gender: "m", age: "young" },
+  { id: "w_12", file: "w_old_priest.png", name: "\u6E38\u65B9\u8001\u9053", role: "wander", tags: ["old", "gentle"], gender: "m", age: "old" },
+  { id: "w_13", file: "w_caravan_woman.png", name: "\u5546\u961F\u5973\u5B50", role: "wander", tags: ["mid", "sharp"], gender: "f", age: "mid" },
+  { id: "w_14", file: "w_mask_man.png", name: "\u9762\u5177\u5BA2", role: "wander", tags: ["mid", "dark", "cold"], gender: "m", age: "mid" },
+  { id: "w_15", file: "w_monk.png", name: "\u6E38\u65B9\u50E7", role: "wander", tags: ["mid", "gentle"], gender: "m", age: "mid" },
+  { id: "lv_04", file: "dao_lv_elder_sister.png", name: "\u5E08\u53D4", role: "wander", tags: ["mid", "sharp"], gender: "f", age: "mid" },
+  // ===== 第二批（用户实出，写实国风） =====
+  { id: "a01", file: "a_01.png", name: "\u4E39\u5CF0\u957F\u8001", role: "elder", tags: ["old", "cold"], gender: "m", age: "old", art: true },
+  { id: "a02", file: "a_02.png", name: "\u6267\u6CD5\u957F\u8001", role: "elder", tags: ["mid", "cold", "sharp"], gender: "f", age: "mid", art: true },
+  { id: "a05", file: "a_05.png", name: "\u638C\u4E8B\u59D1\u59D1", role: "elder", tags: ["mid", "gentle"], gender: "f", age: "mid", art: true },
+  { id: "a09", file: "a_09.png", name: "\u8D64\u8DB3\u8001\u9053", role: "wander", tags: ["old", "gentle"], gender: "m", age: "old", art: true },
+  { id: "a10", file: "a_10.png", name: "\u836F\u5E90\u4ED9\u5B50", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true },
+  { id: "lib01", file: "lib_old_clerk.png", name: "\u6284\u7ECF\u8001\u6267\u4E8B", role: "library", tags: ["old", "gentle"], gender: "m", age: "old", art: true },
+  { id: "zz", file: "zongzhu.png", name: "\u5B97\u4E3B", role: "elder", tags: ["mid", "cold"], gender: "m", age: "mid", art: true },
+  { id: "e01", file: "e_01.png", name: "\u5C71\u811A\u963F\u5A46", role: "wander", tags: ["old", "gentle"], gender: "f", age: "old", art: true },
+  { id: "d01", file: "d_01.png", name: "\u9B54\u9053\u5BA2", role: "wander", tags: ["mid", "dark", "cold"], gender: "m", age: "mid", art: true },
+  { id: "b01", file: "b_01.png", name: "\u80CC\u5251\u5C11\u5E74", role: "wander", tags: ["young", "cold"], gender: "m", age: "young", art: true },
+  { id: "b02", file: "b_02.png", name: "\u7B26\u7EB8\u4E2B\u5934", role: "wander", tags: ["young", "sharp"], gender: "f", age: "young", art: true },
+  { id: "b05", file: "b_05.png", name: "\u6311\u6C34\u5F1F\u5B50", role: "wander", tags: ["young", "rough"], gender: "m", age: "young", art: true },
+  { id: "b06", file: "b_06.png", name: "\u5251\u4FEE\u5E08\u59D0", role: "wander", tags: ["young", "cold"], gender: "f", age: "young", art: true },
+  { id: "b07", file: "b_07.png", name: "\u7B26\u4FEE\u5F1F\u5B50", role: "wander", tags: ["young", "gentle"], gender: "m", age: "young", art: true },
+  { id: "b08", file: "b_08.png", name: "\u6D12\u626B\u5973\u7AE5", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true },
+  { id: "b09", file: "b_09.png", name: "\u4F53\u4FEE\u5E08\u5144", role: "wander", tags: ["young", "rough"], gender: "m", age: "young", art: true },
+  { id: "b10", file: "b_10.png", name: "\u9635\u4FEE\u5E08\u59D0", role: "wander", tags: ["young", "cold"], gender: "f", age: "young", art: true },
+  { id: "c01", file: "c_01.png", name: "\u9752\u68A7", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true },
+  { id: "c03", file: "c_03.png", name: "\u767D\u68E0", role: "wander", tags: ["young", "cold"], gender: "f", age: "young", art: true },
+  { id: "c04", file: "c_04.png", name: "\u7EDB\u8863", role: "wander", tags: ["young", "dark", "sharp"], gender: "f", age: "young", art: true },
+  { id: "c06", file: "c_06.png", name: "\u5E08\u53D4", role: "wander", tags: ["mid", "sharp"], gender: "f", age: "mid", art: true },
+  { id: "c07", file: "c_07.png", name: "\u8D6D\u8863\u5200\u5BA2", role: "wander", tags: ["young", "rough"], gender: "f", age: "young", art: true },
+  { id: "c08", file: "c_08.png", name: "\u4E66\u658B\u5973\u5B50", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true },
+  { id: "c09", file: "c_09.png", name: "\u8499\u9762\u5BA2", role: "wander", tags: ["young", "dark", "cold"], gender: "f", age: "young", art: true },
+  { id: "c10", file: "c_10.png", name: "\u7D2B\u8863\u592B\u4EBA", role: "wander", tags: ["young", "sharp"], gender: "f", age: "young", art: true },
+  { id: "whg", file: "w_herb_girl.png", name: "\u91C7\u836F\u4E2B\u5934", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true }
+];
+
 // src/life.js
 var START_YEAR = 16;
 var START_SPAN = 80;
@@ -19451,7 +19517,10 @@ var NPCS = {
   laozu: { name: "\u5B88\u53F0\u8001\u4EBA", role: "\u6E21\u52AB\u53F0" },
   zhao: { name: "\u8D75\u9608", role: "\u5185\u95E8" },
   xiao: { name: "\u5C0F\u6EE1", role: "\u4E39\u623F\u836F\u7AE5" },
-  fu: { name: "\u5356\u7B26\u7684\u4EBA", role: "\u5C71\u9053" }
+  fu: { name: "\u5356\u7B26\u7684\u4EBA", role: "\u5C71\u9053" },
+  baitang: { name: "\u767D\u68E0", role: "\u5251\u4FEE" },
+  jiangyi: { name: "\u7EDB\u8863", role: "\u9B54\u9053" },
+  peiqi: { name: "\u88F4\u4E03", role: "\u540C\u95E8" }
 };
 var RANKS = [
   { name: "\u7EC3\u6C14", note: "\u9053\u884C\u672A\u6210", at: 0 },
@@ -21288,7 +21357,9 @@ var ARCHETYPES = [
   { k: "child", name: "\u836F\u7AE5", want: "\u6709\u4EBA\u6559\u4ED6", tell: "\u4ED6\u8BB0\u5F97\u4F60\u968F\u53E3\u8BF4\u8FC7\u7684\u6BCF\u4E00\u53E5\u3002" },
   { k: "seller", name: "\u5356\u7B26\u4EBA", want: "\u4E00\u7B14\u4EBA\u60C5", tell: "\u4ED6\u4E0D\u50AC\u4F60\u8FD8\uFF0C\u4E5F\u4E0D\u8D70\u3002" },
   { k: "swordmad", name: "\u5251\u75F4", want: "\u4E00\u67C4\u914D\u5F97\u4E0A\u7684\u5251", tell: "\u4ED6\u770B\u5251\u7684\u65F6\u95F4\u6BD4\u770B\u4EBA\u957F\u3002" },
-  { k: "oldfriend", name: "\u5C71\u4E0B\u65E7\u8BC6", want: "\u4F60\u4E0B\u5C71\u4E00\u8D9F", tell: "\u4ED6\u8FD8\u53EB\u4F60\u5C0F\u65F6\u5019\u7684\u540D\u5B57\u3002" }
+  { k: "oldfriend", name: "\u5C71\u4E0B\u65E7\u8BC6", want: "\u4F60\u4E0B\u5C71\u4E00\u8D9F", tell: "\u4ED6\u8FD8\u53EB\u4F60\u5C0F\u65F6\u5019\u7684\u540D\u5B57\u3002" },
+  { k: "admirer", name: "\u8FFD\u6155\u8005", want: "\u79BB\u4F60\u8FD1\u4E00\u70B9", tell: "\u4F60\u8D70\u5230\u54EA\u513F\uFF0C\u4ED6\uFF08\u5979\uFF09\u603B\u6BD4\u4F60\u65E9\u5230\u4E00\u6B65\u3002" },
+  { k: "kindred", name: "\u540C\u9053", want: "\u4E00\u8D77\u628A\u8DEF\u8D70\u5B8C", tell: "\u4F60\u4EEC\u8981\u8D70\u7684\u662F\u540C\u4E00\u6761\u8DEF\uFF0C\u53EA\u662F\u4ED6\u5148\u8D70\u4E86\u51E0\u5E74\u3002" }
 ];
 var NAMES_M = ["\u6C88\u4E09", "\u9648\u6267\u4E8B", "\u8D75\u9608", "\u88F4\u4E03", "\u77F3\u7FC1", "\u9646\u4E5D", "\u767D\u5341\u4E09", "\u8C22\u65E0\u548E", "\u987E\u957F\u98CE", "\u836F\u7F57", "\u79E6\u4E59"];
 var NAMES_F = ["\u5C0F\u6EE1", "\u963F\u829C", "\u67F3\u5982\u7709", "\u963F\u6A80", "\u4E91\u5A18", "\u82CF\u5A18", "\u9752\u8605", "\u8042\u5C0F\u9497", "\u7D20\u95EE", "\u963F\u8605"];
@@ -21313,17 +21384,29 @@ function hr(seed, salt) {
   return ((r ^ r >>> 14) >>> 0) / 4294967296;
 }
 var pickOf = (arr, v) => arr[Math.min(arr.length - 1, Math.floor(v * arr.length))];
+function faceFor(seed, f) {
+  const faces = NPC_POOL.filter((n) => n.art && n.gender === (f.gender === "\u5973" ? "f" : "m"));
+  if (!faces.length) return "";
+  const key = `${seed || 1}:${f.id}`;
+  let h = 2166136261;
+  for (let i = 0; i < key.length; i++) {
+    h ^= key.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return faces[Math.abs(h) % faces.length].file;
+}
 function makeFolk(seed) {
   const usedNames = /* @__PURE__ */ new Set();
   const usedA = /* @__PURE__ */ new Set();
   const out2 = [];
-  for (let i = 0; i < 6; i += 1) {
+  for (let i = 0; i < 7; i += 1) {
     const gender = hr(seed, 200 + i) > 0.5 ? "\u5973" : "\u7537";
     const pool2 = gender === "\u5973" ? NAMES_F : NAMES_M;
     let ni = Math.floor(hr(seed, i * 3 + 1) * pool2.length);
     while (usedNames.has(pool2[ni])) ni = (ni + 1) % pool2.length;
     const name = pool2[ni];
     usedNames.add(name);
+    const file = faceFor(seed, { id: "f" + i, gender });
     let ai = Math.floor(hr(seed, i * 3 + 2) * ARCHETYPES.length);
     while (usedA.has(ai)) ai = (ai + 1) % ARCHETYPES.length;
     usedA.add(ai);
@@ -21343,7 +21426,8 @@ function makeFolk(seed) {
       bond: 0,
       lastBondYear: 0,
       state: "\u5728\u5C71\u91CC",
-      last: ""
+      last: "",
+      file
     });
   }
   return out2;
@@ -21379,7 +21463,11 @@ function refreshRumors(state) {
 }
 function initWorld(state) {
   const l = ensure(state);
-  if (l.worldReady) return l;
+  if (l.worldReady) {
+    if (!Array.isArray(l.folk)) l.folk = makeFolk(l.seed || 1);
+    for (const f of l.folk) if (!f.file) f.file = faceFor(l.seed || 1, f);
+    return l;
+  }
   l.worldReady = 1;
   if (!l.diffApplied) {
     l.diffApplied = 1;
@@ -21764,72 +21852,427 @@ EVENTS.push(
     ]
   }
 );
-
-// src/npc_pool.js
-var NPC_POOL = [
-  // ---------- 丹房：守炉的人 ----------
-  { id: "dan_01", file: "elder_danfeng.png", name: "\u9648\u6267\u4E8B", role: "dan", tags: ["old", "gentle"], gender: "m", age: "old", art: true },
-  { id: "dan_02", file: "dan_old_woman.png", name: "\u67F3\u5A46\u5A46", role: "dan", tags: ["old", "gentle", "motherly"], gender: "f", age: "old" },
-  { id: "dan_03", file: "dan_mid_man.png", name: "\u706B\u5019\u5E08\u5144", role: "dan", tags: ["mid", "rough"], gender: "m", age: "mid" },
-  // ---------- 剑冢：看剑的人 ----------
-  { id: "sword_01", file: "sword_keeper.png", name: "\u5B88\u5251\u4EBA", role: "sword", tags: ["mid", "cold"], gender: "m", age: "mid" },
-  { id: "sword_02", file: "sword_girl.png", name: "\u65E0\u540D\u5251\u4F8D", role: "sword", tags: ["young", "cold"], gender: "f", age: "young" },
-  // ---------- 藏经阁：抄经的人 ----------
-  { id: "lib_01", file: "lib_old_clerk.png", name: "\u6284\u7ECF\u8001\u6267\u4E8B", role: "library", tags: ["old", "gentle"], gender: "m", age: "old", art: true },
-  { id: "lib_02", file: "lib_young_scholar.png", name: "\u6284\u4E66\u5F1F\u5B50", role: "library", tags: ["young", "gentle"], gender: "f", age: "young" },
-  // ---------- 宗门长老（测灵根 / 主持） ----------
-  { id: "elder_01", file: "zongzhu.png", name: "\u5B97\u4E3B", role: "elder", tags: ["mid", "cold"], gender: "m", age: "mid", art: true },
-  { id: "elder_02", file: "elder_measure.png", name: "\u6D4B\u7075\u957F\u8001", role: "elder", tags: ["old", "cold"], gender: "m", age: "old" },
-  { id: "elder_03", file: "elder_woman.png", name: "\u6267\u6CD5\u957F\u8001", role: "elder", tags: ["mid", "cold", "sharp"], gender: "f", age: "mid" },
-  // ---------- 道侣候选（奇遇 / 好感线） ----------
-  { id: "lv_01", file: "dao_lv_wenrou.png", name: "\u9752\u68A7", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young" },
-  { id: "lv_02", file: "dao_lv_mingyan.png", name: "\u6C88\u7EA2\u7EE1", role: "wander", tags: ["young", "sharp"], gender: "f", age: "young" },
-  { id: "lv_03", file: "dao_lv_swordgirl.png", name: "\u767D\u68E0", role: "wander", tags: ["young", "cold"], gender: "f", age: "young" },
-  // ---------- 奇遇路人（男女老少） ----------
-  { id: "w_01", file: "w_young_boy.png", name: "\u5C0F\u5F1F\u5B50", role: "wander", tags: ["young", "rough"], gender: "m", age: "young" },
-  { id: "w_02", file: "w_herb_girl.png", name: "\u91C7\u836F\u4E2B\u5934", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true },
-  { id: "w_03", file: "w_old_tea.png", name: "\u5C71\u811A\u963F\u5A46", role: "wander", tags: ["old", "gentle"], gender: "f", age: "old" },
-  { id: "w_04", file: "w_farm_woman.png", name: "\u519C\u5987", role: "wander", tags: ["mid", "rough"], gender: "f", age: "mid" },
-  { id: "w_05", file: "w_rogue_cultivator.png", name: "\u843D\u9B44\u6563\u4FEE", role: "wander", tags: ["mid", "rough"], gender: "m", age: "mid" },
-  { id: "w_06", file: "w_storyteller.png", name: "\u8BF4\u4E66\u4EBA", role: "wander", tags: ["mid", "sharp"], gender: "m", age: "mid" },
-  { id: "w_07", file: "w_demon_woman.png", name: "\u9B54\u9053\u5973\u5B50", role: "wander", tags: ["young", "dark", "sharp"], gender: "f", age: "young" },
-  { id: "w_08", file: "w_mute_swordsman.png", name: "\u54D1\u5251\u5BA2", role: "wander", tags: ["mid", "cold"], gender: "m", age: "mid" },
-  { id: "w_09", file: "w_blind_cook.png", name: "\u76F2\u53A8\u5B50", role: "wander", tags: ["old", "gentle"], gender: "m", age: "old" },
-  { id: "w_10", file: "w_child_ghost.png", name: "\u5C0F\u7AE5", role: "wander", tags: ["young", "dark"], gender: "m", age: "young" },
-  { id: "w_11", file: "w_demon_boy.png", name: "\u5996\u4FEE\u5C11\u5E74", role: "wander", tags: ["young", "dark"], gender: "m", age: "young" },
-  { id: "w_12", file: "w_old_priest.png", name: "\u6E38\u65B9\u8001\u9053", role: "wander", tags: ["old", "gentle"], gender: "m", age: "old" },
-  { id: "w_13", file: "w_caravan_woman.png", name: "\u5546\u961F\u5973\u5B50", role: "wander", tags: ["mid", "sharp"], gender: "f", age: "mid" },
-  { id: "w_14", file: "w_mask_man.png", name: "\u9762\u5177\u5BA2", role: "wander", tags: ["mid", "dark", "cold"], gender: "m", age: "mid" },
-  { id: "w_15", file: "w_monk.png", name: "\u6E38\u65B9\u50E7", role: "wander", tags: ["mid", "gentle"], gender: "m", age: "mid" },
-  { id: "lv_04", file: "dao_lv_elder_sister.png", name: "\u5E08\u53D4", role: "wander", tags: ["mid", "sharp"], gender: "f", age: "mid" },
-  // ===== 第二批（用户实出，写实国风） =====
-  { id: "a01", file: "a_01.png", name: "\u4E39\u5CF0\u957F\u8001", role: "elder", tags: ["old", "cold"], gender: "m", age: "old", art: true },
-  { id: "a02", file: "a_02.png", name: "\u6267\u6CD5\u957F\u8001", role: "elder", tags: ["mid", "cold", "sharp"], gender: "f", age: "mid", art: true },
-  { id: "a05", file: "a_05.png", name: "\u638C\u4E8B\u59D1\u59D1", role: "elder", tags: ["mid", "gentle"], gender: "f", age: "mid", art: true },
-  { id: "a09", file: "a_09.png", name: "\u8D64\u8DB3\u8001\u9053", role: "wander", tags: ["old", "gentle"], gender: "m", age: "old", art: true },
-  { id: "a10", file: "a_10.png", name: "\u836F\u5E90\u4ED9\u5B50", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true },
-  { id: "lib01", file: "lib_old_clerk.png", name: "\u6284\u7ECF\u8001\u6267\u4E8B", role: "library", tags: ["old", "gentle"], gender: "m", age: "old", art: true },
-  { id: "zz", file: "zongzhu.png", name: "\u5B97\u4E3B", role: "elder", tags: ["mid", "cold"], gender: "m", age: "mid", art: true },
-  { id: "e01", file: "e_01.png", name: "\u5C71\u811A\u963F\u5A46", role: "wander", tags: ["old", "gentle"], gender: "f", age: "old", art: true },
-  { id: "d01", file: "d_01.png", name: "\u9B54\u9053\u5BA2", role: "wander", tags: ["mid", "dark", "cold"], gender: "m", age: "mid", art: true },
-  { id: "b01", file: "b_01.png", name: "\u80CC\u5251\u5C11\u5E74", role: "wander", tags: ["young", "cold"], gender: "m", age: "young", art: true },
-  { id: "b02", file: "b_02.png", name: "\u7B26\u7EB8\u4E2B\u5934", role: "wander", tags: ["young", "sharp"], gender: "f", age: "young", art: true },
-  { id: "b05", file: "b_05.png", name: "\u6311\u6C34\u5F1F\u5B50", role: "wander", tags: ["young", "rough"], gender: "m", age: "young", art: true },
-  { id: "b06", file: "b_06.png", name: "\u5251\u4FEE\u5E08\u59D0", role: "wander", tags: ["young", "cold"], gender: "f", age: "young", art: true },
-  { id: "b07", file: "b_07.png", name: "\u7B26\u4FEE\u5F1F\u5B50", role: "wander", tags: ["young", "gentle"], gender: "m", age: "young", art: true },
-  { id: "b08", file: "b_08.png", name: "\u6D12\u626B\u5973\u7AE5", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true },
-  { id: "b09", file: "b_09.png", name: "\u4F53\u4FEE\u5E08\u5144", role: "wander", tags: ["young", "rough"], gender: "m", age: "young", art: true },
-  { id: "b10", file: "b_10.png", name: "\u9635\u4FEE\u5E08\u59D0", role: "wander", tags: ["young", "cold"], gender: "f", age: "young", art: true },
-  { id: "c01", file: "c_01.png", name: "\u9752\u68A7", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true },
-  { id: "c03", file: "c_03.png", name: "\u767D\u68E0", role: "wander", tags: ["young", "cold"], gender: "f", age: "young", art: true },
-  { id: "c04", file: "c_04.png", name: "\u7EDB\u8863", role: "wander", tags: ["young", "dark", "sharp"], gender: "f", age: "young", art: true },
-  { id: "c06", file: "c_06.png", name: "\u5E08\u53D4", role: "wander", tags: ["mid", "sharp"], gender: "f", age: "mid", art: true },
-  { id: "c07", file: "c_07.png", name: "\u8D6D\u8863\u5200\u5BA2", role: "wander", tags: ["young", "rough"], gender: "f", age: "young", art: true },
-  { id: "c08", file: "c_08.png", name: "\u4E66\u658B\u5973\u5B50", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true },
-  { id: "c09", file: "c_09.png", name: "\u8499\u9762\u5BA2", role: "wander", tags: ["young", "dark", "cold"], gender: "f", age: "young", art: true },
-  { id: "c10", file: "c_10.png", name: "\u7D2B\u8863\u592B\u4EBA", role: "wander", tags: ["young", "sharp"], gender: "f", age: "young", art: true },
-  { id: "whg", file: "w_herb_girl.png", name: "\u91C7\u836F\u4E2B\u5934", role: "wander", tags: ["young", "gentle"], gender: "f", age: "young", art: true }
-];
+EVENTS.push(
+  /* ---------- 白棠 · 剑修（追慕） ---------- */
+  {
+    id: "e_bt1",
+    scenes: ["sword", "forest"],
+    ageMin: 18,
+    art: "c_03.png",
+    who: "\u767D\u68E0",
+    title: "\u63A5\u6211\u4E09\u5251",
+    body: "\u5251\u51A2\u77F3\u9636\u4E0A\u5750\u7740\u4E2A\u767D\u8863\u7684\u5251\u4FEE\uFF0C\u5251\u6A2A\u5728\u819D\u4E0A\uFF0C\u9798\u53E3\u78E8\u5F97\u53D1\u4EAE\u3002\u5979\u770B\u89C1\u4F60\uFF0C\u4E5F\u4E0D\u8D77\u8EAB\uFF1A\u300C\u6765\u6765\uFF0C\u63A5\u6211\u4E09\u5251\u3002\u8F93\u4E86\u4E0D\u8D54\u3002\u300D",
+    opts: [
+      {
+        t: "\u63A5\u4E09\u5251\uFF08\u4E00\u5E74\uFF09",
+        res: "\u7B2C\u4E00\u5251\u4F60\u6321\u4F4F\u4E86\uFF0C\u7B2C\u4E8C\u5251\u64E6\u7740\u80A9\u8FC7\u53BB\uFF0C\u7B2C\u4E09\u5251\u505C\u5728\u4F60\u5589\u524D\u4E00\u5BF8\u3002\u5979\u6536\u5251\uFF0C\u7B11\u4E86\u4E00\u4E0B\uFF1A\u300C\u8FD8\u884C\u3002\u660E\u5929\u8FD8\u6765\u3002\u300D",
+        fx: (s) => {
+          spend(s, 1);
+          ensure(s).wu += 1;
+          bond(s, "baitang", 1);
+          setFlag(s, "bt_met");
+          log(s, "bond", "\u767D\u68E0\u5728\u5251\u51A2\u8BA9\u4F60\u63A5\u4E86\u5979\u4E09\u5251\u3002\u7B2C\u4E09\u5251\u505C\u5728\u4F60\u5589\u524D\u4E00\u5BF8\u3002", "baitang");
+        }
+      },
+      {
+        t: "\u8BF4\u624B\u4E0A\u6709\u4E8B",
+        res: "\u5979\u70B9\u70B9\u5934\uFF0C\u628A\u5251\u6536\u56DE\u9798\u91CC\uFF0C\u6CA1\u6709\u518D\u770B\u4F60\u3002\u4F60\u8D70\u51FA\u5F88\u8FDC\uFF0C\u624D\u542C\u89C1\u8EAB\u540E\u53C8\u8D77\u4E86\u5251\u58F0\u3002",
+        fx: (s) => log(s, "omen", "\u767D\u68E0\u9080\u4F60\u63A5\u5251\uFF0C\u4F60\u8BF4\u624B\u4E0A\u6709\u4E8B\u3002", "baitang")
+      }
+    ]
+  },
+  {
+    id: "e_bt2",
+    scenes: ["map", "sword", "gate"],
+    ageMin: 24,
+    art: "c_03.png",
+    who: "\u767D\u68E0",
+    cond: (s) => flagOf(s, "bt_met") && !flagOf(s, "bt_help"),
+    title: "\u7A7A\u5251\u9798",
+    body: "\u767D\u68E0\u5728\u5C71\u9053\u8FB9\u7B49\u4F60\uFF0C\u811A\u8FB9\u653E\u7740\u4E00\u53EA\u7A7A\u9798\u3002\u300C\u5BB6\u91CC\u6765\u4FE1\uFF0C\u8981\u6211\u4E0B\u5C71\u5AC1\u4EBA\u3002\u300D\u5979\u8BF4\uFF0C\u300C\u5251\u5F97\u7559\u4E0B\u3002\u300D\u5979\u62AC\u5934\u770B\u4F60\uFF0C\u300C\u4F60\u8BF4\uFF0C\u4EBA\u80FD\u4E0D\u80FD\u5E26\u7740\u5251\u8D70\uFF1F\u300D",
+    opts: [
+      {
+        t: "\u66FF\u5979\u80CC\u7740\u5251\uFF0C\u9001\u5979\u4E0B\u5C71\uFF08\u4E24\u5E74\uFF09",
+        res: "\u4F60\u4EEC\u8D70\u4E86\u4E24\u5929\u3002\u5979\u4E00\u53E5\u8BDD\u4E5F\u6CA1\u8BF4\uFF0C\u5230\u5C71\u811A\u624D\u56DE\u5934\u770B\u4E86\u4E00\u773C\u3002\u5251\u9798\u4E00\u76F4\u7A7A\u7740\uFF0C\u5251\u5728\u5979\u80CC\u4E0A\u3002",
+        fx: (s) => {
+          spend(s, 2);
+          ensure(s).wu += 1;
+          ensure(s).merit += 6;
+          bond(s, "baitang", 2);
+          setFlag(s, "bt_help");
+          log(s, "bond", "\u4F60\u66FF\u767D\u68E0\u628A\u5251\u80CC\u4E0B\u5C71\u3002\u5979\u8BF4\uFF1A\u5F80\u540E\u6211\u8BB0\u7740\u8FD9\u6761\u8DEF\u3002", "baitang");
+        }
+      },
+      {
+        t: "\u529D\u5979\u628A\u5251\u7559\u4E0B",
+        res: "\u5979\u770B\u4E86\u770B\u5251\uFF0C\u53C8\u770B\u4E86\u770B\u5C71\u4E0B\u7684\u65B9\u5411\uFF0C\u628A\u5251\u63D2\u56DE\u77F3\u7F1D\u91CC\u3002\u8D70\u7684\u65F6\u5019\uFF0C\u5979\u628A\u7A7A\u9798\u585E\u7ED9\u4F60\u3002",
+        fx: (s) => {
+          setFlag(s, "bt_leave");
+          addItem(s, "jade", 1);
+          log(s, "omen", "\u767D\u68E0\u628A\u5251\u7559\u5728\u4E86\u5251\u51A2\uFF0C\u53EA\u5E26\u8D70\u4E00\u526F\u7A7A\u9798\u3002", "baitang");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_bt3",
+    scenes: ["sword", "map"],
+    ageMin: 34,
+    art: "c_03.png",
+    who: "\u767D\u68E0",
+    cond: (s) => flagOf(s, "bt_help") && ensure(s).seen.e_bt2,
+    title: "\u7A7A\u9798\u8FD8\u5251",
+    body: "\u5341\u5E74\u540E\u767D\u68E0\u56DE\u6765\u4E86\uFF0C\u8170\u4E0A\u6302\u7740\u4E00\u67C4\u65B0\u5251\uFF0C\u5251\u7A57\u662F\u65E7\u7684\u3002\u5979\u628A\u4E00\u53EA\u5251\u9798\u9012\u7ED9\u4F60\uFF1A\u300C\u4F60\u7684\u90A3\u53EA\uFF0C\u6211\u4E00\u76F4\u5E26\u7740\u3002\u8FD8\u4F60\uFF0C\u91CC\u5934\u6709\u4E1C\u897F\u3002\u300D",
+    opts: [
+      {
+        t: "\u6536\u4E0B",
+        res: "\u9798\u91CC\u5377\u7740\u4E24\u5F20\u7B26\uFF0C\u7B26\u89D2\u662F\u7126\u7684\u3002\u5979\u8BF4\uFF1A\u300C\u6211\u7528\u5269\u7684\u3002\u4F60\u522B\u5ACC\u5F03\u3002\u300D",
+        fx: (s) => {
+          addItem(s, "charm", 2);
+          ensure(s).merit += 8;
+          bond(s, "baitang", 1);
+          log(s, "bond", "\u767D\u68E0\u8FD8\u4E86\u4F60\u4E00\u53EA\u5251\u9798\uFF0C\u9798\u91CC\u5377\u7740\u4E24\u5F20\u7B26\u3002", "baitang");
+        }
+      },
+      {
+        t: "\u628A\u9798\u8FD8\u7ED9\u5979",
+        res: "\u5979\u6123\u4E86\u4E00\u4E0B\uFF0C\u63A5\u8FC7\u53BB\uFF0C\u63D2\u4E0A\u65B0\u5251\uFF0C\u6B63\u5408\u9002\u3002\u300C\u90A3\u6211\u5C31\u4E00\u76F4\u5E26\u7740\u3002\u300D",
+        fx: (s) => {
+          ensure(s).wu += 2;
+          bond(s, "baitang", 2);
+          log(s, "bond", "\u4F60\u628A\u7A7A\u9798\u8FD8\u7ED9\u4E86\u767D\u68E0\u3002\u5979\u628A\u65B0\u5251\u63D2\u8FDB\u53BB\uFF0C\u6B63\u5408\u9002\u3002", "baitang");
+        }
+      }
+    ]
+  },
+  /* ---------- 绛衣 · 魔道（同道） ---------- */
+  {
+    id: "e_jy1",
+    scenes: ["forest", "realm"],
+    ageMin: 20,
+    art: "c_04.png",
+    who: "\u7EDB\u8863",
+    title: "\u96FE\u91CC\u70E7\u7EB8",
+    body: "\u7EDB\u8863\u8E72\u5728\u96FE\u91CC\u70E7\u7EB8\uFF0C\u706B\u5F88\u5C0F\uFF0C\u53EA\u591F\u7167\u4EAE\u5979\u534A\u5F20\u8138\u3002\u300C\u4F60\u4E5F\u6765\u70E7\uFF1F\u300D\u5979\u5934\u4E5F\u4E0D\u62AC\uFF0C\u300C\u6211\u70E7\u7684\u4E0D\u662F\u6B7B\u4EBA\uFF0C\u662F\u540D\u5206\u3002\u300D",
+    opts: [
+      {
+        t: "\u8E72\u4E0B\uFF0C\u966A\u5979\u70E7\u5B8C\uFF08\u4E00\u5E74\uFF09",
+        res: "\u7EB8\u7070\u843D\u8FDB\u8349\u91CC\uFF0C\u4E00\u70B9\u58F0\u97F3\u4E5F\u6CA1\u6709\u3002\u5979\u8BF4\u4E86\u53E5\u300C\u4F60\u8DDF\u4ED6\u4EEC\u4E0D\u4E00\u6837\u300D\uFF0C\u8D77\u8EAB\u8D70\u4E86\u3002",
+        fx: (s) => {
+          spend(s, 1);
+          ensure(s).wu += 1;
+          bond(s, "jiangyi", 1);
+          setFlag(s, "jy_met");
+          log(s, "bond", "\u4F60\u966A\u7EDB\u8863\u5728\u96FE\u91CC\u70E7\u5B8C\u4E00\u53E0\u7EB8\u3002\u5979\u8BF4\uFF1A\u4F60\u8DDF\u4ED6\u4EEC\u4E0D\u4E00\u6837\u3002", "jiangyi");
+        }
+      },
+      {
+        t: "\u7AD9\u7740\u770B\u4E00\u4F1A\u513F",
+        res: "\u706B\u706D\u4E86\u3002\u5979\u7684\u8138\u4E5F\u9ED1\u4E0B\u53BB\u3002\u4F60\u518D\u770B\u65F6\uFF0C\u90A3\u91CC\u53EA\u6709\u4E00\u5806\u51B7\u7070\u3002",
+        fx: (s) => log(s, "omen", "\u96FE\u91CC\u6709\u4E2A\u5973\u4EBA\u5728\u70E7\u7EB8\u3002\u4F60\u7AD9\u7740\u770B\u4E86\u4E00\u773C\u3002", "jiangyi")
+      }
+    ]
+  },
+  {
+    id: "e_jy2",
+    scenes: ["map", "forest"],
+    ageMin: 26,
+    art: "c_04.png",
+    who: "\u7EDB\u8863",
+    cond: (s) => flagOf(s, "jy_met") && !flagOf(s, "jy_hide"),
+    title: "\u534A\u591C\u7684\u95E8",
+    body: "\u534A\u591C\u6709\u4EBA\u6572\u4F60\u7684\u95E8\uFF0C\u5F88\u8F7B\uFF0C\u4E09\u4E0B\u3002\u95E8\u5916\u662F\u7EDB\u8863\uFF0C\u8896\u5B50\u4E0A\u6709\u8840\uFF0C\u4E0D\u662F\u5979\u7684\u3002\u300C\u540E\u9762\u6709\u4EBA\u8DDF\u7740\u3002\u300D\u5979\u8BF4\uFF0C\u300C\u4F60\u5F00\u4E0D\u5F00\uFF1F\u300D",
+    opts: [
+      {
+        t: "\u5F00\u95E8\uFF0C\u628A\u5979\u85CF\u8D77\u6765\uFF08\u4E09\u5E74\uFF09",
+        res: "\u4F60\u628A\u5979\u85CF\u8FDB\u67F4\u623F\uFF0C\u81EA\u5DF1\u5728\u95E8\u53E3\u5750\u5230\u5929\u4EAE\u3002\u8FFD\u7684\u4EBA\u6765\u4E86\u4E24\u8D9F\uFF0C\u90FD\u6CA1\u8FDB\u95E8\u3002\u5979\u8D70\u65F6\u8BF4\uFF1A\u300C\u8FD9\u7B14\u8D26\u6211\u8BB0\u7740\u3002\u300D",
+        fx: (s) => {
+          spend(s, 3);
+          ensure(s).karma += 1;
+          bond(s, "jiangyi", 2);
+          setFlag(s, "jy_hide");
+          log(s, "evil", "\u4F60\u628A\u88AB\u4EBA\u8FFD\u6740\u7684\u7EDB\u8863\u85CF\u4E86\u4E09\u5E74\u3002", "jiangyi");
+        }
+      },
+      {
+        t: "\u9694\u7740\u95E8\u8BF4\uFF1A\u8D70\u5427",
+        res: "\u95E8\u5916\u5B89\u9759\u4E86\u4E00\u4F1A\u513F\uFF0C\u7136\u540E\u6709\u811A\u6B65\u58F0\u5F80\u5C71\u91CC\u53BB\u4E86\u3002\u4F60\u6CA1\u6709\u5F00\u95E8\uFF0C\u4E5F\u6CA1\u6709\u7761\u7740\u3002",
+        fx: (s) => {
+          ensure(s).wu += 1;
+          setFlag(s, "jy_close");
+          log(s, "omen", "\u7EDB\u8863\u534A\u591C\u6572\u95E8\uFF0C\u4F60\u9694\u7740\u95E8\u8BA9\u5979\u8D70\u4E86\u3002", "jiangyi");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_jy3",
+    scenes: ["realm", "map"],
+    ageMin: 33,
+    art: "c_04.png",
+    who: "\u7EDB\u8863",
+    cond: (s) => flagOf(s, "jy_hide") && ensure(s).seen.e_jy2,
+    title: "\u5979\u7559\u4E0B\u7684\u4E1C\u897F",
+    body: "\u7EDB\u8863\u8D70\u4E86\uFF0C\u6CA1\u6253\u62DB\u547C\u3002\u67F4\u623F\u6881\u4E0A\u7559\u7740\u4E00\u4E2A\u5C0F\u5E03\u5305\uFF1A\u4E00\u679A\u65E7\u7389\uFF0C\u4E00\u5F20\u8840\u7B26\uFF0C\u8FD8\u6709\u4E00\u884C\u6B6A\u5B57\u2014\u2014\u300C\u6B63\u9053\u7684\u8DEF\uFF0C\u6211\u66FF\u4F60\u8D70\u8FC7\u4E00\u6BB5\u3002\u5F80\u540E\u4F60\u81EA\u5DF1\u8D70\u3002\u300D",
+    opts: [
+      {
+        t: "\u6536\u4E0B",
+        res: "\u7389\u662F\u51C9\u7684\uFF0C\u7B26\u662F\u5E72\u7684\u3002\u4F60\u628A\u4E24\u6837\u90FD\u6536\u8FDB\u888B\u91CC\uFF0C\u6CA1\u6709\u58F0\u5F20\u3002",
+        fx: (s) => {
+          addItem(s, "jade", 1);
+          addItem(s, "charm", 1);
+          ensure(s).karma += 1;
+          log(s, "evil", "\u4F60\u6536\u4E0B\u4E86\u7EDB\u8863\u7559\u4E0B\u7684\u7389\u548C\u8840\u7B26\u3002", "jiangyi");
+        }
+      },
+      {
+        t: "\u628A\u8840\u7B26\u70E7\u4E86",
+        res: "\u706B\u82D7\u662F\u7EA2\u7684\uFF0C\u70E7\u5230\u4E00\u534A\u53D8\u4E86\u989C\u8272\u3002\u4F60\u628A\u7389\u7559\u4E0B\uFF0C\u7B26\u7070\u626C\u4E86\u3002",
+        fx: (s) => {
+          addItem(s, "jade", 1);
+          ensure(s).karma = Math.max(0, ensure(s).karma - 1);
+          ensure(s).wu += 2;
+          log(s, "omen", "\u4F60\u70E7\u4E86\u7EDB\u8863\u7559\u4E0B\u7684\u8840\u7B26\uFF0C\u53EA\u7559\u4E0B\u90A3\u679A\u7389\u3002", "jiangyi");
+        }
+      }
+    ]
+  },
+  /* ---------- 裴七 · 同门宿敌 ---------- */
+  {
+    id: "e_pq1",
+    scenes: ["plaza", "map", "gate"],
+    ageMin: 19,
+    art: "b_01.png",
+    who: "\u88F4\u4E03",
+    title: "\u5916\u95E8\u7684\u88F4\u4E03",
+    body: "\u88F4\u4E03\u5728\u5E7F\u573A\u4E0A\u62E6\u4F4F\u4F60\uFF0C\u624B\u91CC\u8F6C\u7740\u4E00\u679A\u94DC\u94B1\u3002\u300C\u542C\u8BF4\u4F60\u4E5F\u60F3\u8FDB\u5185\u95E8\uFF1F\u300D\u4ED6\u628A\u94DC\u94B1\u5F39\u8D77\u6765\u53C8\u63A5\u4F4F\uFF0C\u300C\u4ECA\u5E74\u540D\u989D\u4E00\u4E2A\u3002\u6211\u4E00\u4E2A\u3002\u300D",
+    opts: [
+      {
+        t: "\u4FA7\u8EAB\u8BA9\u5F00",
+        res: "\u4ED6\u7B11\u4E86\u4E00\u58F0\uFF0C\u8D70\u4E86\u3002\u94DC\u94B1\u6389\u5728\u5730\u4E0A\uFF0C\u6EDA\u8FDB\u77F3\u7F1D\u91CC\uFF0C\u4ED6\u6CA1\u6361\u3002",
+        fx: (s) => {
+          setFlag(s, "pq_met");
+          log(s, "deed", "\u88F4\u4E03\u5728\u5E7F\u573A\u4E0A\u62E6\u4F60\uFF0C\u4F60\u4FA7\u8EAB\u8BA9\u5F00\u4E86\u3002", "peiqi");
+        }
+      },
+      {
+        t: "\u9876\u56DE\u53BB\uFF1A\u90A3\u5C31\u6BD4\u6BD4",
+        res: "\u94DC\u94B1\u505C\u5728\u4ED6\u624B\u5FC3\u91CC\u3002\u4ED6\u76EF\u7740\u4F60\u770B\u4E86\u4E09\u606F\uFF1A\u300C\u884C\u3002\u5927\u6BD4\u89C1\u3002\u300D",
+        fx: (s) => {
+          setFlag(s, "pq_met");
+          setFlag(s, "pq_hard");
+          ensure(s).merit += 2;
+          log(s, "deed", "\u88F4\u4E03\u62E6\u4F60\uFF0C\u4F60\u8BF4\uFF1A\u90A3\u5C31\u5927\u6BD4\u89C1\u3002", "peiqi");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_pq2",
+    scenes: ["plaza", "map"],
+    ageMin: 25,
+    art: "b_01.png",
+    who: "\u88F4\u4E03",
+    cond: (s) => flagOf(s, "pq_met") && !flagOf(s, "pq_over"),
+    title: "\u9053\u6BD4\u62BD\u5230\u88F4\u4E03",
+    body: "\u5927\u6BD4\u7684\u7B7E\u7B52\u8F6C\u4E86\u4E00\u5708\uFF0C\u4F60\u62BD\u51FA\u88F4\u4E03\u7684\u540D\u5B57\u3002\u4ED6\u4E5F\u62BD\u5230\u4F60\u7684\uFF0C\u7AD9\u5728\u53F0\u4E0A\u7B11\uFF1A\u300C\u70B9\u5230\u4E3A\u6B62\u554A\u3002\u300D\u4ED6\u63E1\u5251\u7684\u624B\u80CC\u4E0A\u6709\u65E7\u4F24\uFF0C\u4F60\u77E5\u9053\u90A3\u4F24\u662F\u600E\u4E48\u6765\u7684\u3002",
+    opts: [
+      {
+        t: "\u5168\u529B\u51FA\u624B\uFF08\u4E00\u5E74\uFF09",
+        res: "\u4F60\u628A\u4ED6\u903C\u5230\u53F0\u8FB9\uFF0C\u6700\u540E\u4E00\u4E0B\u6536\u4F4F\u4E86\u3002\u88C1\u5224\u770B\u4E86\u5F88\u4E45\uFF0C\u5224\u4F60\u8D62\u3002\u88F4\u4E03\u4E0B\u53F0\u65F6\u6CA1\u770B\u4F60\uFF0C\u80A9\u8180\u5728\u6296\u3002",
+        fx: (s) => {
+          spend(s, 1);
+          ensure(s).wu += 1;
+          ensure(s).merit += 5;
+          setFlag(s, "pq_over");
+          setFlag(s, "pq_beat");
+          log(s, "deed", "\u9053\u6BD4\u53F0\u4E0A\uFF0C\u4F60\u8D62\u4E86\u88F4\u4E03\u3002\u6700\u540E\u4E00\u4E0B\u6536\u4F4F\u4E86\u3002", "peiqi");
+        }
+      },
+      {
+        t: "\u6536\u7740\u6253\uFF0C\u7ED9\u4ED6\u7559\u534A\u62DB",
+        res: "\u4F60\u4EEC\u62C6\u4E86\u4E09\u5341\u62DB\u3002\u6700\u540E\u4ED6\u8D62\u4E86\uFF0C\u8D62\u5F97\u4E0D\u75DB\u5FEB\u3002\u4ED6\u4E0B\u53F0\u7684\u65F6\u5019\u56DE\u5934\u770B\u4E86\u4F60\u4E00\u773C\uFF0C\u4EC0\u4E48\u4E5F\u6CA1\u8BF4\u3002",
+        fx: (s) => {
+          ensure(s).wu += 1;
+          setFlag(s, "pq_over");
+          setFlag(s, "pq_soft");
+          ensure(s).karma = Math.max(0, ensure(s).karma - 1);
+          log(s, "omen", "\u9053\u6BD4\u53F0\u4E0A\uFF0C\u4F60\u7ED9\u88F4\u4E03\u7559\u4E86\u534A\u62DB\u3002\u4ED6\u8D62\u4E86\uFF0C\u8D62\u5F97\u4E0D\u75DB\u5FEB\u3002", "peiqi");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_pq3",
+    scenes: ["gate", "map", "plaza"],
+    ageMin: 35,
+    art: "b_01.png",
+    who: "\u88F4\u4E03",
+    cond: (s) => flagOf(s, "pq_over") && ensure(s).seen.e_pq2,
+    title: "\u5C71\u95E8\u53E3\u7684\u6267\u4E8B",
+    body: "\u88F4\u4E03\u5982\u4ECA\u662F\u5916\u95E8\u6267\u4E8B\uFF0C\u7AD9\u5728\u5C71\u95E8\u53E3\u67E5\u540D\u518C\u3002\u4ED6\u62AC\u5934\u770B\u89C1\u4F60\uFF0C\u628A\u518C\u5B50\u5408\u4E0A\uFF1A\u300C\u90A3\u5E74\u53F0\u4E0A\uFF0C\u4F60\u8BA9\u4E86\u6211\u6CA1\u6709\uFF1F\u300D",
+    opts: [
+      {
+        t: "\u8BF4\u5B9E\u8BDD\uFF1A\u6CA1\u8BA9",
+        res: "\u4ED6\u76EF\u7740\u4F60\u770B\u4E86\u5F88\u4E45\uFF0C\u5FFD\u7136\u7B11\u4E86\uFF1A\u300C\u6211\u5C31\u8BF4\u3002\u90A3\u5E74\u6211\u8F93\u5F97\u4E0D\u51A4\u3002\u300D\u4ED6\u628A\u518C\u5B50\u9012\u7ED9\u4F60\uFF0C\u300C\u4F60\u7684\u540D\u5B57\uFF0C\u6211\u4E00\u76F4\u8BB0\u5728\u7B2C\u4E00\u9875\u3002\u300D",
+        fx: (s) => {
+          ensure(s).merit += 8;
+          ensure(s).wu += 1;
+          log(s, "deed", "\u88F4\u4E03\u95EE\u4F60\u90A3\u5E74\u8BA9\u6CA1\u8BA9\u3002\u4F60\u8BF4\uFF1A\u6CA1\u8BA9\u3002", "peiqi");
+        }
+      },
+      {
+        t: "\u8BF4\uFF1A\u8BA9\u4E86\u534A\u62DB",
+        res: "\u4ED6\u6123\u4E86\u4E00\u4E0B\uFF0C\u4F4E\u5934\u5728\u518C\u5B50\u4E0A\u5212\u4E86\u4E00\u7B14\u3002\u300C\u884C\u3002\u300D\u4ED6\u8BF4\uFF0C\u300C\u90A3\u6211\u8FD9\u5341\u5E74\uFF0C\u7B97\u767D\u8BB0\u6068\u4E86\u3002\u300D",
+        fx: (s) => {
+          ensure(s).merit += 3;
+          ensure(s).wu += 2;
+          log(s, "omen", "\u88F4\u4E03\u95EE\u4F60\u90A3\u5E74\u8BA9\u6CA1\u8BA9\u3002\u4F60\u8BF4\uFF1A\u8BA9\u4E86\u534A\u62DB\u3002", "peiqi");
+        }
+      }
+    ]
+  }
+);
+EVENTS.push(
+  {
+    id: "e_wh_yak",
+    scenes: ["forest"],
+    art: "w_herb_girl.png",
+    who: "\u91C7\u836F\u4E2B\u5934",
+    title: "\u534A\u7BEE\u836F",
+    body: "\u91C7\u836F\u7684\u4E2B\u5934\u8E72\u5728\u77F3\u7F1D\u8FB9\uFF0C\u7BEE\u5B50\u53EA\u88C5\u4E86\u4E00\u534A\u3002\u5979\u89C1\u4F60\u770B\u5979\uFF0C\u628A\u7BEE\u5B50\u5F80\u8EAB\u540E\u632A\u4E86\u632A\uFF0C\u53C8\u632A\u56DE\u6765\uFF1A\u300C\u4F60\u8981\u662F\u4E5F\u7F3A\uFF0C\u5C31\u5206\u4F60\u4E24\u682A\u3002\u300D",
+    opts: [
+      {
+        t: "\u5206\u5979\u4E00\u5E74\uFF0C\u4E00\u8D77\u91C7\uFF08\u22121 \u5E74\uFF09",
+        res: "\u4F60\u4EEC\u91C7\u5230\u65E5\u5934\u504F\u897F\u3002\u5979\u5206\u836F\u7684\u65F6\u5019\u624B\u5F88\u7A33\uFF0C\u4E00\u682A\u4E5F\u6CA1\u591A\u62FF\u3002",
+        fx: (s) => {
+          spend(s, 1);
+          addItem(s, "herb", 2);
+          log(s, "deed", "\u4F60\u966A\u91C7\u836F\u4E2B\u5934\u91C7\u4E86\u534A\u65E5\u836F\u3002\u5979\u5206\u836F\u65F6\u4E00\u682A\u4E5F\u6CA1\u591A\u62FF\u3002");
+        }
+      },
+      {
+        t: "\u8BF4\u4E0D\u7528\uFF0C\u5E2E\u5979\u63D0\u7BEE\u5B50",
+        res: "\u5979\u7B11\u4E86\uFF0C\u628A\u7BEE\u5B50\u9012\u7ED9\u4F60\u3002\u4E0B\u5C71\u7684\u8DEF\u5F88\u77ED\uFF0C\u5979\u8D70\u5F97\u6BD4\u5E73\u65F6\u6162\u3002",
+        fx: (s) => {
+          ensure(s).merit += 2;
+          log(s, "deed", "\u4F60\u66FF\u91C7\u836F\u4E2B\u5934\u63D0\u4E86\u4E00\u6BB5\u8DEF\u7684\u7BEE\u5B50\u3002");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_sis_sword",
+    scenes: ["sword"],
+    art: "b_06.png",
+    who: "\u5251\u4FEE\u5E08\u59D0",
+    title: "\u78E8\u5251\u7684\u5E08\u59D0",
+    body: "\u5251\u4FEE\u5E08\u59D0\u5750\u5728\u77F3\u4E0A\u78E8\u5251\uFF0C\u78E8\u77F3\u5DF2\u7ECF\u51F9\u4E0B\u53BB\u4E00\u9053\u69FD\u3002\u5979\u6CA1\u62AC\u5934\uFF1A\u300C\u501F\u4F60\u7684\u624B\u7528\u4E00\u4E0B\u3002\u6309\u4F4F\u5251\u810A\uFF0C\u522B\u8BA9\u5B83\u52A8\u3002\u300D",
+    opts: [
+      {
+        t: "\u6309\u4F4F\u5251\u810A\uFF08\u4E00\u5E74\uFF09",
+        res: "\u5251\u8EAB\u5F88\u51B7\u3002\u4F60\u6309\u4E86\u4E00\u4E2A\u65F6\u8FB0\uFF0C\u624B\u5FC3\u9EBB\u4E86\u3002\u5979\u6536\u5251\u65F6\u8BF4\uFF1A\u300C\u4F60\u624B\u4E0A\u6CA1\u6296\u3002\u300D",
+        fx: (s) => {
+          spend(s, 1);
+          ensure(s).wu += 1;
+          ensure(s).merit += 3;
+          log(s, "deed", "\u4F60\u66FF\u5251\u4FEE\u5E08\u59D0\u6309\u4F4F\u5251\u810A\u78E8\u4E86\u4E00\u4E2A\u65F6\u8FB0\u3002\u5979\u8BF4\uFF1A\u4F60\u624B\u4E0A\u6CA1\u6296\u3002");
+        }
+      },
+      {
+        t: "\u95EE\u5979\u4E3A\u4EC0\u4E48\u81EA\u5DF1\u78E8",
+        res: "\u300C\u522B\u4EBA\u78E8\u7684\u5251\uFF0C\u4F7F\u7740\u4E0D\u987A\u624B\u3002\u300D\u5979\u628A\u78E8\u77F3\u63A8\u7ED9\u4F60\uFF0C\u300C\u4F60\u8981\u8BD5\uFF0C\u5C31\u81EA\u5DF1\u6765\u3002\u300D",
+        fx: (s) => {
+          ensure(s).wu += 1;
+          log(s, "omen", "\u5251\u4FEE\u5E08\u59D0\u8BF4\uFF1A\u522B\u4EBA\u78E8\u7684\u5251\uFF0C\u4F7F\u7740\u4E0D\u987A\u624B\u3002");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_mo_ke",
+    scenes: ["map", "gate"],
+    art: "d_01.png",
+    who: "\u9B54\u9053\u5BA2",
+    title: "\u95EE\u8DEF\u7684\u4EBA",
+    body: "\u4E00\u4E2A\u7A7F\u9ED1\u888D\u7684\u7AD9\u5728\u5C71\u9053\u5C94\u53E3\uFF0C\u95EE\u4F60\uFF1A\u300C\u5F80\u5251\u51A2\uFF0C\u8D70\u54EA\u8FB9\uFF1F\u300D\u4ED6\u8170\u4E0A\u6302\u7684\u4E1C\u897F\u7528\u5E03\u88F9\u7740\uFF0C\u5F62\u72B6\u50CF\u5251\uFF0C\u4E5F\u50CF\u522B\u7684\u4E1C\u897F\u3002",
+    opts: [
+      {
+        t: "\u7ED9\u4ED6\u6307\u9519\u7684\u8DEF",
+        res: "\u4ED6\u9053\u4E86\u8C22\uFF0C\u5F80\u53CD\u65B9\u5411\u8D70\u4E86\u3002\u4F60\u7AD9\u5728\u539F\u5730\uFF0C\u542C\u89C1\u5E03\u91CC\u6709\u4E1C\u897F\u8F7B\u8F7B\u54CD\u4E86\u4E00\u58F0\u3002",
+        fx: (s) => {
+          ensure(s).wu += 1;
+          ensure(s).karma += 1;
+          log(s, "evil", "\u4F60\u7ED9\u4E00\u4E2A\u9B54\u9053\u5BA2\u6307\u4E86\u9519\u8DEF\u3002");
+        }
+      },
+      {
+        t: "\u6307\u5BF9\u7684\u8DEF",
+        res: "\u4ED6\u70B9\u70B9\u5934\uFF0C\u8D70\u4E86\u4E24\u6B65\u53C8\u56DE\u5934\uFF1A\u300C\u4F60\u4EBA\u4E0D\u9519\u3002\u53EF\u60DC\u4E86\u3002\u300D",
+        fx: (s) => {
+          ensure(s).merit += 3;
+          log(s, "deed", "\u4F60\u7ED9\u5C71\u9053\u4E0A\u7684\u9B54\u9053\u5BA2\u6307\u4E86\u5BF9\u7684\u8DEF\u3002");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_aunt_gate",
+    scenes: ["gate", "map"],
+    art: "e_01.png",
+    who: "\u5C71\u811A\u963F\u5A46",
+    title: "\u4E00\u7897\u70ED\u6C34",
+    body: "\u5C71\u811A\u963F\u5A46\u5728\u8DEF\u8FB9\u652F\u4E86\u4E2A\u5C0F\u7089\u5B50\uFF0C\u89C1\u4F60\u4E0B\u5C71\uFF0C\u8200\u4E86\u4E00\u7897\u70ED\u6C34\u9012\u8FC7\u6765\uFF1A\u300C\u4E0D\u8981\u94B1\u3002\u4E0A\u5C71\u7684\u4EBA\uFF0C\u4E0B\u6765\u7684\u65F6\u5019\u90FD\u6E34\u3002\u300D",
+    opts: [
+      {
+        t: "\u559D\u5B8C\uFF0C\u966A\u5979\u5750\u4E00\u4F1A\u513F",
+        res: "\u5979\u8BF4\u5979\u513F\u5B50\u4E5F\u4E0A\u5C71\u4E86\uFF0C\u4E09\u5341\u5E74\u4E86\uFF0C\u6CA1\u4E0B\u6765\u8FC7\u3002\u5979\u8BF4\u5B8C\u5C31\u4F4E\u5934\u62E8\u706B\uFF0C\u50CF\u5728\u8BF4\u522B\u4EBA\u5BB6\u7684\u4E8B\u3002",
+        fx: (s) => {
+          ensure(s).wu += 1;
+          ensure(s).merit += 2;
+          log(s, "deed", "\u4F60\u5728\u5C71\u811A\u559D\u4E86\u4E00\u7897\u70ED\u6C34\u3002\u963F\u5A46\u7684\u513F\u5B50\u4E0A\u5C71\u4E09\u5341\u5E74\uFF0C\u6CA1\u4E0B\u6765\u8FC7\u3002");
+        }
+      },
+      {
+        t: "\u7559\u4E0B\u4E00\u5E74\uFF0C\u5E2E\u5979\u4FEE\u7089\u5B50",
+        res: "\u7089\u5B50\u4FEE\u597D\u4E86\uFF0C\u706B\u4E5F\u65FA\u4E86\u3002\u5979\u6536\u4E86\u4F60\u7684\u94B1\uFF0C\u53C8\u585E\u56DE\u6765\u4E24\u4E2A\u997C\u3002",
+        fx: (s) => {
+          spend(s, 1);
+          addItem(s, "herb", 1);
+          ensure(s).merit += 5;
+          log(s, "deed", "\u4F60\u82B1\u4E00\u5E74\uFF0C\u66FF\u5C71\u811A\u963F\u5A46\u4FEE\u597D\u4E86\u7089\u5B50\u3002");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_mute_sword",
+    scenes: ["map", "sword"],
+    art: "w_mute_swordsman.png",
+    who: "\u54D1\u5251\u5BA2",
+    title: "\u4E0D\u8BF4\u8BDD\u7684\u4EBA",
+    body: "\u54D1\u5251\u5BA2\u5728\u77F3\u4E0A\u523B\u5B57\uFF0C\u523B\u5F97\u5F88\u6162\u3002\u4ED6\u523B\u5B8C\u4E4B\u540E\u628A\u77F3\u5934\u8F6C\u8FC7\u6765\u7ED9\u4F60\u770B\uFF1A\u4E0A\u9762\u662F\u4E09\u4E2A\u5B57\u2014\u2014\u300C\u522B\u5B66\u6211\u300D\u3002",
+    opts: [
+      {
+        t: "\u5728\u77F3\u5934\u80CC\u9762\u523B\u4E00\u53E5",
+        res: "\u4F60\u523B\u4E86\u300C\u5DF2\u7ECF\u5B66\u4E86\u300D\u3002\u4ED6\u770B\u4E86\u5F88\u4E45\uFF0C\u628A\u77F3\u5934\u63E3\u8FDB\u6000\u91CC\uFF0C\u8D70\u4E86\u3002",
+        fx: (s) => {
+          ensure(s).wu += 1;
+          ensure(s).merit += 2;
+          log(s, "deed", "\u54D1\u5251\u5BA2\u523B\u4E0B\u300C\u522B\u5B66\u6211\u300D\u3002\u4F60\u5728\u80CC\u9762\u523B\u4E86\u300C\u5DF2\u7ECF\u5B66\u4E86\u300D\u3002");
+        }
+      },
+      {
+        t: "\u628A\u77F3\u5934\u4E0A\u7684\u5B57\u78E8\u6389",
+        res: "\u4F60\u78E8\u5230\u5929\u9ED1\u3002\u77F3\u5934\u5E73\u4E86\uFF0C\u4ED6\u5750\u5728\u65C1\u8FB9\u770B\uFF0C\u4E00\u53E5\u8BDD\u4E5F\u6CA1\u6709\u3002",
+        fx: (s) => {
+          ensure(s).wu += 1;
+          log(s, "omen", "\u4F60\u628A\u54D1\u5251\u5BA2\u523B\u7684\u5B57\u78E8\u6389\u4E86\u3002\u4ED6\u770B\u4E86\u4E00\u6574\u665A\uFF0C\u6CA1\u8BF4\u8BDD\u3002");
+        }
+      }
+    ]
+  }
+);
 
 // src/vitals.js
 function hpMax(state) {
@@ -25500,7 +25943,6 @@ function start(opts = {}) {
   return startSynth();
 }
 function playEnding() {
-  if (!peaceA && !battleA) return;
   fadeTo(peaceA, 0, 1200, () => pauseIt(peaceA));
   fadeTo(battleA, 0, 1200, () => pauseIt(battleA));
   try {
@@ -27296,6 +27738,20 @@ function finishIntroAll() {
   kickBgm();
   scheduleMeet();
 }
+function introTapGate(start2) {
+  const tap = document.createElement("div");
+  tap.style.cssText = "position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle at 50% 45%,rgba(8,12,18,.84),rgba(2,3,6,.97));cursor:pointer;opacity:1;transition:opacity .8s ease";
+  tap.innerHTML = '<div style="font-size:30px;letter-spacing:.62em;color:#f2dfb2;text-indent:.62em">\u7075 \u589F</div><div style="margin-top:22px;font-size:12.5px;letter-spacing:.42em;color:rgba(226,217,200,.55);text-indent:.42em">\u70B9 \u51FB \xB7 \u5165 \u589F</div>';
+  document.body.appendChild(tap);
+  const go = () => {
+    tap.removeEventListener("pointerdown", go);
+    tap.style.opacity = "0";
+    ambArmed = true;
+    start2();
+    setTimeout(() => tap.remove(), 900);
+  };
+  tap.addEventListener("pointerdown", go);
+}
 if (skipVideo) {
   introEl.style.display = "none";
   ended = true;
@@ -27303,9 +27759,9 @@ if (skipVideo) {
   else scheduleMeet();
 } else if (needGender()) {
   gateAfterIntro = true;
-  startIntro();
+  introTapGate(startIntro);
 } else {
-  startIntro();
+  introTapGate(startIntro);
 }
 function tick2() {
   view.lon += (view.tLon - view.lon) * 0.16;
