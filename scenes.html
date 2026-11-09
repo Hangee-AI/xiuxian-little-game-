@@ -665,12 +665,12 @@
       }
 
       /* ------------------------- 左侧人物栏 ------------------------- */
-      #people-rail { position: fixed; left: 0; top: 116px; bottom: 84px; width: 198px; z-index: 7;
+      #people-rail { position: fixed; left: 0; top: 170px; bottom: 84px; width: 198px; z-index: 7;
         display: flex; flex-direction: column; transition: transform .28s ease;
         background: linear-gradient(90deg, rgba(8,11,17,.94), rgba(8,11,17,.70));
         border-right: 1px solid rgba(232,201,138,.16); }
       body.rail-closed #people-rail { transform: translateX(-198px); }
-      #people-toggle { position: fixed; left: 198px; top: 116px; z-index: 8;
+      #people-toggle { position: fixed; left: 198px; top: 170px; z-index: 8;
         padding: 5px 9px; font-size: 11px; letter-spacing: .12em; cursor: pointer;
         color: #e8c98a; background: rgba(10,14,21,.9); border: 1px solid rgba(232,201,138,.28);
         border-left: 0; border-radius: 0 6px 6px 0; transition: left .28s ease; }
@@ -696,9 +696,9 @@
       .pr-badge.gray { background: rgba(255,255,255,.16); color: #e2d8c8; }
       .pr-foot { padding: 8px 12px; font-size: 10px; opacity: .42; border-top: 1px solid rgba(232,201,138,.12); }
       @media (max-width: 900px) {
-        #people-rail { top: 104px; width: 168px; }
+        #people-rail { top: 158px; width: 168px; }
         body.rail-closed #people-rail { transform: translateX(-168px); }
-        #people-toggle { left: 168px; top: 104px; }
+        #people-toggle { left: 168px; top: 158px; }
       }
 
       /* ------------------------- 人物卡 ------------------------- */
