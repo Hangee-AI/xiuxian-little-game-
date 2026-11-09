@@ -824,6 +824,424 @@ var MINDS = [
 ];
 var MIND_MAX = 3;
 
+// src/data_people.js
+var FAVOR_TIERS = [
+  { at: 0, name: "\u964C\u8DEF", note: "\u70B9\u8FC7\u5934\uFF0C\u8FD8\u6CA1\u8BF4\u8FC7\u8BDD" },
+  { at: 15, name: "\u9762\u719F", note: "\u8DEF\u4E0A\u9047\u89C1\u4F1A\u505C\u4E00\u4E0B" },
+  { at: 35, name: "\u6709\u4EA4\u60C5", note: "\u4ED6\u4F1A\u66FF\u4F60\u7559\u4E00\u76CF\u706F" },
+  { at: 60, name: "\u4EA4\u5FC3", note: "\u6709\u4E9B\u8BDD\u53EA\u540C\u4F60\u8BF4" },
+  { at: 85, name: "\u751F\u6B7B\u4E4B\u4EA4", note: "\u4E0D\u5FC5\u5F00\u53E3\u4E5F\u77E5\u9053" }
+];
+var PEOPLE = {
+  chen: {
+    name: "\u9648\u6267\u4E8B",
+    title: "\u4E39\u623F \xB7 \u5B88\u7089\u4EBA",
+    role: "\u4E39\u623F\u6267\u4E8B",
+    scene: "alchemy",
+    art: "elder_danfeng.png",
+    intro: "\u5728\u4E39\u623F\u5B88\u4E86\u56DB\u5341\u5E74\u7089\uFF0C\u8BDD\u5C11\uFF0C\u624B\u4E0A\u6709\u51E0\u9053\u65E7\u70EB\u75A4\u3002",
+    bio: [
+      { at: 0, text: "\u4ED6\u6DFB\u67F4\u4ECE\u4E0D\u7528\u773C\u775B\u770B\uFF0C\u542C\u706B\u58F0\u5C31\u77E5\u9053\u8BE5\u6DFB\u51E0\u6839\u3002" },
+      { at: 15, text: "\u5E74\u8F7B\u65F6\u70B8\u8FC7\u4E00\u7089\u4E39\uFF0C\u90A3\u6B21\u4EE5\u540E\u518D\u6CA1\u8BA9\u4EBA\u66FF\u4ED6\u70B9\u8FC7\u706B\u3002" },
+      { at: 35, text: "\u836F\u7AE5\u591C\u91CC\u54B3\uFF0C\u4ED6\u5634\u4E0A\u8BF4\u300C\u5C0F\u5B69\u5B50\u90FD\u8FD9\u6837\u300D\uFF0C\u8F6C\u5934\u628A\u7089\u5B50\u7559\u5230\u6700\u540E\u624D\u5C01\u3002" },
+      { at: 60, text: "\u4ED6\u8BF4\u81EA\u5DF1\u6CA1\u6709\u5F92\u5F1F\u3002\u8BF4\u8FD9\u8BDD\u65F6\uFF0C\u773C\u775B\u5F80\u4F60\u521A\u5F00\u7684\u90A3\u7089\u4E0A\u505C\u4E86\u4E00\u4E0B\u3002" },
+      { at: 85, text: "\u4ED6\u8C03\u53BB\u540E\u5C71\u90A3\u5929\u6CA1\u8BA9\u4EBA\u9001\u3002\u518C\u5B50\u6700\u540E\u4E00\u9875\u5199\u7740\uFF1A\u706B\u5148\u5C0F\u540E\u5927\uFF0C\u4EBA\u4E5F\u4E00\u6837\u3002" }
+    ],
+    traits: ["\u5BE1\u8A00", "\u62A4\u77ED", "\u8BA4\u706B\u4E0D\u8BA4\u4EBA"],
+    like: ["herb", "pill"],
+    hate: ["blood"],
+    lines: {
+      0: "\u300C\u7089\u8FB9\u522B\u7AD9\u592A\u8FD1\u3002\u300D",
+      1: "\u300C\u836F\u6652\u8FC7\u4E86\uFF1F\u6CA1\u6652\u900F\u522B\u5F80\u78BE\u5B50\u91CC\u653E\u3002\u300D",
+      2: "\u300C\u5750\u3002\u8336\u6CA1\u6709\uFF0C\u6C34\u81EA\u5DF1\u5012\u3002\u300D",
+      3: "\u300C\u4F60\u8FD9\u51E0\u5E74\uFF0C\u706B\u5019\u7A33\u4E86\u3002\u4EBA\u4E5F\u7A33\u4E86\u4E9B\u3002\u300D",
+      4: "\u4ED6\u6CA1\u8BF4\u8BDD\uFF0C\u628A\u7089\u8FB9\u90A3\u5757\u6700\u6696\u7684\u77F3\u5934\u8BA9\u4E86\u534A\u8FB9\u7ED9\u4F60\u3002"
+    },
+    gift: {
+      like: "\u4ED6\u6382\u4E86\u6382\uFF0C\u6CA1\u9053\u8C22\uFF0C\u8F6C\u8EAB\u628A\u4E1C\u897F\u6536\u8FDB\u6700\u91CC\u5C42\u62BD\u5C49\u3002",
+      ok: "\u300C\u653E\u7740\u5427\u3002\u300D\u4ED6\u70B9\u4E86\u4E0B\u5934\uFF0C\u624B\u4E0A\u6CA1\u505C\u3002",
+      hate: "\u4ED6\u76B1\u4E86\u4E0B\u7709\uFF1A\u300C\u8FD9\u4E1C\u897F\u522B\u5F80\u4E39\u623F\u5E26\u3002\u300D"
+    },
+    invite: { need: 35, accept: "\u300C\u884C\u3002\u7089\u5B50\u5C01\u4E86\uFF0C\u8D70\u4E00\u8D9F\u3002\u300D", refuse: "\u300C\u6211\u8D70\u4E0D\u5F00\u3002\u4F60\u81EA\u53BB\u3002\u300D" },
+    join: "\u9648\u6267\u4E8B\u628A\u7089\u95E8\u538B\u597D\uFF0C\u8DDF\u4F60\u51FA\u95E8\uFF1A\u300C\u522B\u6025\u7740\u52A8\u624B\uFF0C\u5148\u770B\u3002\u300D",
+    combat: { role: "\u62A4", power: 6, atk: "\u9648\u6267\u4E8B\u6A2A\u8EAB\u6321\u4E86\u4E00\u4E0B", win: "\u300C\u8FD8\u884C\u3002\u6CA1\u614C\u3002\u300D", cover: "\u9648\u6267\u4E8B\u66FF\u4F60\u6321\u4E86\u534A\u4E0B" }
+  },
+  shen: {
+    name: "\u6C88\u4E09",
+    title: "\u540C\u671F\u5916\u95E8",
+    role: "\u5916\u95E8\u5F1F\u5B50",
+    scene: "plaza",
+    art: "b_01.png",
+    intro: "\u548C\u4F60\u540C\u5E74\u5165\u7684\u5C71\u95E8\uFF0C\u62B1\u7740\u4E00\u67C4\u4E0D\u51FA\u9798\u7684\u5251\uFF0C\u7231\u770B\u70ED\u95F9\u3002",
+    bio: [
+      { at: 0, text: "\u4ED6\u603B\u5728\u5E7F\u573A\u77F3\u680F\u90A3\u8FB9\u5750\u7740\uFF0C\u8C01\u6BD4\u8BD5\u4ED6\u90FD\u8981\u770B\u4E00\u773C\u3002" },
+      { at: 15, text: "\u4ED6\u8BF4\u81EA\u5DF1\u4E0D\u7231\u7EC3\u5251\uFF0C\u53EA\u662F\u300C\u770B\u522B\u4EBA\u7EC3\uFF0C\u6BD4\u81EA\u5DF1\u7EC3\u7701\u4E8B\u300D\u3002" },
+      { at: 35, text: "\u95ED\u5173\u90A3\u5E74\u4ED6\u8BF4\u300C\u4E0D\u662F\u4E0D\u8BF4\u8BDD\uFF0C\u662F\u6CA1\u4EBA\u542C\u300D\u3002\u4F60\u53BB\u4E86\uFF0C\u4ED6\u771F\u7684\u4E00\u5E74\u6CA1\u8BB2\u51E0\u53E5\u3002" },
+      { at: 60, text: "\u4ED6\u7B51\u57FA\u90A3\u5929\u6CA1\u6446\u9152\u3002\u540E\u6765\u6709\u4EBA\u95EE\u8D77\uFF0C\u4ED6\u8BF4\uFF1A\u300C\u8BE5\u5728\u7684\u4EBA\u90A3\u5E74\u5728\u3002\u300D" },
+      { at: 85, text: "\u5185\u95E8\u89C4\u77E9\u591A\uFF0C\u4ED6\u8FD8\u662F\u9694\u4E00\u9635\u634E\u4E00\u5C01\u4FE1\u6765\uFF0C\u5B57\u6B6A\uFF0C\u8BDD\u77ED\u3002" }
+    ],
+    traits: ["\u968F\u548C", "\u5634\u61D2", "\u8BB0\u4EC7\u4E5F\u8BB0\u60C5"],
+    like: ["charm", "jade"],
+    hate: ["bone"],
+    lines: {
+      0: "\u300C\u65B0\u6765\u7684\uFF1F\u77F3\u680F\u90A3\u8FB9\u6709\u4F4D\u7F6E\u3002\u300D",
+      1: "\u300C\u4ECA\u5929\u5E7F\u573A\u6709\u4EBA\u6BD4\u5251\uFF0C\u53BB\u770B\u4E0D\u770B\uFF1F\u300D",
+      2: "\u300C\u5750\u4F1A\u513F\u3002\u4E0D\u7528\u8BB2\u8BDD\u3002\u300D",
+      3: "\u300C\u6211\u642C\u5185\u95E8\u4E86\u2026\u2026\u4F60\u522B\u6025\u7740\u4E0A\u6765\uFF0C\u4E0A\u5934\u6CA1\u610F\u601D\u3002\u300D",
+      4: "\u4ED6\u770B\u89C1\u4F60\u6765\uFF0C\u5148\u628A\u5251\u5F80\u65C1\u8FB9\u632A\u4E86\u632A\uFF0C\u7ED9\u4F60\u817E\u5730\u65B9\u3002"
+    },
+    gift: {
+      like: "\u300C\u54DF\u3002\u300D\u4ED6\u7FFB\u6765\u8986\u53BB\u770B\u4E86\u4E24\u904D\uFF0C\u6536\u5F97\u5F88\u5FEB\u3002",
+      ok: "\u300C\u8C22\u4E86\u554A\u3002\u300D\u4ED6\u968F\u624B\u63E3\u8FDB\u6000\u91CC\u3002",
+      hate: "\u4ED6\u5F80\u540E\u9000\u4E86\u534A\u6B65\uFF1A\u300C\u8FD9\u4EC0\u4E48\u2026\u2026\u4F60\u7559\u7740\u5427\u3002\u300D"
+    },
+    invite: { need: 35, accept: "\u300C\u7B49\u6211\u7CFB\u4E0B\u978B\u3002\u8D70\u3002\u300D", refuse: "\u300C\u4ECA\u513F\u61D2\u3002\u6539\u5929\u3002\u300D" },
+    join: "\u6C88\u4E09\u628A\u5251\u5F80\u80A9\u4E0A\u4E00\u625B\uFF1A\u300C\u8D70\uFF0C\u6211\u966A\u4F60\u7ED5\u4E00\u8D9F\u3002\u300D",
+    combat: { role: "\u653B", power: 8, atk: "\u6C88\u4E09\u4ECE\u4FA7\u9762\u9012\u4E86\u4E00\u5251", win: "\u300C\u770B\u89C1\u6CA1\uFF0C\u6211\u4E5F\u80FD\u6253\u3002\u300D", cover: "\u6C88\u4E09\u628A\u4F60\u5F80\u540E\u62FD\u4E86\u4E00\u628A" }
+  },
+  nvzi: {
+    name: "\u90A3\u4E2A\u5973\u5B50",
+    title: "\u5251\u51A2",
+    role: "\u5B88\u5251\u4EBA",
+    scene: "sword",
+    art: "b_06.png",
+    intro: "\u5E38\u5E74\u7AD9\u5728\u5251\u51A2\u98CE\u53E3\uFF0C\u628A\u4E00\u67C4\u5251\u63D2\u56DE\u571F\u91CC\uFF0C\u53C8\u62D4\u51FA\u6765\u3002",
+    bio: [
+      { at: 0, text: "\u5251\u7891\u4E0A\u7684\u540D\u5B57\u88AB\u78E8\u5E73\u4E86\u4E00\u7247\uFF0C\u5979\u4E0D\u80AF\u8BF4\u8C01\u78E8\u7684\u3002" },
+      { at: 15, text: "\u5979\u770B\u4F60\u6536\u4E86\u529B\uFF0C\u53EA\u8BF4\u4E86\u4E09\u4E2A\u5B57\uFF1A\u300C\u522B\u7559\u624B\u3002\u300D" },
+      { at: 35, text: "\u5979\u8BF4\u7B49\u4F60\u80FD\u62D4\u51FA\u4E00\u67C4\u5251\uFF0C\u5C31\u544A\u8BC9\u4F60\u5979\u53EB\u4EC0\u4E48\u3002" },
+      { at: 60, text: "\u5979\u8BF4\u4E86\u4E09\u4E2A\u5B57\uFF0C\u98CE\u628A\u540E\u4E24\u4E2A\u5439\u6563\u4E86\u3002\u4F60\u53EA\u542C\u6E05\u5934\u4E00\u4E2A\u3002" },
+      { at: 85, text: "\u5251\u7891\u65C1\u7559\u4E0B\u534A\u622A\u65AD\u5251\uFF0C\u65AD\u53E3\u662F\u65B0\u7684\uFF0C\u9508\u662F\u65E7\u7684\u3002" }
+    ],
+    traits: ["\u6E05\u51B7", "\u4E0D\u89E3\u91CA", "\u8BA4\u5251\u4E0D\u8BA4\u540D"],
+    like: ["bone", "jade"],
+    hate: ["charm"],
+    lines: {
+      0: "\u5979\u6CA1\u770B\u4F60\uFF1A\u300C\u4E0B\u6B21\u6765\uFF0C\u522B\u7A7A\u7740\u624B\u3002\u300D",
+      1: "\u300C\u4E0A\u4E00\u6B21\u4F60\u6536\u4E86\u529B\u3002\u300D",
+      2: "\u300C\u5750\u8FDC\u70B9\u3002\u98CE\u5927\u3002\u300D",
+      3: "\u5979\u628A\u5251\u6A2A\u5728\u819D\u4E0A\uFF1A\u300C\u4F60\u95EE\u8FC7\u6211\u53EB\u4EC0\u4E48\u3002\u300D",
+      4: "\u5979\u4ECA\u5929\u6CA1\u5E26\u5251\u3002\u8FD9\u6BD4\u8BF4\u4EFB\u4F55\u8BDD\u90FD\u91CD\u3002"
+    },
+    gift: {
+      like: "\u5979\u62FF\u6307\u8179\u8E6D\u4E86\u8E6D\u65AD\u53E3\uFF0C\u6536\u4E0B\u4E86\uFF0C\u4ECD\u6CA1\u770B\u4F60\u3002",
+      ok: "\u300C\u653E\u90A3\u513F\u3002\u300D",
+      hate: "\u300C\u7B26\uFF1F\u300D\u5979\u7B11\u4E86\u4E00\u4E0B\uFF0C\u6CA1\u63A5\u3002"
+    },
+    invite: { need: 60, accept: "\u300C\u2026\u2026\u8D70\u3002\u300D\u5979\u5148\u8FC8\u7684\u6B65\u3002", refuse: "\u300C\u6211\u5728\u8FD9\u513F\u7B49\u3002\u4F60\u81EA\u53BB\u3002\u300D" },
+    join: "\u5979\u628A\u5251\u4ECE\u571F\u91CC\u62D4\u51FA\u6765\uFF0C\u8DDF\u4E0A\u6765\uFF0C\u4E00\u8DEF\u6CA1\u8BF4\u8BDD\u3002",
+    combat: { role: "\u653B", power: 12, atk: "\u5979\u7684\u5251\u6BD4\u4F60\u5148\u5230", win: "\u300C\u8FD9\u56DE\u50CF\u8BDD\u3002\u300D", cover: "\u4E00\u67C4\u5251\u6A2A\u5728\u4F60\u524D\u9762" }
+  },
+  laozu: {
+    name: "\u5B88\u53F0\u8001\u4EBA",
+    title: "\u6E21\u52AB\u53F0",
+    role: "\u5B88\u53F0\u4EBA",
+    scene: "tribulation",
+    art: "a_09.png",
+    intro: "\u8E72\u5728\u6E21\u52AB\u53F0\u8FB9\u70E7\u7EB8\uFF0C\u8BF4\u8FD9\u5EA7\u53F0\u4E0A\u6B7B\u8FC7\u7684\u4EBA\uFF0C\u540D\u5B57\u4ED6\u90FD\u8BB0\u7740\u3002",
+    bio: [
+      { at: 0, text: "\u4ED6\u6570\u7EB8\u5F88\u6162\uFF0C\u4E00\u5F20\u4E00\u5F20\u6570\uFF0C\u6570\u5B8C\u5E38\u5E38\u8BF4\u4E0D\u591F\u3002" },
+      { at: 15, text: "\u53F0\u4E0A\u5F85\u4E45\u4E86\u9AA8\u5934\u662F\u51C9\u7684\u2014\u2014\u8FD9\u8BDD\u4ED6\u8BF4\u8FC7\u4E00\u6B21\uFF0C\u6CA1\u518D\u91CD\u590D\u3002" },
+      { at: 35, text: "\u4ED6\u6000\u91CC\u90A3\u53E0\u7EB8\u53D1\u8F6F\uFF0C\u4E0A\u9762\u662F\u540D\u5B57\uFF0C\u4E0D\u662F\u7ECF\u6587\u3002" },
+      { at: 60, text: "\u6284\u5230\u7B2C\u4E03\u4E2A\u540D\u5B57\uFF0C\u4ED6\u4F38\u624B\u628A\u7EB8\u6309\u4F4F\uFF1A\u300C\u8FD9\u4E2A\uFF0C\u5FF5\u4E00\u904D\u3002\u300D" },
+      { at: 85, text: "\u540E\u6765\u53F0\u4E0A\u5E72\u51C0\u5F97\u53CD\u5E38\u3002\u77F3\u7F1D\u91CC\u585E\u7740\u4E00\u53E0\u7EB8\uFF0C\u538B\u7740\u5757\u5C0F\u77F3\u5934\u3002" }
+    ],
+    traits: ["\u6162", "\u8BB0\u6027\u592A\u597D", "\u4E0D\u63D0\u81EA\u5DF1"],
+    like: ["pill", "jade"],
+    hate: ["blood"],
+    lines: {
+      0: "\u300C\u4E0A\u6765\u7684\u8DEF\u6ED1\uFF0C\u6162\u4E9B\u3002\u300D",
+      1: "\u300C\u7EB8\u4E0D\u591F\u70E7\u4E86\u3002\u4E0B\u56DE\u5E26\u4E00\u53E0\u3002\u300D",
+      2: "\u300C\u5750\u3002\u522B\u7AD9\u5728\u98CE\u53E3\u4E0A\u3002\u300D",
+      3: "\u300C\u540D\u5B57\u6211\u8BB0\u7740\uFF0C\u7EB8\u8BB0\u4E0D\u4F4F\u3002\u300D",
+      4: "\u4ED6\u628A\u706B\u62E8\u5C0F\u4E86\u4E9B\uFF0C\u597D\u8BA9\u4F60\u80FD\u591A\u5750\u4E00\u4F1A\u513F\u3002"
+    },
+    gift: {
+      like: "\u4ED6\u63A5\u8FC7\u53BB\uFF0C\u6CA1\u5403\uFF0C\u63E3\u8FDB\u6000\u91CC\uFF1A\u300C\u7559\u7740\u3002\u300D",
+      ok: "\u300C\u6401\u7740\u5427\u3002\u300D\u4ED6\u7EE7\u7EED\u770B\u706B\u3002",
+      hate: "\u4ED6\u628A\u7EB8\u5F80\u8EAB\u540E\u6536\u4E86\u6536\uFF1A\u300C\u8FD9\u4E2A\uFF0C\u522B\u62FF\u5230\u53F0\u4E0A\u6765\u3002\u300D"
+    },
+    invite: { need: 60, accept: "\u300C\u53F0\u4E0A\u6709\u6211\u770B\u7740\u3002\u8D70\u4E00\u8D9F\u4E5F\u597D\u3002\u300D", refuse: "\u300C\u6211\u8D70\u4E0D\u5F00\u3002\u8FD9\u706B\u4E0D\u80FD\u706D\u3002\u300D" },
+    join: "\u8001\u4EBA\u628A\u706B\u538B\u4F4F\uFF0C\u62C4\u7740\u819D\u76D6\u7AD9\u8D77\u6765\uFF1A\u300C\u6162\u4E9B\u8D70\u3002\u300D",
+    combat: { role: "\u62A4", power: 5, atk: "\u8001\u4EBA\u62FF\u62D0\u6756\u5728\u5730\u4E0A\u4E00\u987F", win: "\u300C\u6CA1\u4E8B\u4E86\u3002\u5750\u4F1A\u513F\u3002\u300D", cover: "\u8001\u4EBA\u628A\u4F60\u5F80\u8EAB\u540E\u62C9\u4E86\u4E00\u6B65" }
+  },
+  xiao: {
+    name: "\u5C0F\u6EE1",
+    title: "\u4E39\u623F\u836F\u7AE5",
+    role: "\u836F\u7AE5",
+    scene: "forest",
+    art: "w_herb_girl.png",
+    intro: "\u624B\u7B28\uFF0C\u91C7\u4E0D\u6EE1\u4E00\u7B50\uFF0C\u8DD1\u8D77\u6765\u5374\u6BD4\u8C01\u90FD\u5FEB\u3002",
+    bio: [
+      { at: 0, text: "\u5979\u628A\u7A7A\u7B50\u85CF\u5230\u8EAB\u540E\uFF0C\u8BF4\u4ECA\u5929\u96FE\u592A\u5927\u3002" },
+      { at: 15, text: "\u5979\u8BA4\u4E0D\u5F97\u51E0\u79CD\u836F\uFF0C\u5374\u8BB0\u5F97\u6BCF\u4E00\u682A\u957F\u5728\u54EA\u5757\u77F3\u5934\u8FB9\u4E0A\u3002" },
+      { at: 35, text: "\u7B2C\u4E00\u6B21\u81EA\u5DF1\u5F00\u7089\uFF0C\u7CCA\u4E86\u4E00\u6574\u7089\uFF0C\u5979\u7B11\u5F97\u76F4\u4E0D\u8D77\u8170\u3002" },
+      { at: 60, text: "\u5979\u7EC8\u4E8E\u91C7\u6EE1\u4E86\u4E00\u7B50\uFF0C\u80CC\u5F97\u5F88\u7A33\uFF0C\u8FD8\u4E0D\u8BA9\u4F60\u5E2E\u3002" },
+      { at: 85, text: "\u7B50\u5E95\u538B\u7740\u4E00\u682A\u6700\u77EE\u7684\u8349\uFF0C\u5979\u8BF4\uFF1A\u300C\u8FD9\u4E2A\u6211\u8BA4\u5F97\u4E86\uFF0C\u9001\u5E08\u5144\u3002\u300D" }
+    ],
+    traits: ["\u6015\u751F", "\u8981\u5F3A", "\u7B11\u70B9\u4F4E"],
+    like: ["herb", "charm"],
+    hate: ["bone"],
+    lines: {
+      0: "\u300C\u5E08\u5144\u2026\u2026\u6211\u3001\u6211\u624B\u7B28\u3002\u300D",
+      1: "\u300C\u4ECA\u5929\u96FE\u4E0D\u5927\uFF01\u6211\u518D\u53BB\u4E00\u8D9F\u3002\u300D",
+      2: "\u300C\u5E08\u5144\u4F60\u770B\uFF0C\u8FD9\u682A\u6211\u8BA4\u5F97\uFF01\u300D",
+      3: "\u300C\u4E0B\u56DE\u706B\u5C0F\u70B9\uFF0C\u522B\u7CCA\u4E86\u554A\u3002\u300D",
+      4: "\u5979\u8FDC\u8FDC\u770B\u89C1\u4F60\u5C31\u62DB\u624B\uFF0C\u7B50\u5DF2\u7ECF\u6EE1\u4E86\u3002"
+    },
+    gift: {
+      like: "\u5979\u53CC\u624B\u63A5\u8FC7\u53BB\uFF0C\u8DD1\u4E86\u4E24\u6B65\u53C8\u56DE\u5934\uFF0C\u5F88\u5C0F\u58F0\u5730\u8BF4\u4E86\u53E5\u8C22\u8C22\u3002",
+      ok: "\u300C\u8C22\u3001\u8C22\u5E08\u5144\u3002\u300D",
+      hate: "\u5979\u628A\u7B50\u5F80\u8EAB\u540E\u85CF\uFF1A\u300C\u8FD9\u4E2A\u2026\u2026\u597D\u5413\u4EBA\u3002\u300D"
+    },
+    invite: { need: 35, accept: "\u300C\u6211\u3001\u6211\u80FD\u8DDF\u4E0A\uFF01\u300D", refuse: "\u300C\u5E08\u59D0\u8BA9\u6211\u770B\u7B50\u2026\u2026\u300D" },
+    join: "\u5C0F\u6EE1\u628A\u7B50\u5F80\u80CC\u4E0A\u4E00\u7529\uFF0C\u5C0F\u8DD1\u7740\u8DDF\u4E0A\u6765\uFF1A\u300C\u5E08\u5144\u7B49\u7B49\u6211\uFF01\u300D",
+    combat: { role: "\u63F4", power: 3, atk: "\u5C0F\u6EE1\u8FDC\u8FDC\u6254\u4E86\u5757\u77F3\u5934", win: "\u300C\u6211\u3001\u6211\u6CA1\u8EB2\uFF01\u300D", cover: "\u5C0F\u6EE1\u62FD\u4E86\u62FD\u4F60\u8896\u5B50" }
+  },
+  fu: {
+    name: "\u5356\u7B26\u7684\u4EBA",
+    title: "\u5C71\u9053 \xB7 \u7B26\u644A",
+    role: "\u7B26\u8D29",
+    scene: "library",
+    art: "b_07.png",
+    intro: "\u644A\u5B50\u652F\u5728\u85CF\u7ECF\u9601\u4E0B\uFF0C\u4ECE\u4E0D\u6536\u94B1\uFF0C\u53EA\u53EB\u4F60\u753B\u4E00\u5F20\u7ED9\u4ED6\u770B\u3002",
+    bio: [
+      { at: 0, text: "\u300C\u753B\u6B6A\u4E86\u4E5F\u7B97\u3002\u300D\u8FD9\u662F\u4ED6\u5F00\u53E3\u7684\u7B2C\u4E00\u53E5\u3002" },
+      { at: 15, text: "\u6731\u7802\u4E0D\u591F\u65F6\uFF0C\u4ED6\u7528\u522B\u7684\u7EA2\u4E1C\u897F\u8C03\uFF0C\u4E0D\u80AF\u8BF4\u662F\u4EC0\u4E48\u3002" },
+      { at: 35, text: "\u4ED6\u628A\u4F60\u753B\u6B6A\u7684\u7B26\u5BF9\u7740\u5149\u770B\u4E86\u5F88\u4E45\uFF0C\u8BF4\u300C\u6C14\u662F\u901A\u7684\u300D\u3002" },
+      { at: 60, text: "\u4ED6\u8FD9\u4E00\u644A\u4ECE\u4E0D\u6536\u94B1\u3002\u53EA\u8BF4\uFF1A\u66FF\u6211\u628A\u8FD9\u5F20\u9001\u51FA\u53BB\u3002" },
+      { at: 85, text: "\u644A\u5B50\u540E\u6765\u6CA1\u4E86\uFF0C\u77F3\u9636\u4E0A\u7559\u7740\u534A\u622A\u70AD\u7B14\uFF0C\u78E8\u5F97\u4E00\u8FB9\u9AD8\u4E00\u8FB9\u4F4E\u3002" }
+    ],
+    traits: ["\u4E0D\u6536\u94B1", "\u8BDD\u591A", "\u770B\u4EBA\u4E0D\u770B\u7B26"],
+    like: ["blood", "hide"],
+    hate: ["pill"],
+    lines: {
+      0: "\u300C\u753B\u4E00\u5F20\u770B\u770B\uFF1F\u4E0D\u6536\u94B1\u3002\u300D",
+      1: "\u300C\u6B6A\u662F\u6B6A\uFF0C\u6C14\u662F\u901A\u7684\u3002\u300D",
+      2: "\u300C\u5750\u3002\u644A\u5B50\u4E0A\u6709\u836B\u3002\u300D",
+      3: "\u300C\u8FD9\u4E00\u5F20\uFF0C\u4F60\u66FF\u6211\u9001\u51FA\u53BB\uFF0C\u522B\u6536\u94B1\u3002\u300D",
+      4: "\u4ED6\u4E0D\u7B49\u4F60\u5F00\u53E3\uFF0C\u5148\u628A\u6700\u8D81\u624B\u7684\u7B14\u63A8\u4E86\u8FC7\u6765\u3002"
+    },
+    gift: {
+      like: "\u300C\u54CE\uFF0C\u8FD9\u4E2A\u597D\uFF01\u300D\u4ED6\u5F53\u573A\u5C31\u8C03\u4E86\u4E00\u789F\u3002",
+      ok: "\u300C\u884C\uFF0C\u6401\u7740\u3002\u300D",
+      hate: "\u300C\u4E39\uFF1F\u300D\u4ED6\u6446\u624B\uFF0C\u300C\u6211\u5403\u4E86\u4E0A\u706B\u3002\u300D"
+    },
+    invite: { need: 35, accept: "\u300C\u644A\u5B50\u6211\u6536\u4E86\uFF0C\u8D70\u3002\u300D", refuse: "\u300C\u4ECA\u513F\u6709\u4EBA\u8BA2\u4E86\u7B26\uFF0C\u8D70\u4E0D\u5F00\u3002\u300D" },
+    join: "\u4ED6\u628A\u644A\u5B50\u4E00\u5377\u5939\u5728\u814B\u4E0B\uFF1A\u300C\u6B63\u597D\uFF0C\u8DEF\u4E0A\u8BD5\u8BD5\u65B0\u7B26\u3002\u300D",
+    combat: { role: "\u63F4", power: 5, atk: "\u4E00\u5F20\u7B26\u4ECE\u4FA7\u9762\u98DE\u51FA\u53BB", win: "\u300C\u8FD9\u5F20\u6CA1\u6B6A\u3002\u300D", cover: "\u4E00\u5F20\u7B26\u5728\u4F60\u8EAB\u524D\u70E7\u4E86" }
+  },
+  baitang: {
+    name: "\u767D\u68E0",
+    title: "\u5251\u4FEE",
+    role: "\u5251\u4FEE",
+    scene: "plaza",
+    art: "c_03.png",
+    intro: "\u628A\u5251\u6A2A\u5728\u819D\u4E0A\u7B49\u4EBA\uFF0C\u8BF4\u300C\u4F60\u6211\u90FD\u8FD8\u6D3B\u7740\uFF0C\u5C31\u8BE5\u6BD4\u4E00\u6B21\u300D\u3002",
+    bio: [
+      { at: 0, text: "\u5979\u6536\u5251\u7684\u65F6\u5019\u603B\u6BD4\u5BF9\u624B\u6162\u534A\u62CD\uFF0C\u50CF\u5728\u7B49\u4EC0\u4E48\u3002" },
+      { at: 15, text: "\u5979\u5E08\u59D0\u57CB\u5728\u5251\u51A2\uFF0C\u5979\u8BA4\u4E0D\u5F97\u8DEF\uFF0C\u4E5F\u4E0D\u80AF\u95EE\u522B\u4EBA\u3002" },
+      { at: 35, text: "\u7891\u524D\u5979\u70E7\u4E86\u4E00\u5F20\u7B26\uFF0C\u4E00\u53E5\u8BDD\u6CA1\u8BF4\uFF0C\u51FA\u6765\u65F6\u8BF4\u662F\u98CE\u5927\u3002" },
+      { at: 60, text: "\u5979\u8BF4\u4E0B\u5C71\u5F80\u5357\uFF0C\u522B\u9001\u3002\u7B2C\u4E09\u573A\u5374\u8D62\u5F97\u5F88\u5E72\u8106\u3002" },
+      { at: 85, text: "\u5979\u526A\u4E0B\u4E00\u622A\u5251\u7A57\u7559\u7ED9\u4F60\uFF0C\u989C\u8272\u5DF2\u88AB\u65E5\u5934\u6652\u6DE1\u4E86\u3002" }
+    ],
+    traits: ["\u723D\u5229", "\u4E0D\u80AF\u6B20", "\u773C\u91CC\u63C9\u4E0D\u5F97\u6C99"],
+    like: ["charm", "bone"],
+    hate: ["hide"],
+    lines: {
+      0: "\u300C\u6BD4\u4E00\u573A\uFF1F\u300D",
+      1: "\u300C\u4E0A\u4E00\u6B21\u4F60\u7559\u624B\u4E86\u3002\u300D",
+      2: "\u300C\u5750\u3002\u4E0D\u6BD4\u4E5F\u884C\u3002\u300D",
+      3: "\u300C\u8FD9\u56DE\u522B\u7559\u624B\u3002\u8F93\u8D62\u6211\u90FD\u8BA4\u3002\u300D",
+      4: "\u5979\u628A\u5251\u5F80\u819D\u4E0A\u4E00\u6A2A\uFF0C\u7B49\u4F60\u5750\u4E0B\u4E86\u624D\u5F00\u53E3\u3002"
+    },
+    gift: {
+      like: "\u300C\u8FD9\u4E2A\u6211\u6536\u4E86\u3002\u6539\u5929\u8FD8\u4F60\u4E00\u6837\u3002\u300D",
+      ok: "\u300C\u8C22\u4E86\u3002\u300D\u5979\u63A5\u5F97\u5229\u843D\u3002",
+      hate: "\u5979\u770B\u4E86\u4E00\u773C\u6CA1\u52A8\uFF1A\u300C\u4F60\u81EA\u5DF1\u7559\u7740\u3002\u300D"
+    },
+    invite: { need: 35, accept: "\u300C\u65E9\u8BE5\u53EB\u4E0A\u6211\u3002\u300D", refuse: "\u300C\u4ECA\u5929\u7EC3\u5251\u3002\u6539\u65E5\u3002\u300D" },
+    join: "\u767D\u68E0\u628A\u5251\u4E00\u63D0\uFF1A\u300C\u8D70\u3002\u987A\u8DEF\u770B\u770B\u6709\u6CA1\u6709\u67B6\u6253\u3002\u300D",
+    combat: { role: "\u653B", power: 11, atk: "\u767D\u68E0\u7684\u5251\u4ECE\u53E6\u4E00\u4FA7\u538B\u8FC7\u6765", win: "\u300C\u8FD9\u56DE\u6CA1\u7559\u624B\u3002\u300D", cover: "\u767D\u68E0\u6A2A\u5251\u66FF\u4F60\u683C\u4E86\u4E00\u4E0B" }
+  },
+  jiangyi: {
+    name: "\u7EDB\u8863",
+    title: "\u9B54\u9053",
+    role: "\u6765\u5386\u4E0D\u660E",
+    scene: "realm",
+    art: "c_04.png",
+    intro: "\u501A\u5728\u79D8\u5883\u534A\u5F00\u7684\u95E8\u8FB9\uFF0C\u8BA4\u5F97\u51FA\u65E7\u7269\u539F\u5148\u5728\u8C01\u624B\u4E0A\u3002",
+    bio: [
+      { at: 0, text: "\u5979\u8981\u4E00\u4EF6\u79D8\u5883\u91CC\u5E26\u51FA\u6765\u7684\u65E7\u4E1C\u897F\uFF0C\u6CA1\u8BF4\u505A\u4EC0\u4E48\u3002" },
+      { at: 15, text: "\u4E24\u5757\u7389\u5408\u4E0A\uFF0C\u4E25\u4E1D\u5408\u7F1D\u3002\u5979\u76EF\u7740\u770B\u4E86\u5F88\u4E45\u3002" },
+      { at: 35, text: "\u5979\u8BF4\u300C\u6210\u5BF9\u7684\u4E1C\u897F\uFF0C\u4E0D\u8BE5\u53EA\u5269\u4E00\u534A\u300D\u3002" },
+      { at: 60, text: "\u300C\u539F\u5148\u5728\u8C01\u624B\u4E0A\uFF0C\u6211\u65E9\u77E5\u9053\u3002\u5C31\u662F\u60F3\u542C\u4F60\u95EE\u4E00\u53E5\u3002\u300D" },
+      { at: 85, text: "\u5979\u628A\u4E24\u5757\u7389\u90FD\u653E\u8FDB\u4F60\u624B\u91CC\u3002\u7389\u662F\u6E29\u7684\u3002" }
+    ],
+    traits: ["\u542B\u7CCA", "\u7231\u770B\u4EBA\u7A98", "\u4E0D\u6492\u8C0E\u4E5F\u4E0D\u8BF4\u5168"],
+    like: ["tally", "jade"],
+    hate: ["charm"],
+    lines: {
+      0: "\u300C\u91CC\u5934\u5E26\u51FA\u6765\u7684\uFF0C\u7ED9\u6211\u4E00\u4EF6\u3002\u300D",
+      1: "\u300C\u4F60\u4E0D\u597D\u5947\uFF1F\u300D",
+      2: "\u300C\u95E8\u8FB9\u6709\u77F3\u5934\uFF0C\u5750\u3002\u300D",
+      3: "\u300C\u60F3\u95EE\u5C31\u95EE\u3002\u6211\u4E0D\u4E00\u5B9A\u7B54\u3002\u300D",
+      4: "\u5979\u6CA1\u7B49\u4F60\u95EE\uFF0C\u5148\u628A\u8BDD\u5934\u63A5\u4E86\u8FC7\u53BB\u3002"
+    },
+    gift: {
+      like: "\u5979\u628A\u4E1C\u897F\u7FFB\u8FC7\u6765\u770B\u4E86\u5F88\u4E45\uFF0C\u7B11\u4E86\u4E00\u4E0B\uFF0C\u4EC0\u4E48\u4E5F\u6CA1\u8BF4\u3002",
+      ok: "\u300C\u653E\u7740\u3002\u300D",
+      hate: "\u300C\u7B26\uFF1F\u300D\u5979\u6311\u4E86\u4E0B\u7709\uFF0C\u300C\u4F60\u4EEC\u6B63\u9053\u771F\u7231\u8FD9\u4E2A\u3002\u300D"
+    },
+    invite: { need: 60, accept: "\u300C\u6B63\u597D\u95F7\u3002\u8D70\u4E00\u8D9F\u3002\u300D", refuse: "\u300C\u6211\u5728\u8FD9\u513F\u7B49\u3002\u95E8\u5FEB\u5F00\u4E86\u3002\u300D" },
+    join: "\u5979\u4ECE\u95E8\u8FB9\u76F4\u8D77\u8EAB\uFF1A\u300C\u5E26\u8DEF\u3002\u300D",
+    combat: { role: "\u63F4", power: 9, atk: "\u7EDB\u8863\u8896\u91CC\u98DE\u51FA\u4E00\u9053\u6697\u5149", win: "\u300C\u6CA1\u4F24\u7740\u5427\u3002\u300D", cover: "\u7EDB\u8863\u628A\u4F60\u5F80\u95E8\u540E\u4E00\u63A8" }
+  },
+  peiqi: {
+    name: "\u88F4\u4E03",
+    title: "\u540C\u95E8",
+    role: "\u5916\u95E8\u6742\u5F79",
+    scene: "forest",
+    art: "b_05.png",
+    intro: "\u5E38\u4E0B\u5C71\uFF0C\u56DE\u6765\u65F6\u603B\u5E26\u4E24\u4E2A\u51B7\u9992\u5934\uFF0C\u4E00\u4E2A\u7ED9\u4F60\u3002",
+    bio: [
+      { at: 0, text: "\u4ED6\u8981\u4E0B\u5C71\uFF0C\u6258\u4F60\u66FF\u4ED6\u5B88\u4E00\u591C\u6797\u5B50\uFF0C\u5929\u4EAE\u5C31\u56DE\u6765\u3002" },
+      { at: 15, text: "\u4ED6\u501F\u4E00\u5F20\u7B26\uFF0C\u56DE\u6765\u771F\u8FD8\u4E24\u5F20\uFF0C\u8BF4\u591A\u7684\u4E00\u5F20\u662F\u5229\u94B1\u3002" },
+      { at: 35, text: "\u300C\u4E0A\u56DE\u6B20\u4F60\u4E00\u591C\u3002\u8FD9\u56DE\u6362\u6211\u5B88\u3002\u300D\u4ED6\u771F\u5B88\u5230\u5929\u4EAE\u3002" },
+      { at: 60, text: "\u5C71\u4E0B\u6709\u4EC0\u4E48\u4ED6\u4ECE\u4E0D\u7EC6\u8BF4\uFF0C\u53EA\u8BF4\u300C\u8DEF\u8FD8\u884C\u300D\u3002" },
+      { at: 85, text: "\u4ED6\u7ED9\u4F60\u4E00\u679A\u78E8\u5E73\u7684\u94DC\u94B1\uFF0C\u8BF4\u503C\u4E0D\u4E86\u51E0\u4E2A\u94B1\u3002" }
+    ],
+    traits: ["\u5B9E\u5728", "\u8BDD\u7CD9", "\u4E0D\u6B20\u4EBA"],
+    like: ["charm", "pill"],
+    hate: ["jade"],
+    lines: {
+      0: "\u300C\u501F\u8FC7\uFF0C\u8BA9\u8BA9\u8DEF\u3002\u300D",
+      1: "\u300C\u4E0B\u5C71\uFF1F\u7ED9\u4F60\u5E26\u9992\u5934\u3002\u300D",
+      2: "\u300C\u5750\u3002\u706B\u6211\u751F\u597D\u4E86\u3002\u300D",
+      3: "\u300C\u4E0A\u56DE\u90A3\u4E00\u591C\uFF0C\u6211\u6CA1\u5FD8\u3002\u300D",
+      4: "\u4ED6\u4E0D\u7B49\u4F60\u8BF4\uFF0C\u5148\u628A\u9992\u5934\u63B0\u4E86\u4E00\u534A\u9012\u8FC7\u6765\u3002"
+    },
+    gift: {
+      like: "\u300C\u54CE\uFF0C\u8FD9\u53EF\u4E0D\u597D\u610F\u601D\u3002\u300D\u4ED6\u5230\u5E95\u8FD8\u662F\u6536\u4E86\u3002",
+      ok: "\u300C\u8C22\u5566\u3002\u300D",
+      hate: "\u4ED6\u628A\u4E1C\u897F\u63A8\u56DE\u6765\uFF1A\u300C\u592A\u8D35\u6C14\uFF0C\u6211\u62FF\u7740\u522B\u626D\u3002\u300D"
+    },
+    invite: { need: 35, accept: "\u300C\u6B63\u597D\u4E0B\u5C71\uFF0C\u987A\u8DEF\u3002\u300D", refuse: "\u300C\u4ECA\u513F\u62C5\u5B50\u91CD\uFF0C\u6539\u5929\u3002\u300D" },
+    join: "\u88F4\u4E03\u628A\u5305\u88B1\u5F80\u80A9\u4E0A\u4E00\u7529\uFF1A\u300C\u8D70\uFF0C\u6211\u8BA4\u5F97\u8FD1\u8DEF\u3002\u300D",
+    combat: { role: "\u62A4", power: 6, atk: "\u88F4\u4E03\u62FF\u6241\u62C5\u6A2A\u626B\u4E86\u4E00\u4E0B", win: "\u300C\u563F\uFF0C\u8FD8\u633A\u7ECF\u6253\u3002\u300D", cover: "\u88F4\u4E03\u6321\u5728\u4F60\u524D\u5934" }
+  },
+  zhao: {
+    name: "\u8D75\u9608",
+    title: "\u5185\u95E8",
+    role: "\u5185\u95E8\u5F1F\u5B50",
+    scene: "plaza",
+    art: "a_01.png",
+    intro: "\u8BF4\u8BDD\u5F88\u4F4E\uFF0C\u603B\u5728\u5E7F\u573A\u90A3\u5757\u88AB\u78E8\u5E73\u4E86\u5B57\u7684\u7891\u65C1\u7AD9\u7740\u3002",
+    bio: [
+      { at: 0, text: "\u4ED6\u8BA9\u4F60\u66FF\u4ED6\u770B\u770B\u7891\u8FD8\u5728\u4E0D\u5728\uFF0C\u542C\u5B8C\u53EA\u8BF4\u300C\u77E5\u9053\u4E86\u300D\u3002" },
+      { at: 15, text: "\u85CF\u7ECF\u9601\u7684\u65E7\u518C\u5B50\u91CC\uFF0C\u5939\u9875\u4E0A\u6709\u4E00\u884C\u5C0F\u5B57\u3002\u4ED6\u770B\u4E86\u5F88\u4E45\uFF0C\u6CA1\u6284\u3002" },
+      { at: 35, text: "\u78E8\u6389\u7684\u540D\u5B57\u4E00\u5171\u4E03\u4E2A\u3002\u4ED6\u4E0D\u80AF\u8BF4\u4E3A\u4EC0\u4E48\u975E\u8981\u627E\u56DE\u6765\u3002" },
+      { at: 60, text: "\u300C\u4E0D\u7528\u523B\u3002\u8BB0\u7740\u5C31\u884C\u3002\u300D\u4ED6\u62FF\u6307\u8179\u8E6D\u4E86\u8E6D\u7891\u4E0A\u90A3\u7247\u51F9\u3002" },
+      { at: 85, text: "\u4E34\u8D70\u4ED6\u7ED9\u4F60\u4E00\u5F20\u5BF9\u6298\u7684\u7EB8\uFF0C\u58A8\u8FD8\u6CA1\u5E72\u900F\u3002" }
+    ],
+    traits: ["\u4F4E\u58F0", "\u6267\u62D7", "\u4E0D\u4E0E\u4EBA\u540C\u884C"],
+    like: ["tally", "bone"],
+    hate: ["blood"],
+    lines: {
+      0: "\u300C\u2026\u2026\u7891\u8FD8\u5728\u4E48\u3002\u300D",
+      1: "\u300C\u65E7\u518C\u5B50\uFF0C\u4F60\u7FFB\u8FC7\u6CA1\u6709\u3002\u300D",
+      2: "\u300C\u7AD9\u4E00\u4F1A\u513F\u5427\u3002\u522B\u95EE\u3002\u300D",
+      3: "\u300C\u4E03\u4E2A\u3002\u8FD8\u5DEE\u4E00\u4E2A\u3002\u300D",
+      4: "\u4ED6\u628A\u90A3\u5F20\u5BF9\u6298\u7684\u7EB8\u5F80\u4F60\u8FD9\u8FB9\u63A8\u4E86\u534A\u5BF8\u3002"
+    },
+    gift: {
+      like: "\u4ED6\u63A5\u8FC7\u53BB\u770B\u4E86\u5F88\u4E45\uFF0C\u4F4E\u58F0\u8BF4\uFF1A\u300C\u662F\u5B83\u3002\u300D",
+      ok: "\u300C\u2026\u2026\u591A\u8C22\u3002\u300D",
+      hate: "\u4ED6\u9000\u5F00\u534A\u6B65\uFF1A\u300C\u8FD9\u4E2A\uFF0C\u522B\u62FF\u6765\u3002\u300D"
+    },
+    invite: { need: 60, accept: "\u300C\u2026\u2026\u597D\u3002\u6211\u8DDF\u7740\u3002\u300D", refuse: "\u300C\u6211\u4E00\u4E2A\u4EBA\u53BB\u60EF\u4E86\u3002\u300D" },
+    join: "\u8D75\u9608\u4ECE\u7891\u4FA7\u7ED5\u51FA\u6765\uFF0C\u6CA1\u8BF4\u8BDD\uFF0C\u8D70\u5728\u4F60\u534A\u6B65\u4E4B\u540E\u3002",
+    combat: { role: "\u63F4", power: 8, atk: "\u8D75\u9608\u62AC\u624B\u62E6\u4E86\u4E00\u4E0B", win: "\u300C\u2026\u2026\u6CA1\u4E8B\u3002\u300D", cover: "\u8D75\u9608\u66FF\u4F60\u63A5\u4E86\u534A\u4E0B" }
+  },
+  qingwu: {
+    name: "\u9752\u68A7",
+    title: "\u6EAA\u8FB9",
+    role: "\u6563\u4FEE",
+    scene: "map",
+    art: "c_01.png",
+    intro: "\u5728\u5C71\u95E8\u5916\u7684\u6EAA\u8FB9\u6D17\u836F\uFF0C\u89C1\u8C01\u90FD\u5148\u7B11\u4E00\u4E0B\u3002",
+    bio: [
+      { at: 0, text: "\u5979\u7BEE\u5B50\u91CC\u6C38\u8FDC\u662F\u534A\u6EE1\uFF0C\u8BF4\u300C\u591F\u4E86\u5C31\u597D\u300D\u3002" },
+      { at: 15, text: "\u6EAA\u6C34\u51C9\uFF0C\u5979\u628A\u624B\u6CE1\u5F97\u53D1\u7EA2\u4E5F\u4E0D\u80AF\u4E0A\u5CB8\u3002" },
+      { at: 35, text: "\u5979\u8BF4\u5C71\u4E0B\u6709\u6D77\uFF0C\u8D70\u4E86\u4E09\u5929\u6CA1\u8D70\u5230\uFF0C\u5C31\u56DE\u6765\u4E86\u3002" },
+      { at: 60, text: "\u300C\u6CA1\u770B\u89C1\u6D77\uFF0C\u770B\u89C1\u96FE\u3002\u4E5F\u633A\u597D\u3002\u300D" },
+      { at: 85, text: "\u540E\u6765\u5979\u628A\u90A3\u534A\u7BEE\u836F\u5206\u4E86\u4F60\u4E00\u534A\uFF0C\u6CA1\u8BF4\u4E3A\u4EC0\u4E48\u3002" }
+    ],
+    traits: ["\u6E29\u548C", "\u4E0D\u6025", "\u5BB9\u6613\u6EE1\u8DB3"],
+    like: ["herb", "jade"],
+    hate: ["bone"],
+    lines: {
+      0: "\u300C\u6C34\u51C9\uFF0C\u522B\u8E29\u6ED1\u4E86\u3002\u300D",
+      1: "\u300C\u4ECA\u5929\u836F\u591A\uFF0C\u5206\u4F60\u4E00\u70B9\uFF1F\u300D",
+      2: "\u300C\u5750\u561B\u3002\u77F3\u5934\u662F\u5E72\u7684\u3002\u300D",
+      3: "\u300C\u96FE\u4E5F\u633A\u597D\u770B\u7684\uFF0C\u662F\u4E0D\u662F\u3002\u300D",
+      4: "\u5979\u770B\u89C1\u4F60\u6765\uFF0C\u5148\u628A\u7BEE\u5B50\u5F80\u4F60\u90A3\u8FB9\u632A\u4E86\u632A\u3002"
+    },
+    gift: {
+      like: "\u300C\u54CE\u5440\u3002\u300D\u5979\u7B11\u8D77\u6765\uFF0C\u628A\u4E1C\u897F\u5C0F\u5FC3\u653E\u8FDB\u7BEE\u5B50\u6700\u4E0A\u9762\u3002",
+      ok: "\u300C\u8C22\u8C22\u4F60\u5440\u3002\u300D",
+      hate: "\u5979\u628A\u7BEE\u5B50\u5F80\u6000\u91CC\u6536\u4E86\u6536\uFF1A\u300C\u8FD9\u4E2A\u2026\u2026\u6709\u70B9\u5413\u4EBA\u3002\u300D"
+    },
+    invite: { need: 35, accept: "\u300C\u597D\u5440\uFF0C\u6211\u6B63\u60F3\u8D70\u8D70\u3002\u300D", refuse: "\u300C\u836F\u8FD8\u6CA1\u6D17\u5B8C\u5462\u2026\u2026\u300D" },
+    join: "\u9752\u68A7\u628A\u7BEE\u5B50\u630E\u4E0A\u8098\u5F2F\uFF1A\u300C\u8D70\u5427\uFF0C\u6162\u6162\u8D70\u3002\u300D",
+    combat: { role: "\u63F4", power: 4, atk: "\u9752\u68A7\u628A\u4E00\u6367\u836F\u7C89\u6492\u4E86\u51FA\u53BB", win: "\u300C\u5B83\u8DD1\u5566\u3002\u300D", cover: "\u9752\u68A7\u62C9\u4E86\u4F60\u4E00\u628A" }
+  }
+};
+var PEOPLE_ORDER = ["chen", "shen", "nvzi", "laozu", "xiao", "baitang", "jiangyi", "peiqi", "fu", "zhao", "qingwu"];
+var personDef = (id) => PEOPLE[id] || null;
+function favorTier(v) {
+  let t = FAVOR_TIERS[0];
+  for (const x of FAVOR_TIERS) if (v >= x.at) t = x;
+  return t;
+}
+function folkProfile(f) {
+  const tags = f && f.arch ? [f.arch] : [];
+  const gentle = /gentle|温柔|soft/i.test(String(tags.join(" "))) || /柔|静|书|药/.test(f?.name || "");
+  return {
+    name: f?.name || "\u8FD9\u4E2A\u4EBA",
+    title: f?.archName || "\u5C71\u4E2D\u4EBA",
+    role: "\u8FD9\u4E00\u4E16\u7684\u5C71\u91CC\u4EBA",
+    scene: "map",
+    art: f?.file || "",
+    intro: `${f?.name || "\u4ED6"}\u5728${f?.archName || "\u5C71\u91CC"}\u8FC7\u65E5\u5B50\u3002${f?.tell || "\u8BDD\u4E0D\u591A\u3002"}`,
+    bio: [
+      { at: 0, text: f?.tell || "\u4ED6\u4E0D\u592A\u63D0\u81EA\u5DF1\u7684\u4E8B\u3002" },
+      { at: 15, text: `\u4ED6\u60F3\u8981\u7684\u662F\u300C${f?.want || "\u4E00\u70B9\u5B89\u7A33"}\u300D\uFF0C\u4E00\u76F4\u6CA1\u8BF4\u51FA\u53E3\u3002` },
+      { at: 35, text: `\u4F60\u6765\u7684\u6B21\u6570\u591A\u4E86\uFF0C\u4ED6\u5F00\u59CB\u628A${f?.want || "\u90A3\u4EF6\u4E8B"}\u5F53\u4F5C\u73A9\u7B11\u8BB2\u3002` },
+      { at: 60, text: "\u4ED6\u8BF4\uFF1A\u8FD9\u4E00\u4E16\u80FD\u9047\u4E0A\u4E2A\u8BB0\u5F97\u4F4F\u540D\u5B57\u7684\u4EBA\uFF0C\u4E0D\u7B97\u767D\u8FC7\u3002" },
+      { at: 85, text: "\u540E\u6765\u4ED6\u4E0D\u5728\u5C71\u91CC\u4E86\u3002\u4F60\u8DEF\u8FC7\u65F6\uFF0C\u90A3\u6247\u95E8\u8FD8\u5F00\u7740\u3002" }
+    ],
+    traits: gentle ? ["\u6E29\u548C", "\u6162"] : ["\u76F4", "\u95F2\u4E0D\u4F4F"],
+    like: gentle ? ["herb", "jade"] : ["pill", "charm"],
+    hate: ["bone"],
+    lines: {
+      0: "\u300C\u9762\u751F\u554A\u3002\u300D",
+      1: "\u300C\u53C8\u6765\u4E86\u3002\u300D",
+      2: "\u300C\u5750\u3002\u522B\u5BA2\u6C14\u3002\u300D",
+      3: "\u300C\u8DDF\u4F60\u8BF4\u8BDD\uFF0C\u6BD4\u8DDF\u522B\u4EBA\u7701\u52B2\u3002\u300D",
+      4: "\u4ED6\u4E0D\u7B49\u4F60\u5750\u7A33\uFF0C\u5148\u5012\u4E86\u7897\u6C34\u3002"
+    },
+    gift: {
+      like: "\u4ED6\u6123\u4E86\u4E00\u4E0B\uFF0C\u7B11\u8D77\u6765\uFF1A\u300C\u600E\u4E48\u77E5\u9053\u6211\u60F3\u8981\u8FD9\u4E2A\u3002\u300D",
+      ok: "\u300C\u90A3\u5C31\u6536\u7740\u5566\u3002\u300D",
+      hate: "\u4ED6\u6446\u624B\uFF1A\u300C\u8FD9\u4E2A\u6211\u7528\u4E0D\u4E0A\u3002\u300D"
+    },
+    invite: { need: 35, accept: "\u300C\u884C\uFF0C\u8D70\u4E00\u8D9F\u3002\u300D", refuse: "\u300C\u4ECA\u5929\u8D70\u4E0D\u5F00\u3002\u300D" },
+    join: "\u4ED6\u628A\u624B\u4E0A\u7684\u6D3B\u4E00\u653E\uFF1A\u300C\u6B63\u597D\uFF0C\u8DEF\u4E0A\u8BF4\u8BF4\u8BDD\u3002\u300D",
+    combat: { role: "\u63F4", power: 4, atk: "\u4ED6\u642D\u4E86\u628A\u624B", win: "\u300C\u8FD8\u884C\u3002\u300D", cover: "\u4ED6\u66FF\u4F60\u6321\u4E86\u4E00\u4E0B" }
+  };
+}
+
 // src/life.js
 var START_YEAR = 16;
 var START_SPAN = 80;
@@ -1080,6 +1498,11 @@ function worldTick(state2) {
   } catch (err) {
     console.warn("mindTick failed", err);
   }
+  try {
+    partyTick(state2);
+  } catch (err) {
+    console.warn("partyTick failed", err);
+  }
   return out;
 }
 var KIND = {
@@ -1099,7 +1522,7 @@ function log(state2, kind, text, npc) {
 var karma = (state2, n = 1) => ensure(state2).karma += n;
 function bond(state2, npcId, n) {
   const l = ensure(state2);
-  addFavor(state2, npcId, n * 12);
+  addFavor(state2, npcId, n * 8);
   if (n > 0) l.met[npcId] = 1;
   const w = initWorld(state2);
   if (n > 0 && !w.folk.some((f) => f.id === npcId)) {
@@ -1121,7 +1544,8 @@ var BOND_TIERS = [
   { at: 0, name: "\u4E0D\u8BA4\u8BC6" },
   { at: 1, name: "\u9762\u719F" },
   { at: 2, name: "\u6709\u4EBA\u60C5" },
-  { at: 3, name: "\u4EA4\u5FC3" }
+  { at: 3, name: "\u4EA4\u5FC3" },
+  { at: 4, name: "\u751F\u6B7B\u4E4B\u4EA4" }
 ];
 function bondTier(state2, npcId) {
   const v = bondOf(state2, npcId);
@@ -1138,7 +1562,12 @@ function npcState(state2, npcId) {
 }
 function addItem(state2, id, n = 1) {
   const l = ensure(state2);
-  l.bag[id] = (l.bag[id] || 0) + n;
+  let extra = 0;
+  if (n > 0 && l.party.ids.length && BAG_ORDER.includes(id)) {
+    l.party.helpCount = (l.party.helpCount || 0) + 1;
+    if (l.party.helpCount % 3 === 0) extra = 1;
+  }
+  l.bag[id] = (l.bag[id] || 0) + n + extra;
   return l.bag[id];
 }
 var hasItem = (state2, id, n = 1) => (ensure(state2).bag[id] || 0) >= n;
@@ -1197,7 +1626,8 @@ function gainMerit(state2, n) {
     return n;
   }
   const cap = daoCap(state2);
-  const add2 = Math.max(0, Math.min(n, cap - cur2));
+  const withParty = n + Math.round(n * 0.1 * partyOf(state2).length);
+  const add2 = Math.max(0, Math.min(withParty, cap - cur2));
   state2.merit = cur2 + add2;
   return add2;
 }
@@ -4816,6 +5246,7 @@ function mindTick(state2) {
       l.mind.splice(i, 1);
       const who = mindWho(state2, m).name;
       log(state2, "omen", `\u4F60\u7B54\u5E94${who}\u7684\u4E8B\uFF0C\u6700\u540E\u6CA1\u505A\u6210\u3002`, def.npc || null);
+      if (def.npc) addFavor(state2, def.npc, -5);
       out.push(`\u300C${def.title}\u300D\u6CA1\u80FD\u4E86\u7ED3\u3002`);
     }
   }
@@ -4891,6 +5322,7 @@ function mindDrop(state2, id) {
   l.mind.splice(i, 1);
   l.mindLost[id] = l.year;
   log(state2, "omen", `\u4F60\u628A\u300C${def ? def.title : "\u90A3\u4EF6\u4E8B"}\u300D\u653E\u4E0B\u4E86\u3002`, def && def.npc || null);
+  if (def && def.npc) addFavor(state2, def.npc, -3);
   return true;
 }
 function mindSceneCall(state2, scene) {
@@ -4962,6 +5394,195 @@ function mindOffer(state2, id) {
 function keepsakeList(state2) {
   const l = ensure(state2);
   return Object.entries(l.keepsakes || {}).map(([id, v]) => ({ id, ...v }));
+}
+var PARTY_MAX = 2;
+var GIFT_PER_YEAR = 3;
+function personOf(state2, id) {
+  const l = ensure(state2);
+  if (!l.people[id]) {
+    l.people[id] = {
+      favor: 0,
+      gifts: 0,
+      giftYear: -1,
+      talkYear: -1,
+      joinYear: -1,
+      met: !!l.met[id],
+      lastLine: ""
+    };
+  }
+  return l.people[id];
+}
+function personDefOf(state2, id) {
+  const d = personDef(id);
+  if (d) return d;
+  const f = (initWorld(state2).folk || []).find((x) => x.id === id) || null;
+  return folkProfile(f);
+}
+var favorOf = (state2, id) => personOf(state2, id).favor;
+function favorNext(state2, id) {
+  const v = favorOf(state2, id);
+  return FAVOR_TIERS.find((t) => t.at > v) || null;
+}
+function addFavor(state2, id, n) {
+  const l = ensure(state2);
+  const p = personOf(state2, id);
+  const before = p.favor;
+  p.favor = Math.max(0, Math.min(100, before + n));
+  if (p.favor > 0) {
+    p.met = true;
+    l.met[id] = 1;
+  }
+  l.npc[id] = Math.floor(p.favor / 25);
+  return p.favor - before;
+}
+function personList(state2) {
+  const l = ensure(state2);
+  const ids = [...PEOPLE_ORDER];
+  for (const f of l.folk || []) if (!ids.includes(f.id)) ids.push(f.id);
+  return ids.map((id) => {
+    const d = personDefOf(state2, id);
+    const p = personOf(state2, id);
+    const defOf = (k) => MIND_BY_ID[k] || {};
+    const active = (l.mind || []).filter((m) => defOf(m.id).npc === id);
+    const done = Object.keys(l.mindDone || {}).filter((k) => defOf(k).npc === id);
+    const lost = Object.keys(l.mindLost || {}).filter((k) => defOf(k).npc === id);
+    const keeps = Object.values(l.keepsakes || {}).filter((k) => k.from === d.name);
+    const seen = !!(p.met || l.met[id] || active.length || done.length);
+    const met = !!personDef(id) || seen;
+    return {
+      id,
+      name: d.name,
+      title: d.title,
+      role: d.role,
+      scene: d.scene,
+      art: d.art,
+      intro: d.intro,
+      def: d,
+      favor: p.favor,
+      tier: favorTier(p.favor),
+      met,
+      seen,
+      gone: isGone(l, id),
+      inParty: l.party.ids.includes(id),
+      active,
+      ready: active.some((m) => mindReady(state2, m)),
+      done,
+      lost,
+      keeps
+    };
+  });
+}
+function lineIndex(favor) {
+  let i = 0;
+  FAVOR_TIERS.forEach((t, n) => {
+    if (favor >= t.at) i = n;
+  });
+  return i;
+}
+function talkTo(state2, id) {
+  const l = ensure(state2);
+  const p = personOf(state2, id);
+  const d = personDefOf(state2, id);
+  if (isGone(l, id)) return { ok: false, text: "\u4ED6\u4EBA\u5DF2\u4E0D\u5728\u5C71\u4E0A\u3002" };
+  if (p.talkYear === l.year) return { ok: false, text: "\u4ECA\u5929\u8BE5\u8BF4\u7684\u90FD\u8BF4\u8FC7\u4E86\u3002" };
+  p.talkYear = l.year;
+  p.met = true;
+  l.met[id] = 1;
+  const text = (d.lines || {})[lineIndex(p.favor)] || "\u4ED6\u8BF4\u4E86\u53E5\u4EC0\u4E48\uFF0C\u98CE\u628A\u5B83\u5439\u6563\u4E86\u3002";
+  const got = addFavor(state2, id, 2);
+  log(state2, "bond", `\u4F60\u548C${d.name}\u8BF4\u4E86\u4F1A\u513F\u8BDD\u3002`, id);
+  return { ok: true, text, delta: got, favor: p.favor };
+}
+function giveGift(state2, id, item) {
+  const l = ensure(state2);
+  const p = personOf(state2, id);
+  const d = personDefOf(state2, id);
+  if (isGone(l, id)) return { ok: false, text: "\u4ED6\u4EBA\u5DF2\u4E0D\u5728\u5C71\u4E0A\u3002" };
+  if (!hasItem(state2, item, 1)) return { ok: false, text: "\u4F60\u624B\u4E0A\u6CA1\u6709\u8FD9\u4E2A\u3002" };
+  if (p.giftYear !== l.year) {
+    p.giftYear = l.year;
+    p.gifts = 0;
+  }
+  if (p.gifts >= GIFT_PER_YEAR) return { ok: false, text: "\u4ED6\u4ECA\u5929\u5DF2\u7ECF\u6536\u4E86\u4E09\u56DE\uFF0C\u6446\u624B\u8BF4\u591F\u4E86\u3002" };
+  takeItem(state2, item, 1);
+  const liked = (d.like || []).includes(item);
+  const hated = (d.hate || []).includes(item);
+  const delta = liked ? 6 : hated ? -5 : 1;
+  const before = p.favor;
+  addFavor(state2, id, delta);
+  p.gifts += 1;
+  p.met = true;
+  l.met[id] = 1;
+  const text = (d.gift || {})[liked ? "like" : hated ? "hate" : "ok"] || "\u4ED6\u6536\u4E0B\u4E86\u3002";
+  const itemName = (ITEMS[item] || {}).name || item;
+  log(state2, "bond", `\u4F60\u9001\u4E86${d.name}\u4E00\u4EF6${itemName}\u3002${text}`, id);
+  let back = "";
+  if (before < 60 && p.favor >= 60 && !p.backGiven) {
+    p.backGiven = true;
+    const pick4 = (d.like || ["herb"])[0] || "herb";
+    addItem(state2, pick4, 1);
+    back = `\u4ED6\u6123\u4E86\u4E00\u4E0B\uFF0C\u56DE\u4E86\u4F60\u4E00\u4EF6${(ITEMS[pick4] || {}).name || pick4}\u3002`;
+    log(state2, "deed", `${d.name}\u56DE\u8D60\u4E86\u4E00\u4EF6\u4E1C\u897F\u3002`, id);
+  }
+  return { ok: true, text, back, delta, favor: p.favor, tier: favorTier(p.favor).name };
+}
+function partyOf(state2) {
+  const l = ensure(state2);
+  return l.party.ids.filter((id) => !isGone(l, id));
+}
+function inviteCompanion(state2, id) {
+  const l = ensure(state2);
+  const d = personDefOf(state2, id);
+  if (isGone(l, id)) return { ok: false, text: "\u4ED6\u4EBA\u5DF2\u4E0D\u5728\u5C71\u4E0A\u3002" };
+  if (l.party.ids.includes(id)) return { ok: false, text: "\u4ED6\u5DF2\u7ECF\u548C\u4F60\u540C\u884C\u4E86\u3002" };
+  if (l.party.ids.length >= PARTY_MAX) return { ok: false, text: "\u4E00\u8D9F\u6700\u591A\u5E26\u4E24\u4E2A\u4EBA\uFF0C\u591A\u4E86\u53CD\u5012\u8D70\u4E0D\u5FEB\u3002" };
+  const need = (d.invite || {}).need || 35;
+  if (favorOf(state2, id) < need) {
+    return { ok: false, text: (d.invite || {}).refuse || "\u4ED6\u6447\u5934\uFF1A\u300C\u8FD8\u4E0D\u719F\u3002\u300D" };
+  }
+  l.party.ids.push(id);
+  if (l.party.since === null || l.party.since === void 0) l.party.since = l.year;
+  log(state2, "bond", `${d.name}\u7B54\u5E94\u4E0E\u4F60\u540C\u884C\u3002`, id);
+  return { ok: true, text: (d.invite || {}).accept || "\u300C\u597D\uFF0C\u8D70\u4E00\u8D9F\u3002\u300D", name: d.name };
+}
+function leaveParty(state2, id) {
+  const l = ensure(state2);
+  const d = personDefOf(state2, id);
+  l.party.ids = l.party.ids.filter((x) => x !== id);
+  if (!l.party.ids.length) l.party.since = null;
+  log(state2, "bond", `${d.name}\u5148\u56DE\u53BB\u4E86\u3002`, id);
+  return { ok: true, text: `${d.name}\u5148\u56DE\u53BB\u4E86\u3002\u8DEF\u4E0A\u5C0F\u5FC3\u3002` };
+}
+function partyTick(state2) {
+  const l = ensure(state2);
+  const ids = partyOf(state2);
+  for (const id of ids) addFavor(state2, id, 1);
+  if (ids.length && l.year % 5 === 0) {
+    const names = ids.map((id) => personDefOf(state2, id).name).join("\u3001");
+    log(state2, "bond", `\u8FD9\u4E00\u5E74\uFF0C${names}\u548C\u4F60\u8D70\u5728\u4E00\u5904\u3002`, null);
+  }
+  return ids;
+}
+function doTogether(state2, id) {
+  const l = ensure(state2);
+  const p = personOf(state2, id);
+  const d = personDefOf(state2, id);
+  if (isGone(l, id)) return { ok: false, text: "\u4ED6\u4EBA\u5DF2\u4E0D\u5728\u5C71\u4E0A\u3002" };
+  const m = (l.mind || []).find((x) => (MIND_BY_ID[x.id] || {}).npc === id);
+  if (!m) return { ok: false, text: `${d.name}\u8FD9\u4F1A\u513F\u6CA1\u6709\u6258\u4F60\u4EC0\u4E48\u4E8B\u3002` };
+  if (p.joinYear === l.year) return { ok: false, text: "\u4ECA\u5E74\u5DF2\u7ECF\u540C\u4ED6\u8D70\u8FC7\u4E00\u8D9F\u4E86\u3002" };
+  p.joinYear = l.year;
+  const def = MIND_BY_ID[m.id];
+  for (const need of def.need || []) mindDo(state2, need.key, 1);
+  addFavor(state2, id, 6);
+  log(state2, "bond", `\u4F60\u540C${d.name}\u4E00\u9053\u53BB\u529E\u300C${def.title}\u300D\u3002${d.join || ""}`, id);
+  return {
+    ok: true,
+    text: d.join || `${d.name}\u8DDF\u4F60\u8D70\u4E86\u4E00\u8D9F\u3002`,
+    mindTitle: def.title,
+    ready: mindReady(state2, m),
+    favor: p.favor
+  };
 }
 var YEAR_POOL = [
   {
@@ -9446,6 +10067,7 @@ function syncHud() {
     mindBtn.title = ms.length ? readyN ? `${readyN} \u4EF6\u53EF\u4EE5\u53BB\u4EA4\u5DEE` : `\u5FC3\u4E0A\u6302\u7740 ${ms.length} \u4EF6\u4E8B` : "\u6682\u65F6\u6CA1\u6709\u5FC3\u4E8B";
   }
   updateDock();
+  renderPeopleRail();
 }
 var DOCK_ITEMS = [
   { key: "gate", name: "\u6D4B\u7075\u6839" },
@@ -9962,6 +10584,7 @@ function openPanel(id, arg) {
     world: typeof panelWorld === "function" ? panelWorld : null,
     folk: typeof panelFolk === "function" ? panelFolk : null,
     mind: typeof panelMind === "function" ? panelMind : null,
+    person: typeof panelPerson === "function" ? panelPerson : null,
     jiazi: typeof panelJiazi === "function" ? panelJiazi : null,
     breakthrough: typeof panelBreakthrough === "function" ? panelBreakthrough : null,
     mount: typeof panelMount === "function" ? panelMount : null,
@@ -9978,7 +10601,7 @@ function openPanel(id, arg) {
   }
   const html = fn(arg);
   lastPanel = { id, arg };
-  const wide = ["realm", "tribulation", "bio", "seclude", "craft", "world", "folk", "mind", "jiazi", "breakthrough", "mount", "archive", "sect", "cave", "codex"].includes(id);
+  const wide = ["realm", "tribulation", "bio", "seclude", "craft", "world", "folk", "mind", "person", "jiazi", "breakthrough", "mount", "archive", "sect", "cave", "codex"].includes(id);
   panelRoot.innerHTML = `<div class="panel ${wide ? "wide" : ""}">${html}</div>`;
   panelRoot.classList.add("open");
   document.addEventListener("keydown", onEsc);
@@ -10084,6 +10707,7 @@ function bindPanel(id, arg) {
   if (id === "world") bindWorld();
   if (id === "folk") bindFolk();
   if (id === "mind") bindMind();
+  if (id === "person") bindPerson(arg);
   if (id === "codex") bindCodex();
   if (id === "jiazi") bindJiazi();
   if (id === "breakthrough") bindBreakthrough();
@@ -12383,6 +13007,7 @@ function mindCardHtml(m) {
     <span style="opacity:.42">\u53BB\u54EA\u513F\uFF1A${def.hint}</span>
   </div><div>
     ${ready ? `<button class="btn gold" data-mind-done="${m.id}">\u53BB\u4E86\u7ED3</button>` : ""}
+    ${def.npc ? `<button class="btn ghost" data-person-jump="${def.npc}">\u770B\u770B\u8FD9\u4EBA</button>` : ""}
     <button class="btn ghost" data-mind-drop="${m.id}">\u653E\u4E0B</button>
   </div></div>`;
 }
@@ -12402,6 +13027,8 @@ function panelMind() {
   const lostTitles = titles(l.mindLost);
   const doneRow = doneTitles.length ? `<div class="panel-text" style="opacity:.5">\u4E86\u7ED3\u8FC7\u7684\uFF1A${doneTitles.join("\u3001")}</div>` : "";
   const lostRow = lostTitles.length ? `<div class="panel-text" style="opacity:.36">\u6CA1\u80FD\u4E86\u7ED3\u7684\uFF1A${lostTitles.slice(-8).join("\u3001")}</div>` : "";
+  const partyIds = partyOf(state);
+  const partyRow = partyIds.length ? `<div class="panel-text" style="opacity:.7">\u540C\u884C\uFF1A${partyIds.map((id) => personDefOf(state, id).name).join("\u3001")}\u3000<span style="opacity:.6">\uFF08\u505A\u5F97\u591A\u4E00\u4EF6\uFF0C\u6597\u5F97\u5C11\u6298\u5BFF\uFF09</span></div>` : "";
   const keeps = keepsakeList(state);
   const keepsRow = keeps.length ? `<div class="panel-text" style="opacity:.72">\u8FD9\u4E00\u4E16\u6512\u4E0B\u7684\u4E1C\u897F\uFF1A${keeps.map((k) => `<br><b style="color:#f2dfb2;font-weight:400">${k.name}</b> \xB7 ${k.desc}<span style="opacity:.5">\uFF08${k.from} \xB7 ${k.year} \u5C81\uFF09</span>`).join("")}</div>` : "";
   const head = `<div class="panel-title">\u5FC3\u4E8B<span>\u7B54\u5E94\u8FC7\u7684\u4EBA\uFF0C\u548C\u7B54\u5E94\u8FC7\u81EA\u5DF1\u7684\u4E8B</span></div>
@@ -12410,13 +13037,187 @@ function panelMind() {
     ${metRow}
     ${doneRow}
     ${lostRow}
+    ${partyRow}
     ${keepsRow}`;
   return `${head}
     ${body}
     <div class="panel-text" style="opacity:.42">\u91C7\u8FC7\u7684\u836F\u3001\u70BC\u8FC7\u7684\u4E39\u3001\u53BB\u8FC7\u7684\u5C71\u5934\uFF0C\u90FD\u8BB0\u5728\u8FD9\u4E9B\u4E8B\u4E0A\u3002\u671F\u9650\u4E00\u8FC7\uFF0C\u5C31\u53D8\u6210"\u6CA1\u505A\u6210\u7684\u4E8B"\u3002</div>
     <button class="btn ghost" id="mind-close2" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
 }
+var PERSON_VIEW = null;
+var PERSON_GIFT_OPEN = false;
+function personSortKey(p) {
+  if (p.gone) return 90;
+  if (p.ready) return 0;
+  if (p.active.length) return 1;
+  if (p.inParty) return 2;
+  if (p.favor >= 35) return 3;
+  if (p.met) return 4;
+  return 5;
+}
+function renderPeopleRail() {
+  const box = document.getElementById("people-list");
+  if (!box) return;
+  const people = personList(state).slice().sort((a, b) => personSortKey(a) - personSortKey(b) || b.favor - a.favor);
+  const party = partyOf(state);
+  const ph = document.getElementById("pr-party");
+  if (ph) ph.textContent = party.length ? `\u540C\u884C ${party.length}/${PARTY_MAX}` : "\u5C1A\u65E0\u540C\u884C";
+  box.innerHTML = people.map((p) => {
+    const badge = p.gone ? '<span class="pr-badge gray">\u8D70</span>' : p.ready ? '<span class="pr-badge">\uFF01</span>' : p.active.length ? `<span class="pr-badge">\u4E8B${p.active.length}</span>` : p.inParty ? '<span class="pr-badge">\u961F</span>' : "";
+    const face = p.art ? `<img class="pr-face" src="./assets/npc/${p.art}" alt="">` : `<div class="pr-face noart">${p.met ? p.name.slice(0, 1) : "\uFF1F"}</div>`;
+    const cls = [
+      "pr-item",
+      p.gone ? "gone" : !p.seen ? "dim" : "",
+      p.ready || p.active.length ? "hot" : ""
+    ].filter(Boolean).join(" ");
+    const sub = p.gone ? "\u5DF2\u4E0D\u5728\u5C71\u4E0A" : p.seen ? `${p.tier.name} \xB7 ${p.title}` : "\u8FD8\u6CA1\u6253\u8FC7\u7167\u9762 \xB7 \u70B9\u5F00\u770B\u770B";
+    return `<div class="${cls}" data-person="${p.id}">${face}
+      <div class="pr-txt"><div class="pr-name">${p.met ? p.name : "\uFF1F\uFF1F\uFF1F"}</div>
+      <div class="pr-sub">${sub}</div></div>${badge}</div>`;
+  }).join("");
+  box.querySelectorAll("img.pr-face").forEach((img) => {
+    img.addEventListener("error", () => {
+      const one = img.parentElement?.querySelector(".pr-name")?.textContent?.slice(0, 1) || "\uFF1F";
+      const div = document.createElement("div");
+      div.className = "pr-face noart";
+      div.textContent = one;
+      img.replaceWith(div);
+    });
+  });
+  box.querySelectorAll("[data-person]").forEach((el) => {
+    el.addEventListener("click", () => {
+      PERSON_VIEW = null;
+      PERSON_GIFT_OPEN = false;
+      openPanel("person", el.dataset.person);
+    });
+  });
+}
+document.getElementById("people-toggle")?.addEventListener("click", () => {
+  const closed = document.body.classList.toggle("rail-closed");
+  const t = document.getElementById("people-toggle");
+  if (t) t.textContent = closed ? "\u4EBA\u7269 \u203A" : "\u4EBA\u7269 \u2039";
+});
+function personItemNames(ids) {
+  return ids.map((k) => (mindDef(k) || {}).title).filter(Boolean).join("\u3001") || "\u6CA1\u6709";
+}
+function panelPerson(id) {
+  const p = personList(state).find((x) => x.id === id);
+  if (!p) return '<div class="panel-text">\u67E5\u65E0\u6B64\u4EBA\u3002</div>';
+  const d = p.def;
+  const l = ensure(state);
+  const next = favorNext(state, id);
+  const tiers = FAVOR_TIERS;
+  const bio = (d.bio || []).map((b) => {
+    const t = tiers.find((x) => x.at === b.at);
+    return `<p class="${p.favor >= b.at ? "" : "locked"}">${p.favor >= b.at ? b.text : `\uFF08\u4EB2\u758F\u5230\u4E86\u300C${t ? t.name : "\u66F4\u8FD1\u4E00\u4E9B"}\u300D\uFF0C\u4ED6\u624D\u4F1A\u8BF4\u8D77\u8FD9\u4E00\u6BB5\uFF09`}</p>`;
+  }).join("");
+  const tags = (d.traits || []).map((t) => `<span>${t}</span>`).join("");
+  const art = d.art ? `<img class="pp-art" src="./assets/npc/${d.art}" alt="">` : `<div class="pp-art noart">${p.name.slice(0, 1)}</div>`;
+  const tierNote = p.gone ? "\u4ED6\u5DF2\u4E0D\u5728\u5C71\u4E0A" : next ? `\u79BB\u300C${next.name}\u300D\u8FD8\u5DEE ${next.at - p.favor} \u5206` : "\u5DF2\u7ECF\u4E0D\u5FC5\u518D\u8FD1\u4E86";
+  const itemName = (k) => (ITEMS[k] || {}).name || k;
+  const minds = p.active.map((m) => {
+    const def = mindDef(m.id);
+    return `<div class="pp-mind">\xB7 <b>${def ? def.title : ""}</b>\u3000${mindReady(state, m) ? "\u53EF\u4EE5\u53BB\u4EA4\u5DEE\u4E86" : `\u8FD8\u5269 ${mindLeft(state, m)} \u5E74`}</div>`;
+  }).join("");
+  const keeps = p.keeps.map((k) => `<b>${k.name}</b> \xB7 ${k.desc}`).join("<br>");
+  let acts = "";
+  if (!p.gone) {
+    const btns = [
+      '<button class="btn ghost" data-act="talk">\u8BF4\u8BF4\u8BDD</button>',
+      `<button class="btn ${PERSON_GIFT_OPEN ? "gold" : "ghost"}" data-act="gift">\u8D60\u793C</button>`,
+      p.inParty ? '<button class="btn ghost" data-act="leave">\u8BF7\u4ED6\u5148\u56DE</button>' : '<button class="btn ghost" data-act="invite">\u9080\u4ED6\u540C\u884C</button>'
+    ];
+    if (p.active.length) btns.push('<button class="btn ghost" data-act="together">\u4E00\u8D77\u53BB\u529E</button>');
+    btns.push('<button class="btn ghost" data-act="goto">\u53BB\u770B\u770B</button>');
+    acts = `<div class="pp-acts">${btns.join("")}</div>`;
+  }
+  const po = personOf(state, id);
+  const giftLeft = Math.max(0, GIFT_PER_YEAR - (po.giftYear === l.year ? po.gifts : 0));
+  const giftItems = BAG_ORDER.filter((k) => (l.bag[k] || 0) > 0);
+  const gifts = PERSON_GIFT_OPEN ? `<div class="pp-sec"><h4>\u9001\u4ED6\u4E00\u4EF6\uFF08\u4ECA\u5E74\u8FD8\u80FD\u9001 ${giftLeft} \u56DE\uFF09</h4>
+        <div class="pp-gifts">${giftItems.length ? giftItems.map((k) => `<button class="pp-gift" data-gift="${k}"><b>${itemName(k)}</b>\xD7${l.bag[k]}</button>`).join("") : '<span style="opacity:.5">\u4F60\u624B\u4E0A\u7A7A\u7A7A\u7684\u3002</span>'}</div>
+        <div class="panel-text" style="opacity:.5;font-size:11.5px">\u4ED6\u559C\u6B22\uFF1A${(d.like || []).map(itemName).join("\u3001") || "\u8BF4\u4E0D\u51C6"}\u3000\xB7\u3000\u4E0D\u6536\uFF1A${(d.hate || []).map(itemName).join("\u3001") || "\u6CA1\u542C\u8BF4"}</div>
+      </div>` : "";
+  const view = PERSON_VIEW ? `<div class="pp-line">${PERSON_VIEW}</div>` : "";
+  return `
+    <div class="pp-head">${art}<div style="flex:1;min-width:0">
+      <div class="pp-title">${p.met ? p.name : "\uFF1F\uFF1F\uFF1F"}</div>
+      <div class="pp-role">${p.met ? `${d.title} \xB7 ${d.role}` : "\u8FD8\u6CA1\u6253\u8FC7\u7167\u9762"}</div>
+      <div class="pp-intro">${p.met ? d.intro : "\u5C71\u91CC\u4EBA\u4E0D\u5C11\u3002\u6709\u4E9B\u8981\u8D70\u8FD1\u4E86\uFF0C\u624D\u77E5\u9053\u59D3\u540D\u3002"}</div>
+      <div class="pp-tags">${tags}</div>
+      <div class="pp-bar"><span style="font-size:11.5px;letter-spacing:.1em;color:#e8c98a">${p.tier.name} \xB7 ${p.tier.note}</span>
+        <i><b style="width:${Math.min(100, p.favor)}%"></b></i>
+        <small>\u4EB2\u758F ${p.favor}/100\u3000${tierNote}\u3000${p.inParty ? "\xB7 \u540C\u884C\u4E2D" : ""}</small></div>
+    </div></div>
+    ${view}
+    <div class="pp-sec pp-bio"><h4>\u5C0F\u4F20</h4>${bio}</div>
+    <div class="pp-sec"><h4>\u4E0E\u4F60\u7684\u7275\u626F</h4>
+      ${minds || '<div class="pp-mind" style="opacity:.5">\u8FD9\u4F1A\u513F\u6CA1\u6258\u4F60\u4EC0\u4E48\u4E8B\u3002</div>'}
+      <div class="pp-mind" style="margin-top:6px;opacity:.68">\u4E86\u7ED3\u8FC7\uFF1A${personItemNames(p.done)}</div>
+      <div class="pp-mind" style="opacity:.5">\u6CA1\u80FD\u4E86\u7ED3\uFF1A${personItemNames(p.lost)}</div>
+      ${keeps ? `<div class="pp-mind" style="margin-top:6px">\u4ECE\u4ED6\u90A3\u513F\u5F97\u6765\u7684\uFF1A${keeps}</div>` : ""}
+    </div>
+    ${gifts}
+    ${acts}
+    <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
+}
+function bindPerson(id) {
+  const artEl = panelRoot.querySelector("img.pp-art");
+  if (artEl) {
+    artEl.addEventListener("error", () => {
+      const div = document.createElement("div");
+      div.className = "pp-art noart";
+      div.textContent = "\uFF1F";
+      artEl.replaceWith(div);
+    });
+  }
+  panelRoot.querySelectorAll("[data-act]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const a = b.dataset.act;
+      if (a === "gift") {
+        PERSON_GIFT_OPEN = !PERSON_GIFT_OPEN;
+        PERSON_VIEW = null;
+        openPanel("person", id);
+        return;
+      }
+      if (a === "goto") {
+        const p = personList(state).find((x) => x.id === id);
+        closePanel();
+        if (p && SCENES[p.scene]) renderScene(p.scene);
+        return;
+      }
+      let r = null;
+      if (a === "talk") r = talkTo(state, id);
+      else if (a === "invite") r = inviteCompanion(state, id);
+      else if (a === "leave") r = leaveParty(state, id);
+      else if (a === "together") r = doTogether(state, id);
+      if (!r) return;
+      PERSON_VIEW = `${r.text}${r.delta ? `\u3000<span style="opacity:.55">\u4EB2\u758F ${r.delta > 0 ? "+" : ""}${r.delta}</span>` : ""}${r.back ? `<br>${r.back}` : ""}`;
+      if (r.ok && a === "invite") sfx("good", true);
+      toast(r.ok ? a === "invite" ? `${r.name || "\u4ED6"}\u4E0E\u4F60\u540C\u884C` : a === "together" ? `\u540C\u4ED6\u8D70\u4E86\u4E00\u8D9F\uFF1A${r.mindTitle || ""}` : r.text.slice(0, 22) : r.text);
+      save();
+      syncHud();
+      openPanel("person", id);
+    });
+  });
+  panelRoot.querySelectorAll("[data-gift]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const r = giveGift(state, id, b.dataset.gift);
+      PERSON_VIEW = `${r.text}${r.delta ? `\u3000<span style="opacity:.55">\u4EB2\u758F ${r.delta > 0 ? "+" : ""}${r.delta}</span>` : ""}${r.back ? `<br>${r.back}` : ""}`;
+      if (r.ok) sfx("good", true);
+      toast(r.ok ? r.delta > 0 ? `\u4ED6\u6536\u4E0B\u4E86 \xB7 \u4EB2\u758F +${r.delta}` : "\u4ED6\u6536\u4E0B\u4E86" : r.text);
+      save();
+      syncHud();
+      openPanel("person", id);
+    });
+  });
+}
 function bindMind() {
+  panelRoot.querySelectorAll("[data-person-jump]").forEach((b) => b.addEventListener("click", () => {
+    PERSON_VIEW = null;
+    PERSON_GIFT_OPEN = false;
+    openPanel("person", b.dataset.personJump);
+  }));
   panelRoot.querySelectorAll("[data-mind-done]").forEach((b) => b.addEventListener("click", () => {
     const r = mindFinish(state, b.dataset.mindDone);
     MIND_VIEW = r.ok ? `${r.text}${r.merit ? `\uFF08\u9053\u884C +${r.merit}\uFF09` : ""}${r.keepsake ? `<br>\u4F60\u6536\u4E0B\u4E86 <b>${r.keepsake}</b>\u3002` : ""}${r.next ? `<br>\u5FC3\u4E0A\u53C8\u591A\u4E86\u4E00\u4EF6\u4E8B\uFF1A${r.next}\u3002` : ""}` : r.why;
