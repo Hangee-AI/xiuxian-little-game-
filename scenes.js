@@ -1242,6 +1242,1403 @@ function folkProfile(f) {
   };
 }
 
+// src/data_dan.js
+var DAN_MATERIALS = [
+  {
+    id: "m_yuncao",
+    name: "\u4E91\u96FE\u8349",
+    tag: "\u836F",
+    from: ["forest"],
+    w: 5,
+    text: "\u53EA\u957F\u5728\u8FF7\u96FE\u68EE\u6797\u80CC\u9634\u7684\u6E7F\u77F3\u4E0A\u3002\u96FE\u6563\u4E4B\u524D\u91C7\uFF0C\u592A\u9633\u4E00\u7167\u5C31\u5316\u6C34\u3002"
+  },
+  {
+    id: "m_zhusha",
+    name: "\u6731\u7802",
+    tag: "\u77FF",
+    from: ["alchemy"],
+    w: 5,
+    text: "\u4E39\u623F\u5E93\u623F\u91CC\u6210\u888B\u7684\u6731\u7802\uFF0C\u9648\u6267\u4E8B\u6309\u94B1\u79F0\uFF0C\u4E00\u94B1\u4E5F\u4E0D\u591A\u7ED9\u3002"
+  },
+  {
+    id: "m_chenhui",
+    name: "\u9648\u7089\u7070",
+    tag: "\u5F02",
+    from: ["alchemy"],
+    w: 4,
+    text: "\u4E39\u623F\u90A3\u53E3\u8001\u7089\u4E00\u5E74\u79EF\u4E00\u5C42\u7070\u3002\u522B\u5904\u7684\u7070\u4E0D\u7BA1\u7528\uFF0C\u626B\u5730\u7684\u90FD\u77E5\u9053\u3002"
+  },
+  {
+    id: "m_tongyou",
+    name: "\u8001\u7089\u94DC\u6CB9",
+    tag: "\u706B",
+    from: ["alchemy"],
+    w: 4,
+    text: "\u4ECE\u4E39\u623F\u8001\u7089\u5E95\u522E\u4E0B\u6765\u7684\u94DC\u6CB9\u3002\u706B\u4E00\u65FA\uFF0C\u5B83\u5C31\u53D1\u7EFF\u3002"
+  },
+  {
+    id: "m_huiye",
+    name: "\u9636\u524D\u7070\u53F6",
+    tag: "\u836F",
+    from: ["gate", "map"],
+    w: 4,
+    text: "\u5C71\u95E8\u77F3\u9636\u7F1D\u91CC\u7684\u7070\u53F6\uFF0C\u88AB\u4EBA\u8E29\u4E86\u51E0\u767E\u5E74\uFF0C\u8FD8\u662F\u5E74\u5E74\u957F\u3002"
+  },
+  {
+    id: "m_xueshen",
+    name: "\u8840\u53C2",
+    tag: "\u836F",
+    from: ["forest"],
+    w: 3,
+    text: "\u53EA\u957F\u5728\u8FF7\u96FE\u68EE\u6797\u7684\u70C2\u6728\u5806\u5E95\u4E0B\uFF0C\u6316\u51FA\u6765\u7684\u65F6\u5019\u8FD8\u5728\u52A8\u3002\u5C0F\u6EE1\u8BF4\uFF0C\u8FD9\u4E1C\u897F\u542C\u8FC7\u4EBA\u8BB2\u8BDD\uFF0C\u5C31\u957F\u6210\u4EBA\u5F62\u4E86\u3002"
+  },
+  {
+    id: "m_han_sui",
+    name: "\u5BD2\u9AD3",
+    tag: "\u77FF",
+    from: ["forest", "realm"],
+    w: 3,
+    text: "\u68EE\u6797\u6DF1\u5904\u77F3\u4E73\u6EF4\u6210\u7684\u767D\u5757\uFF0C\u63E1\u4E45\u4E86\u624B\u4F1A\u9EBB\u3002\u79D8\u5883\u91CC\u7684\u6BD4\u6797\u5B50\u91CC\u7684\u51C9\u3002"
+  },
+  {
+    id: "m_yu_lu",
+    name: "\u7389\u9732",
+    tag: "\u5F02",
+    from: ["plaza", "library"],
+    w: 3,
+    text: "\u5E7F\u573A\u6D4B\u7075\u77F3\u591C\u91CC\u7ED3\u7684\u4E00\u5C42\u9732\u3002\u5B88\u591C\u5F1F\u5B50\u522E\u4E0B\u6765\uFF0C\u4E00\u534A\u81EA\u7528\uFF0C\u4E00\u534A\u6362\u7EB8\u3002"
+  },
+  {
+    id: "m_hu_gu",
+    name: "\u5C71\u6DA7\u864E\u9AA8",
+    tag: "\u517D",
+    from: ["forest", "realm"],
+    w: 2,
+    text: "\u6797\u5B50\u91CC\u7684\u8001\u864E\u4E0D\u591A\u4E86\u3002\u9AA8\u5934\u57CB\u5728\u6DA7\u8FB9\uFF0C\u7B49\u4E00\u573A\u5927\u96E8\u51B2\u51FA\u6765\u3002"
+  },
+  {
+    id: "m_jian_tai",
+    name: "\u5251\u82D4",
+    tag: "\u5F02",
+    from: ["sword"],
+    w: 2,
+    text: "\u53EA\u8D34\u5728\u5251\u51A2\u90A3\u4E09\u67C4\u5251\u7684\u77F3\u7F1D\u4E0A\uFF0C\u4E00\u8EAB\u94C1\u9508\u5473\u3002\u79FB\u51FA\u6765\u6D3B\u4E0D\u8FC7\u4E09\u5929\u3002"
+  },
+  {
+    id: "m_ming_sha",
+    name: "\u51A5\u7802",
+    tag: "\u77FF",
+    from: ["realm"],
+    w: 2,
+    text: "\u540E\u5C71\u79D8\u5883\u91CC\u4ECE\u77F3\u5934\u91CC\u6E17\u51FA\u6765\u7684\u9ED1\u7802\uFF0C\u6367\u4E00\u628A\uFF0C\u624B\u5FC3\u4F1A\u53D1\u9EBB\u3002"
+  },
+  {
+    id: "m_lei_mu",
+    name: "\u96F7\u51FB\u6728",
+    tag: "\u706B",
+    from: ["tribulation"],
+    w: 1,
+    text: "\u6E21\u52AB\u53F0\u4E0A\u88AB\u96F7\u5288\u8FC7\u7684\u8001\u69D0\uFF0C\u53EA\u6361\u5F97\u5230\u6307\u5934\u5927\u7684\u4E00\u5757\u3002\u70E7\u8D77\u6765\u6CA1\u6709\u70DF\u3002"
+  }
+];
+var DAN_RECIPES = [
+  {
+    id: "r_huiqi",
+    path: "dan",
+    tier: 1,
+    name: "\u56DE\u6C14\u4E39",
+    need: { m_yuncao: 2 },
+    years: 1,
+    out: { id: "pill", n: 1, quality: "\u4E0B\u54C1" },
+    fail: 0.12,
+    known: { via: "teacher", key: "p_dan" },
+    text: "\u4E39\u623F\u5165\u95E8\u7684\u7B2C\u4E00\u7089\u3002\u5C0F\u6EE1\u8E72\u5728\u7089\u8FB9\u66FF\u4F60\u6570\u606F\uFF0C\u6570\u5230\u516D\u5341\uFF0C\u4E39\u5C31\u8BE5\u6210\u4E86\u3002",
+    okText: "\u4E39\u6210\uFF0C\u9752\u7070\u8272\u4E00\u9897\uFF0C\u634F\u7740\u8FD8\u662F\u6E29\u7684\u3002",
+    failText: "\u7089\u76D6\u5F39\u5F00\u3002\u9ED1\u6E23\u7C98\u5728\u7089\u5E95\uFF0C\u522E\u4E86\u534A\u65E5\u3002"
+  },
+  {
+    id: "r_ninglu",
+    path: "dan",
+    tier: 1,
+    name: "\u51DD\u9732\u4E39",
+    need: { m_yu_lu: 1, m_huiye: 1 },
+    years: 1,
+    out: { id: "pill", n: 1, quality: "\u4E0B\u54C1" },
+    fail: 0.15,
+    known: { via: "scroll", key: "k_dan_1" },
+    text: "\u85CF\u7ECF\u9601\u6B8B\u5377\u4E0A\u7684\u65B9\u5B50\u3002\u5934\u4E00\u884C\u5199\u7740\uFF1A\u9732\u6C34\u8981\u591C\u91CC\u522E\u7684\uFF0C\u767D\u5929\u7684\u4E0D\u7B97\u3002",
+    okText: "\u51DD\u9732\u4E39\u6210\u4E86\u4E00\u9897\uFF0C\u900F\u7740\u6C34\u5149\uFF0C\u50CF\u6CA1\u5E72\u900F\u3002",
+    failText: "\u9732\u6C34\u5148\u6CB8\u4E86\u3002\u7089\u91CC\u5269\u4E00\u80A1\u751C\u5473\uFF0C\u751C\u5F97\u53D1\u82E6\u3002"
+  },
+  {
+    id: "r_quhan",
+    path: "dan",
+    tier: 1,
+    name: "\u795B\u5BD2\u4E39",
+    need: { m_zhusha: 1, m_tongyou: 1 },
+    years: 2,
+    out: { id: "pill", n: 1, quality: "\u4E0B\u54C1" },
+    fail: 0.18,
+    known: { via: "teacher", key: "p_dan" },
+    text: "\u4E39\u623F\u5E93\u623F\u6700\u91CC\u5934\u7684\u6731\u7802\uFF0C\u914D\u8001\u7089\u5E95\u522E\u4E0B\u6765\u7684\u94DC\u6CB9\u3002\u5BD2\u75C7\u7684\u4EBA\u5403\u4E86\u4F1A\u51FA\u6C57\u3002",
+    okText: "\u4E39\u8272\u53D1\u8D64\u3002\u4F60\u628A\u5B83\u6401\u5728\u7A97\u53F0\u667E\uFF0C\u662F\u8C01\u7684\u5BD2\u75C7\uFF0C\u4F60\u6CA1\u95EE\u3002",
+    failText: "\u94DC\u6CB9\u8D77\u4E86\u7EFF\u706B\u3002\u9648\u6267\u4E8B\u5728\u95E8\u5916\u8BF4\uFF1A\u8FD9\u7089\uFF0C\u7B97\u4F60\u8D26\u4E0A\u3002"
+  },
+  {
+    id: "r_xisui",
+    path: "dan",
+    tier: 2,
+    name: "\u6D17\u9AD3\u4E39",
+    need: { m_xueshen: 2, m_han_sui: 1 },
+    years: 3,
+    out: { id: "pill", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.26,
+    known: { via: "scroll", key: "k_dan_1" },
+    text: "\u6B8B\u5377\u4E0A\u8BF4\uFF0C\u6D17\u9AD3\u4E0D\u662F\u6D17\uFF0C\u662F\u71AC\u3002\u8840\u53C2\u8981\u8FF7\u96FE\u68EE\u6797\u91CC\u73B0\u6316\u7684\u4E24\u682A\uFF0C\u5BD2\u9AD3\u53EA\u8981\u4E00\u6307\u5934\u5927\u3002",
+    okText: "\u4E39\u6210\uFF0C\u8272\u5982\u51BB\u4F4F\u7684\u58A8\u3002\u4F60\u5410\u51FA\u4E00\u53E3\u6C14\uFF0C\u662F\u51C9\u7684\u3002",
+    failText: "\u8840\u53C2\u5728\u7089\u91CC\u70B8\u5F00\uFF0C\u6E85\u4E86\u534A\u9762\u5899\u3002\u90A3\u5473\u9053\u4E09\u5929\u6CA1\u6563\u3002"
+  },
+  {
+    id: "r_pozhang",
+    path: "dan",
+    tier: 2,
+    name: "\u7834\u969C\u4E39",
+    need: { m_jian_tai: 1, m_ming_sha: 1 },
+    years: 3,
+    out: { id: "pill", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.3,
+    known: { via: "scroll", key: "k_dan_2" },
+    text: "\u5251\u51A2\u77F3\u7F1D\u4E0A\u7684\u82D4\uFF0C\u914D\u79D8\u5883\u91CC\u6E17\u51FA\u6765\u7684\u9ED1\u7802\u3002\u6B8B\u5377\u8BF4\uFF0C\u8FD9\u662F\u7ED9\u5361\u5728\u74F6\u9888\u4E0A\u7684\u4EBA\u7528\u7684\u3002",
+    okText: "\u4E39\u8EAB\u6709\u4E00\u9053\u7EC6\u7EB9\uFF0C\u50CF\u5251\u7559\u4E0B\u7684\u3002\u4F60\u628A\u5B83\u6536\u8FDB\u888B\u5B50\u6700\u91CC\u5C42\u3002",
+    failText: "\u9ED1\u7802\u6C89\u5E95\uFF0C\u5251\u82D4\u6D6E\u4E0A\u6765\u3002\u7089\u5B50\u5B89\u9759\u4E86\u4E00\u4E0B\uFF0C\u7136\u540E\u88C2\u4E86\u3002"
+  },
+  {
+    id: "r_guyuan",
+    path: "dan",
+    tier: 2,
+    name: "\u56FA\u5143\u4E39",
+    need: { m_yuncao: 2, m_chenhui: 2, m_zhusha: 1 },
+    years: 2,
+    out: { id: "pill", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.24,
+    known: { via: "teacher", key: "p_dan" },
+    text: "\u9648\u6267\u4E8B\u6559\u7684\u8001\u65B9\u5B50\u3002\u4E91\u96FE\u8349\u8981\u73B0\u91C7\uFF0C\u7089\u7070\u8981\u79EF\u6EE1\u4E00\u5E74\u2014\u2014\u4E39\u623F\u7684\u7070\uFF0C\u522B\u5904\u7684\u4E0D\u7B97\u3002",
+    okText: "\u56FA\u5143\u4E39\u4E5D\u9897\uFF0C\u6210\u8272\u4E00\u822C\uFF0C\u80DC\u5728\u7A33\u3002\u4F60\u7559\u4E86\u4E09\u9897\u3002",
+    failText: "\u7089\u7070\u592A\u591A\uFF0C\u706B\u95F7\u4F4F\u4E86\u3002\u5F00\u7089\u65F6\uFF0C\u91CC\u9762\u7ED3\u6210\u4E00\u6574\u5757\u3002"
+  },
+  {
+    id: "r_ranxue",
+    path: "dan",
+    tier: 2,
+    name: "\u71C3\u8840\u4E39",
+    need: { m_hu_gu: 1, m_xueshen: 1, m_zhusha: 1 },
+    years: 2,
+    out: { id: "pill", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.22,
+    known: { via: "teacher", key: "p_dan" },
+    text: "\u5C71\u6DA7\u51B2\u51FA\u6765\u7684\u864E\u9AA8\u71AC\u6CB9\uFF0C\u70B9\u6731\u7802\u3002\u8001\u5F1F\u5B50\u8BF4\uFF0C\u5403\u4E0B\u53BB\uFF0C\u4EBA\u6709\u534A\u70B7\u9999\u4E0D\u6015\u75BC\u3002",
+    okText: "\u4E39\u8272\u6697\u7EA2\u3002\u4F60\u538B\u5728\u820C\u5E95\u8BD5\u4E86\u8BD5\uFF0C\u82E6\u5473\u5148\u5230\uFF0C\u70ED\u6C14\u540E\u5230\u3002",
+    failText: "\u864E\u9AA8\u6CB9\u7206\u4E86\u3002\u7089\u5B50\u55E1\u55E1\u54CD\u4E86\u5F88\u4E45\uFF0C\u4F60\u7AD9\u7740\u6CA1\u6562\u52A8\u3002"
+  },
+  {
+    id: "r_xuming",
+    path: "dan",
+    tier: 3,
+    name: "\u7EED\u547D\u4E39",
+    need: { m_han_sui: 2, m_xueshen: 2, m_yu_lu: 1, m_lei_mu: 1 },
+    years: 5,
+    out: { id: "pill", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.4,
+    known: { via: "scroll", key: "k_dan_3" },
+    text: "\u6B8B\u5377\u6700\u540E\u4E00\u9875\uFF0C\u706B\u8981\u7528\u6E21\u52AB\u53F0\u7684\u96F7\u51FB\u6728\u3002\u522B\u7684\u6728\u5934\uFF0C\u70B9\u4E0D\u7740\u8FD9\u7089\u4E39\u3002",
+    okText: "\u4E39\u6210\u4E00\u9897\uFF0C\u767D\u5F97\u50CF\u9AA8\u5934\u3002\u4F60\u60F3\u8D77\u81EA\u5DF1\u8FD8\u6B20\u7740\u51E0\u5E74\uFF0C\u6CA1\u6562\u591A\u5403\u3002",
+    failText: "\u96F7\u51FB\u6728\u70E7\u5F97\u592A\u5FEB\uFF0C\u5BD2\u9AD3\u8FD8\u6CA1\u5316\u5F00\u3002\u7089\u5B50\u584C\u4E86\u534A\u8FB9\u3002"
+  },
+  {
+    id: "r_pojing",
+    path: "dan",
+    tier: 3,
+    name: "\u7834\u5883\u4E39",
+    need: { m_ming_sha: 2, m_jian_tai: 1, m_lei_mu: 1 },
+    years: 4,
+    out: { id: "pill", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.45,
+    known: { via: "scroll", key: "k_dan_3" },
+    text: "\u6B8B\u5377\u6CA1\u5199\u5242\u91CF\uFF0C\u53EA\u5199\u4E86\u4E00\u53E5\uFF1A\u5251\u51A2\u7684\u82D4\u8981\u8D81\u9732\u6C34\u672A\u5E72\uFF0C\u6E21\u52AB\u53F0\u7684\u96F7\u51FB\u6728\u8981\u9009\u6700\u9ED1\u7684\u90A3\u5757\u3002",
+    okText: "\u4E39\u6210\uFF0C\u7089\u91CC\u4E00\u58F0\u8F7B\u54CD\uFF0C\u50CF\u4EC0\u4E48\u4E1C\u897F\u65AD\u4E86\u3002\u4F60\u542C\u89C1\u81EA\u5DF1\u5FC3\u8DF3\u6162\u4E86\u4E00\u62CD\u3002",
+    failText: "\u9ED1\u7802\u5728\u96F7\u51FB\u6728\u7684\u706B\u91CC\u5316\u5F00\u53C8\u51DD\u4F4F\u3002\u70B8\u7089\u7684\u65F6\u5019\uFF0C\u4F60\u6CA1\u6709\u8EB2\u3002"
+  },
+  {
+    id: "r_yinlei",
+    path: "dan",
+    tier: 3,
+    name: "\u5F15\u96F7\u4E39",
+    need: { m_lei_mu: 2, m_tongyou: 1, m_zhusha: 1 },
+    years: 4,
+    out: { id: "pill", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.34,
+    known: { via: "teacher", key: "p_dan" },
+    text: "\u4E39\u5CF0\u957F\u8001\u6CA1\u6559\u8FC7\u8FD9\u4E2A\u3002\u662F\u9648\u6267\u4E8B\u559D\u591A\u4E86\u8BF4\u6F0F\u7684\uFF1A\u6E21\u52AB\u524D\u542B\u4E00\u9897\uFF0C\u96F7\u843D\u4E0B\u6765\u4F1A\u6162\u534A\u606F\u3002",
+    okText: "\u4E39\u91CC\u6709\u7EC6\u5C0F\u7684\u5149\uFF0C\u4E00\u660E\u4E00\u706D\u3002\u4F60\u542B\u5728\u820C\u4E0B\uFF0C\u6CA1\u541E\u3002",
+    failText: "\u706B\u592A\u70C8\uFF0C\u96F7\u51FB\u6728\u7684\u7070\u7CCA\u6B7B\u4E86\u7089\u53E3\u3002\u4F60\u542C\u89C1\u91CC\u9762\u5728\u54CD\uFF0C\u50CF\u8FDC\u8FDC\u6709\u96F7\u3002"
+  }
+];
+var DAN_MATERIAL_BY_ID = Object.fromEntries(DAN_MATERIALS.map((m) => [m.id, m]));
+var DAN_RECIPE_BY_ID = Object.fromEntries(DAN_RECIPES.map((r) => [r.id, r]));
+
+// src/data_runes.js
+var RUNE_MATERIALS = [
+  {
+    id: "m_fu_huangzhi",
+    name: "\u9EC4\u7EB8",
+    tag: "\u7B26",
+    from: ["library", "plaza"],
+    w: 4,
+    text: "\u88C1\u5F97\u6BD4\u624B\u638C\u5927\u4E00\u70B9\u3002\u85CF\u7ECF\u9601\u540E\u5899\u667E\u7740\u4E00\u6392\uFF0C\u53D7\u6F6E\u7684\u90A3\u51E0\u5F20\uFF0C\u8C01\u4E5F\u4E0D\u8981\u3002"
+  },
+  {
+    id: "m_fu_langhao",
+    name: "\u72FC\u6BEB",
+    tag: "\u517D",
+    from: ["forest", "map"],
+    w: 3,
+    text: "\u4ECE\u4E00\u53EA\u4E0D\u80AF\u8D70\u7684\u91CE\u517D\u8EAB\u4E0A\u53D6\u7684\u3002\u7B14\u5C16\u5230\u73B0\u5728\u8FD8\u5E26\u7740\u813E\u6C14\u3002"
+  },
+  {
+    id: "m_fu_yinzhu",
+    name: "\u94F6\u6731",
+    tag: "\u77FF",
+    from: ["alchemy", "map"],
+    w: 3,
+    text: "\u6BD4\u4E39\u623F\u7684\u6731\u7802\u66F4\u7EC6\uFF0C\u8C03\u8FDB\u8840\u91CC\u4F1A\u53D1\u9ED1\u3002\u753B\u9547\u7B26\u624D\u7528\u5F97\u8D77\u3002"
+  },
+  {
+    id: "m_fu_chenmo",
+    name: "\u9648\u58A8",
+    tag: "\u5F02",
+    from: ["library", "map"],
+    w: 2,
+    text: "\u4E09\u5341\u5E74\u524D\u7684\u58A8\uFF0C\u65E9\u5E72\u4E86\u3002\u5151\u4E00\u70B9\u6C34\uFF0C\u8FD8\u80FD\u5199\u4E09\u4E2A\u5B57\u3002"
+  },
+  {
+    id: "m_fu_shengxue",
+    name: "\u751F\u8840",
+    tag: "\u517D",
+    from: ["forest", "sword"],
+    w: 3,
+    text: "\u88C5\u5728\u7AF9\u7B52\u91CC\uFF0C\u6643\u4E00\u8DEF\u4E5F\u4E0D\u51DD\u3002\u7B26\u7B93\u9601\u7684\u4EBA\u7BA1\u5B83\u53EB\u300C\u5E95\u300D\u3002"
+  },
+  {
+    id: "m_fu_xianghui",
+    name: "\u9999\u7070",
+    tag: "\u5F02",
+    from: ["tribulation", "plaza"],
+    w: 1,
+    text: "\u6E21\u52AB\u53F0\u5E95\u4E0B\u626B\u51FA\u6765\u7684\u3002\u70E7\u8FC7\u7684\u4E1C\u897F\uFF0C\u8BA4\u5F97\u96F7\u3002"
+  }
+];
+var ARRAY_MATERIALS = [
+  {
+    id: "m_zhen_qingshi",
+    name: "\u9752\u77F3",
+    tag: "\u77FF",
+    from: ["forest", "map"],
+    w: 4,
+    text: "\u5C71\u91CC\u7684\u77F3\u5934\uFF0C\u6572\u5F00\u662F\u9752\u7684\u3002\u538B\u89D2\u7684\u4E1C\u897F\uFF0C\u8D8A\u65E7\u8D8A\u597D\u3002"
+  },
+  {
+    id: "m_zhen_cishi",
+    name: "\u78C1\u77F3",
+    tag: "\u77FF",
+    from: ["forest", "sword"],
+    w: 3,
+    text: "\u4E24\u5757\u653E\u5728\u4E00\u8D77\uFF0C\u4E00\u5757\u4F1A\u81EA\u5DF1\u7FFB\u8EAB\u3002"
+  },
+  {
+    id: "m_zhen_shougu",
+    name: "\u517D\u810A\u9AA8",
+    tag: "\u517D",
+    from: ["forest", "realm"],
+    w: 3,
+    text: "\u9AA8\u5934\u4E0A\u6709\u81EA\u5DF1\u957F\u51FA\u6765\u7684\u7EB9\uFF0C\u548C\u9635\u56FE\u5F88\u50CF\u3002"
+  },
+  {
+    id: "m_zhen_jiuluopan",
+    name: "\u65E7\u7F57\u76D8",
+    tag: "\u9635",
+    from: ["map", "library"],
+    w: 1,
+    text: "\u6307\u9488\u4E0D\u6307\u5317\uFF0C\u6307\u7740\u4E00\u4E2A\u8BF4\u4E0D\u6E05\u7684\u65B9\u5411\u3002\u8DDB\u5B50\u8BF4\uFF0C\u90A3\u4E2A\u65B9\u5411\u624D\u662F\u5317\u3002"
+  },
+  {
+    id: "m_zhen_tuoying",
+    name: "\u77F3\u58C1\u62D3\u5F71",
+    tag: "\u5F02",
+    from: ["realm", "sword"],
+    w: 2,
+    text: "\u4F60\u5728\u77F3\u58C1\u4E0A\u63CF\u4E0B\u6765\u7684\u4E00\u9053\u7EBF\u3002\u56DE\u623F\u6D17\u4E86\u4E09\u904D\u624B\uFF0C\u90A3\u9053\u7EBF\u8FD8\u5728\u3002"
+  },
+  {
+    id: "m_zhen_beihui",
+    name: "\u7891\u7070",
+    tag: "\u5F02",
+    from: ["sword", "tribulation"],
+    w: 1,
+    text: "\u5251\u7891\u5E95\u4E0B\u7684\u77F3\u7C89\u3002\u62D3\u8FC7\u7891\u7684\u4EBA\uFF0C\u624B\u4E0A\u90FD\u6709\u8FD9\u4E2A\u3002"
+  }
+];
+var RUNE_RECIPES = [
+  {
+    id: "r_fu_pingan",
+    path: "fu",
+    tier: 1,
+    name: "\u5E73\u5B89\u7B26",
+    need: { m_fu_huangzhi: 1, m_fu_yinzhu: 1 },
+    years: 1,
+    out: { id: "charm", n: 1, quality: "\u4E0B\u54C1" },
+    fail: 0.1,
+    known: { via: "teacher", key: "p_fu" },
+    text: "\u7B2C\u4E00\u5F20\u7B26\u3002\u7B14\u8981\u4E00\u53E3\u6C14\u8D70\u5B8C\uFF0C\u65AD\u4E86\u5C31\u5E9F\u3002\u5356\u7B26\u7684\u4EBA\u4E0D\u770B\u4F60\u753B\u4EC0\u4E48\uFF0C\u53EA\u770B\u4F60\u7684\u624B\u505C\u6CA1\u505C\u3002",
+    okText: "\u753B\u5B8C\u4E86\u3002\u6A2A\u4E0D\u5E73\uFF0C\u7AD6\u4E0D\u76F4\uFF0C\u538B\u5728\u95E8\u6846\u4E0A\uFF0C\u98CE\u8FDB\u4E0D\u6765\u3002",
+    failText: "\u6700\u540E\u4E00\u7B14\u65AD\u4E86\u3002\u7EB8\u8FD8\u662F\u5E72\u51C0\u7684\uFF0C\u5E9F\u4E86\u3002"
+  },
+  {
+    id: "r_fu_quhan",
+    path: "fu",
+    tier: 1,
+    name: "\u9A71\u5BD2\u7B26",
+    need: { m_fu_huangzhi: 1, m_fu_shengxue: 1 },
+    years: 1,
+    out: { id: "charm", n: 1, quality: "\u4E0B\u54C1" },
+    fail: 0.16,
+    known: { via: "teacher", key: "p_fu" },
+    text: "\u5C71\u4E0B\u7684\u4EBA\u8981\u7684\u3002\u51AC\u5929\u51B7\uFF0C\u8D34\u4E00\u5F20\u5728\u95E8\u4E0A\uFF0C\u80FD\u9876\u5230\u5F00\u6625\u3002",
+    okText: "\u7B26\u4E0A\u6700\u540E\u4E00\u70B9\u8840\u7EA2\u5E72\u4E86\uFF0C\u50CF\u4E00\u7C92\u75E3\u3002",
+    failText: "\u8840\u6CA1\u8C03\u5F00\uFF0C\u7B26\u9762\u82B1\u4E86\u3002\u5356\u7B26\u7684\u4EBA\u770B\u4E86\u4E00\u773C\uFF1A\u300C\u91CD\u753B\u3002\u300D"
+  },
+  {
+    id: "r_fu_zhenhun",
+    path: "fu",
+    tier: 2,
+    name: "\u9547\u9B42\u7B26",
+    need: { m_fu_chenmo: 1, m_fu_huangzhi: 1, m_fu_xianghui: 1 },
+    years: 2,
+    out: { id: "charm", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.28,
+    known: { via: "scroll", key: "k_fu_1" },
+    text: "\u6B8B\u8C31\u4E0A\u7684\u7B2C\u4E00\u9053\u9547\u7B26\u3002\u58A8\u8981\u9694\u5E74\u7684\uFF0C\u7070\u8981\u70E7\u8FC7\u96F7\u7684\u3002\u4E24\u6837\u5DEE\u4E00\u6837\uFF0C\u7B26\u5C31\u538B\u4E0D\u4F4F\u3002",
+    okText: "\u7B26\u6210\uFF0C\u5C4B\u91CC\u7684\u706F\u7130\u76F4\u4E86\u4E00\u4E0B\u3002",
+    failText: "\u7070\u6492\u591A\u4E86\uFF0C\u7B26\u9762\u88C2\u6210\u4E24\u534A\u3002\u4F60\u628A\u5B83\u6298\u8D77\u6765\uFF0C\u6CA1\u6254\u3002"
+  },
+  {
+    id: "r_fu_chiyan",
+    path: "fu",
+    tier: 2,
+    name: "\u8D64\u7130\u7B26",
+    need: { m_fu_yinzhu: 2, m_fu_langhao: 1 },
+    years: 2,
+    out: { id: "charm", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.26,
+    known: { via: "scroll", key: "k_fu_1" },
+    text: "\u753B\u5728\u7B26\u7EB8\u80CC\u9762\u3002\u6B63\u9762\u7ED9\u4EBA\u770B\uFF0C\u80CC\u9762\u624D\u662F\u7ED9\u4EBA\u7528\u7684\u3002",
+    okText: "\u7B26\u89D2\u81EA\u5DF1\u5377\u4E86\u8D77\u6765\uFF0C\u6478\u4E0A\u53BB\u662F\u70ED\u7684\u3002",
+    failText: "\u94F6\u6731\u70E7\u7A7F\u4E86\u7EB8\u3002\u684C\u9762\u4E0A\u7559\u4E86\u4E00\u4E2A\u7126\u9ED1\u7684\u5708\u3002"
+  },
+  {
+    id: "r_fu_tishen",
+    path: "fu",
+    tier: 3,
+    name: "\u66FF\u8EAB\u7B26",
+    need: { m_fu_shengxue: 2, m_fu_chenmo: 1, m_fu_huangzhi: 1 },
+    years: 3,
+    out: { id: "charm", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.38,
+    known: { via: "scroll", key: "k_fu_2" },
+    text: "\u66FF\u4E00\u6B21\u3002\u66FF\u8C01\uFF0C\u4E0D\u80FD\u95EE\uFF1B\u95EE\u7684\u4EBA\uFF0C\u7B26\u5C31\u4E0D\u7075\u3002",
+    okText: "\u7B26\u4E0A\u591A\u4E86\u4E00\u4E2A\u4EBA\u7684\u5F71\u5B50\uFF0C\u770B\u4E0D\u6E05\u8138\u3002\u4F60\u628A\u5B83\u8D34\u8EAB\u7A7F\u597D\u3002",
+    failText: "\u8840\u4E0D\u591F\u3002\u7B26\u753B\u5230\u4E00\u534A\u5C31\u5E72\u4E86\uFF0C\u6700\u540E\u90A3\u4E00\u7B14\uFF0C\u50CF\u4E00\u9053\u4F24\u53E3\u3002"
+  },
+  {
+    id: "r_fu_zhenshan",
+    path: "fu",
+    tier: 3,
+    name: "\u9547\u5C71\u7B26",
+    need: { m_fu_xianghui: 2, m_fu_yinzhu: 1, m_fu_chenmo: 1 },
+    years: 3,
+    out: { id: "charm", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.4,
+    known: { via: "teacher", key: "p_fu" },
+    text: "\u5356\u7B26\u7684\u4EBA\u8BA9\u753B\u7684\u3002\u4ED6\u8BF4\u5C71\u4E0A\u6709\u4E9B\u4E1C\u897F\uFF0C\u5F97\u538B\u7740\u3002\u538B\u591A\u4E45\uFF0C\u4ED6\u6CA1\u8BF4\u3002",
+    okText: "\u7B26\u6210\uFF0C\u5C71\u95E8\u65B9\u5411\u4F20\u6765\u4E00\u58F0\u95F7\u54CD\uFF0C\u50CF\u6709\u4EBA\u628A\u95E8\u5173\u4E0A\u4E86\u3002",
+    failText: "\u7B26\u7EB8\u5728\u624B\u91CC\u81EA\u5DF1\u5377\u6210\u4E00\u56E2\u3002\u4F60\u5C55\u5F00\uFF0C\u4E0A\u9762\u4EC0\u4E48\u4E5F\u6CA1\u6709\u3002"
+  }
+];
+var ARRAY_RECIPES = [
+  {
+    id: "r_zhen_dingjiao",
+    path: "zhen",
+    tier: 1,
+    name: "\u5B9A\u89D2\u9635",
+    need: { m_zhen_qingshi: 2 },
+    years: 1,
+    out: { id: "jade", n: 1, quality: "\u4E0B\u54C1" },
+    fail: 0.14,
+    known: { via: "teacher", key: "p_zhen" },
+    text: "\u56DB\u4E2A\u89D2\uFF0C\u4E00\u5757\u77F3\u5934\u538B\u4E00\u4E2A\u3002\u538B\u4E0D\u538B\u5F97\u4F4F\uFF0C\u770B\u77F3\u5934\u3002",
+    okText: "\u56DB\u5757\u77F3\u5934\u6446\u5B9A\u3002\u98CE\u4ECE\u9635\u91CC\u8FC7\u53BB\uFF0C\u7ED5\u4E86\u4E2A\u5F2F\u3002",
+    failText: "\u4E1C\u5357\u89D2\u90A3\u5757\u88C2\u4E86\u3002\u9635\u6CA1\u6210\uFF0C\u77F3\u5934\u5012\u662F\u788E\u5F97\u5E72\u51C0\u3002"
+  },
+  {
+    id: "r_zhen_yinlu",
+    path: "zhen",
+    tier: 1,
+    name: "\u5F15\u8DEF\u9635",
+    need: { m_zhen_cishi: 1, m_zhen_qingshi: 1 },
+    years: 1,
+    out: { id: "jade", n: 1, quality: "\u4E0B\u54C1" },
+    fail: 0.2,
+    known: { via: "teacher", key: "p_zhen" },
+    text: "\u78C1\u77F3\u5B9A\u65B9\u5411\uFF0C\u9752\u77F3\u5B9A\u6B65\u6570\u3002\u96FE\u91CC\u8D70\uFF0C\u9760\u5B83\u3002",
+    okText: "\u9635\u6210\uFF0C\u773C\u524D\u90A3\u6761\u8DEF\u76F4\u4E86\u4E00\u70B9\u3002",
+    failText: "\u78C1\u77F3\u7FFB\u4E86\u9762\u3002\u4F60\u5728\u539F\u5730\u8F6C\u4E86\u4E09\u5708\uFF0C\u624D\u8BA4\u51FA\u54EA\u8FB9\u662F\u6765\u8DEF\u3002"
+  },
+  {
+    id: "r_zhen_huanhuan",
+    path: "zhen",
+    tier: 2,
+    name: "\u56DE\u73AF\u9635",
+    need: { m_zhen_jiuluopan: 1, m_zhen_qingshi: 2, m_zhen_cishi: 1 },
+    years: 2,
+    out: { id: "jade", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.3,
+    known: { via: "scroll", key: "k_zhen_1" },
+    text: "\u8D70\u4E09\u6B65\uFF0C\u56DE\u5230\u539F\u5904\u3002\u62D3\u7247\u4E0A\u7684\u7EBF\uFF0C\u5C31\u662F\u4E3A\u8FD9\u4E2A\u753B\u7684\u3002",
+    okText: "\u4F60\u628A\u4E00\u53EA\u811A\u8FC8\u8FDB\u53BB\uFF0C\u53C8\u6536\u4E86\u56DE\u6765\u3002\u5730\u4E0A\u7684\u7EB9\u8DEF\u6CA1\u6709\u52A8\u3002",
+    failText: "\u7F57\u76D8\u6307\u7740\u81EA\u5DF1\u7684\u5F71\u5B50\uFF0C\u9635\u4E71\u4E86\u3002\u4F60\u5728\u91CC\u9762\u8D70\u4E86\u534A\u65E5\u3002"
+  },
+  {
+    id: "r_zhen_zhenxin",
+    path: "zhen",
+    tier: 2,
+    name: "\u9547\u5FC3\u9635",
+    need: { m_zhen_shougu: 1, m_zhen_beihui: 1, m_zhen_qingshi: 1 },
+    years: 2,
+    out: { id: "tally", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.32,
+    known: { via: "scroll", key: "k_zhen_2" },
+    text: "\u9AA8\u4E3A\u67F1\uFF0C\u7891\u7070\u4E3A\u754C\u3002\u9635\u91CC\u5750\u7740\u7684\u4EBA\uFF0C\u542C\u4E0D\u89C1\u5916\u9762\u7684\u58F0\u97F3\u3002",
+    okText: "\u9635\u6210\u3002\u4F60\u5750\u5728\u91CC\u9762\uFF0C\u7B2C\u4E00\u6B21\u89C9\u5F97\u8033\u6735\u662F\u7A7A\u7684\u3002",
+    failText: "\u7891\u7070\u88AB\u98CE\u5439\u6563\u4E86\u3002\u9635\u91CC\u9635\u5916\uFF0C\u58F0\u97F3\u4E00\u6837\u5927\u3002"
+  },
+  {
+    id: "r_zhen_yinlei",
+    path: "zhen",
+    tier: 3,
+    name: "\u5F15\u96F7\u9635\u56FE",
+    need: { m_zhen_tuoying: 1, m_zhen_cishi: 2, m_zhen_shougu: 1 },
+    years: 3,
+    out: { id: "tally", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.42,
+    known: { via: "scroll", key: "k_zhen_3" },
+    text: "\u5012\u7740\u5E03\u7684\u3002\u96F7\u843D\u4E0B\u6765\uFF0C\u4F1A\u4EE5\u4E3A\u81EA\u5DF1\u5288\u9519\u4E86\u5730\u65B9\u3002",
+    okText: "\u9635\u56FE\u6210\u4E86\uFF0C\u7EB8\u4E0A\u6709\u7126\u75D5\uFF0C\u50CF\u8FD8\u6CA1\u753B\u5B8C\u3002",
+    failText: "\u62D3\u5F71\u6DE1\u4E86\u3002\u4F60\u91CD\u63CF\u4E86\u4E09\u904D\uFF0C\u7EBF\u8D8A\u63CF\u8D8A\u6D45\u3002"
+  },
+  {
+    id: "r_zhen_fengmen",
+    path: "zhen",
+    tier: 3,
+    name: "\u5C01\u95E8\u9635",
+    need: { m_zhen_qingshi: 3, m_zhen_beihui: 2, m_zhen_jiuluopan: 1 },
+    years: 3,
+    out: { id: "jade", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.4,
+    known: { via: "teacher", key: "p_zhen" },
+    text: "\u95E8\u4E00\u5173\uFF0C\u5916\u9762\u7684\u4EBA\u5C31\u627E\u4E0D\u5230\u8FD9\u91CC\u3002\u91CC\u9762\u7684\u4EBA\uFF0C\u4E5F\u51FA\u4E0D\u53BB\u3002",
+    okText: "\u9635\u6210\u3002\u4F60\u9000\u51FA\u6765\u7684\u65F6\u5019\uFF0C\u8EAB\u540E\u90A3\u9053\u77F3\u95E8\uFF0C\u50CF\u4ECE\u6765\u6CA1\u6709\u8FC7\u3002",
+    failText: "\u9635\u5DEE\u4E00\u89D2\u3002\u95E8\u5173\u4E0A\u4E86\uFF0C\u53C8\u81EA\u5DF1\u5F00\u4E86\u6761\u7F1D\u3002"
+  },
+  /* ---- 第二批：隐遁 / 引兽 / 破甲 / 金钟 ---- */
+  {
+    id: "r_fu_yindun",
+    path: "fu",
+    tier: 2,
+    name: "\u9690\u9041\u7B26",
+    need: { m_fu_chenmo: 1, m_fu_huangzhi: 1 },
+    years: 2,
+    out: { id: "charm", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.3,
+    known: { via: "scroll", key: "k_fu_2" },
+    text: '\u7B26\u8981\u753B\u5F97"\u6DE1"\u3002\u624B\u91CD\u4E00\u5206\uFF0C\u4EBA\u5C31\u8EB2\u4E0D\u4F4F\u3002',
+    okText: "\u7B26\u9762\u6DE1\u5F97\u50CF\u6CA1\u753B\u3002\u4F60\u6536\u8FDB\u8896\u5B50\uFF0C\u811A\u6B65\u58F0\u8F7B\u4E86\u534A\u62CD\u3002",
+    failText: "\u6700\u540E\u4E00\u7B14\u91CD\u4E86\u3002\u7EB8\u4E0A\u7559\u4E86\u4E2A\u6E05\u695A\u7684\u4EBA\u5F62\u3002"
+  },
+  {
+    id: "r_fu_yinshou",
+    path: "fu",
+    tier: 2,
+    name: "\u5F15\u517D\u7B26",
+    need: { m_fu_yinzhu: 1, m_fu_shengxue: 1, m_fu_huangzhi: 1 },
+    years: 2,
+    out: { id: "charm", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.32,
+    known: { via: "scroll", key: "k_fu_2" },
+    text: "\u517D\u8981\u753B\u5F97\u534A\u771F\u534A\u5047\u2014\u2014\u592A\u771F\u62DB\u6765\u7684\u662F\u5B83\uFF0C\u592A\u5047\u62DB\u6765\u7684\u662F\u4F60\u81EA\u5DF1\u3002",
+    okText: "\u7B26\u80CC\u9762\u7684\u534A\u53EA\u517D\u597D\u50CF\u52A8\u4E86\u52A8\u3002\u4F60\u628A\u5B83\u6298\u597D\u3002",
+    failText: "\u753B\u5230\u540E\u722A\u65F6\u624B\u6296\u4E86\u3002\u8840\u4E00\u822C\u7684\u6731\u7802\u7CCA\u6210\u4E00\u7247\u3002"
+  },
+  {
+    id: "r_fu_pojia",
+    path: "fu",
+    tier: 2,
+    name: "\u7834\u7532\u7B26",
+    need: { m_fu_yinzhu: 2, m_fu_shengxue: 1 },
+    years: 2,
+    out: { id: "charm", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.28,
+    known: { via: "scroll", key: "k_fu_2" },
+    text: "\u8FD9\u5F20\u7B26\u4E0D\u662F\u62A4\u4EBA\u7684\uFF0C\u662F\u62C6\u4EBA\u7684\u3002\u753B\u5B8C\u4E86\u81EA\u5DF1\u4E5F\u5ACC\u5B83\u810F\u3002",
+    okText: "\u7B26\u89D2\u81EA\u5DF1\u7126\u4E86\u4E00\u5757\uFF0C\u50CF\u88AB\u4EC0\u4E48\u54AC\u8FC7\u3002",
+    failText: "\u6731\u7802\u70E7\u7A7F\u4E86\u7EB8\u3002\u684C\u4E0A\u7559\u4E86\u4E2A\u6D1E\u3002"
+  },
+  {
+    id: "r_fu_jinzhong",
+    path: "fu",
+    tier: 3,
+    name: "\u91D1\u949F\u7B26",
+    need: { m_fu_huangzhi: 3, m_fu_xianghui: 1, m_fu_chenmo: 1 },
+    years: 4,
+    out: { id: "charm", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.42,
+    known: { via: "scroll", key: "k_fu_3" },
+    text: '\u4E09\u5C42\u7EB8\u53E0\u7740\u753B\uFF0C\u4E00\u5C42\u9519\uFF0C\u6574\u5F20\u5E9F\u3002\u5E08\u7236\u8BF4\u8FD9\u7B26\u662F"\u5BCC\u4EBA\u7B26"\u3002',
+    okText: "\u753B\u6210\u4E86\u3002\u6307\u8282\u6572\u4E0A\u53BB\uFF0C\u6709\u94DC\u97F3\u3002",
+    failText: "\u7B2C\u4E09\u5C42\u7684\u7B14\u6CA1\u63A5\u4E0A\u3002\u7EB8\u8FD8\u662F\u7EB8\u3002"
+  },
+  /* ---- 第二批阵图：聚灵 / 迷踪 / 封灵 / 护尘 ---- */
+  {
+    id: "r_zhen_juling",
+    path: "zhen",
+    tier: 1,
+    name: "\u805A\u7075\u9635",
+    need: { m_zhen_qingshi: 2 },
+    years: 1,
+    out: { id: "array", n: 1, quality: "\u4E0B\u54C1" },
+    fail: 0.12,
+    known: { via: "teacher", key: "p_zhen" },
+    text: "\u5165\u95E8\u7B2C\u4E00\u5F20\u9635\u3002\u56DB\u5757\u77F3\u5934\u538B\u89D2\uFF0C\u4E2D\u95F4\u90A3\u5757\u5730\u8981\u81EA\u5DF1\u7A7A\u51FA\u6765\u3002",
+    okText: "\u7AD9\u8FDB\u53BB\uFF0C\u547C\u5438\u6162\u4E86\u4E00\u62CD\u3002",
+    failText: "\u89D2\u538B\u504F\u4E86\u3002\u5730\u4E0A\u53EA\u5269\u56DB\u4E2A\u5751\u3002"
+  },
+  {
+    id: "r_zhen_mizong",
+    path: "zhen",
+    tier: 2,
+    name: "\u8FF7\u8E2A\u9635",
+    need: { m_zhen_cishi: 1, m_zhen_qingshi: 1 },
+    years: 2,
+    out: { id: "array", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.3,
+    known: { via: "scroll", key: "k_zhen_2" },
+    text: "\u7EBF\u8981\u753B\u4E71\uFF0C\u4F46\u8981\u4E71\u5F97\u6709\u8DEF\u3002\u4E71\u5230\u8FDE\u81EA\u5DF1\u90FD\u8BA4\u4E0D\u51FA\uFF0C\u5C31\u771F\u628A\u81EA\u5DF1\u56F0\u4F4F\u4E86\u3002",
+    okText: "\u753B\u5B8C\u56DE\u5934\u770B\uFF0C\u4F60\u81EA\u5DF1\u4E5F\u6123\u4E86\u4E00\u4E0B\u3002",
+    failText: "\u7EBF\u4E71\u4E86\uFF0C\u8DEF\u6CA1\u4E86\u3002\u4F60\u5728\u5730\u4E0A\u7AD9\u4E86\u5F88\u4E45\u3002"
+  },
+  {
+    id: "r_zhen_fengling",
+    path: "zhen",
+    tier: 2,
+    name: "\u5C01\u7075\u9635",
+    need: { m_zhen_qingshi: 1, m_zhen_beihui: 1, m_zhen_cishi: 1 },
+    years: 2,
+    out: { id: "array", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.33,
+    known: { via: "scroll", key: "k_zhen_2" },
+    text: "\u9635\u773C\u8981\u538B\u4E00\u679A\u65E7\u94DC\u94B1\uFF0C\u65B9\u5B54\u671D\u4E0A\u2014\u2014\u5B54\u671D\u4E0B\uFF0C\u5C01\u7684\u5C31\u662F\u4F60\u81EA\u5DF1\u3002",
+    okText: "\u94DC\u94B1\u843D\u5B9A\uFF0C\u56DB\u91CE\u5B89\u9759\u5F97\u4E0D\u6B63\u5E38\u3002",
+    failText: "\u94DC\u94B1\u7FFB\u4E86\u4E2A\u9762\u3002\u4F60\u542C\u89C1\u81EA\u5DF1\u5FC3\u91CC\u54CD\u4E86\u4E00\u58F0\u3002"
+  },
+  {
+    id: "r_zhen_huchen",
+    path: "zhen",
+    tier: 3,
+    name: "\u62A4\u5C18\u9635",
+    need: { m_zhen_qingshi: 3, m_zhen_beihui: 2, m_zhen_jiuluopan: 1 },
+    years: 4,
+    out: { id: "array", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.45,
+    known: { via: "scroll", key: "k_zhen_3" },
+    text: "\u6700\u540E\u4E00\u7B14\u753B\u5B8C\uFF0C\u5730\u4E0A\u7684\u571F\u5C31\u4E0D\u52A8\u4E86\u3002\u8FD9\u4E00\u95E8\u7684\u8001\u9635\u5E08\uFF0C\u753B\u5B8C\u4F1A\u5750\u7740\u6B47\u4E09\u5929\u3002",
+    okText: "\u7070\u843D\u4E0B\u6765\uFF0C\u505C\u5728\u4F60\u5934\u9876\u4E00\u6307\u7684\u5730\u65B9\u3002",
+    failText: "\u6700\u540E\u4E00\u5757\u9752\u77F3\u6CA1\u538B\u4F4F\u3002\u98CE\u4E00\u8FC7\uFF0C\u4EC0\u4E48\u90FD\u6CA1\u4E86\u3002"
+  }
+];
+var CRAFT_MATERIALS = [...RUNE_MATERIALS, ...ARRAY_MATERIALS];
+var CRAFT_RECIPES = [...RUNE_RECIPES, ...ARRAY_RECIPES];
+var CRAFT_MATERIAL_BY_ID = Object.fromEntries(CRAFT_MATERIALS.map((m) => [m.id, m]));
+var CRAFT_RECIPE_BY_ID = Object.fromEntries(CRAFT_RECIPES.map((r) => [r.id, r]));
+
+// src/data_dark.js
+var DARK_TEACHER = {
+  id: "xie",
+  name: "\u88AB\u9010\u51FA\u5C71\u95E8\u7684\u4EBA",
+  \u5CF0: "\u5C71\u95E8\u5916",
+  dark: true,
+  line: "\u4ED6\u4EEC\u4E0D\u6559\u6211\uFF0C\u6211\u5C31\u81EA\u5DF1\u5B66\u3002\u73B0\u5728\u8F6E\u5230\u4F60\u4E86\u3002",
+  text: "\u6CA1\u4EBA\u63D0\u4ED6\u7684\u540D\u3002\u4ED6\u4F4F\u5C71\u95E8\u5916\u90A3\u95F4\u7834\u5C4B\u5B50\uFF0C\u95E8\u53E3\u6652\u7740\u4E00\u4E9B\u4E0D\u8BE5\u6652\u7684\u4E1C\u897F\u3002\u6709\u4EBA\u8BF4\u4ED6\u5F53\u5E74\u4E5F\u6D4B\u51FA\u8FC7\u5929\u7075\u6839\u3002\u4E5F\u6709\u4EBA\u8BF4\uFF0C\u4ED6\u628A\u81EA\u5DF1\u7684\u7075\u6839\u525C\u51FA\u6765\u6362\u4E86\u522B\u7684\u4E1C\u897F\u3002"
+};
+var DARK_MATERIALS = [
+  { id: "m_d_blood", name: "\u517D\u8840", tag: "\u8840", from: ["forest", "sword"], w: 2, text: "\u88C5\u5728\u7AF9\u7B52\u91CC\uFF0C\u8FD8\u662F\u6E29\u7684\u3002" },
+  { id: "m_d_bone", name: "\u9AA8\u7C89", tag: "\u9AA8", from: ["sword", "realm"], w: 2, text: "\u78E8\u5F97\u5F88\u7EC6\u3002\u5439\u4E00\u4E0B\uFF0C\u4F1A\u6D6E\u8D77\u6765\u3002" },
+  { id: "m_d_lamp", name: "\u9B42\u706F\u6CB9", tag: "\u5F02", from: ["realm", "tribulation"], w: 1, text: "\u70B9\u4E86\u4E0D\u4EAE\uFF0C\u53EA\u5192\u4E00\u70B9\u70B9\u70DF\u3002" },
+  { id: "m_d_ash", name: "\u7089\u7070", tag: "\u706B", from: ["alchemy"], w: 2, text: "\u522B\u4EBA\u626B\u6389\u7684\u4E1C\u897F\uFF0C\u6709\u4EBA\u6361\u8D77\u6765\u3002" },
+  { id: "m_d_nail", name: "\u6307\u7532", tag: "\u4EBA", from: ["gate", "plaza"], w: 1, text: "\u4E00\u5C0F\u628A\uFF0C\u7528\u7EA2\u7EF3\u6346\u7740\u3002" },
+  { id: "m_d_eye", name: "\u6CA1\u95ED\u4E0A\u7684\u773C", tag: "\u5F02", from: ["realm"], w: 1, text: "\u5B83\u4E0D\u770B\u4F60\u3002\u5B83\u5728\u770B\u522B\u7684\u5730\u65B9\u3002" }
+];
+var DARK_RECIPES = [
+  {
+    id: "r_d_yanshou",
+    path: "dan",
+    tier: 2,
+    name: "\u7EED\u547D\u4E39\xB7\u6539",
+    need: { m_d_blood: 2, m_d_bone: 1 },
+    years: 1,
+    out: { id: "pill", n: 2, quality: "\u4E0A\u54C1" },
+    fail: 0.12,
+    known: { via: "dark", key: null },
+    cost: { karma: 1, span: 1 },
+    text: "\u706B\u662F\u9752\u7684\u3002",
+    okText: "\u6210\u4E86\u3002\u4F60\u95FB\u4E86\u4E00\u4E0B\uFF0C\u4E0D\u592A\u60F3\u5403\u3002",
+    failText: "\u7089\u5B50\u6CA1\u70B8\u3002\u91CC\u9762\u7684\u4E1C\u897F\u6CA1\u4E86\u3002"
+  },
+  {
+    id: "r_d_duoling",
+    path: "dan",
+    tier: 3,
+    name: "\u593A\u7075\u4E39",
+    need: { m_d_lamp: 1, m_d_bone: 2 },
+    years: 1,
+    out: { id: "pill", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.18,
+    known: { via: "dark", key: null },
+    cost: { karma: 2, span: 2 },
+    text: "\u4F60\u542C\u89C1\u6709\u4EBA\u5728\u6570\u6570\u3002",
+    okText: "\u4E39\u662F\u9ED1\u7684\uFF0C\u634F\u5728\u624B\u91CC\u50CF\u4E00\u5757\u51B7\u7684\u8089\u3002",
+    failText: "\u4F60\u5C1D\u4E86\u4E00\u70B9\u3002\u540E\u6765\u6709\u4E09\u4E2A\u65F6\u8FB0\uFF0C\u4F60\u4E0D\u8BB0\u5F97\u81EA\u5DF1\u505A\u8FC7\u4EC0\u4E48\u3002"
+  },
+  {
+    id: "r_d_xuefu",
+    path: "fu",
+    tier: 2,
+    name: "\u8840\u7B26",
+    need: { m_d_blood: 1, m_d_ash: 1 },
+    years: 1,
+    out: { id: "charm", n: 2, quality: "\u4E2D\u54C1" },
+    fail: 0.1,
+    known: { via: "dark", key: null },
+    cost: { karma: 1 },
+    text: "\u7B14\u8981\u8638\u4E00\u6B21\uFF0C\u505C\u4E00\u4E0B\u3002",
+    okText: "\u7B26\u5E72\u4E86\u4EE5\u540E\u662F\u8910\u8272\u7684\u3002\u8D34\u5728\u95E8\u4E0A\uFF0C\u591C\u91CC\u6CA1\u6709\u866B\u53EB\u3002",
+    failText: "\u7B26\u81EA\u5DF1\u70E7\u4E86\u3002\u70E7\u5F97\u5F88\u5B89\u9759\u3002"
+  },
+  {
+    id: "r_d_goufu",
+    path: "fu",
+    tier: 3,
+    name: "\u52FE\u9B42\u7B26",
+    need: { m_d_lamp: 1, m_d_nail: 1 },
+    years: 1,
+    out: { id: "tally", n: 1, quality: "\u4E0A\u54C1" },
+    fail: 0.16,
+    known: { via: "dark", key: null },
+    cost: { karma: 2, span: 1 },
+    text: "\u753B\u5230\u6700\u540E\uFF0C\u624B\u4F1A\u81EA\u5DF1\u505C\u3002",
+    okText: "\u6210\u4E86\u3002\u4F60\u628A\u5B83\u6536\u8D77\u6765\uFF0C\u89C9\u5F97\u6307\u5934\u51C9\u3002",
+    failText: "\u7B26\u4E0A\u591A\u4E86\u4E00\u7B14\u3002\u4F60\u6CA1\u753B\u90A3\u4E00\u7B14\u3002"
+  },
+  {
+    id: "r_d_xuezhen",
+    path: "zhen",
+    tier: 2,
+    name: "\u8840\u9635",
+    need: { m_d_blood: 1, m_d_bone: 1 },
+    years: 1,
+    out: { id: "jade", n: 1, quality: "\u4E2D\u54C1" },
+    fail: 0.12,
+    known: { via: "dark", key: null },
+    cost: { karma: 1, span: 1 },
+    text: "\u9635\u8981\u538B\u4E1C\u897F\uFF0C\u77F3\u5934\u4E5F\u884C\uFF0C\u6D3B\u7684\u66F4\u597D\u3002",
+    okText: "\u9635\u7ACB\u4F4F\u4E86\u3002\u4F60\u7AD9\u5728\u91CC\u9762\uFF0C\u89C9\u5F97\u6BD4\u5916\u9762\u6696\u3002",
+    failText: "\u9635\u584C\u4E86\u3002\u5730\u4E0A\u4EC0\u4E48\u4E5F\u6CA1\u7559\u4E0B\uFF0C\u8FDE\u8840\u90FD\u6CA1\u6709\u3002"
+  },
+  {
+    id: "r_d_suohun",
+    path: "zhen",
+    tier: 3,
+    name: "\u9501\u9B42\u9635",
+    need: { m_d_lamp: 2, m_d_eye: 1 },
+    years: 1,
+    out: { id: "tally", n: 2, quality: "\u4E0A\u54C1" },
+    fail: 0.2,
+    known: { via: "dark", key: null },
+    cost: { karma: 3, span: 2 },
+    text: "\u6446\u5B8C\u6700\u540E\u4E00\u9897\uFF0C\u8981\u9000\u4E09\u6B65\u3002",
+    okText: "\u9635\u6210\u4E86\u3002\u4F60\u9000\u4E86\u4E09\u6B65\uFF0C\u5B83\u8DDF\u7740\u4F60\u9000\u4E86\u4E09\u6B65\u3002",
+    failText: "\u4F60\u9000\u5230\u7B2C\u4E09\u6B65\uFF0C\u56DE\u5934\uFF0C\u9635\u5728\u4F60\u811A\u5E95\u4E0B\u3002"
+  }
+];
+var DOOR = { any: [{ karmaMin: 2 }, { leftMax: 20 }], yearMin: 18 };
+var DARK_CARDS = [
+  {
+    id: "d_dan",
+    dark: true,
+    path: "dan",
+    teacher: "xie",
+    act: "\u673A\u7F18",
+    scenes: ["alchemy", "map", "forest"],
+    req: DOOR,
+    title: "\u522B\u4EBA\u5012\u6389\u7684\u7089\u7070",
+    body: "\u5C71\u9053\u8FB9\uFF0C\u4E00\u4E2A\u4EBA\u8E72\u7740\uFF0C\u628A\u522B\u4EBA\u5012\u6389\u7684\u7089\u7070\u4E00\u70B9\u70B9\u62E8\u5F00\uFF0C\u6311\u91CC\u9762\u6CA1\u70E7\u900F\u7684\u4E1C\u897F\u3002\u4F60\u770B\u4E86\u5F88\u4E45\uFF0C\u4ED6\u4E5F\u77E5\u9053\u4F60\u770B\u4E86\u5F88\u4E45\u3002\u4ED6\u6CA1\u62AC\u5934\uFF1A\u300C\u4E39\u5CF0\u4E0D\u8981\u7684\u4E1C\u897F\uFF0C\u591F\u517B\u6D3B\u4E24\u4E2A\u4EBA\u3002\u300D",
+    opts: [
+      {
+        t: "\u300C\u6559\u6211\u3002\u300D",
+        eff: {
+          learn: "dan",
+          track: "dark",
+          karma: 1,
+          log: ["omen", "\u4F60\u5728\u5C71\u9053\u8FB9\u5B66\u4F1A\u4E86\u53E6\u4E00\u79CD\u70BC\u4E39\u3002"]
+        },
+        res: "\u4ED6\u7ED9\u4E86\u4F60\u4E00\u53EA\u88C2\u4E86\u53E3\u7684\u7089\u5B50\u3002\u4ED6\u8BF4\uFF1A\u300C\u706B\u522B\u592A\u5927\u3002\u91CC\u9762\u6709\u4EBA\u3002\u300D\u4F60\u6CA1\u95EE\u662F\u8C01\u3002\u4ED6\u628A\u7089\u7070\u63A8\u7ED9\u4F60\u4E00\u534A\u3002"
+      },
+      {
+        t: "\u8D70\u5F00",
+        eff: { log: ["deed", "\u4F60\u8D70\u5F00\u4E86\u3002\u4ED6\u5728\u4F60\u80CC\u540E\u7B11\u4E86\u4E00\u58F0\uFF0C\u7EE7\u7EED\u6311\u7089\u7070\u3002"] },
+        res: "\u4F60\u8D70\u4E86\u5341\u51E0\u6B65\uFF0C\u56DE\u5934\uFF0C\u4ED6\u8FD8\u5728\u90A3\u91CC\u62E8\u4ED6\u7684\u7070\u3002"
+      }
+    ]
+  },
+  {
+    id: "d_fu",
+    dark: true,
+    path: "fu",
+    teacher: "xie",
+    act: "\u673A\u7F18",
+    scenes: ["library", "plaza", "map"],
+    req: DOOR,
+    title: "\u7B26\u662F\u753B\u7ED9\u8C01\u770B\u7684",
+    body: "\u85CF\u7ECF\u9601\u540E\u9762\uFF0C\u6709\u4EBA\u5728\u70E7\u7B26\u3002\u4E0D\u662F\u796D\uFF0C\u662F\u70E7\u2014\u2014\u4E00\u5F20\u4E00\u5F20\u5F80\u706B\u91CC\u4E22\uFF0C\u50CF\u5728\u5582\u4EC0\u4E48\u4E1C\u897F\u3002\u4ED6\u770B\u89C1\u4F60\uFF0C\u4E5F\u4E0D\u505C\u624B\uFF1A\u300C\u4F60\u4E5F\u89C9\u5F97\uFF0C\u7B26\u662F\u5199\u7ED9\u4EBA\u770B\u7684\uFF1F\u300D",
+    opts: [
+      {
+        t: "\u300C\u5199\u7ED9\u8C01\uFF1F\u300D",
+        eff: {
+          learn: "fu",
+          track: "dark",
+          karma: 1,
+          log: ["omen", "\u4F60\u77E5\u9053\u4E86\u7B26\u8FD8\u53EF\u4EE5\u753B\u7ED9\u522B\u7684\u4E1C\u897F\u770B\u3002"]
+        },
+        res: "\u300C\u5199\u7ED9\u4E0D\u6536\u4FE1\u7684\u4EBA\u3002\u300D\u4ED6\u628A\u6700\u540E\u4E00\u5F20\u9012\u7ED9\u4F60\uFF0C\u7EB8\u662F\u6E29\u7684\u3002\u4F60\u4F4E\u5934\u770B\uFF0C\u4E0A\u9762\u4E00\u4E2A\u5B57\u4E5F\u6CA1\u6709\uFF0C\u4F46\u8FB9\u89D2\u5DF2\u7ECF\u88AB\u6478\u8F6F\u4E86\u3002"
+      },
+      {
+        t: "\u300C\u6211\u4E0D\u77E5\u9053\u3002\u300D",
+        eff: { log: ["omen", "\u4ED6\u70E7\u5B8C\u6700\u540E\u4E00\u5F20\uFF0C\u8D70\u4E86\u3002\u5730\u4E0A\u6CA1\u6709\u7070\u3002"] },
+        res: "\u4ED6\u70B9\u70B9\u5934\uFF0C\u597D\u50CF\u8FD9\u4E2A\u56DE\u7B54\u4E5F\u53EF\u4EE5\u3002\u706B\u70E7\u5B8C\u4E86\uFF0C\u5730\u4E0A\u4EC0\u4E48\u4E5F\u6CA1\u5269\u3002"
+      }
+    ]
+  },
+  {
+    id: "d_zhen",
+    dark: true,
+    path: "zhen",
+    teacher: "xie",
+    act: "\u673A\u7F18",
+    scenes: ["sword", "realm", "map"],
+    req: DOOR,
+    title: "\u522B\u4EBA\u7684\u9AA8\u5934",
+    body: "\u79D8\u5883\u53E3\uFF0C\u6709\u4EBA\u8E72\u5728\u90A3\u513F\u6446\u77F3\u5934\u3002\u6446\u5F97\u5F88\u6162\uFF0C\u50CF\u5728\u7B49\u4EC0\u4E48\u3002\u4F60\u8D70\u8FD1\uFF0C\u624D\u770B\u89C1\u77F3\u5934\u5E95\u4E0B\u538B\u7740\u4E00\u622A\u6307\u9AA8\u3002\u300C\u9635\u8981\u6709\u4E1C\u897F\u538B\u7740\u624D\u7ACB\u5F97\u4F4F\uFF0C\u300D\u4ED6\u8BF4\uFF0C\u300C\u6D3B\u4EBA\u6700\u597D\uFF0C\u6B7B\u4EBA\u7701\u4E8B\u3002\u300D",
+    opts: [
+      {
+        t: "\u300C\u6211\u5B66\u3002\u300D",
+        eff: {
+          learn: "zhen",
+          track: "dark",
+          karma: 1,
+          log: ["omen", "\u4F60\u5B66\u4F1A\u4E86\u7528\u522B\u7684\u4E1C\u897F\u538B\u9635\u3002"]
+        },
+        res: "\u4ED6\u8BA9\u5F00\u534A\u4E2A\u4F4D\u7F6E\u3002\u4F60\u8E72\u4E0B\u53BB\uFF0C\u5B66\u7740\u4ED6\u7684\u6837\u5B50\u6446\u7B2C\u4E00\u9897\u77F3\u5934\u2014\u2014\u624B\u5FC3\u51FA\u6C57\uFF0C\u77F3\u5934\u6446\u5F97\u5F88\u7A33\u3002"
+      },
+      {
+        t: "\u300C\u4F60\u6446\u7684\u662F\u8C01\u7684\uFF1F\u300D",
+        eff: { log: ["omen", "\u4ED6\u6CA1\u56DE\u7B54\u3002\u4ED6\u628A\u90A3\u622A\u6307\u9AA8\u6536\u8FDB\u8896\u5B50\u91CC\uFF0C\u8D70\u4E86\u3002"] },
+        res: "\u4ED6\u770B\u4E86\u4F60\u4E00\u4F1A\u513F\uFF0C\u628A\u77F3\u5934\u6536\u8FDB\u8896\u5B50\u3002\u8D70\u7684\u65F6\u5019\u6CA1\u6709\u56DE\u5934\u3002"
+      }
+    ]
+  }
+];
+
+// src/data_paths.js
+var TEACHERS = {
+  dan: {
+    id: "dan",
+    path: "dan",
+    name: "\u4E39\u5CF0\u957F\u8001",
+    \u5CF0: "\u70BC\u4E39\u5CF0",
+    line: "\u7089\u5B50\u4E0D\u4F1A\u9A97\u4EBA\u3002\u5B83\u4F1A\u70B8\u7ED9\u4F60\u770B\u3002",
+    text: "\u70BC\u4E39\u5CF0\u7684\u6267\u638C\u8005\u3002\u4E00\u5E74\u91CC\u6709\u534A\u5E74\u4E0D\u51FA\u5CF0\uFF0C\u8896\u53E3\u6C38\u8FDC\u6CBE\u7740\u836F\u7070\u3002\u4ED6\u8BB0\u4E0D\u4F4F\u4EBA\u540D\uFF0C\u53EA\u8BB0\u5F97\u706B\u5019\uFF1A\u4E39\u7089\u51E0\u65F6\u54CD\u3001\u51E0\u65F6\u54D1\u3001\u51E0\u65F6\u8BE5\u6380\u76D6\u3002"
+  },
+  fu: {
+    id: "fu",
+    path: "fu",
+    name: "\u5356\u7B26\u7684\u4EBA",
+    \u5CF0: "\u7B26\u7B93\u9601",
+    line: "\u7B26\u4E0D\u662F\u753B\u7ED9\u795E\u7684\u3002\u662F\u753B\u7ED9\u81EA\u5DF1\u770B\u7684\u3002",
+    text: "\u539F\u662F\u7B26\u7B93\u9601\u91CC\u753B\u9547\u9601\u7B26\u7684\u6563\u4FEE\uFF0C\u540E\u6765\u628A\u644A\u5B50\u6446\u5230\u4E86\u5C71\u9053\u4E0A\uFF0C\u4E00\u5E74\u53EA\u5356\u4E09\u5F20\u3002\u4ED6\u6536\u7B26\u4E0D\u770B\u753B\u5F97\u597D\u4E0D\u597D\uFF0C\u53EA\u770B\u4F60\u843D\u6700\u540E\u4E00\u7B14\u65F6\uFF0C\u624B\u505C\u6CA1\u505C\u3002"
+  },
+  zhen: {
+    id: "zhen",
+    path: "zhen",
+    name: "\u8DDB\u5B50",
+    \u5CF0: "\u9635\u6CD5\u5802",
+    line: "\u4F60\u8E29\u574F\u4E86\u6211\u4E00\u6761\u7EBF\u3002",
+    text: "\u9635\u6CD5\u5802\u5982\u4ECA\u53EA\u5269\u4ED6\u4E00\u4E2A\u4EBA\u3002\u5DE6\u817F\u77ED\u534A\u5BF8\uFF0C\u8D70\u8DEF\u65F6\u80A9\u8180\u4E00\u9AD8\u4E00\u4F4E\u3002\u4ED6\u4E0D\u6536\u5F1F\u5B50\uFF0C\u4E5F\u4E0D\u4E0B\u5C71\uFF0C\u53EA\u5728\u5251\u51A2\u5916\u5934\u5E03\u4E9B\u770B\u4E0D\u61C2\u7684\u7EBF\uFF0C\u8BA9\u8DEF\u8FC7\u7684\u4EBA\u770B\u3002"
+  }
+};
+var PATH_CARDS = [
+  {
+    id: "p_dan",
+    path: "dan",
+    teacher: "dan",
+    act: "\u673A\u7F18",
+    scenes: ["alchemy", "map"],
+    // 年满 18；火/木灵根且上品以上，或陈执事已经认得你，或你已经知道那一页残卷
+    req: {
+      yearMin: 18,
+      any: [
+        { roots: ["fire", "wood"], gradeAtLeast: "\u4E0A\u54C1" },
+        { bond: { chen: 2 } },
+        { knows: ["k_dan_1"] }
+      ]
+    },
+    title: "\u4E00\u7089\u6CA1\u70B8\u900F\u7684\u4E39",
+    body: "\u4E39\u623F\u540E\u5899\u7684\u7089\u6E23\u5806\u4E86\u4E09\u5C3A\u9AD8\u3002\u9648\u6267\u4E8B\u9886\u7740\u4E00\u4E2A\u4EBA\u8FC7\u6765\uFF0C\u90A3\u4EBA\u5728\u7070\u5806\u524D\u8E72\u4E0B\uFF0C\u7528\u94C1\u7B7E\u62E8\u5F00\u51E0\u5C42\u3002\u5E95\u4E0B\u6709\u9897\u4E39\uFF0C\u70B8\u8FC7\uFF0C\u6CA1\u70B8\u900F\uFF0C\u534A\u8FB9\u8FD8\u5706\u7740\u3002\u4ED6\u628A\u5B83\u634F\u5728\u6307\u95F4\u770B\u4E86\u770B\uFF0C\u53C8\u770B\u4F60\uFF1A\u300C\u4E09\u5E74\u6210\u4E00\u7089\uFF0C\u4F60\u70B8\u4E86\u4E24\u5E74\u5341\u4E00\u4E2A\u6708\u3002\u8DDF\u6211\u4E0A\u4E39\u5CF0\u3002\u7B2C\u4E00\u4EF6\u4E8B\uFF0C\u662F\u5B66\u4F1A\u770B\u4E00\u7089\u4E39\u70E7\u5E9F\uFF0C\u4E0D\u52A8\u624B\u3002\u300D",
+    opts: [
+      {
+        t: "\u4E0A\u4E39\u5CF0",
+        res: "\u4F60\u8DDF\u7740\u4ED6\u8D70\u3002\u4ED6\u6CA1\u518D\u56DE\u5934\uFF0C\u597D\u50CF\u77E5\u9053\u4F60\u4E00\u5B9A\u4F1A\u6765\u3002",
+        eff: {
+          learn: "dan",
+          bond: { chen: 1 },
+          log: ["deed", "\u4F60\u8DDF\u4E39\u5CF0\u957F\u8001\u4E0A\u4E86\u4E39\u5CF0\u3002\u4ED6\u7ED9\u4F60\u7684\u7B2C\u4E00\u4EF6\u4E8B\uFF0C\u662F\u770B\u4E00\u7089\u4E39\u70E7\u5E9F\uFF0C\u4E0D\u52A8\u624B\u3002"]
+        }
+      },
+      {
+        t: "\u518D\u60F3\u60F3",
+        res: "\u4ED6\u6CA1\u529D\u3002\u90A3\u9897\u6CA1\u70B8\u900F\u7684\u4E39\u88AB\u4ED6\u6536\u8FDB\u8896\u5B50\u3002\u4E39\u5CF0\u7684\u95E8\uFF0C\u4ECE\u90A3\u5929\u8D77\u6CA1\u518D\u5F00\u8FC7\u3002",
+        eff: {
+          log: ["omen", "\u4E39\u5CF0\u957F\u8001\u95EE\u4F60\u8981\u4E0D\u8981\u4E0A\u4E39\u5CF0\u3002\u4F60\u8BF4\u518D\u60F3\u60F3\u3002\u4ED6\u6536\u8D70\u90A3\u9897\u4E39\uFF0C\u8D70\u4E86\u3002"]
+        }
+      }
+    ]
+  },
+  {
+    id: "p_fu",
+    path: "fu",
+    teacher: "fu",
+    act: "\u673A\u7F18",
+    scenes: ["library", "plaza", "map"],
+    // 年满 18；金/水灵根，或悟性攒到了两次，或你抄过那半本残谱
+    req: {
+      yearMin: 18,
+      any: [{ roots: ["metal", "water"] }, { wuMin: 2 }, { knows: ["k_fu_1"] }]
+    },
+    title: "\u65AD\u5728\u6700\u540E\u4E00\u7B14",
+    body: "\u5C71\u9053\u62D0\u89D2\uFF0C\u5356\u7B26\u7684\u4EBA\u5728\u6536\u644A\u3002\u4F60\u624B\u91CC\u90A3\u5F20\u63CF\u5E9F\u7684\u7B26\u7EB8\u88AB\u98CE\u5439\u5230\u4ED6\u811A\u8FB9\uFF0C\u4ED6\u6361\u8D77\u6765\u770B\u4E86\u5F88\u4E45\uFF1A\u300C\u6700\u540E\u4E00\u7B14\u65AD\u4E86\u3002\u300D\u4ED6\u6380\u5F00\u644A\u5E03\uFF0C\u5E95\u4E0B\u538B\u7740\u4E00\u53E0\u88C1\u597D\u7684\u7A7A\u7B26\u7EB8\uFF0C\u8FB9\u89D2\u9F50\u5F97\u50CF\u5200\u5207\u7684\u3002\u300C\u8DDF\u6211\u5B66\u3002\u5B66\u6210\u4E86\uFF0C\u8FD9\u5F20\u4F60\u5C31\u80FD\u753B\u5B8C\u3002\u300D",
+    opts: [
+      {
+        t: "\u8E72\u4E0B\u6765\u5B66",
+        res: "\u4ED6\u628A\u7B14\u9012\u7ED9\u4F60\uFF0C\u6CA1\u6559\u4F60\u600E\u4E48\u8D77\u7B14\uFF0C\u53EA\u8BA9\u4F60\u770B\u4ED6\u753B\u4E00\u904D\u3002",
+        eff: {
+          learn: "fu",
+          bond: { fu: 1 },
+          log: ["deed", "\u4F60\u8DDF\u7740\u5C71\u9053\u5356\u7B26\u7684\u4EBA\u5B66\u753B\u7B26\u3002\u4ED6\u5148\u8BA9\u4F60\u770B\u4ED6\u753B\u4E00\u5F20\uFF0C\u518D\u6765\u4E00\u904D\uFF0C\u4E0D\u8BB8\u95EE\u3002"]
+        }
+      },
+      {
+        t: "\u628A\u7B26\u7EB8\u8FD8\u7ED9\u4ED6",
+        res: "\u4ED6\u628A\u7B26\u7EB8\u6254\u8FDB\u706B\u76C6\u3002\u706B\u82D7\u8E7F\u8D77\u6765\u7684\u65F6\u5019\uFF0C\u4ED6\u8BF4\uFF1A\u300C\u753B\u7B26\u7684\u4EBA\uFF0C\u624B\u4E0D\u80FD\u6296\u3002\u300D\u5C71\u9053\u4E0A\u90A3\u4E2A\u644A\u5B50\uFF0C\u5F80\u540E\u6536\u5F97\u4E00\u5929\u6BD4\u4E00\u5929\u65E9\u3002",
+        eff: {
+          log: ["omen", "\u5356\u7B26\u7684\u4EBA\u95EE\u4F60\u8981\u4E0D\u8981\u5B66\u7B26\u3002\u4F60\u628A\u90A3\u5F20\u5E9F\u7B26\u8FD8\u7ED9\u4E86\u4ED6\u3002\u4ED6\u70E7\u4E86\u3002"]
+        }
+      }
+    ]
+  },
+  {
+    id: "p_zhen",
+    path: "zhen",
+    teacher: "zhen",
+    act: "\u673A\u7F18",
+    scenes: ["sword", "realm", "map"],
+    // 年满 18；土/木灵根，或生来神识，或你拓过剑碑背面
+    req: {
+      yearMin: 18,
+      any: [
+        { roots: ["earth", "wood"] },
+        { traits: ["shenshi"] },
+        { knows: ["k_zhen_1"] }
+      ]
+    },
+    title: "\u4F60\u8E29\u574F\u4E86\u4E00\u6761\u7EBF",
+    body: "\u5251\u51A2\u5916\u5934\u7684\u5730\u4E0A\uFF0C\u6709\u4EBA\u7528\u767D\u7C89\u5F39\u4E86\u51E0\u5341\u9053\u7EBF\u3002\u4F60\u9000\u4E86\u4E00\u6B65\uFF0C\u8E29\u65AD\u5176\u4E2D\u4E00\u6839\u3002\u8DDB\u5B50\u4ECE\u7891\u540E\u5934\u8F6C\u51FA\u6765\uFF0C\u8E72\u4E0B\u53BB\uFF0C\u628A\u65AD\u53E3\u4E00\u70B9\u70B9\u63A5\u4E0A\uFF0C\u63A5\u5F97\u5F88\u6162\uFF0C\u50CF\u5728\u63A5\u4E00\u6839\u9AA8\u5934\u3002\u300C\u8FD9\u6761\u7EBF\u901A\u5411\u5C71\u5E95\u4E0B\u3002\u300D\u4ED6\u8BF4\uFF0C\u300C\u8981\u4E48\u8D54\uFF0C\u8981\u4E48\u5B66\u3002\u300D",
+    opts: [
+      {
+        t: "\u5B66",
+        res: "\u4ED6\u7AD9\u8D77\u6765\uFF0C\u628A\u5269\u4E0B\u7684\u767D\u7C89\u9012\u7ED9\u4F60\uFF1A\u300C\u8D54\u7684\u4EF7\u94B1\uFF0C\u662F\u5B66\u660E\u767D\u5B83\u3002\u300D",
+        eff: {
+          learn: "zhen",
+          log: ["deed", "\u4F60\u8E29\u65AD\u4E86\u5251\u51A2\u5916\u7684\u4E00\u6761\u7EBF\u3002\u8DDB\u5B50\u8BA9\u4F60\u5B66\u9635\u6CD5\u6765\u8D54\u3002"]
+        }
+      },
+      {
+        t: "\u8D54",
+        res: "\u4F60\u8D54\u4E86\u4ED6\u4E09\u6597\u767D\u7C89\u3002\u7EBF\u91CD\u65B0\u5F39\u597D\uFF0C\u62D0\u89D2\u5904\u8FD8\u5DEE\u4E00\u5BF8\uFF0C\u4ED6\u8BF4\u90A3\u4E00\u5BF8\u4E0D\u7528\u8865\u3002\u9635\u6CD5\u5802\u7684\u95E8\uFF0C\u4F60\u540E\u6765\u518D\u6CA1\u63A8\u5F00\u8FC7\u3002",
+        eff: {
+          log: ["omen", "\u4F60\u8E29\u65AD\u4E86\u5251\u51A2\u5916\u7684\u4E00\u6761\u7EBF\uFF0C\u8D54\u4E86\u4E09\u6597\u767D\u7C89\u3002\u8DDB\u5B50\u8BF4\uFF0C\u8FD8\u5DEE\u4E00\u5BF8\u3002"]
+        }
+      }
+    ]
+  },
+  /* ------------------------- 进阶机缘（path 用 'shu'） -------------------------
+   * 上面三张是"入门"：drawPathCard 会跳过 card.path 已经会了的那一门。
+   * 所以往深处走的那几张，path 一律写 'shu'——没人会"学会 shu"，学过丹的人也还能
+   * 再遇见一个人。报酬全走现成的口子：know 让人认得方子（data_dan / data_runes 的
+   * known.key 就是它），items 往袋子里放药，'evil' 那笔账自动收业力。
+   *
+   * ⚠️ 约定（craft.js 里叫 ADV_KEY，别复用）：
+   *   'shu' 是"进阶残页"的保留字，**不是第四门手艺**。
+   *   craft.js 对它做三件特殊的事：① 不进 PATH_KEYS，人物面板单列一栏
+   *   「路上遇见的残页」；② advOpen() 会要求"它教哪一门，你就得已经在那门里"
+   *   （只给药、不给 know 的卡，只要玩家有一门即可）；③ 选中后记 c.adv[id] = 年。
+   *
+   *   要加一门**真正可学**的手艺（比如炼器），走这三步：
+   *   1) craft.js 的 PATH_KEYS 里加 key（如 'qi'），并给它一张入门机缘卡；
+   *   2) data_runes.js 里补材料 / 配方（path: 'qi'）；
+   *   3) 千万别用 'shu' 当 path——它永远不会被 hasPath() 认成"学会了"（画进三途进度条）
+   *   反过来：只想"见过一个人、学到半句"，就继续用 'shu'。 */
+  {
+    id: "p_yaonong",
+    path: "shu",
+    act: "\u673A\u7F18",
+    scenes: ["forest", "map"],
+    // 满 17 岁，在山道或林子里。木/土灵根的人他愿意搭话，读过残卷的他也认
+    req: {
+      yearMin: 17,
+      any: [{ roots: ["wood", "earth"] }, { knows: ["k_dan_1"] }]
+    },
+    title: "\u5012\u7740\u62CE\u7684\u6839",
+    body: "\u8FF7\u96FE\u68EE\u6797\u5916\u5934\uFF0C\u4E00\u4E2A\u80CC\u836F\u7BD3\u7684\u4EBA\u8E72\u5728\u5761\u4E0A\uFF0C\u628A\u4E00\u682A\u4E91\u8349\u5012\u8FC7\u6765\u62CE\u7740\u770B\u6839\u3002\u300C\u4F60\u4EEC\u5C71\u4E0A\u91C7\u836F\uFF0C\u662F\u4E00\u628A\u597D\u7684\u3001\u4E00\u628A\u574F\u7684\uFF0C\u5269\u4E0B\u7B97\u8FD0\u6C14\u3002\u300D\u4ED6\u628A\u90A3\u682A\u653E\u56DE\u571F\u91CC\uFF0C\u628A\u5751\u6309\u5B9E\uFF0C\u300C\u6211\u91C7\u836F\uFF0C\u4E09\u682A\u7559\u4E00\u682A\u3002\u7559\u7684\u4E0D\u662F\u5584\u5FC3\uFF0C\u662F\u660E\u5E74\u8FD8\u6709\u5761\u53EF\u6765\u3002\u300D",
+    opts: [
+      {
+        t: "\u300C\u6559\u6211\u7559\u4E00\u682A\u3002\u300D",
+        res: "\u4ED6\u6559\u4F60\u6296\u5E72\u51C0\u6839\u987B\uFF0C\u6559\u4F60\u586B\u5751\uFF0C\u6559\u4F60\u4ECE\u5761\u9876\u5F80\u4E0B\u8D70\u2014\u2014\u8E29\u8FC7\u4E00\u904D\u7684\u5761\uFF0C\u4ECA\u5E74\u522B\u518D\u4E0A\u53BB\u3002\u4F60\u4ECA\u5E74\u5C11\u91C7\u4E24\u682A\uFF0C\u90A3\u7247\u5761\u8FD8\u662F\u7EFF\u7684\u3002",
+        eff: {
+          items: [{ id: "herb", n: 3 }],
+          log: ["deed", "\u4E00\u4E2A\u80CC\u836F\u7BD3\u7684\u4EBA\u6559\u4F60\u91C7\u836F\uFF1A\u4E09\u682A\u7559\u4E00\u682A\u3002\u4F60\u624B\u91CC\u4E09\u682A\u836F\uFF0C\u5761\u4E0A\u7559\u4E86\u4E00\u7247\u6839\u3002"]
+        }
+      },
+      {
+        t: "\u4E00\u682A\u4E0D\u7559\u3002",
+        res: "\u4ED6\u628A\u7BD3\u5B50\u80CC\u8D77\u6765\uFF0C\u4ECE\u5761\u53E3\u56DE\u5934\u770B\u4E86\u4F60\u4E00\u773C\uFF0C\u6CA1\u8BF4\u8BDD\u3002\u90A3\u4E00\u8D9F\u4F60\u91C7\u4E86\u4E94\u682A\uFF0C\u6839\u987B\u5168\u626F\u65AD\u4E86\u3002\u7B2C\u4E8C\u5E74\u518D\u53BB\uFF0C\u90A3\u7247\u5761\u53EA\u5269\u77F3\u5934\u3002",
+        eff: {
+          items: [{ id: "herb", n: 5 }],
+          // 'evil' 已经 +1 业力：五株药换来的，是道行、手稳，和正道那几扇门
+          log: ["evil", "\u4F60\u628A\u90A3\u7247\u5761\u8FDE\u6839\u62D4\u4E86\uFF0C\u4E94\u682A\u3002\u80CC\u836F\u7BD3\u7684\u4EBA\u7AD9\u5728\u5761\u53E3\u770B\u4F60\uFF0C\u4E00\u53E5\u8BDD\u6CA1\u8BF4\u3002"]
+        }
+      }
+    ]
+  },
+  {
+    id: "p_jiaye",
+    path: "shu",
+    act: "\u673A\u7F18",
+    scenes: ["library", "alchemy", "map"],
+    // 两条路都算读过残卷：自己摸到过那一页，或者上丹峰时陈执事已经认得你
+    req: {
+      yearMin: 20,
+      any: [{ knows: ["k_dan_1"] }, { bond: { chen: 1 } }]
+    },
+    title: "\u5939\u9875\u6BD4\u7ECF\u9EC4",
+    body: "\u6B8B\u5377\u4F60\u6284\u8FC7\u4E09\u904D\uFF0C\u7EB8\u5DF2\u7ECF\u8BA4\u5F97\u4F60\u7684\u624B\u3002\u7B2C\u56DB\u904D\u624D\u6478\u5230\u4E2D\u95F4\u5939\u7740\u4E00\u9875\u2014\u2014\u6BD4\u7ECF\u7EB8\u8FD8\u9EC4\uFF0C\u8FB9\u89D2\u88AB\u6307\u5934\u637B\u8F6F\u4E86\u3002\u4E0A\u9762\u53EA\u6709\u4E24\u5473\u836F\uFF1A\u5251\u82D4\u751F\u4E8E\u77F3\u7F1D\uFF0C\u51A5\u7802\u51FA\u4E8E\u5C71\u9AA8\u3002\u80CC\u540E\u6709\u4EBA\u5F00\u53E3\uFF1A\u300C\u90A3\u4E00\u9875\u6211\u4E0D\u7ED9\u4EBA\u3002\u300D\u662F\u9648\u6267\u4E8B\u3002\u300C\u7ED9\u4E86\u4F60\uFF0C\u4F60\u5F97\u53BB\u79D8\u5883\u7B2C\u4E09\u683C\u8E72\u4E00\u591C\u3002\u8E72\u4E0D\u4F4F\u7684\u4EBA\u62FF\u4E86\u65B9\u5B50\uFF0C\u4E5F\u662F\u70B8\u7089\u3002\u300D",
+    opts: [
+      {
+        t: "\u300C\u6211\u53BB\u8E72\u4E00\u591C\u3002\u300D",
+        res: "\u4ED6\u628A\u90A3\u9875\u4ECE\u7ECF\u91CC\u62BD\u51FA\u6765\uFF0C\u6298\u4E86\u4E24\u6298\u585E\u8FDB\u4F60\u8896\u5B50\uFF0C\u8F6C\u8EAB\u628A\u7ECF\u67B6\u63A8\u56DE\u539F\u5904\u3002\u540E\u6765\u4F60\u5728\u5251\u51A2\u542C\u4EBA\u8BF4\uFF1A\u5251\u82D4\u8981\u8D81\u9732\u6C34\u672A\u5E72\u624D\u597D\u8D77\u3002",
+        eff: {
+          know: "k_dan_2",
+          bond: { chen: 1 },
+          log: ["deed", "\u9648\u6267\u4E8B\u628A\u9752\u56CA\u4E39\u7ECF\u7684\u5939\u9875\u7ED9\u4E86\u4F60\u3002\u4E0A\u9762\u90A3\u5473\u7834\u969C\u4E39\uFF0C\u4E24\u6837\u836F\u90FD\u5728\u540E\u5C71\u548C\u5251\u51A2\u90A3\u79CD\u5730\u65B9\u3002"]
+        }
+      },
+      {
+        t: "\u300C\u6211\u4E0D\u53BB\u3002\u300D",
+        res: "\u4ED6\u6CA1\u529D\uFF0C\u53EA\u628A\u7ECF\u4E66\u63A8\u56DE\u67B6\u5B50\u6700\u5E95\u5C42\u3002\u90A3\u4E00\u9875\u4F60\u540E\u6765\u81EA\u5DF1\u6478\u5230\u8FC7\uFF0C\u6478\u5230\u8FC7\u4E5F\u6CA1\u7528\u2014\u2014\u7B2C\u4E09\u683C\u4F60\u8BF4\u5B83\u662F\u77F3\u5934\uFF0C\u5B83\u5C31\u662F\u77F3\u5934\u3002",
+        eff: {
+          log: ["omen", "\u9648\u6267\u4E8B\u95EE\u4F60\u8981\u4E0D\u8981\u53BB\u79D8\u5883\u7B2C\u4E09\u683C\u8E72\u4E00\u591C\u3002\u4F60\u8BF4\u4E0D\u53BB\u3002\u4ED6\u628A\u7ECF\u4E66\u63A8\u56DE\u4E86\u67B6\u5B50\u6700\u5E95\u5C42\u3002"]
+        }
+      }
+    ]
+  },
+  {
+    id: "p_zuihua",
+    path: "shu",
+    act: "\u673A\u7F18",
+    scenes: ["map", "plaza", "library"],
+    // 认得残谱，或者已经跟他学过两笔——那晚他收摊早，你在场
+    req: {
+      yearMin: 22,
+      any: [{ knows: ["k_fu_1"] }, { bond: { fu: 1 } }]
+    },
+    title: "\u4ED6\u559D\u591A\u7684\u90A3\u4E00\u53E5",
+    body: "\u5C71\u9053\u62D0\u89D2\u90A3\u4E2A\u644A\u5B50\uFF0C\u90A3\u5929\u6536\u644A\u6536\u5F97\u65E9\u3002\u644A\u4E3B\u4E00\u4E2A\u4EBA\u5750\u5728\u77F3\u9636\u4E0A\uFF0C\u72FC\u6BEB\u8FD8\u5939\u5728\u8033\u540E\uFF0C\u5BF9\u7740\u7A7A\u7897\u8BF4\uFF1A\u300C\u66FF\u8EAB\u7B26\u4E0D\u662F\u66FF\u4F60\u7684\u3002\u662F\u66FF\u90A3\u4E2A\u8FD8\u4E0D\u77E5\u9053\u81EA\u5DF1\u5DF2\u7ECF\u6B7B\u4E86\u7684\u4F60\u3002\u300D\u8BF4\u5B8C\u4ED6\u5C31\u7761\u7740\u4E86\u3002\u7B2C\u4E8C\u5929\u4F60\u95EE\u4ED6\uFF0C\u4ED6\u8BF4\u6CA1\u8BB2\u8FC7\u3002",
+    opts: [
+      {
+        t: "\u300C\u4F60\u518D\u8BF4\u4E00\u904D\u3002\u300D\uFF08\u966A\u4ED6\u5750\u5230\u665A\u4E0A\uFF09",
+        res: "\u4ED6\u5230\u7B2C\u4E09\u7897\u624D\u53C8\u60F3\u8D77\u90A3\u53E5\u8BDD\u3002\u8FD9\u4E00\u6B21\u4ED6\u6293\u8FC7\u4F60\u7684\u624B\uFF0C\u628A\u6700\u540E\u4E00\u7B14\u600E\u4E48\u8D70\uFF0C\u5728\u4F60\u638C\u5FC3\u91CC\u753B\u4E86\u4E00\u904D\u3002",
+        eff: {
+          know: "k_fu_2",
+          bond: { fu: 1 },
+          log: ["deed", "\u5356\u7B26\u7684\u4EBA\u9189\u91CC\u8BF4\u6F0F\u7684\u90A3\u53E5\uFF0C\u4F60\u966A\u4ED6\u5750\u5230\u665A\u4E0A\uFF0C\u4ED6\u628A\u5B83\u753B\u5728\u4F60\u624B\u5FC3\u91CC\u3002"]
+        }
+      },
+      {
+        t: "\u628A\u7897\u6536\u4E86\uFF1A\u300C\u522B\u559D\u4E86\u3002\u300D",
+        res: "\u4ED6\u9192\u5F97\u5F88\u65E9\uFF0C\u7B2C\u4E8C\u5929\u7167\u65E7\u6446\u644A\uFF0C\u7167\u65E7\u4E00\u5929\u53EA\u5356\u4E09\u5F20\u3002\u4F60\u540E\u6765\u5728\u7B26\u8C31\u8FB9\u89D2\u89C1\u8FC7\u90A3\u4E00\u7B14\u7684\u8D70\u6CD5\uFF0C\u95EE\u4E0D\u51FA\u662F\u8C01\u6DFB\u4E0A\u53BB\u7684\u3002",
+        eff: {
+          bond: { fu: -1 },
+          log: ["omen", "\u4F60\u6536\u8D70\u4E86\u5356\u7B26\u4EBA\u7684\u7897\u3002\u4ED6\u6CA1\u8BF4\u90A3\u53E5\u9189\u8BDD\uFF0C\u7B26\u8C31\u8FB9\u89D2\u591A\u51FA\u6765\u7684\u90A3\u4E00\u7B14\uFF0C\u4E5F\u6CA1\u4EBA\u8BA4\u3002"]
+        }
+      }
+    ]
+  },
+  {
+    id: "p_beiyin",
+    path: "shu",
+    act: "\u673A\u7F18",
+    scenes: ["sword", "realm", "library"],
+    req: {
+      yearMin: 24,
+      knows: ["k_zhen_1"],
+      any: [{ roots: ["earth", "wood"] }, { traits: ["shenshi"] }]
+    },
+    title: "\u62D3\u7891\u7684\u4EBA\u4E0D\u8BA4\u5B57",
+    body: "\u5251\u7891\u80CC\u9762\u90A3\u5C42\u7EB9\u4F60\u62D3\u4E0B\u6765\u4E86\u3002\u8DDB\u5B50\u8E72\u5728\u96E8\u91CC\u770B\u90A3\u5F20\u62D3\u7247\uFF0C\u770B\u4E86\u5F88\u4E45\uFF1A\u300C\u8FD9\u4E0D\u662F\u5B57\uFF0C\u662F\u7EBF\u3002\u6709\u4EBA\u628A\u4E00\u5EA7\u9635\u538B\u8FDB\u77F3\u5934\u91CC\uFF0C\u538B\u7684\u65F6\u5019\u5B83\u8FD8\u662F\u6D3B\u7684\u3002\u300D\u4ED6\u628A\u62D3\u7247\u5F80\u706B\u5806\u90A3\u8FB9\u632A\u4E86\u632A\u3002\u300C\u70E7\u4E86\uFF0C\u4F60\u5C11\u77E5\u9053\u4E00\u4EF6\u4E8B\u3002\u4E0D\u70E7\uFF0C\u4F60\u66FF\u6211\u7AD9\u4E00\u591C\u2014\u2014\u7AD9\u5728\u9635\u773C\u4E0A\uFF0C\u4EC0\u4E48\u4E5F\u4E0D\u8BB8\u60F3\u3002\u300D",
+    opts: [
+      {
+        t: "\u66FF\u4ED6\u7AD9\u90A3\u4E00\u591C",
+        req: { wuMin: 1 },
+        res: "\u4F60\u5728\u5251\u51A2\u5916\u7AD9\u5230\u5929\u4EAE\uFF0C\u679C\u7136\u4EC0\u4E48\u4E5F\u6CA1\u60F3\u6210\u3002\u4ED6\u628A\u4E00\u5757\u78C1\u77F3\u6254\u7ED9\u4F60\uFF1A\u300C\u9635\u4E0D\u5728\u77F3\u4E0A\uFF0C\u5728\u4EBA\u5FC3\u91CC\u3002\u4F60\u6628\u591C\u5FC3\u91CC\u6709\u4E1C\u897F\uFF0C\u6240\u4EE5\u5B83\u5E94\u4F60\u4E86\u3002\u300D",
+        eff: {
+          know: "k_zhen_2",
+          wu: -1,
+          log: ["deed", "\u4F60\u66FF\u8DDB\u5B50\u5728\u5251\u7891\u7684\u9635\u773C\u4E0A\u7AD9\u4E86\u4E00\u591C\u3002\u624B\u8BB0\u4F60\u8BFB\u5B8C\u4E86\u2014\u2014\u4EE3\u4EF7\u662F\u6709\u4E00\u5377\u7ECF\uFF0C\u4F60\u518D\u60F3\u4E0D\u8D77\u6765\u3002"]
+        }
+      },
+      {
+        t: "\u628A\u62D3\u7247\u7ED9\u4ED6",
+        res: "\u4ED6\u5728\u96E8\u91CC\u70B9\u4E86\u706B\u3002\u62D3\u7247\u5377\u8D77\u6765\u90A3\u4E00\u77AC\uFF0C\u80CC\u9762\u90A3\u5C42\u7EB9\u5FFD\u7136\u6E05\u695A\u4E86\u4E00\u4E0B\u2014\u2014\u4F60\u770B\u89C1\u4E86\uFF0C\u4F46\u4F60\u6CA1\u6562\u8BB0\u4F4F\u3002",
+        eff: {
+          log: ["omen", "\u8DDB\u5B50\u70E7\u4E86\u5251\u7891\u80CC\u9762\u7684\u62D3\u7247\u3002\u706B\u5149\u91CC\u90A3\u5C42\u7EB9\u4EAE\u4E86\u4E00\u77AC\uFF0C\u4F60\u6CA1\u8BB0\u4F4F\u5B83\u901A\u5411\u54EA\u513F\u3002"]
+        }
+      }
+    ]
+  },
+  {
+    id: "p_leimu",
+    path: "shu",
+    act: "\u673A\u7F18",
+    scenes: ["tribulation", "sword", "map"],
+    // 夹页读过才谈末页；这一年之后，雷击木才值得你上去一趟
+    req: {
+      yearMin: 30,
+      knows: ["k_dan_2"],
+      any: [{ roots: ["fire"] }, { gradeAtLeast: "\u4E0A\u54C1" }, { wuMin: 3 }]
+    },
+    title: "\u6700\u9ED1\u7684\u90A3\u4E00\u5757",
+    body: "\u6E21\u52AB\u53F0\u8FB9\u7ACB\u7740\u51E0\u5757\u88AB\u5288\u8FC7\u53C8\u843D\u4E0B\u6765\u7684\u6728\u5934\uFF0C\u9ED1\u7684\u7A0B\u5EA6\u4E0D\u4E00\u6837\u3002\u4E00\u4E2A\u8001\u6267\u4E8B\u4E00\u7247\u4E00\u7247\u7FFB\uFF0C\u7FFB\u5230\u6700\u9ED1\u7684\u90A3\u5757\uFF0C\u628A\u5B83\u91CD\u65B0\u7ACB\u597D\u3002\u300C\u8FD9\u5757\u706B\u4E0D\u662F\u6728\u5934\u7684\u706B\uFF0C\u662F\u96F7\u7559\u4E0B\u7684\u3002\u300D\u4ED6\u8BF4\uFF0C\u300C\u8981\u70BC\u90A3\u7089\u7EED\u547D\u7684\uFF0C\u53EA\u6709\u5B83\u80FD\u70B9\u7740\u3002\u4F60\u81EA\u5DF1\u4E0B\u6765\u6361\uFF0C\u6211\u4E0D\u4E0B\u53BB\u3002\u300D",
+    opts: [
+      {
+        t: "\u4E0B\u53BB\u6361",
+        res: "\u6728\u5934\u6BD4\u4F60\u60F3\u7684\u8F7B\uFF0C\u65AD\u53E3\u662F\u73BB\u7483\u6837\u7684\u3002\u4F60\u628A\u5B83\u63E3\u4E0A\u6765\u7684\u65F6\u5019\uFF0C\u8896\u53E3\u70E7\u7A7F\u4E86\u4E00\u4E2A\u6D1E\u3002\u8001\u6267\u4E8B\u770B\u89C1\u90A3\u4E2A\u6D1E\uFF0C\u70B9\u4E86\u70B9\u5934\u3002",
+        eff: {
+          know: "k_dan_3",
+          log: ["deed", "\u4F60\u81EA\u5DF1\u4ECE\u6E21\u52AB\u53F0\u5E95\u4E0B\u6361\u4E86\u6700\u9ED1\u7684\u4E00\u5757\u96F7\u51FB\u6728\u3002\u672B\u9875\u90A3\u53E5\u300C\u706B\u4ECE\u96F7\u6765\u300D\uFF0C\u4ECE\u6B64\u4F60\u662F\u771F\u77E5\u9053\u4E86\u3002"]
+        }
+      },
+      {
+        t: "\u4E0D\u53BB\u3002\u96F7\u6728\u662F\u6B7B\u4EBA\u7684\u4E1C\u897F\u3002",
+        res: "\u90A3\u5757\u6700\u9ED1\u7684\u6728\u5934\u8FD8\u7ACB\u5728\u53F0\u8FB9\u3002\u8001\u6267\u4E8B\u7B2C\u4E8C\u5929\u6765\u628A\u5B83\u632A\u56DE\u539F\u5904\uFF0C\u7B49\u4E0B\u4E00\u4E2A\u4F1A\u70BC\u7684\u4EBA\u2014\u2014\u4ED6\u7B49\u4E86\u4E09\u5E74\uFF0C\u7B49\u5230\u7684\u662F\u522B\u4EBA\u3002",
+        eff: {
+          log: ["omen", "\u6E21\u52AB\u53F0\u8FB9\u6700\u9ED1\u7684\u90A3\u5757\u96F7\u51FB\u6728\uFF0C\u4F60\u6CA1\u53BB\u6361\u3002\u8001\u6267\u4E8B\u628A\u5B83\u7ACB\u56DE\u539F\u5904\uFF0C\u8BF4\uFF0C\u7B49\u4E0B\u4E00\u4E2A\u3002"]
+        }
+      }
+    ]
+  }
+];
+var KNOWLEDGE = [
+  {
+    id: "k_dan_1",
+    name: "\u9752\u56CA\u4E39\u7ECF\xB7\u6B8B\u5377",
+    path: "dan",
+    tier: 1,
+    from: ["library", "alchemy"],
+    how: "\u6284\u7ECF\u6284\u5230\u7B2C\u4E09\u5E74\uFF0C\u624D\u5728\u7ECF\u67B6\u6700\u5E95\u5C42\u6478\u5230\u8FD9\u4E00\u9875\u3002",
+    text: "\u9732\u4E0D\u591C\u522E\uFF0C\u4E39\u4E0D\u591C\u6210\u3002\u7089\u6709\u4E09\u5019\uFF0C\u4EBA\u53EA\u7B49\u4E00\u5019\u3002"
+  },
+  {
+    id: "k_dan_2",
+    name: "\u9752\u56CA\u4E39\u7ECF\xB7\u5939\u9875",
+    path: "dan",
+    tier: 2,
+    from: ["library", "realm", "sword"],
+    how: "\u6B8B\u5377\u91CC\u5939\u7740\u7684\u4E00\u9875\uFF0C\u7EB8\u6BD4\u522B\u7684\u9EC4\u3002",
+    text: "\u5251\u82D4\u751F\u4E8E\u77F3\u7F1D\uFF0C\u51A5\u7802\u51FA\u4E8E\u5C71\u9AA8\u3002\u4E8C\u8005\u540C\u7089\uFF0C\u53EF\u7834\u6B7B\u5173\u3002"
+  },
+  {
+    id: "k_dan_3",
+    name: "\u9752\u56CA\u4E39\u7ECF\xB7\u672B\u9875",
+    path: "dan",
+    tier: 3,
+    from: ["library", "alchemy", "tribulation"],
+    how: "\u6B8B\u5377\u6700\u540E\u4E00\u9875\uFF0C\u5B57\u8FF9\u6362\u4E86\u4E00\u4E2A\u4EBA\u3002",
+    text: "\u7EED\u547D\u8005\uFF0C\u5148\u7EED\u706B\u3002\u706B\u4ECE\u96F7\u6765\uFF0C\u4E0D\u4ECE\u6728\u6765\u3002"
+  },
+  {
+    id: "k_fu_1",
+    name: "\u7B26\u7B93\u9601\u6B8B\u8C31",
+    path: "fu",
+    tier: 1,
+    from: ["library", "map"],
+    how: "\u5728\u85CF\u7ECF\u9601\u6700\u91CC\u90A3\u6392\u67B6\u5B50\u4E0A\uFF0C\u53EA\u6709\u534A\u672C\u3002",
+    text: "\u7B26\u6210\u4E8E\u6C14\uFF0C\u8D25\u4E8E\u624B\u3002\u624B\u6296\u4E00\u5206\uFF0C\u7B26\u5DEE\u4E00\u5BF8\uFF1B\u5FC3\u6296\u4E00\u5206\uFF0C\u7B26\u5E9F\u3002"
+  },
+  {
+    id: "k_fu_2",
+    name: "\u4E00\u53E5\u9189\u8BDD",
+    path: "fu",
+    tier: 2,
+    from: ["map", "plaza", "library"],
+    how: "\u5356\u7B26\u7684\u4EBA\u559D\u591A\u4E86\uFF0C\u8BF4\u6F0F\u7684\u3002\u7B2C\u4E8C\u5929\u4ED6\u4E0D\u8BA4\u3002",
+    text: "\u7B26\u4E0D\u662F\u753B\u7ED9\u795E\u7684\u3002\u662F\u753B\u7ED9\u81EA\u5DF1\u770B\u7684\u3002\u4F60\u4FE1\u5B83\uFF0C\u5B83\u5C31\u9876\u7528\uFF1B\u4F60\u4E0D\u4FE1\uFF0C\u5B83\u5C31\u662F\u4E00\u5F20\u7EB8\u3002"
+  },
+  {
+    id: "k_zhen_1",
+    name: "\u5251\u7891\u62D3\u7247",
+    path: "zhen",
+    tier: 1,
+    from: ["sword", "library"],
+    how: "\u62D3\u7891\u90A3\u5929\u4E0B\u4E86\u96E8\uFF0C\u80CC\u9762\u4E5F\u6D07\u51FA\u4E00\u5C42\u7EB9\u3002",
+    text: "\u7891\u9634\u6709\u7EB9\uFF0C\u975E\u5B57\u975E\u753B\u3002\u4EE5\u77F3\u51FB\u4E4B\uFF0C\u5176\u58F0\u5E94\u56DB\u65B9\u3002"
+  },
+  {
+    id: "k_zhen_2",
+    name: "\u9635\u5802\u624B\u8BB0",
+    path: "zhen",
+    tier: 2,
+    from: ["library", "realm"],
+    how: "\u9635\u6CD5\u5802\u5E9F\u5C4B\u91CC\u7FFB\u51FA\u7684\u4E00\u672C\u624B\u8BB0\uFF0C\u6700\u540E\u4E00\u9875\u88AB\u6495\u4E86\u3002",
+    text: "\u9635\u4E0D\u5728\u77F3\u4E0A\uFF0C\u5728\u4EBA\u5FC3\u91CC\u3002\u4F60\u4FE1\u5B83\u56DB\u89D2\uFF0C\u5B83\u5C31\u56DB\u89D2\u3002"
+  },
+  {
+    id: "k_zhen_3",
+    name: "\u5979\u63D0\u8FC7\u4E00\u53E5",
+    path: "zhen",
+    tier: 3,
+    from: ["sword", "realm", "map"],
+    how: "\u5728\u5251\u51A2\uFF0C\u90A3\u4E2A\u5973\u5B50\u770B\u7740\u4F60\u811A\u4E0B\u7684\u7EBF\uFF0C\u5FFD\u7136\u8BF4\u7684\u3002",
+    text: "\u5C71\u5E95\u4E0B\u90A3\u5EA7\u9635\uFF0C\u662F\u5012\u7740\u5E03\u7684\u3002\u6240\u4EE5\u586B\u8FDB\u53BB\u7684\u4EBA\uFF0C\u90FD\u51FA\u4E0D\u6765\u3002"
+  }
+];
+var PATH_NAMES = {
+  dan: {
+    name: "\u70BC\u4E39",
+    desc: "\u7089\u706B\u91CC\u6362\u5BFF\u5143\u3002",
+    line: "\u4E00\u7089\u4E39\uFF0C\u4E09\u5E74\u706B\u3002",
+    how: "\u706B/\u6728\u7075\u6839\u4E0A\u54C1\u4EE5\u4E0A\uFF0C\u6216\u8BA9\u9648\u6267\u4E8B\u8BB0\u4F4F\u4F60\u3002"
+  },
+  fu: {
+    name: "\u5236\u7B26",
+    desc: "\u4E00\u5F20\u7EB8\uFF0C\u9876\u4E00\u6B21\u547D\u3002",
+    line: "\u7B26\u753B\u5B8C\u4E86\uFF0C\u624B\u8FD8\u5728\u6296\u3002",
+    how: "\u91D1/\u6C34\u7075\u6839\uFF0C\u6216\u609F\u6027\u6512\u591F\u4E86\uFF0C\u6216\u6284\u8FC7\u90A3\u534A\u672C\u6B8B\u8C31\u3002"
+  },
+  zhen: {
+    name: "\u9635\u6CD5",
+    desc: "\u628A\u5C71\u3001\u628A\u96F7\uFF0C\u6446\u5230\u4F60\u60F3\u8981\u7684\u4F4D\u7F6E\u3002",
+    line: "\u7EBF\u753B\u5728\u5730\u4E0A\uFF0C\u547D\u62BC\u5728\u7EBF\u4E0A\u3002",
+    how: "\u571F/\u6728\u7075\u6839\uFF0C\u6216\u751F\u6765\u795E\u8BC6\uFF0C\u6216\u62D3\u8FC7\u5251\u7891\u80CC\u9762\u3002"
+  }
+};
+
+// src/codex.js
+var KEY = "lingxu.codex.v1";
+var BEASTS = [
+  { id: "beast_01", name: "\u9752\u9762\u7360" },
+  { id: "beast_02", name: "\u96FE\u4E2D\u5F71" },
+  { id: "beast_03", name: "\u72EC\u773C\u9B48" },
+  { id: "beast_04", name: "\u767D\u989D\u864E" },
+  { id: "beast_05", name: "\u9752\u9CDE\u86DF" },
+  { id: "beast_06", name: "\u8D64\u80CC\u87FE" },
+  { id: "beast_07", name: "\u83B2\u5C3E\u72D0" },
+  { id: "beast_08", name: "\u8D1F\u7891\u9F9F" },
+  { id: "beast_09", name: "\u8840\u9E26" },
+  { id: "beast_10", name: "\u9AA8\u9E7F" }
+];
+var ENDINGS = [
+  { id: "stele", name: "\u7891", hint: "\u540D\u5B57\u523B\u4E0A\u5C71\u95E8\u7684\u90A3\u4E00\u79CD" },
+  { id: "return", name: "\u8FD8", hint: "\u628A\u9053\u884C\u5012\u56DE\u4E95\u91CC\u7684\u90A3\u4E00\u79CD" },
+  { id: "push", name: "\u63A8", hint: "\u53F0\u4E0A\u7AD9\u7740\u522B\u4EBA\u7684\u90A3\u4E00\u79CD" },
+  { id: "back", name: "\u56DE", hint: "\u4E0B\u4E86\u5C71\u7684\u90A3\u4E00\u79CD" },
+  { id: "nameless", name: "\u65E0\u540D", hint: "\u6CA1\u6709\u540D\u5B57\u7684\u90A3\u4E00\u79CD" },
+  { id: "thunder", name: "\u96F7", hint: "\u96F7\u843D\u4E0B\u6765\u7684\u90A3\u4E00\u79CD" }
+];
+var PATHS = [
+  { id: "dan", name: "\u70BC\u4E39" },
+  { id: "fu", name: "\u5236\u7B26" },
+  { id: "zhen", name: "\u9635\u6CD5" },
+  { id: "xie", name: "\u90AA\u95E8" }
+];
+var MOUNTS = [
+  { id: "crane", name: "\u767D\u9E64" },
+  { id: "deer", name: "\u9752\u9E7F" },
+  { id: "fox", name: "\u8D64\u72D0" }
+];
+var RECIPES = [...DAN_RECIPES, ...CRAFT_RECIPES, ...DARK_RECIPES].map((r) => ({ id: r.id, name: r.name }));
+var ADV = PATH_CARDS.filter((c) => c.path === "shu").map((c) => ({ id: c.id, name: c.title }));
+var CAST = PEOPLE_ORDER.map((id) => ({ id, name: PEOPLE[id].name, title: PEOPLE[id].title }));
+var MIND_LIST = MINDS.map((m) => ({ id: m.id, name: m.title }));
+var CATS = {
+  people: { label: "\u4F17\u751F", note: "\u4EBA\u7269\u5FD7\u4E0A\u8BF4\u8FC7\u8BDD\u7684\u4EBA\uFF0C\u6362\u4E00\u4E16\u4E5F\u8BA4\u5F97", items: CAST },
+  close: { label: "\u77E5\u5DF1", note: "\u4EB2\u758F\u5230\u8FC7\u300C\u4EA4\u5FC3\u300D\u7684\u4EBA", items: CAST },
+  sworn: { label: "\u751F\u6B7B\u4E4B\u4EA4", note: "\u4EB2\u758F\u5230\u8FC7\u9876\u7684\u4EBA\u2014\u2014\u4E0D\u5FC5\u5F00\u53E3\u4E5F\u77E5\u9053", items: CAST },
+  beasts: { label: "\u767E\u5996", note: "\u6597\u8FC7\u7684\u4E0E\u6CA1\u6597\u8FC7\u7684\uFF0C\u90FD\u5728\u8FD9\u5C71\u91CC", items: BEASTS },
+  recipes: { label: "\u65B9\u672F", note: "\u4EB2\u624B\u70BC\u6210\u8FC7\u7684\u65B9\u5B50\uFF08\u4E39\xB7\u7B26\xB7\u9635\xB7\u90AA\u95E8\uFF09", items: RECIPES },
+  adv: { label: "\u6B8B\u9875", note: "\u8DEF\u4E0A\u9047\u89C1\u3001\u542C\u61C2\u4E86\u7684\u6B8B\u9875", items: ADV },
+  paths: { label: "\u9053\u9014", note: "\u62DC\u8FC7\u5C71\u95E8\u7684\u624B\u827A", items: PATHS },
+  mounts: { label: "\u5750\u9A91", note: "\u6536\u670D\u8FC7\u7684\u517D", items: MOUNTS },
+  endings: { label: "\u7ED3\u5C40", note: "\u4E00\u4E16\u6536\u573A\u7684\u65B9\u5F0F\uFF0C\u636E\u8BF4\u6709\u516D\u79CD", items: ENDINGS },
+  minds: { label: "\u5FC3\u4E8B", note: "\u4E86\u7ED3\u8FC7\u7684\u5FC3\u4E8B", items: MIND_LIST }
+};
+function read() {
+  try {
+    const d = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (d && d.cats) return d;
+  } catch {
+  }
+  return { v: 1, cats: {}, seeds: {} };
+}
+function write(d) {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(d));
+  } catch {
+  }
+}
+function lifeCount(d, seed) {
+  if (seed != null && !d.seeds[seed]) {
+    d.seeds[seed] = 1;
+    return true;
+  }
+  return false;
+}
+function lives(state2) {
+  const d = read();
+  return Object.keys(d.seeds).length || 1;
+}
+function record(state2, cat, id) {
+  if (!CATS[cat] || !id) return false;
+  const d = read();
+  const l = state2 && state2.life;
+  if (l && l.seed) lifeCount(d, l.seed);
+  const bucket = d.cats[cat] || (d.cats[cat] = {});
+  const isNew = !bucket[id];
+  bucket[id] = (bucket[id] || 0) + 1;
+  write(d);
+  return isNew;
+}
+function recordBond(state2, id, favor) {
+  if (!PEOPLE[id]) return null;
+  const d = read();
+  const l = state2 && state2.life;
+  if (l && l.seed) lifeCount(d, l.seed);
+  const bucket = d.cats.people || (d.cats.people = {});
+  bucket[id] = (bucket[id] || 0) + 1;
+  const max = d.bondMax || (d.bondMax = {});
+  const before = max[id] || 0;
+  if (favor > before) max[id] = favor;
+  let crossed = null;
+  if (before < 85 && favor >= 85) crossed = "sworn";
+  else if (before < 60 && favor >= 60) crossed = "close";
+  if (crossed) {
+    const b = d.cats[crossed] || (d.cats[crossed] = {});
+    b[id] = (b[id] || 0) + 1;
+  }
+  write(d);
+  return crossed;
+}
+function totals(d = read()) {
+  let got = 0, all = 0;
+  for (const k of Object.keys(CATS)) {
+    const bucket = d.cats[k] || {};
+    all += CATS[k].items.length;
+    for (const it of CATS[k].items) if (bucket[it.id]) got++;
+  }
+  return { got, all };
+}
+var WU_STEP = 12;
+var WU_CAP = 3;
+function wuClaimable(state2, d = read()) {
+  const l = state2 && state2.life ? state2.life : {};
+  const reached = Math.min(WU_CAP, Math.floor(totals(d).got / WU_STEP));
+  return Math.max(0, reached - (l.codexWu || 0));
+}
+function claimWu(state2) {
+  const d = read();
+  const gain2 = wuClaimable(state2, d);
+  if (!gain2) return 0;
+  const l = state2.life;
+  l.codexWu = (l.codexWu || 0) + gain2;
+  l.wu = (l.wu || 0) + gain2;
+  return gain2;
+}
+var esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+function panelHtml(state2) {
+  const d = read();
+  const t = totals(d);
+  const claim = wuClaimable(state2, d);
+  const claimed = state2 && state2.life && state2.life.codexWu || 0;
+  const bmax = d.bondMax || {};
+  const secs = Object.keys(CATS).map((k) => {
+    const bucket = d.cats[k] || {};
+    const items = CATS[k].items;
+    const got = items.filter((it) => bucket[it.id]).length;
+    const cast = k === "people" || k === "close" || k === "sworn";
+    const rows = items.map((it) => {
+      const seen = bucket[it.id];
+      if (!seen) return `<span class="cx-item" title="\u8FD8\u6CA1\u9047\u5230\u8FC7">???</span>`;
+      const badge = cast && bmax[it.id] >= 85 ? " \xB7 \u751F\u6B7B" : cast && bmax[it.id] >= 60 ? " \xB7 \u4EA4\u5FC3" : "";
+      const tip = cast ? `\u8DE8\u4E16\u4EB2\u758F\u6700\u9AD8 ${bmax[it.id] || 0}${it.title ? " \xB7 " + it.title : ""}` : `\u89C1\u8FC7 ${seen} \u6B21`;
+      return `<span class="cx-item on" title="${esc(tip)}">${esc(it.name)}${badge}</span>`;
+    }).join("");
+    return `<details class="cx-sec">
+      <summary><b>${CATS[k].label}</b><span>${CATS[k].note}</span><em>${got} / ${items.length}</em></summary>
+      <div class="cx-grid">${rows}</div>
+    </details>`;
+  }).join("");
+  return `<div class="panel-title">\u767E\u518C \xB7 \u8DE8\u4E16\u56FE\u9274</div>
+    <div class="panel-text">\u8FD9\u662F\u7B2C <b>${lives(state2)}</b> \u4E16\u3002\u4EBA\u3001\u5996\u3001\u65B9\u5B50\u3001\u7ED3\u5C40\u2014\u2014\u89C1\u8FC7\u4E00\u6B21\u5C31\u6C38\u8FDC\u8BB0\u5728\u518C\u5B50\u91CC\uFF0C\u6B7B\u4E86\u4E5F\u4E0D\u4E22\u3002</div>
+    <div class="bar"><span>\u5DF2\u5F55</span><i><b style="width:${Math.min(100, t.got / Math.max(1, t.all) * 100)}%"></b></i><em>${t.got} / ${t.all}</em></div>
+    ${claim > 0 ? `<button class="btn gold" id="cx-claim">\u9886\u524D\u4E16\u4F59\u6CFD \xB7 \u609F +${claim}</button>` : `<div class="panel-text" style="opacity:.48">\u6BCF\u5F55\u6EE1 ${WU_STEP} \u6761\u53EF\u9886 1 \u70B9\u609F\uFF08\u4E00\u4E16\u6700\u591A ${WU_CAP} \u70B9\uFF0C\u8FD9\u4E00\u4E16\u5DF2\u9886 ${claimed}\uFF09</div>`}
+    ${secs}
+    <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
+}
+
 // src/life.js
 var START_YEAR = 16;
 var START_SPAN = 80;
@@ -4086,7 +5483,7 @@ function breakthrough(state2) {
     line: jie ? `\u7834\u5165${next.name}\u3002${next.note}` : `\u7834\u5165${next.name}\u3002\u53EF\u90A3\u9053\u5C0F\u52AB\u4F60\u53EA\u6328\u4E86\u4E00\u534A\u2014\u2014\u5BFF\u5143\u53EA\u957F\u5230 ${l.span}\uFF0C\u6CA1\u6709 ${next.span}\u3002`
   };
 }
-var MOUNTS = [
+var MOUNTS2 = [
   { id: "crane", name: "\u767D\u9E64", trait: "\u4E00\u5E74\u53EF\u8FBE\u6781\u8FDC\u5904", cost: 2 },
   { id: "deer", name: "\u9752\u9E7F", trait: "\u6DF1\u96FE\u4E0D\u8FF7\u8DEF", cost: 2 },
   { id: "fox", name: "\u8D64\u72D0", trait: "\u8BA4\u5F97\u65E7\u8DEF", cost: 3 }
@@ -4094,7 +5491,7 @@ var MOUNTS = [
 var folkOf = (state2, id) => initWorld(state2).folk.find((f) => f.id === id) || null;
 function tameMount(state2, id) {
   const l = initWorld(state2);
-  const m = MOUNTS.find((x) => x.id === id);
+  const m = MOUNTS2.find((x) => x.id === id);
   if (!m || l.mount) return null;
   spend(state2, m.cost);
   l.mount = { id: m.id, name: m.name, trait: m.trait, age: 0, span: 60 + Math.floor(Math.random() * 40) };
@@ -5431,6 +6828,7 @@ function addFavor(state2, id, n) {
   if (p.favor > 0) {
     p.met = true;
     l.met[id] = 1;
+    recordBond(state2, id, p.favor);
   }
   l.npc[id] = Math.floor(p.favor / 25);
   return p.favor - before;
@@ -6576,1376 +7974,6 @@ function owned2(state2) {
     if (!a) return null;
     return { ...a, year: l.arts[id].year, tier: l.arts[id].tier || a.tier };
   }).filter(Boolean).sort((x, y) => x.year - y.year);
-}
-
-// src/data_dan.js
-var DAN_MATERIALS = [
-  {
-    id: "m_yuncao",
-    name: "\u4E91\u96FE\u8349",
-    tag: "\u836F",
-    from: ["forest"],
-    w: 5,
-    text: "\u53EA\u957F\u5728\u8FF7\u96FE\u68EE\u6797\u80CC\u9634\u7684\u6E7F\u77F3\u4E0A\u3002\u96FE\u6563\u4E4B\u524D\u91C7\uFF0C\u592A\u9633\u4E00\u7167\u5C31\u5316\u6C34\u3002"
-  },
-  {
-    id: "m_zhusha",
-    name: "\u6731\u7802",
-    tag: "\u77FF",
-    from: ["alchemy"],
-    w: 5,
-    text: "\u4E39\u623F\u5E93\u623F\u91CC\u6210\u888B\u7684\u6731\u7802\uFF0C\u9648\u6267\u4E8B\u6309\u94B1\u79F0\uFF0C\u4E00\u94B1\u4E5F\u4E0D\u591A\u7ED9\u3002"
-  },
-  {
-    id: "m_chenhui",
-    name: "\u9648\u7089\u7070",
-    tag: "\u5F02",
-    from: ["alchemy"],
-    w: 4,
-    text: "\u4E39\u623F\u90A3\u53E3\u8001\u7089\u4E00\u5E74\u79EF\u4E00\u5C42\u7070\u3002\u522B\u5904\u7684\u7070\u4E0D\u7BA1\u7528\uFF0C\u626B\u5730\u7684\u90FD\u77E5\u9053\u3002"
-  },
-  {
-    id: "m_tongyou",
-    name: "\u8001\u7089\u94DC\u6CB9",
-    tag: "\u706B",
-    from: ["alchemy"],
-    w: 4,
-    text: "\u4ECE\u4E39\u623F\u8001\u7089\u5E95\u522E\u4E0B\u6765\u7684\u94DC\u6CB9\u3002\u706B\u4E00\u65FA\uFF0C\u5B83\u5C31\u53D1\u7EFF\u3002"
-  },
-  {
-    id: "m_huiye",
-    name: "\u9636\u524D\u7070\u53F6",
-    tag: "\u836F",
-    from: ["gate", "map"],
-    w: 4,
-    text: "\u5C71\u95E8\u77F3\u9636\u7F1D\u91CC\u7684\u7070\u53F6\uFF0C\u88AB\u4EBA\u8E29\u4E86\u51E0\u767E\u5E74\uFF0C\u8FD8\u662F\u5E74\u5E74\u957F\u3002"
-  },
-  {
-    id: "m_xueshen",
-    name: "\u8840\u53C2",
-    tag: "\u836F",
-    from: ["forest"],
-    w: 3,
-    text: "\u53EA\u957F\u5728\u8FF7\u96FE\u68EE\u6797\u7684\u70C2\u6728\u5806\u5E95\u4E0B\uFF0C\u6316\u51FA\u6765\u7684\u65F6\u5019\u8FD8\u5728\u52A8\u3002\u5C0F\u6EE1\u8BF4\uFF0C\u8FD9\u4E1C\u897F\u542C\u8FC7\u4EBA\u8BB2\u8BDD\uFF0C\u5C31\u957F\u6210\u4EBA\u5F62\u4E86\u3002"
-  },
-  {
-    id: "m_han_sui",
-    name: "\u5BD2\u9AD3",
-    tag: "\u77FF",
-    from: ["forest", "realm"],
-    w: 3,
-    text: "\u68EE\u6797\u6DF1\u5904\u77F3\u4E73\u6EF4\u6210\u7684\u767D\u5757\uFF0C\u63E1\u4E45\u4E86\u624B\u4F1A\u9EBB\u3002\u79D8\u5883\u91CC\u7684\u6BD4\u6797\u5B50\u91CC\u7684\u51C9\u3002"
-  },
-  {
-    id: "m_yu_lu",
-    name: "\u7389\u9732",
-    tag: "\u5F02",
-    from: ["plaza", "library"],
-    w: 3,
-    text: "\u5E7F\u573A\u6D4B\u7075\u77F3\u591C\u91CC\u7ED3\u7684\u4E00\u5C42\u9732\u3002\u5B88\u591C\u5F1F\u5B50\u522E\u4E0B\u6765\uFF0C\u4E00\u534A\u81EA\u7528\uFF0C\u4E00\u534A\u6362\u7EB8\u3002"
-  },
-  {
-    id: "m_hu_gu",
-    name: "\u5C71\u6DA7\u864E\u9AA8",
-    tag: "\u517D",
-    from: ["forest", "realm"],
-    w: 2,
-    text: "\u6797\u5B50\u91CC\u7684\u8001\u864E\u4E0D\u591A\u4E86\u3002\u9AA8\u5934\u57CB\u5728\u6DA7\u8FB9\uFF0C\u7B49\u4E00\u573A\u5927\u96E8\u51B2\u51FA\u6765\u3002"
-  },
-  {
-    id: "m_jian_tai",
-    name: "\u5251\u82D4",
-    tag: "\u5F02",
-    from: ["sword"],
-    w: 2,
-    text: "\u53EA\u8D34\u5728\u5251\u51A2\u90A3\u4E09\u67C4\u5251\u7684\u77F3\u7F1D\u4E0A\uFF0C\u4E00\u8EAB\u94C1\u9508\u5473\u3002\u79FB\u51FA\u6765\u6D3B\u4E0D\u8FC7\u4E09\u5929\u3002"
-  },
-  {
-    id: "m_ming_sha",
-    name: "\u51A5\u7802",
-    tag: "\u77FF",
-    from: ["realm"],
-    w: 2,
-    text: "\u540E\u5C71\u79D8\u5883\u91CC\u4ECE\u77F3\u5934\u91CC\u6E17\u51FA\u6765\u7684\u9ED1\u7802\uFF0C\u6367\u4E00\u628A\uFF0C\u624B\u5FC3\u4F1A\u53D1\u9EBB\u3002"
-  },
-  {
-    id: "m_lei_mu",
-    name: "\u96F7\u51FB\u6728",
-    tag: "\u706B",
-    from: ["tribulation"],
-    w: 1,
-    text: "\u6E21\u52AB\u53F0\u4E0A\u88AB\u96F7\u5288\u8FC7\u7684\u8001\u69D0\uFF0C\u53EA\u6361\u5F97\u5230\u6307\u5934\u5927\u7684\u4E00\u5757\u3002\u70E7\u8D77\u6765\u6CA1\u6709\u70DF\u3002"
-  }
-];
-var DAN_RECIPES = [
-  {
-    id: "r_huiqi",
-    path: "dan",
-    tier: 1,
-    name: "\u56DE\u6C14\u4E39",
-    need: { m_yuncao: 2 },
-    years: 1,
-    out: { id: "pill", n: 1, quality: "\u4E0B\u54C1" },
-    fail: 0.12,
-    known: { via: "teacher", key: "p_dan" },
-    text: "\u4E39\u623F\u5165\u95E8\u7684\u7B2C\u4E00\u7089\u3002\u5C0F\u6EE1\u8E72\u5728\u7089\u8FB9\u66FF\u4F60\u6570\u606F\uFF0C\u6570\u5230\u516D\u5341\uFF0C\u4E39\u5C31\u8BE5\u6210\u4E86\u3002",
-    okText: "\u4E39\u6210\uFF0C\u9752\u7070\u8272\u4E00\u9897\uFF0C\u634F\u7740\u8FD8\u662F\u6E29\u7684\u3002",
-    failText: "\u7089\u76D6\u5F39\u5F00\u3002\u9ED1\u6E23\u7C98\u5728\u7089\u5E95\uFF0C\u522E\u4E86\u534A\u65E5\u3002"
-  },
-  {
-    id: "r_ninglu",
-    path: "dan",
-    tier: 1,
-    name: "\u51DD\u9732\u4E39",
-    need: { m_yu_lu: 1, m_huiye: 1 },
-    years: 1,
-    out: { id: "pill", n: 1, quality: "\u4E0B\u54C1" },
-    fail: 0.15,
-    known: { via: "scroll", key: "k_dan_1" },
-    text: "\u85CF\u7ECF\u9601\u6B8B\u5377\u4E0A\u7684\u65B9\u5B50\u3002\u5934\u4E00\u884C\u5199\u7740\uFF1A\u9732\u6C34\u8981\u591C\u91CC\u522E\u7684\uFF0C\u767D\u5929\u7684\u4E0D\u7B97\u3002",
-    okText: "\u51DD\u9732\u4E39\u6210\u4E86\u4E00\u9897\uFF0C\u900F\u7740\u6C34\u5149\uFF0C\u50CF\u6CA1\u5E72\u900F\u3002",
-    failText: "\u9732\u6C34\u5148\u6CB8\u4E86\u3002\u7089\u91CC\u5269\u4E00\u80A1\u751C\u5473\uFF0C\u751C\u5F97\u53D1\u82E6\u3002"
-  },
-  {
-    id: "r_quhan",
-    path: "dan",
-    tier: 1,
-    name: "\u795B\u5BD2\u4E39",
-    need: { m_zhusha: 1, m_tongyou: 1 },
-    years: 2,
-    out: { id: "pill", n: 1, quality: "\u4E0B\u54C1" },
-    fail: 0.18,
-    known: { via: "teacher", key: "p_dan" },
-    text: "\u4E39\u623F\u5E93\u623F\u6700\u91CC\u5934\u7684\u6731\u7802\uFF0C\u914D\u8001\u7089\u5E95\u522E\u4E0B\u6765\u7684\u94DC\u6CB9\u3002\u5BD2\u75C7\u7684\u4EBA\u5403\u4E86\u4F1A\u51FA\u6C57\u3002",
-    okText: "\u4E39\u8272\u53D1\u8D64\u3002\u4F60\u628A\u5B83\u6401\u5728\u7A97\u53F0\u667E\uFF0C\u662F\u8C01\u7684\u5BD2\u75C7\uFF0C\u4F60\u6CA1\u95EE\u3002",
-    failText: "\u94DC\u6CB9\u8D77\u4E86\u7EFF\u706B\u3002\u9648\u6267\u4E8B\u5728\u95E8\u5916\u8BF4\uFF1A\u8FD9\u7089\uFF0C\u7B97\u4F60\u8D26\u4E0A\u3002"
-  },
-  {
-    id: "r_xisui",
-    path: "dan",
-    tier: 2,
-    name: "\u6D17\u9AD3\u4E39",
-    need: { m_xueshen: 2, m_han_sui: 1 },
-    years: 3,
-    out: { id: "pill", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.26,
-    known: { via: "scroll", key: "k_dan_1" },
-    text: "\u6B8B\u5377\u4E0A\u8BF4\uFF0C\u6D17\u9AD3\u4E0D\u662F\u6D17\uFF0C\u662F\u71AC\u3002\u8840\u53C2\u8981\u8FF7\u96FE\u68EE\u6797\u91CC\u73B0\u6316\u7684\u4E24\u682A\uFF0C\u5BD2\u9AD3\u53EA\u8981\u4E00\u6307\u5934\u5927\u3002",
-    okText: "\u4E39\u6210\uFF0C\u8272\u5982\u51BB\u4F4F\u7684\u58A8\u3002\u4F60\u5410\u51FA\u4E00\u53E3\u6C14\uFF0C\u662F\u51C9\u7684\u3002",
-    failText: "\u8840\u53C2\u5728\u7089\u91CC\u70B8\u5F00\uFF0C\u6E85\u4E86\u534A\u9762\u5899\u3002\u90A3\u5473\u9053\u4E09\u5929\u6CA1\u6563\u3002"
-  },
-  {
-    id: "r_pozhang",
-    path: "dan",
-    tier: 2,
-    name: "\u7834\u969C\u4E39",
-    need: { m_jian_tai: 1, m_ming_sha: 1 },
-    years: 3,
-    out: { id: "pill", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.3,
-    known: { via: "scroll", key: "k_dan_2" },
-    text: "\u5251\u51A2\u77F3\u7F1D\u4E0A\u7684\u82D4\uFF0C\u914D\u79D8\u5883\u91CC\u6E17\u51FA\u6765\u7684\u9ED1\u7802\u3002\u6B8B\u5377\u8BF4\uFF0C\u8FD9\u662F\u7ED9\u5361\u5728\u74F6\u9888\u4E0A\u7684\u4EBA\u7528\u7684\u3002",
-    okText: "\u4E39\u8EAB\u6709\u4E00\u9053\u7EC6\u7EB9\uFF0C\u50CF\u5251\u7559\u4E0B\u7684\u3002\u4F60\u628A\u5B83\u6536\u8FDB\u888B\u5B50\u6700\u91CC\u5C42\u3002",
-    failText: "\u9ED1\u7802\u6C89\u5E95\uFF0C\u5251\u82D4\u6D6E\u4E0A\u6765\u3002\u7089\u5B50\u5B89\u9759\u4E86\u4E00\u4E0B\uFF0C\u7136\u540E\u88C2\u4E86\u3002"
-  },
-  {
-    id: "r_guyuan",
-    path: "dan",
-    tier: 2,
-    name: "\u56FA\u5143\u4E39",
-    need: { m_yuncao: 2, m_chenhui: 2, m_zhusha: 1 },
-    years: 2,
-    out: { id: "pill", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.24,
-    known: { via: "teacher", key: "p_dan" },
-    text: "\u9648\u6267\u4E8B\u6559\u7684\u8001\u65B9\u5B50\u3002\u4E91\u96FE\u8349\u8981\u73B0\u91C7\uFF0C\u7089\u7070\u8981\u79EF\u6EE1\u4E00\u5E74\u2014\u2014\u4E39\u623F\u7684\u7070\uFF0C\u522B\u5904\u7684\u4E0D\u7B97\u3002",
-    okText: "\u56FA\u5143\u4E39\u4E5D\u9897\uFF0C\u6210\u8272\u4E00\u822C\uFF0C\u80DC\u5728\u7A33\u3002\u4F60\u7559\u4E86\u4E09\u9897\u3002",
-    failText: "\u7089\u7070\u592A\u591A\uFF0C\u706B\u95F7\u4F4F\u4E86\u3002\u5F00\u7089\u65F6\uFF0C\u91CC\u9762\u7ED3\u6210\u4E00\u6574\u5757\u3002"
-  },
-  {
-    id: "r_ranxue",
-    path: "dan",
-    tier: 2,
-    name: "\u71C3\u8840\u4E39",
-    need: { m_hu_gu: 1, m_xueshen: 1, m_zhusha: 1 },
-    years: 2,
-    out: { id: "pill", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.22,
-    known: { via: "teacher", key: "p_dan" },
-    text: "\u5C71\u6DA7\u51B2\u51FA\u6765\u7684\u864E\u9AA8\u71AC\u6CB9\uFF0C\u70B9\u6731\u7802\u3002\u8001\u5F1F\u5B50\u8BF4\uFF0C\u5403\u4E0B\u53BB\uFF0C\u4EBA\u6709\u534A\u70B7\u9999\u4E0D\u6015\u75BC\u3002",
-    okText: "\u4E39\u8272\u6697\u7EA2\u3002\u4F60\u538B\u5728\u820C\u5E95\u8BD5\u4E86\u8BD5\uFF0C\u82E6\u5473\u5148\u5230\uFF0C\u70ED\u6C14\u540E\u5230\u3002",
-    failText: "\u864E\u9AA8\u6CB9\u7206\u4E86\u3002\u7089\u5B50\u55E1\u55E1\u54CD\u4E86\u5F88\u4E45\uFF0C\u4F60\u7AD9\u7740\u6CA1\u6562\u52A8\u3002"
-  },
-  {
-    id: "r_xuming",
-    path: "dan",
-    tier: 3,
-    name: "\u7EED\u547D\u4E39",
-    need: { m_han_sui: 2, m_xueshen: 2, m_yu_lu: 1, m_lei_mu: 1 },
-    years: 5,
-    out: { id: "pill", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.4,
-    known: { via: "scroll", key: "k_dan_3" },
-    text: "\u6B8B\u5377\u6700\u540E\u4E00\u9875\uFF0C\u706B\u8981\u7528\u6E21\u52AB\u53F0\u7684\u96F7\u51FB\u6728\u3002\u522B\u7684\u6728\u5934\uFF0C\u70B9\u4E0D\u7740\u8FD9\u7089\u4E39\u3002",
-    okText: "\u4E39\u6210\u4E00\u9897\uFF0C\u767D\u5F97\u50CF\u9AA8\u5934\u3002\u4F60\u60F3\u8D77\u81EA\u5DF1\u8FD8\u6B20\u7740\u51E0\u5E74\uFF0C\u6CA1\u6562\u591A\u5403\u3002",
-    failText: "\u96F7\u51FB\u6728\u70E7\u5F97\u592A\u5FEB\uFF0C\u5BD2\u9AD3\u8FD8\u6CA1\u5316\u5F00\u3002\u7089\u5B50\u584C\u4E86\u534A\u8FB9\u3002"
-  },
-  {
-    id: "r_pojing",
-    path: "dan",
-    tier: 3,
-    name: "\u7834\u5883\u4E39",
-    need: { m_ming_sha: 2, m_jian_tai: 1, m_lei_mu: 1 },
-    years: 4,
-    out: { id: "pill", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.45,
-    known: { via: "scroll", key: "k_dan_3" },
-    text: "\u6B8B\u5377\u6CA1\u5199\u5242\u91CF\uFF0C\u53EA\u5199\u4E86\u4E00\u53E5\uFF1A\u5251\u51A2\u7684\u82D4\u8981\u8D81\u9732\u6C34\u672A\u5E72\uFF0C\u6E21\u52AB\u53F0\u7684\u96F7\u51FB\u6728\u8981\u9009\u6700\u9ED1\u7684\u90A3\u5757\u3002",
-    okText: "\u4E39\u6210\uFF0C\u7089\u91CC\u4E00\u58F0\u8F7B\u54CD\uFF0C\u50CF\u4EC0\u4E48\u4E1C\u897F\u65AD\u4E86\u3002\u4F60\u542C\u89C1\u81EA\u5DF1\u5FC3\u8DF3\u6162\u4E86\u4E00\u62CD\u3002",
-    failText: "\u9ED1\u7802\u5728\u96F7\u51FB\u6728\u7684\u706B\u91CC\u5316\u5F00\u53C8\u51DD\u4F4F\u3002\u70B8\u7089\u7684\u65F6\u5019\uFF0C\u4F60\u6CA1\u6709\u8EB2\u3002"
-  },
-  {
-    id: "r_yinlei",
-    path: "dan",
-    tier: 3,
-    name: "\u5F15\u96F7\u4E39",
-    need: { m_lei_mu: 2, m_tongyou: 1, m_zhusha: 1 },
-    years: 4,
-    out: { id: "pill", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.34,
-    known: { via: "teacher", key: "p_dan" },
-    text: "\u4E39\u5CF0\u957F\u8001\u6CA1\u6559\u8FC7\u8FD9\u4E2A\u3002\u662F\u9648\u6267\u4E8B\u559D\u591A\u4E86\u8BF4\u6F0F\u7684\uFF1A\u6E21\u52AB\u524D\u542B\u4E00\u9897\uFF0C\u96F7\u843D\u4E0B\u6765\u4F1A\u6162\u534A\u606F\u3002",
-    okText: "\u4E39\u91CC\u6709\u7EC6\u5C0F\u7684\u5149\uFF0C\u4E00\u660E\u4E00\u706D\u3002\u4F60\u542B\u5728\u820C\u4E0B\uFF0C\u6CA1\u541E\u3002",
-    failText: "\u706B\u592A\u70C8\uFF0C\u96F7\u51FB\u6728\u7684\u7070\u7CCA\u6B7B\u4E86\u7089\u53E3\u3002\u4F60\u542C\u89C1\u91CC\u9762\u5728\u54CD\uFF0C\u50CF\u8FDC\u8FDC\u6709\u96F7\u3002"
-  }
-];
-var DAN_MATERIAL_BY_ID = Object.fromEntries(DAN_MATERIALS.map((m) => [m.id, m]));
-var DAN_RECIPE_BY_ID = Object.fromEntries(DAN_RECIPES.map((r) => [r.id, r]));
-
-// src/data_runes.js
-var RUNE_MATERIALS = [
-  {
-    id: "m_fu_huangzhi",
-    name: "\u9EC4\u7EB8",
-    tag: "\u7B26",
-    from: ["library", "plaza"],
-    w: 4,
-    text: "\u88C1\u5F97\u6BD4\u624B\u638C\u5927\u4E00\u70B9\u3002\u85CF\u7ECF\u9601\u540E\u5899\u667E\u7740\u4E00\u6392\uFF0C\u53D7\u6F6E\u7684\u90A3\u51E0\u5F20\uFF0C\u8C01\u4E5F\u4E0D\u8981\u3002"
-  },
-  {
-    id: "m_fu_langhao",
-    name: "\u72FC\u6BEB",
-    tag: "\u517D",
-    from: ["forest", "map"],
-    w: 3,
-    text: "\u4ECE\u4E00\u53EA\u4E0D\u80AF\u8D70\u7684\u91CE\u517D\u8EAB\u4E0A\u53D6\u7684\u3002\u7B14\u5C16\u5230\u73B0\u5728\u8FD8\u5E26\u7740\u813E\u6C14\u3002"
-  },
-  {
-    id: "m_fu_yinzhu",
-    name: "\u94F6\u6731",
-    tag: "\u77FF",
-    from: ["alchemy", "map"],
-    w: 3,
-    text: "\u6BD4\u4E39\u623F\u7684\u6731\u7802\u66F4\u7EC6\uFF0C\u8C03\u8FDB\u8840\u91CC\u4F1A\u53D1\u9ED1\u3002\u753B\u9547\u7B26\u624D\u7528\u5F97\u8D77\u3002"
-  },
-  {
-    id: "m_fu_chenmo",
-    name: "\u9648\u58A8",
-    tag: "\u5F02",
-    from: ["library", "map"],
-    w: 2,
-    text: "\u4E09\u5341\u5E74\u524D\u7684\u58A8\uFF0C\u65E9\u5E72\u4E86\u3002\u5151\u4E00\u70B9\u6C34\uFF0C\u8FD8\u80FD\u5199\u4E09\u4E2A\u5B57\u3002"
-  },
-  {
-    id: "m_fu_shengxue",
-    name: "\u751F\u8840",
-    tag: "\u517D",
-    from: ["forest", "sword"],
-    w: 3,
-    text: "\u88C5\u5728\u7AF9\u7B52\u91CC\uFF0C\u6643\u4E00\u8DEF\u4E5F\u4E0D\u51DD\u3002\u7B26\u7B93\u9601\u7684\u4EBA\u7BA1\u5B83\u53EB\u300C\u5E95\u300D\u3002"
-  },
-  {
-    id: "m_fu_xianghui",
-    name: "\u9999\u7070",
-    tag: "\u5F02",
-    from: ["tribulation", "plaza"],
-    w: 1,
-    text: "\u6E21\u52AB\u53F0\u5E95\u4E0B\u626B\u51FA\u6765\u7684\u3002\u70E7\u8FC7\u7684\u4E1C\u897F\uFF0C\u8BA4\u5F97\u96F7\u3002"
-  }
-];
-var ARRAY_MATERIALS = [
-  {
-    id: "m_zhen_qingshi",
-    name: "\u9752\u77F3",
-    tag: "\u77FF",
-    from: ["forest", "map"],
-    w: 4,
-    text: "\u5C71\u91CC\u7684\u77F3\u5934\uFF0C\u6572\u5F00\u662F\u9752\u7684\u3002\u538B\u89D2\u7684\u4E1C\u897F\uFF0C\u8D8A\u65E7\u8D8A\u597D\u3002"
-  },
-  {
-    id: "m_zhen_cishi",
-    name: "\u78C1\u77F3",
-    tag: "\u77FF",
-    from: ["forest", "sword"],
-    w: 3,
-    text: "\u4E24\u5757\u653E\u5728\u4E00\u8D77\uFF0C\u4E00\u5757\u4F1A\u81EA\u5DF1\u7FFB\u8EAB\u3002"
-  },
-  {
-    id: "m_zhen_shougu",
-    name: "\u517D\u810A\u9AA8",
-    tag: "\u517D",
-    from: ["forest", "realm"],
-    w: 3,
-    text: "\u9AA8\u5934\u4E0A\u6709\u81EA\u5DF1\u957F\u51FA\u6765\u7684\u7EB9\uFF0C\u548C\u9635\u56FE\u5F88\u50CF\u3002"
-  },
-  {
-    id: "m_zhen_jiuluopan",
-    name: "\u65E7\u7F57\u76D8",
-    tag: "\u9635",
-    from: ["map", "library"],
-    w: 1,
-    text: "\u6307\u9488\u4E0D\u6307\u5317\uFF0C\u6307\u7740\u4E00\u4E2A\u8BF4\u4E0D\u6E05\u7684\u65B9\u5411\u3002\u8DDB\u5B50\u8BF4\uFF0C\u90A3\u4E2A\u65B9\u5411\u624D\u662F\u5317\u3002"
-  },
-  {
-    id: "m_zhen_tuoying",
-    name: "\u77F3\u58C1\u62D3\u5F71",
-    tag: "\u5F02",
-    from: ["realm", "sword"],
-    w: 2,
-    text: "\u4F60\u5728\u77F3\u58C1\u4E0A\u63CF\u4E0B\u6765\u7684\u4E00\u9053\u7EBF\u3002\u56DE\u623F\u6D17\u4E86\u4E09\u904D\u624B\uFF0C\u90A3\u9053\u7EBF\u8FD8\u5728\u3002"
-  },
-  {
-    id: "m_zhen_beihui",
-    name: "\u7891\u7070",
-    tag: "\u5F02",
-    from: ["sword", "tribulation"],
-    w: 1,
-    text: "\u5251\u7891\u5E95\u4E0B\u7684\u77F3\u7C89\u3002\u62D3\u8FC7\u7891\u7684\u4EBA\uFF0C\u624B\u4E0A\u90FD\u6709\u8FD9\u4E2A\u3002"
-  }
-];
-var RUNE_RECIPES = [
-  {
-    id: "r_fu_pingan",
-    path: "fu",
-    tier: 1,
-    name: "\u5E73\u5B89\u7B26",
-    need: { m_fu_huangzhi: 1, m_fu_yinzhu: 1 },
-    years: 1,
-    out: { id: "charm", n: 1, quality: "\u4E0B\u54C1" },
-    fail: 0.1,
-    known: { via: "teacher", key: "p_fu" },
-    text: "\u7B2C\u4E00\u5F20\u7B26\u3002\u7B14\u8981\u4E00\u53E3\u6C14\u8D70\u5B8C\uFF0C\u65AD\u4E86\u5C31\u5E9F\u3002\u5356\u7B26\u7684\u4EBA\u4E0D\u770B\u4F60\u753B\u4EC0\u4E48\uFF0C\u53EA\u770B\u4F60\u7684\u624B\u505C\u6CA1\u505C\u3002",
-    okText: "\u753B\u5B8C\u4E86\u3002\u6A2A\u4E0D\u5E73\uFF0C\u7AD6\u4E0D\u76F4\uFF0C\u538B\u5728\u95E8\u6846\u4E0A\uFF0C\u98CE\u8FDB\u4E0D\u6765\u3002",
-    failText: "\u6700\u540E\u4E00\u7B14\u65AD\u4E86\u3002\u7EB8\u8FD8\u662F\u5E72\u51C0\u7684\uFF0C\u5E9F\u4E86\u3002"
-  },
-  {
-    id: "r_fu_quhan",
-    path: "fu",
-    tier: 1,
-    name: "\u9A71\u5BD2\u7B26",
-    need: { m_fu_huangzhi: 1, m_fu_shengxue: 1 },
-    years: 1,
-    out: { id: "charm", n: 1, quality: "\u4E0B\u54C1" },
-    fail: 0.16,
-    known: { via: "teacher", key: "p_fu" },
-    text: "\u5C71\u4E0B\u7684\u4EBA\u8981\u7684\u3002\u51AC\u5929\u51B7\uFF0C\u8D34\u4E00\u5F20\u5728\u95E8\u4E0A\uFF0C\u80FD\u9876\u5230\u5F00\u6625\u3002",
-    okText: "\u7B26\u4E0A\u6700\u540E\u4E00\u70B9\u8840\u7EA2\u5E72\u4E86\uFF0C\u50CF\u4E00\u7C92\u75E3\u3002",
-    failText: "\u8840\u6CA1\u8C03\u5F00\uFF0C\u7B26\u9762\u82B1\u4E86\u3002\u5356\u7B26\u7684\u4EBA\u770B\u4E86\u4E00\u773C\uFF1A\u300C\u91CD\u753B\u3002\u300D"
-  },
-  {
-    id: "r_fu_zhenhun",
-    path: "fu",
-    tier: 2,
-    name: "\u9547\u9B42\u7B26",
-    need: { m_fu_chenmo: 1, m_fu_huangzhi: 1, m_fu_xianghui: 1 },
-    years: 2,
-    out: { id: "charm", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.28,
-    known: { via: "scroll", key: "k_fu_1" },
-    text: "\u6B8B\u8C31\u4E0A\u7684\u7B2C\u4E00\u9053\u9547\u7B26\u3002\u58A8\u8981\u9694\u5E74\u7684\uFF0C\u7070\u8981\u70E7\u8FC7\u96F7\u7684\u3002\u4E24\u6837\u5DEE\u4E00\u6837\uFF0C\u7B26\u5C31\u538B\u4E0D\u4F4F\u3002",
-    okText: "\u7B26\u6210\uFF0C\u5C4B\u91CC\u7684\u706F\u7130\u76F4\u4E86\u4E00\u4E0B\u3002",
-    failText: "\u7070\u6492\u591A\u4E86\uFF0C\u7B26\u9762\u88C2\u6210\u4E24\u534A\u3002\u4F60\u628A\u5B83\u6298\u8D77\u6765\uFF0C\u6CA1\u6254\u3002"
-  },
-  {
-    id: "r_fu_chiyan",
-    path: "fu",
-    tier: 2,
-    name: "\u8D64\u7130\u7B26",
-    need: { m_fu_yinzhu: 2, m_fu_langhao: 1 },
-    years: 2,
-    out: { id: "charm", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.26,
-    known: { via: "scroll", key: "k_fu_1" },
-    text: "\u753B\u5728\u7B26\u7EB8\u80CC\u9762\u3002\u6B63\u9762\u7ED9\u4EBA\u770B\uFF0C\u80CC\u9762\u624D\u662F\u7ED9\u4EBA\u7528\u7684\u3002",
-    okText: "\u7B26\u89D2\u81EA\u5DF1\u5377\u4E86\u8D77\u6765\uFF0C\u6478\u4E0A\u53BB\u662F\u70ED\u7684\u3002",
-    failText: "\u94F6\u6731\u70E7\u7A7F\u4E86\u7EB8\u3002\u684C\u9762\u4E0A\u7559\u4E86\u4E00\u4E2A\u7126\u9ED1\u7684\u5708\u3002"
-  },
-  {
-    id: "r_fu_tishen",
-    path: "fu",
-    tier: 3,
-    name: "\u66FF\u8EAB\u7B26",
-    need: { m_fu_shengxue: 2, m_fu_chenmo: 1, m_fu_huangzhi: 1 },
-    years: 3,
-    out: { id: "charm", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.38,
-    known: { via: "scroll", key: "k_fu_2" },
-    text: "\u66FF\u4E00\u6B21\u3002\u66FF\u8C01\uFF0C\u4E0D\u80FD\u95EE\uFF1B\u95EE\u7684\u4EBA\uFF0C\u7B26\u5C31\u4E0D\u7075\u3002",
-    okText: "\u7B26\u4E0A\u591A\u4E86\u4E00\u4E2A\u4EBA\u7684\u5F71\u5B50\uFF0C\u770B\u4E0D\u6E05\u8138\u3002\u4F60\u628A\u5B83\u8D34\u8EAB\u7A7F\u597D\u3002",
-    failText: "\u8840\u4E0D\u591F\u3002\u7B26\u753B\u5230\u4E00\u534A\u5C31\u5E72\u4E86\uFF0C\u6700\u540E\u90A3\u4E00\u7B14\uFF0C\u50CF\u4E00\u9053\u4F24\u53E3\u3002"
-  },
-  {
-    id: "r_fu_zhenshan",
-    path: "fu",
-    tier: 3,
-    name: "\u9547\u5C71\u7B26",
-    need: { m_fu_xianghui: 2, m_fu_yinzhu: 1, m_fu_chenmo: 1 },
-    years: 3,
-    out: { id: "charm", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.4,
-    known: { via: "teacher", key: "p_fu" },
-    text: "\u5356\u7B26\u7684\u4EBA\u8BA9\u753B\u7684\u3002\u4ED6\u8BF4\u5C71\u4E0A\u6709\u4E9B\u4E1C\u897F\uFF0C\u5F97\u538B\u7740\u3002\u538B\u591A\u4E45\uFF0C\u4ED6\u6CA1\u8BF4\u3002",
-    okText: "\u7B26\u6210\uFF0C\u5C71\u95E8\u65B9\u5411\u4F20\u6765\u4E00\u58F0\u95F7\u54CD\uFF0C\u50CF\u6709\u4EBA\u628A\u95E8\u5173\u4E0A\u4E86\u3002",
-    failText: "\u7B26\u7EB8\u5728\u624B\u91CC\u81EA\u5DF1\u5377\u6210\u4E00\u56E2\u3002\u4F60\u5C55\u5F00\uFF0C\u4E0A\u9762\u4EC0\u4E48\u4E5F\u6CA1\u6709\u3002"
-  }
-];
-var ARRAY_RECIPES = [
-  {
-    id: "r_zhen_dingjiao",
-    path: "zhen",
-    tier: 1,
-    name: "\u5B9A\u89D2\u9635",
-    need: { m_zhen_qingshi: 2 },
-    years: 1,
-    out: { id: "jade", n: 1, quality: "\u4E0B\u54C1" },
-    fail: 0.14,
-    known: { via: "teacher", key: "p_zhen" },
-    text: "\u56DB\u4E2A\u89D2\uFF0C\u4E00\u5757\u77F3\u5934\u538B\u4E00\u4E2A\u3002\u538B\u4E0D\u538B\u5F97\u4F4F\uFF0C\u770B\u77F3\u5934\u3002",
-    okText: "\u56DB\u5757\u77F3\u5934\u6446\u5B9A\u3002\u98CE\u4ECE\u9635\u91CC\u8FC7\u53BB\uFF0C\u7ED5\u4E86\u4E2A\u5F2F\u3002",
-    failText: "\u4E1C\u5357\u89D2\u90A3\u5757\u88C2\u4E86\u3002\u9635\u6CA1\u6210\uFF0C\u77F3\u5934\u5012\u662F\u788E\u5F97\u5E72\u51C0\u3002"
-  },
-  {
-    id: "r_zhen_yinlu",
-    path: "zhen",
-    tier: 1,
-    name: "\u5F15\u8DEF\u9635",
-    need: { m_zhen_cishi: 1, m_zhen_qingshi: 1 },
-    years: 1,
-    out: { id: "jade", n: 1, quality: "\u4E0B\u54C1" },
-    fail: 0.2,
-    known: { via: "teacher", key: "p_zhen" },
-    text: "\u78C1\u77F3\u5B9A\u65B9\u5411\uFF0C\u9752\u77F3\u5B9A\u6B65\u6570\u3002\u96FE\u91CC\u8D70\uFF0C\u9760\u5B83\u3002",
-    okText: "\u9635\u6210\uFF0C\u773C\u524D\u90A3\u6761\u8DEF\u76F4\u4E86\u4E00\u70B9\u3002",
-    failText: "\u78C1\u77F3\u7FFB\u4E86\u9762\u3002\u4F60\u5728\u539F\u5730\u8F6C\u4E86\u4E09\u5708\uFF0C\u624D\u8BA4\u51FA\u54EA\u8FB9\u662F\u6765\u8DEF\u3002"
-  },
-  {
-    id: "r_zhen_huanhuan",
-    path: "zhen",
-    tier: 2,
-    name: "\u56DE\u73AF\u9635",
-    need: { m_zhen_jiuluopan: 1, m_zhen_qingshi: 2, m_zhen_cishi: 1 },
-    years: 2,
-    out: { id: "jade", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.3,
-    known: { via: "scroll", key: "k_zhen_1" },
-    text: "\u8D70\u4E09\u6B65\uFF0C\u56DE\u5230\u539F\u5904\u3002\u62D3\u7247\u4E0A\u7684\u7EBF\uFF0C\u5C31\u662F\u4E3A\u8FD9\u4E2A\u753B\u7684\u3002",
-    okText: "\u4F60\u628A\u4E00\u53EA\u811A\u8FC8\u8FDB\u53BB\uFF0C\u53C8\u6536\u4E86\u56DE\u6765\u3002\u5730\u4E0A\u7684\u7EB9\u8DEF\u6CA1\u6709\u52A8\u3002",
-    failText: "\u7F57\u76D8\u6307\u7740\u81EA\u5DF1\u7684\u5F71\u5B50\uFF0C\u9635\u4E71\u4E86\u3002\u4F60\u5728\u91CC\u9762\u8D70\u4E86\u534A\u65E5\u3002"
-  },
-  {
-    id: "r_zhen_zhenxin",
-    path: "zhen",
-    tier: 2,
-    name: "\u9547\u5FC3\u9635",
-    need: { m_zhen_shougu: 1, m_zhen_beihui: 1, m_zhen_qingshi: 1 },
-    years: 2,
-    out: { id: "tally", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.32,
-    known: { via: "scroll", key: "k_zhen_2" },
-    text: "\u9AA8\u4E3A\u67F1\uFF0C\u7891\u7070\u4E3A\u754C\u3002\u9635\u91CC\u5750\u7740\u7684\u4EBA\uFF0C\u542C\u4E0D\u89C1\u5916\u9762\u7684\u58F0\u97F3\u3002",
-    okText: "\u9635\u6210\u3002\u4F60\u5750\u5728\u91CC\u9762\uFF0C\u7B2C\u4E00\u6B21\u89C9\u5F97\u8033\u6735\u662F\u7A7A\u7684\u3002",
-    failText: "\u7891\u7070\u88AB\u98CE\u5439\u6563\u4E86\u3002\u9635\u91CC\u9635\u5916\uFF0C\u58F0\u97F3\u4E00\u6837\u5927\u3002"
-  },
-  {
-    id: "r_zhen_yinlei",
-    path: "zhen",
-    tier: 3,
-    name: "\u5F15\u96F7\u9635\u56FE",
-    need: { m_zhen_tuoying: 1, m_zhen_cishi: 2, m_zhen_shougu: 1 },
-    years: 3,
-    out: { id: "tally", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.42,
-    known: { via: "scroll", key: "k_zhen_3" },
-    text: "\u5012\u7740\u5E03\u7684\u3002\u96F7\u843D\u4E0B\u6765\uFF0C\u4F1A\u4EE5\u4E3A\u81EA\u5DF1\u5288\u9519\u4E86\u5730\u65B9\u3002",
-    okText: "\u9635\u56FE\u6210\u4E86\uFF0C\u7EB8\u4E0A\u6709\u7126\u75D5\uFF0C\u50CF\u8FD8\u6CA1\u753B\u5B8C\u3002",
-    failText: "\u62D3\u5F71\u6DE1\u4E86\u3002\u4F60\u91CD\u63CF\u4E86\u4E09\u904D\uFF0C\u7EBF\u8D8A\u63CF\u8D8A\u6D45\u3002"
-  },
-  {
-    id: "r_zhen_fengmen",
-    path: "zhen",
-    tier: 3,
-    name: "\u5C01\u95E8\u9635",
-    need: { m_zhen_qingshi: 3, m_zhen_beihui: 2, m_zhen_jiuluopan: 1 },
-    years: 3,
-    out: { id: "jade", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.4,
-    known: { via: "teacher", key: "p_zhen" },
-    text: "\u95E8\u4E00\u5173\uFF0C\u5916\u9762\u7684\u4EBA\u5C31\u627E\u4E0D\u5230\u8FD9\u91CC\u3002\u91CC\u9762\u7684\u4EBA\uFF0C\u4E5F\u51FA\u4E0D\u53BB\u3002",
-    okText: "\u9635\u6210\u3002\u4F60\u9000\u51FA\u6765\u7684\u65F6\u5019\uFF0C\u8EAB\u540E\u90A3\u9053\u77F3\u95E8\uFF0C\u50CF\u4ECE\u6765\u6CA1\u6709\u8FC7\u3002",
-    failText: "\u9635\u5DEE\u4E00\u89D2\u3002\u95E8\u5173\u4E0A\u4E86\uFF0C\u53C8\u81EA\u5DF1\u5F00\u4E86\u6761\u7F1D\u3002"
-  },
-  /* ---- 第二批：隐遁 / 引兽 / 破甲 / 金钟 ---- */
-  {
-    id: "r_fu_yindun",
-    path: "fu",
-    tier: 2,
-    name: "\u9690\u9041\u7B26",
-    need: { m_fu_chenmo: 1, m_fu_huangzhi: 1 },
-    years: 2,
-    out: { id: "charm", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.3,
-    known: { via: "scroll", key: "k_fu_2" },
-    text: '\u7B26\u8981\u753B\u5F97"\u6DE1"\u3002\u624B\u91CD\u4E00\u5206\uFF0C\u4EBA\u5C31\u8EB2\u4E0D\u4F4F\u3002',
-    okText: "\u7B26\u9762\u6DE1\u5F97\u50CF\u6CA1\u753B\u3002\u4F60\u6536\u8FDB\u8896\u5B50\uFF0C\u811A\u6B65\u58F0\u8F7B\u4E86\u534A\u62CD\u3002",
-    failText: "\u6700\u540E\u4E00\u7B14\u91CD\u4E86\u3002\u7EB8\u4E0A\u7559\u4E86\u4E2A\u6E05\u695A\u7684\u4EBA\u5F62\u3002"
-  },
-  {
-    id: "r_fu_yinshou",
-    path: "fu",
-    tier: 2,
-    name: "\u5F15\u517D\u7B26",
-    need: { m_fu_yinzhu: 1, m_fu_shengxue: 1, m_fu_huangzhi: 1 },
-    years: 2,
-    out: { id: "charm", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.32,
-    known: { via: "scroll", key: "k_fu_2" },
-    text: "\u517D\u8981\u753B\u5F97\u534A\u771F\u534A\u5047\u2014\u2014\u592A\u771F\u62DB\u6765\u7684\u662F\u5B83\uFF0C\u592A\u5047\u62DB\u6765\u7684\u662F\u4F60\u81EA\u5DF1\u3002",
-    okText: "\u7B26\u80CC\u9762\u7684\u534A\u53EA\u517D\u597D\u50CF\u52A8\u4E86\u52A8\u3002\u4F60\u628A\u5B83\u6298\u597D\u3002",
-    failText: "\u753B\u5230\u540E\u722A\u65F6\u624B\u6296\u4E86\u3002\u8840\u4E00\u822C\u7684\u6731\u7802\u7CCA\u6210\u4E00\u7247\u3002"
-  },
-  {
-    id: "r_fu_pojia",
-    path: "fu",
-    tier: 2,
-    name: "\u7834\u7532\u7B26",
-    need: { m_fu_yinzhu: 2, m_fu_shengxue: 1 },
-    years: 2,
-    out: { id: "charm", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.28,
-    known: { via: "scroll", key: "k_fu_2" },
-    text: "\u8FD9\u5F20\u7B26\u4E0D\u662F\u62A4\u4EBA\u7684\uFF0C\u662F\u62C6\u4EBA\u7684\u3002\u753B\u5B8C\u4E86\u81EA\u5DF1\u4E5F\u5ACC\u5B83\u810F\u3002",
-    okText: "\u7B26\u89D2\u81EA\u5DF1\u7126\u4E86\u4E00\u5757\uFF0C\u50CF\u88AB\u4EC0\u4E48\u54AC\u8FC7\u3002",
-    failText: "\u6731\u7802\u70E7\u7A7F\u4E86\u7EB8\u3002\u684C\u4E0A\u7559\u4E86\u4E2A\u6D1E\u3002"
-  },
-  {
-    id: "r_fu_jinzhong",
-    path: "fu",
-    tier: 3,
-    name: "\u91D1\u949F\u7B26",
-    need: { m_fu_huangzhi: 3, m_fu_xianghui: 1, m_fu_chenmo: 1 },
-    years: 4,
-    out: { id: "charm", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.42,
-    known: { via: "scroll", key: "k_fu_3" },
-    text: '\u4E09\u5C42\u7EB8\u53E0\u7740\u753B\uFF0C\u4E00\u5C42\u9519\uFF0C\u6574\u5F20\u5E9F\u3002\u5E08\u7236\u8BF4\u8FD9\u7B26\u662F"\u5BCC\u4EBA\u7B26"\u3002',
-    okText: "\u753B\u6210\u4E86\u3002\u6307\u8282\u6572\u4E0A\u53BB\uFF0C\u6709\u94DC\u97F3\u3002",
-    failText: "\u7B2C\u4E09\u5C42\u7684\u7B14\u6CA1\u63A5\u4E0A\u3002\u7EB8\u8FD8\u662F\u7EB8\u3002"
-  },
-  /* ---- 第二批阵图：聚灵 / 迷踪 / 封灵 / 护尘 ---- */
-  {
-    id: "r_zhen_juling",
-    path: "zhen",
-    tier: 1,
-    name: "\u805A\u7075\u9635",
-    need: { m_zhen_qingshi: 2 },
-    years: 1,
-    out: { id: "array", n: 1, quality: "\u4E0B\u54C1" },
-    fail: 0.12,
-    known: { via: "teacher", key: "p_zhen" },
-    text: "\u5165\u95E8\u7B2C\u4E00\u5F20\u9635\u3002\u56DB\u5757\u77F3\u5934\u538B\u89D2\uFF0C\u4E2D\u95F4\u90A3\u5757\u5730\u8981\u81EA\u5DF1\u7A7A\u51FA\u6765\u3002",
-    okText: "\u7AD9\u8FDB\u53BB\uFF0C\u547C\u5438\u6162\u4E86\u4E00\u62CD\u3002",
-    failText: "\u89D2\u538B\u504F\u4E86\u3002\u5730\u4E0A\u53EA\u5269\u56DB\u4E2A\u5751\u3002"
-  },
-  {
-    id: "r_zhen_mizong",
-    path: "zhen",
-    tier: 2,
-    name: "\u8FF7\u8E2A\u9635",
-    need: { m_zhen_cishi: 1, m_zhen_qingshi: 1 },
-    years: 2,
-    out: { id: "array", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.3,
-    known: { via: "scroll", key: "k_zhen_2" },
-    text: "\u7EBF\u8981\u753B\u4E71\uFF0C\u4F46\u8981\u4E71\u5F97\u6709\u8DEF\u3002\u4E71\u5230\u8FDE\u81EA\u5DF1\u90FD\u8BA4\u4E0D\u51FA\uFF0C\u5C31\u771F\u628A\u81EA\u5DF1\u56F0\u4F4F\u4E86\u3002",
-    okText: "\u753B\u5B8C\u56DE\u5934\u770B\uFF0C\u4F60\u81EA\u5DF1\u4E5F\u6123\u4E86\u4E00\u4E0B\u3002",
-    failText: "\u7EBF\u4E71\u4E86\uFF0C\u8DEF\u6CA1\u4E86\u3002\u4F60\u5728\u5730\u4E0A\u7AD9\u4E86\u5F88\u4E45\u3002"
-  },
-  {
-    id: "r_zhen_fengling",
-    path: "zhen",
-    tier: 2,
-    name: "\u5C01\u7075\u9635",
-    need: { m_zhen_qingshi: 1, m_zhen_beihui: 1, m_zhen_cishi: 1 },
-    years: 2,
-    out: { id: "array", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.33,
-    known: { via: "scroll", key: "k_zhen_2" },
-    text: "\u9635\u773C\u8981\u538B\u4E00\u679A\u65E7\u94DC\u94B1\uFF0C\u65B9\u5B54\u671D\u4E0A\u2014\u2014\u5B54\u671D\u4E0B\uFF0C\u5C01\u7684\u5C31\u662F\u4F60\u81EA\u5DF1\u3002",
-    okText: "\u94DC\u94B1\u843D\u5B9A\uFF0C\u56DB\u91CE\u5B89\u9759\u5F97\u4E0D\u6B63\u5E38\u3002",
-    failText: "\u94DC\u94B1\u7FFB\u4E86\u4E2A\u9762\u3002\u4F60\u542C\u89C1\u81EA\u5DF1\u5FC3\u91CC\u54CD\u4E86\u4E00\u58F0\u3002"
-  },
-  {
-    id: "r_zhen_huchen",
-    path: "zhen",
-    tier: 3,
-    name: "\u62A4\u5C18\u9635",
-    need: { m_zhen_qingshi: 3, m_zhen_beihui: 2, m_zhen_jiuluopan: 1 },
-    years: 4,
-    out: { id: "array", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.45,
-    known: { via: "scroll", key: "k_zhen_3" },
-    text: "\u6700\u540E\u4E00\u7B14\u753B\u5B8C\uFF0C\u5730\u4E0A\u7684\u571F\u5C31\u4E0D\u52A8\u4E86\u3002\u8FD9\u4E00\u95E8\u7684\u8001\u9635\u5E08\uFF0C\u753B\u5B8C\u4F1A\u5750\u7740\u6B47\u4E09\u5929\u3002",
-    okText: "\u7070\u843D\u4E0B\u6765\uFF0C\u505C\u5728\u4F60\u5934\u9876\u4E00\u6307\u7684\u5730\u65B9\u3002",
-    failText: "\u6700\u540E\u4E00\u5757\u9752\u77F3\u6CA1\u538B\u4F4F\u3002\u98CE\u4E00\u8FC7\uFF0C\u4EC0\u4E48\u90FD\u6CA1\u4E86\u3002"
-  }
-];
-var CRAFT_MATERIALS = [...RUNE_MATERIALS, ...ARRAY_MATERIALS];
-var CRAFT_RECIPES = [...RUNE_RECIPES, ...ARRAY_RECIPES];
-var CRAFT_MATERIAL_BY_ID = Object.fromEntries(CRAFT_MATERIALS.map((m) => [m.id, m]));
-var CRAFT_RECIPE_BY_ID = Object.fromEntries(CRAFT_RECIPES.map((r) => [r.id, r]));
-
-// src/data_paths.js
-var TEACHERS = {
-  dan: {
-    id: "dan",
-    path: "dan",
-    name: "\u4E39\u5CF0\u957F\u8001",
-    \u5CF0: "\u70BC\u4E39\u5CF0",
-    line: "\u7089\u5B50\u4E0D\u4F1A\u9A97\u4EBA\u3002\u5B83\u4F1A\u70B8\u7ED9\u4F60\u770B\u3002",
-    text: "\u70BC\u4E39\u5CF0\u7684\u6267\u638C\u8005\u3002\u4E00\u5E74\u91CC\u6709\u534A\u5E74\u4E0D\u51FA\u5CF0\uFF0C\u8896\u53E3\u6C38\u8FDC\u6CBE\u7740\u836F\u7070\u3002\u4ED6\u8BB0\u4E0D\u4F4F\u4EBA\u540D\uFF0C\u53EA\u8BB0\u5F97\u706B\u5019\uFF1A\u4E39\u7089\u51E0\u65F6\u54CD\u3001\u51E0\u65F6\u54D1\u3001\u51E0\u65F6\u8BE5\u6380\u76D6\u3002"
-  },
-  fu: {
-    id: "fu",
-    path: "fu",
-    name: "\u5356\u7B26\u7684\u4EBA",
-    \u5CF0: "\u7B26\u7B93\u9601",
-    line: "\u7B26\u4E0D\u662F\u753B\u7ED9\u795E\u7684\u3002\u662F\u753B\u7ED9\u81EA\u5DF1\u770B\u7684\u3002",
-    text: "\u539F\u662F\u7B26\u7B93\u9601\u91CC\u753B\u9547\u9601\u7B26\u7684\u6563\u4FEE\uFF0C\u540E\u6765\u628A\u644A\u5B50\u6446\u5230\u4E86\u5C71\u9053\u4E0A\uFF0C\u4E00\u5E74\u53EA\u5356\u4E09\u5F20\u3002\u4ED6\u6536\u7B26\u4E0D\u770B\u753B\u5F97\u597D\u4E0D\u597D\uFF0C\u53EA\u770B\u4F60\u843D\u6700\u540E\u4E00\u7B14\u65F6\uFF0C\u624B\u505C\u6CA1\u505C\u3002"
-  },
-  zhen: {
-    id: "zhen",
-    path: "zhen",
-    name: "\u8DDB\u5B50",
-    \u5CF0: "\u9635\u6CD5\u5802",
-    line: "\u4F60\u8E29\u574F\u4E86\u6211\u4E00\u6761\u7EBF\u3002",
-    text: "\u9635\u6CD5\u5802\u5982\u4ECA\u53EA\u5269\u4ED6\u4E00\u4E2A\u4EBA\u3002\u5DE6\u817F\u77ED\u534A\u5BF8\uFF0C\u8D70\u8DEF\u65F6\u80A9\u8180\u4E00\u9AD8\u4E00\u4F4E\u3002\u4ED6\u4E0D\u6536\u5F1F\u5B50\uFF0C\u4E5F\u4E0D\u4E0B\u5C71\uFF0C\u53EA\u5728\u5251\u51A2\u5916\u5934\u5E03\u4E9B\u770B\u4E0D\u61C2\u7684\u7EBF\uFF0C\u8BA9\u8DEF\u8FC7\u7684\u4EBA\u770B\u3002"
-  }
-};
-var PATH_CARDS = [
-  {
-    id: "p_dan",
-    path: "dan",
-    teacher: "dan",
-    act: "\u673A\u7F18",
-    scenes: ["alchemy", "map"],
-    // 年满 18；火/木灵根且上品以上，或陈执事已经认得你，或你已经知道那一页残卷
-    req: {
-      yearMin: 18,
-      any: [
-        { roots: ["fire", "wood"], gradeAtLeast: "\u4E0A\u54C1" },
-        { bond: { chen: 2 } },
-        { knows: ["k_dan_1"] }
-      ]
-    },
-    title: "\u4E00\u7089\u6CA1\u70B8\u900F\u7684\u4E39",
-    body: "\u4E39\u623F\u540E\u5899\u7684\u7089\u6E23\u5806\u4E86\u4E09\u5C3A\u9AD8\u3002\u9648\u6267\u4E8B\u9886\u7740\u4E00\u4E2A\u4EBA\u8FC7\u6765\uFF0C\u90A3\u4EBA\u5728\u7070\u5806\u524D\u8E72\u4E0B\uFF0C\u7528\u94C1\u7B7E\u62E8\u5F00\u51E0\u5C42\u3002\u5E95\u4E0B\u6709\u9897\u4E39\uFF0C\u70B8\u8FC7\uFF0C\u6CA1\u70B8\u900F\uFF0C\u534A\u8FB9\u8FD8\u5706\u7740\u3002\u4ED6\u628A\u5B83\u634F\u5728\u6307\u95F4\u770B\u4E86\u770B\uFF0C\u53C8\u770B\u4F60\uFF1A\u300C\u4E09\u5E74\u6210\u4E00\u7089\uFF0C\u4F60\u70B8\u4E86\u4E24\u5E74\u5341\u4E00\u4E2A\u6708\u3002\u8DDF\u6211\u4E0A\u4E39\u5CF0\u3002\u7B2C\u4E00\u4EF6\u4E8B\uFF0C\u662F\u5B66\u4F1A\u770B\u4E00\u7089\u4E39\u70E7\u5E9F\uFF0C\u4E0D\u52A8\u624B\u3002\u300D",
-    opts: [
-      {
-        t: "\u4E0A\u4E39\u5CF0",
-        res: "\u4F60\u8DDF\u7740\u4ED6\u8D70\u3002\u4ED6\u6CA1\u518D\u56DE\u5934\uFF0C\u597D\u50CF\u77E5\u9053\u4F60\u4E00\u5B9A\u4F1A\u6765\u3002",
-        eff: {
-          learn: "dan",
-          bond: { chen: 1 },
-          log: ["deed", "\u4F60\u8DDF\u4E39\u5CF0\u957F\u8001\u4E0A\u4E86\u4E39\u5CF0\u3002\u4ED6\u7ED9\u4F60\u7684\u7B2C\u4E00\u4EF6\u4E8B\uFF0C\u662F\u770B\u4E00\u7089\u4E39\u70E7\u5E9F\uFF0C\u4E0D\u52A8\u624B\u3002"]
-        }
-      },
-      {
-        t: "\u518D\u60F3\u60F3",
-        res: "\u4ED6\u6CA1\u529D\u3002\u90A3\u9897\u6CA1\u70B8\u900F\u7684\u4E39\u88AB\u4ED6\u6536\u8FDB\u8896\u5B50\u3002\u4E39\u5CF0\u7684\u95E8\uFF0C\u4ECE\u90A3\u5929\u8D77\u6CA1\u518D\u5F00\u8FC7\u3002",
-        eff: {
-          log: ["omen", "\u4E39\u5CF0\u957F\u8001\u95EE\u4F60\u8981\u4E0D\u8981\u4E0A\u4E39\u5CF0\u3002\u4F60\u8BF4\u518D\u60F3\u60F3\u3002\u4ED6\u6536\u8D70\u90A3\u9897\u4E39\uFF0C\u8D70\u4E86\u3002"]
-        }
-      }
-    ]
-  },
-  {
-    id: "p_fu",
-    path: "fu",
-    teacher: "fu",
-    act: "\u673A\u7F18",
-    scenes: ["library", "plaza", "map"],
-    // 年满 18；金/水灵根，或悟性攒到了两次，或你抄过那半本残谱
-    req: {
-      yearMin: 18,
-      any: [{ roots: ["metal", "water"] }, { wuMin: 2 }, { knows: ["k_fu_1"] }]
-    },
-    title: "\u65AD\u5728\u6700\u540E\u4E00\u7B14",
-    body: "\u5C71\u9053\u62D0\u89D2\uFF0C\u5356\u7B26\u7684\u4EBA\u5728\u6536\u644A\u3002\u4F60\u624B\u91CC\u90A3\u5F20\u63CF\u5E9F\u7684\u7B26\u7EB8\u88AB\u98CE\u5439\u5230\u4ED6\u811A\u8FB9\uFF0C\u4ED6\u6361\u8D77\u6765\u770B\u4E86\u5F88\u4E45\uFF1A\u300C\u6700\u540E\u4E00\u7B14\u65AD\u4E86\u3002\u300D\u4ED6\u6380\u5F00\u644A\u5E03\uFF0C\u5E95\u4E0B\u538B\u7740\u4E00\u53E0\u88C1\u597D\u7684\u7A7A\u7B26\u7EB8\uFF0C\u8FB9\u89D2\u9F50\u5F97\u50CF\u5200\u5207\u7684\u3002\u300C\u8DDF\u6211\u5B66\u3002\u5B66\u6210\u4E86\uFF0C\u8FD9\u5F20\u4F60\u5C31\u80FD\u753B\u5B8C\u3002\u300D",
-    opts: [
-      {
-        t: "\u8E72\u4E0B\u6765\u5B66",
-        res: "\u4ED6\u628A\u7B14\u9012\u7ED9\u4F60\uFF0C\u6CA1\u6559\u4F60\u600E\u4E48\u8D77\u7B14\uFF0C\u53EA\u8BA9\u4F60\u770B\u4ED6\u753B\u4E00\u904D\u3002",
-        eff: {
-          learn: "fu",
-          bond: { fu: 1 },
-          log: ["deed", "\u4F60\u8DDF\u7740\u5C71\u9053\u5356\u7B26\u7684\u4EBA\u5B66\u753B\u7B26\u3002\u4ED6\u5148\u8BA9\u4F60\u770B\u4ED6\u753B\u4E00\u5F20\uFF0C\u518D\u6765\u4E00\u904D\uFF0C\u4E0D\u8BB8\u95EE\u3002"]
-        }
-      },
-      {
-        t: "\u628A\u7B26\u7EB8\u8FD8\u7ED9\u4ED6",
-        res: "\u4ED6\u628A\u7B26\u7EB8\u6254\u8FDB\u706B\u76C6\u3002\u706B\u82D7\u8E7F\u8D77\u6765\u7684\u65F6\u5019\uFF0C\u4ED6\u8BF4\uFF1A\u300C\u753B\u7B26\u7684\u4EBA\uFF0C\u624B\u4E0D\u80FD\u6296\u3002\u300D\u5C71\u9053\u4E0A\u90A3\u4E2A\u644A\u5B50\uFF0C\u5F80\u540E\u6536\u5F97\u4E00\u5929\u6BD4\u4E00\u5929\u65E9\u3002",
-        eff: {
-          log: ["omen", "\u5356\u7B26\u7684\u4EBA\u95EE\u4F60\u8981\u4E0D\u8981\u5B66\u7B26\u3002\u4F60\u628A\u90A3\u5F20\u5E9F\u7B26\u8FD8\u7ED9\u4E86\u4ED6\u3002\u4ED6\u70E7\u4E86\u3002"]
-        }
-      }
-    ]
-  },
-  {
-    id: "p_zhen",
-    path: "zhen",
-    teacher: "zhen",
-    act: "\u673A\u7F18",
-    scenes: ["sword", "realm", "map"],
-    // 年满 18；土/木灵根，或生来神识，或你拓过剑碑背面
-    req: {
-      yearMin: 18,
-      any: [
-        { roots: ["earth", "wood"] },
-        { traits: ["shenshi"] },
-        { knows: ["k_zhen_1"] }
-      ]
-    },
-    title: "\u4F60\u8E29\u574F\u4E86\u4E00\u6761\u7EBF",
-    body: "\u5251\u51A2\u5916\u5934\u7684\u5730\u4E0A\uFF0C\u6709\u4EBA\u7528\u767D\u7C89\u5F39\u4E86\u51E0\u5341\u9053\u7EBF\u3002\u4F60\u9000\u4E86\u4E00\u6B65\uFF0C\u8E29\u65AD\u5176\u4E2D\u4E00\u6839\u3002\u8DDB\u5B50\u4ECE\u7891\u540E\u5934\u8F6C\u51FA\u6765\uFF0C\u8E72\u4E0B\u53BB\uFF0C\u628A\u65AD\u53E3\u4E00\u70B9\u70B9\u63A5\u4E0A\uFF0C\u63A5\u5F97\u5F88\u6162\uFF0C\u50CF\u5728\u63A5\u4E00\u6839\u9AA8\u5934\u3002\u300C\u8FD9\u6761\u7EBF\u901A\u5411\u5C71\u5E95\u4E0B\u3002\u300D\u4ED6\u8BF4\uFF0C\u300C\u8981\u4E48\u8D54\uFF0C\u8981\u4E48\u5B66\u3002\u300D",
-    opts: [
-      {
-        t: "\u5B66",
-        res: "\u4ED6\u7AD9\u8D77\u6765\uFF0C\u628A\u5269\u4E0B\u7684\u767D\u7C89\u9012\u7ED9\u4F60\uFF1A\u300C\u8D54\u7684\u4EF7\u94B1\uFF0C\u662F\u5B66\u660E\u767D\u5B83\u3002\u300D",
-        eff: {
-          learn: "zhen",
-          log: ["deed", "\u4F60\u8E29\u65AD\u4E86\u5251\u51A2\u5916\u7684\u4E00\u6761\u7EBF\u3002\u8DDB\u5B50\u8BA9\u4F60\u5B66\u9635\u6CD5\u6765\u8D54\u3002"]
-        }
-      },
-      {
-        t: "\u8D54",
-        res: "\u4F60\u8D54\u4E86\u4ED6\u4E09\u6597\u767D\u7C89\u3002\u7EBF\u91CD\u65B0\u5F39\u597D\uFF0C\u62D0\u89D2\u5904\u8FD8\u5DEE\u4E00\u5BF8\uFF0C\u4ED6\u8BF4\u90A3\u4E00\u5BF8\u4E0D\u7528\u8865\u3002\u9635\u6CD5\u5802\u7684\u95E8\uFF0C\u4F60\u540E\u6765\u518D\u6CA1\u63A8\u5F00\u8FC7\u3002",
-        eff: {
-          log: ["omen", "\u4F60\u8E29\u65AD\u4E86\u5251\u51A2\u5916\u7684\u4E00\u6761\u7EBF\uFF0C\u8D54\u4E86\u4E09\u6597\u767D\u7C89\u3002\u8DDB\u5B50\u8BF4\uFF0C\u8FD8\u5DEE\u4E00\u5BF8\u3002"]
-        }
-      }
-    ]
-  },
-  /* ------------------------- 进阶机缘（path 用 'shu'） -------------------------
-   * 上面三张是"入门"：drawPathCard 会跳过 card.path 已经会了的那一门。
-   * 所以往深处走的那几张，path 一律写 'shu'——没人会"学会 shu"，学过丹的人也还能
-   * 再遇见一个人。报酬全走现成的口子：know 让人认得方子（data_dan / data_runes 的
-   * known.key 就是它），items 往袋子里放药，'evil' 那笔账自动收业力。
-   *
-   * ⚠️ 约定（craft.js 里叫 ADV_KEY，别复用）：
-   *   'shu' 是"进阶残页"的保留字，**不是第四门手艺**。
-   *   craft.js 对它做三件特殊的事：① 不进 PATH_KEYS，人物面板单列一栏
-   *   「路上遇见的残页」；② advOpen() 会要求"它教哪一门，你就得已经在那门里"
-   *   （只给药、不给 know 的卡，只要玩家有一门即可）；③ 选中后记 c.adv[id] = 年。
-   *
-   *   要加一门**真正可学**的手艺（比如炼器），走这三步：
-   *   1) craft.js 的 PATH_KEYS 里加 key（如 'qi'），并给它一张入门机缘卡；
-   *   2) data_runes.js 里补材料 / 配方（path: 'qi'）；
-   *   3) 千万别用 'shu' 当 path——它永远不会被 hasPath() 认成"学会了"（画进三途进度条）
-   *   反过来：只想"见过一个人、学到半句"，就继续用 'shu'。 */
-  {
-    id: "p_yaonong",
-    path: "shu",
-    act: "\u673A\u7F18",
-    scenes: ["forest", "map"],
-    // 满 17 岁，在山道或林子里。木/土灵根的人他愿意搭话，读过残卷的他也认
-    req: {
-      yearMin: 17,
-      any: [{ roots: ["wood", "earth"] }, { knows: ["k_dan_1"] }]
-    },
-    title: "\u5012\u7740\u62CE\u7684\u6839",
-    body: "\u8FF7\u96FE\u68EE\u6797\u5916\u5934\uFF0C\u4E00\u4E2A\u80CC\u836F\u7BD3\u7684\u4EBA\u8E72\u5728\u5761\u4E0A\uFF0C\u628A\u4E00\u682A\u4E91\u8349\u5012\u8FC7\u6765\u62CE\u7740\u770B\u6839\u3002\u300C\u4F60\u4EEC\u5C71\u4E0A\u91C7\u836F\uFF0C\u662F\u4E00\u628A\u597D\u7684\u3001\u4E00\u628A\u574F\u7684\uFF0C\u5269\u4E0B\u7B97\u8FD0\u6C14\u3002\u300D\u4ED6\u628A\u90A3\u682A\u653E\u56DE\u571F\u91CC\uFF0C\u628A\u5751\u6309\u5B9E\uFF0C\u300C\u6211\u91C7\u836F\uFF0C\u4E09\u682A\u7559\u4E00\u682A\u3002\u7559\u7684\u4E0D\u662F\u5584\u5FC3\uFF0C\u662F\u660E\u5E74\u8FD8\u6709\u5761\u53EF\u6765\u3002\u300D",
-    opts: [
-      {
-        t: "\u300C\u6559\u6211\u7559\u4E00\u682A\u3002\u300D",
-        res: "\u4ED6\u6559\u4F60\u6296\u5E72\u51C0\u6839\u987B\uFF0C\u6559\u4F60\u586B\u5751\uFF0C\u6559\u4F60\u4ECE\u5761\u9876\u5F80\u4E0B\u8D70\u2014\u2014\u8E29\u8FC7\u4E00\u904D\u7684\u5761\uFF0C\u4ECA\u5E74\u522B\u518D\u4E0A\u53BB\u3002\u4F60\u4ECA\u5E74\u5C11\u91C7\u4E24\u682A\uFF0C\u90A3\u7247\u5761\u8FD8\u662F\u7EFF\u7684\u3002",
-        eff: {
-          items: [{ id: "herb", n: 3 }],
-          log: ["deed", "\u4E00\u4E2A\u80CC\u836F\u7BD3\u7684\u4EBA\u6559\u4F60\u91C7\u836F\uFF1A\u4E09\u682A\u7559\u4E00\u682A\u3002\u4F60\u624B\u91CC\u4E09\u682A\u836F\uFF0C\u5761\u4E0A\u7559\u4E86\u4E00\u7247\u6839\u3002"]
-        }
-      },
-      {
-        t: "\u4E00\u682A\u4E0D\u7559\u3002",
-        res: "\u4ED6\u628A\u7BD3\u5B50\u80CC\u8D77\u6765\uFF0C\u4ECE\u5761\u53E3\u56DE\u5934\u770B\u4E86\u4F60\u4E00\u773C\uFF0C\u6CA1\u8BF4\u8BDD\u3002\u90A3\u4E00\u8D9F\u4F60\u91C7\u4E86\u4E94\u682A\uFF0C\u6839\u987B\u5168\u626F\u65AD\u4E86\u3002\u7B2C\u4E8C\u5E74\u518D\u53BB\uFF0C\u90A3\u7247\u5761\u53EA\u5269\u77F3\u5934\u3002",
-        eff: {
-          items: [{ id: "herb", n: 5 }],
-          // 'evil' 已经 +1 业力：五株药换来的，是道行、手稳，和正道那几扇门
-          log: ["evil", "\u4F60\u628A\u90A3\u7247\u5761\u8FDE\u6839\u62D4\u4E86\uFF0C\u4E94\u682A\u3002\u80CC\u836F\u7BD3\u7684\u4EBA\u7AD9\u5728\u5761\u53E3\u770B\u4F60\uFF0C\u4E00\u53E5\u8BDD\u6CA1\u8BF4\u3002"]
-        }
-      }
-    ]
-  },
-  {
-    id: "p_jiaye",
-    path: "shu",
-    act: "\u673A\u7F18",
-    scenes: ["library", "alchemy", "map"],
-    // 两条路都算读过残卷：自己摸到过那一页，或者上丹峰时陈执事已经认得你
-    req: {
-      yearMin: 20,
-      any: [{ knows: ["k_dan_1"] }, { bond: { chen: 1 } }]
-    },
-    title: "\u5939\u9875\u6BD4\u7ECF\u9EC4",
-    body: "\u6B8B\u5377\u4F60\u6284\u8FC7\u4E09\u904D\uFF0C\u7EB8\u5DF2\u7ECF\u8BA4\u5F97\u4F60\u7684\u624B\u3002\u7B2C\u56DB\u904D\u624D\u6478\u5230\u4E2D\u95F4\u5939\u7740\u4E00\u9875\u2014\u2014\u6BD4\u7ECF\u7EB8\u8FD8\u9EC4\uFF0C\u8FB9\u89D2\u88AB\u6307\u5934\u637B\u8F6F\u4E86\u3002\u4E0A\u9762\u53EA\u6709\u4E24\u5473\u836F\uFF1A\u5251\u82D4\u751F\u4E8E\u77F3\u7F1D\uFF0C\u51A5\u7802\u51FA\u4E8E\u5C71\u9AA8\u3002\u80CC\u540E\u6709\u4EBA\u5F00\u53E3\uFF1A\u300C\u90A3\u4E00\u9875\u6211\u4E0D\u7ED9\u4EBA\u3002\u300D\u662F\u9648\u6267\u4E8B\u3002\u300C\u7ED9\u4E86\u4F60\uFF0C\u4F60\u5F97\u53BB\u79D8\u5883\u7B2C\u4E09\u683C\u8E72\u4E00\u591C\u3002\u8E72\u4E0D\u4F4F\u7684\u4EBA\u62FF\u4E86\u65B9\u5B50\uFF0C\u4E5F\u662F\u70B8\u7089\u3002\u300D",
-    opts: [
-      {
-        t: "\u300C\u6211\u53BB\u8E72\u4E00\u591C\u3002\u300D",
-        res: "\u4ED6\u628A\u90A3\u9875\u4ECE\u7ECF\u91CC\u62BD\u51FA\u6765\uFF0C\u6298\u4E86\u4E24\u6298\u585E\u8FDB\u4F60\u8896\u5B50\uFF0C\u8F6C\u8EAB\u628A\u7ECF\u67B6\u63A8\u56DE\u539F\u5904\u3002\u540E\u6765\u4F60\u5728\u5251\u51A2\u542C\u4EBA\u8BF4\uFF1A\u5251\u82D4\u8981\u8D81\u9732\u6C34\u672A\u5E72\u624D\u597D\u8D77\u3002",
-        eff: {
-          know: "k_dan_2",
-          bond: { chen: 1 },
-          log: ["deed", "\u9648\u6267\u4E8B\u628A\u9752\u56CA\u4E39\u7ECF\u7684\u5939\u9875\u7ED9\u4E86\u4F60\u3002\u4E0A\u9762\u90A3\u5473\u7834\u969C\u4E39\uFF0C\u4E24\u6837\u836F\u90FD\u5728\u540E\u5C71\u548C\u5251\u51A2\u90A3\u79CD\u5730\u65B9\u3002"]
-        }
-      },
-      {
-        t: "\u300C\u6211\u4E0D\u53BB\u3002\u300D",
-        res: "\u4ED6\u6CA1\u529D\uFF0C\u53EA\u628A\u7ECF\u4E66\u63A8\u56DE\u67B6\u5B50\u6700\u5E95\u5C42\u3002\u90A3\u4E00\u9875\u4F60\u540E\u6765\u81EA\u5DF1\u6478\u5230\u8FC7\uFF0C\u6478\u5230\u8FC7\u4E5F\u6CA1\u7528\u2014\u2014\u7B2C\u4E09\u683C\u4F60\u8BF4\u5B83\u662F\u77F3\u5934\uFF0C\u5B83\u5C31\u662F\u77F3\u5934\u3002",
-        eff: {
-          log: ["omen", "\u9648\u6267\u4E8B\u95EE\u4F60\u8981\u4E0D\u8981\u53BB\u79D8\u5883\u7B2C\u4E09\u683C\u8E72\u4E00\u591C\u3002\u4F60\u8BF4\u4E0D\u53BB\u3002\u4ED6\u628A\u7ECF\u4E66\u63A8\u56DE\u4E86\u67B6\u5B50\u6700\u5E95\u5C42\u3002"]
-        }
-      }
-    ]
-  },
-  {
-    id: "p_zuihua",
-    path: "shu",
-    act: "\u673A\u7F18",
-    scenes: ["map", "plaza", "library"],
-    // 认得残谱，或者已经跟他学过两笔——那晚他收摊早，你在场
-    req: {
-      yearMin: 22,
-      any: [{ knows: ["k_fu_1"] }, { bond: { fu: 1 } }]
-    },
-    title: "\u4ED6\u559D\u591A\u7684\u90A3\u4E00\u53E5",
-    body: "\u5C71\u9053\u62D0\u89D2\u90A3\u4E2A\u644A\u5B50\uFF0C\u90A3\u5929\u6536\u644A\u6536\u5F97\u65E9\u3002\u644A\u4E3B\u4E00\u4E2A\u4EBA\u5750\u5728\u77F3\u9636\u4E0A\uFF0C\u72FC\u6BEB\u8FD8\u5939\u5728\u8033\u540E\uFF0C\u5BF9\u7740\u7A7A\u7897\u8BF4\uFF1A\u300C\u66FF\u8EAB\u7B26\u4E0D\u662F\u66FF\u4F60\u7684\u3002\u662F\u66FF\u90A3\u4E2A\u8FD8\u4E0D\u77E5\u9053\u81EA\u5DF1\u5DF2\u7ECF\u6B7B\u4E86\u7684\u4F60\u3002\u300D\u8BF4\u5B8C\u4ED6\u5C31\u7761\u7740\u4E86\u3002\u7B2C\u4E8C\u5929\u4F60\u95EE\u4ED6\uFF0C\u4ED6\u8BF4\u6CA1\u8BB2\u8FC7\u3002",
-    opts: [
-      {
-        t: "\u300C\u4F60\u518D\u8BF4\u4E00\u904D\u3002\u300D\uFF08\u966A\u4ED6\u5750\u5230\u665A\u4E0A\uFF09",
-        res: "\u4ED6\u5230\u7B2C\u4E09\u7897\u624D\u53C8\u60F3\u8D77\u90A3\u53E5\u8BDD\u3002\u8FD9\u4E00\u6B21\u4ED6\u6293\u8FC7\u4F60\u7684\u624B\uFF0C\u628A\u6700\u540E\u4E00\u7B14\u600E\u4E48\u8D70\uFF0C\u5728\u4F60\u638C\u5FC3\u91CC\u753B\u4E86\u4E00\u904D\u3002",
-        eff: {
-          know: "k_fu_2",
-          bond: { fu: 1 },
-          log: ["deed", "\u5356\u7B26\u7684\u4EBA\u9189\u91CC\u8BF4\u6F0F\u7684\u90A3\u53E5\uFF0C\u4F60\u966A\u4ED6\u5750\u5230\u665A\u4E0A\uFF0C\u4ED6\u628A\u5B83\u753B\u5728\u4F60\u624B\u5FC3\u91CC\u3002"]
-        }
-      },
-      {
-        t: "\u628A\u7897\u6536\u4E86\uFF1A\u300C\u522B\u559D\u4E86\u3002\u300D",
-        res: "\u4ED6\u9192\u5F97\u5F88\u65E9\uFF0C\u7B2C\u4E8C\u5929\u7167\u65E7\u6446\u644A\uFF0C\u7167\u65E7\u4E00\u5929\u53EA\u5356\u4E09\u5F20\u3002\u4F60\u540E\u6765\u5728\u7B26\u8C31\u8FB9\u89D2\u89C1\u8FC7\u90A3\u4E00\u7B14\u7684\u8D70\u6CD5\uFF0C\u95EE\u4E0D\u51FA\u662F\u8C01\u6DFB\u4E0A\u53BB\u7684\u3002",
-        eff: {
-          bond: { fu: -1 },
-          log: ["omen", "\u4F60\u6536\u8D70\u4E86\u5356\u7B26\u4EBA\u7684\u7897\u3002\u4ED6\u6CA1\u8BF4\u90A3\u53E5\u9189\u8BDD\uFF0C\u7B26\u8C31\u8FB9\u89D2\u591A\u51FA\u6765\u7684\u90A3\u4E00\u7B14\uFF0C\u4E5F\u6CA1\u4EBA\u8BA4\u3002"]
-        }
-      }
-    ]
-  },
-  {
-    id: "p_beiyin",
-    path: "shu",
-    act: "\u673A\u7F18",
-    scenes: ["sword", "realm", "library"],
-    req: {
-      yearMin: 24,
-      knows: ["k_zhen_1"],
-      any: [{ roots: ["earth", "wood"] }, { traits: ["shenshi"] }]
-    },
-    title: "\u62D3\u7891\u7684\u4EBA\u4E0D\u8BA4\u5B57",
-    body: "\u5251\u7891\u80CC\u9762\u90A3\u5C42\u7EB9\u4F60\u62D3\u4E0B\u6765\u4E86\u3002\u8DDB\u5B50\u8E72\u5728\u96E8\u91CC\u770B\u90A3\u5F20\u62D3\u7247\uFF0C\u770B\u4E86\u5F88\u4E45\uFF1A\u300C\u8FD9\u4E0D\u662F\u5B57\uFF0C\u662F\u7EBF\u3002\u6709\u4EBA\u628A\u4E00\u5EA7\u9635\u538B\u8FDB\u77F3\u5934\u91CC\uFF0C\u538B\u7684\u65F6\u5019\u5B83\u8FD8\u662F\u6D3B\u7684\u3002\u300D\u4ED6\u628A\u62D3\u7247\u5F80\u706B\u5806\u90A3\u8FB9\u632A\u4E86\u632A\u3002\u300C\u70E7\u4E86\uFF0C\u4F60\u5C11\u77E5\u9053\u4E00\u4EF6\u4E8B\u3002\u4E0D\u70E7\uFF0C\u4F60\u66FF\u6211\u7AD9\u4E00\u591C\u2014\u2014\u7AD9\u5728\u9635\u773C\u4E0A\uFF0C\u4EC0\u4E48\u4E5F\u4E0D\u8BB8\u60F3\u3002\u300D",
-    opts: [
-      {
-        t: "\u66FF\u4ED6\u7AD9\u90A3\u4E00\u591C",
-        req: { wuMin: 1 },
-        res: "\u4F60\u5728\u5251\u51A2\u5916\u7AD9\u5230\u5929\u4EAE\uFF0C\u679C\u7136\u4EC0\u4E48\u4E5F\u6CA1\u60F3\u6210\u3002\u4ED6\u628A\u4E00\u5757\u78C1\u77F3\u6254\u7ED9\u4F60\uFF1A\u300C\u9635\u4E0D\u5728\u77F3\u4E0A\uFF0C\u5728\u4EBA\u5FC3\u91CC\u3002\u4F60\u6628\u591C\u5FC3\u91CC\u6709\u4E1C\u897F\uFF0C\u6240\u4EE5\u5B83\u5E94\u4F60\u4E86\u3002\u300D",
-        eff: {
-          know: "k_zhen_2",
-          wu: -1,
-          log: ["deed", "\u4F60\u66FF\u8DDB\u5B50\u5728\u5251\u7891\u7684\u9635\u773C\u4E0A\u7AD9\u4E86\u4E00\u591C\u3002\u624B\u8BB0\u4F60\u8BFB\u5B8C\u4E86\u2014\u2014\u4EE3\u4EF7\u662F\u6709\u4E00\u5377\u7ECF\uFF0C\u4F60\u518D\u60F3\u4E0D\u8D77\u6765\u3002"]
-        }
-      },
-      {
-        t: "\u628A\u62D3\u7247\u7ED9\u4ED6",
-        res: "\u4ED6\u5728\u96E8\u91CC\u70B9\u4E86\u706B\u3002\u62D3\u7247\u5377\u8D77\u6765\u90A3\u4E00\u77AC\uFF0C\u80CC\u9762\u90A3\u5C42\u7EB9\u5FFD\u7136\u6E05\u695A\u4E86\u4E00\u4E0B\u2014\u2014\u4F60\u770B\u89C1\u4E86\uFF0C\u4F46\u4F60\u6CA1\u6562\u8BB0\u4F4F\u3002",
-        eff: {
-          log: ["omen", "\u8DDB\u5B50\u70E7\u4E86\u5251\u7891\u80CC\u9762\u7684\u62D3\u7247\u3002\u706B\u5149\u91CC\u90A3\u5C42\u7EB9\u4EAE\u4E86\u4E00\u77AC\uFF0C\u4F60\u6CA1\u8BB0\u4F4F\u5B83\u901A\u5411\u54EA\u513F\u3002"]
-        }
-      }
-    ]
-  },
-  {
-    id: "p_leimu",
-    path: "shu",
-    act: "\u673A\u7F18",
-    scenes: ["tribulation", "sword", "map"],
-    // 夹页读过才谈末页；这一年之后，雷击木才值得你上去一趟
-    req: {
-      yearMin: 30,
-      knows: ["k_dan_2"],
-      any: [{ roots: ["fire"] }, { gradeAtLeast: "\u4E0A\u54C1" }, { wuMin: 3 }]
-    },
-    title: "\u6700\u9ED1\u7684\u90A3\u4E00\u5757",
-    body: "\u6E21\u52AB\u53F0\u8FB9\u7ACB\u7740\u51E0\u5757\u88AB\u5288\u8FC7\u53C8\u843D\u4E0B\u6765\u7684\u6728\u5934\uFF0C\u9ED1\u7684\u7A0B\u5EA6\u4E0D\u4E00\u6837\u3002\u4E00\u4E2A\u8001\u6267\u4E8B\u4E00\u7247\u4E00\u7247\u7FFB\uFF0C\u7FFB\u5230\u6700\u9ED1\u7684\u90A3\u5757\uFF0C\u628A\u5B83\u91CD\u65B0\u7ACB\u597D\u3002\u300C\u8FD9\u5757\u706B\u4E0D\u662F\u6728\u5934\u7684\u706B\uFF0C\u662F\u96F7\u7559\u4E0B\u7684\u3002\u300D\u4ED6\u8BF4\uFF0C\u300C\u8981\u70BC\u90A3\u7089\u7EED\u547D\u7684\uFF0C\u53EA\u6709\u5B83\u80FD\u70B9\u7740\u3002\u4F60\u81EA\u5DF1\u4E0B\u6765\u6361\uFF0C\u6211\u4E0D\u4E0B\u53BB\u3002\u300D",
-    opts: [
-      {
-        t: "\u4E0B\u53BB\u6361",
-        res: "\u6728\u5934\u6BD4\u4F60\u60F3\u7684\u8F7B\uFF0C\u65AD\u53E3\u662F\u73BB\u7483\u6837\u7684\u3002\u4F60\u628A\u5B83\u63E3\u4E0A\u6765\u7684\u65F6\u5019\uFF0C\u8896\u53E3\u70E7\u7A7F\u4E86\u4E00\u4E2A\u6D1E\u3002\u8001\u6267\u4E8B\u770B\u89C1\u90A3\u4E2A\u6D1E\uFF0C\u70B9\u4E86\u70B9\u5934\u3002",
-        eff: {
-          know: "k_dan_3",
-          log: ["deed", "\u4F60\u81EA\u5DF1\u4ECE\u6E21\u52AB\u53F0\u5E95\u4E0B\u6361\u4E86\u6700\u9ED1\u7684\u4E00\u5757\u96F7\u51FB\u6728\u3002\u672B\u9875\u90A3\u53E5\u300C\u706B\u4ECE\u96F7\u6765\u300D\uFF0C\u4ECE\u6B64\u4F60\u662F\u771F\u77E5\u9053\u4E86\u3002"]
-        }
-      },
-      {
-        t: "\u4E0D\u53BB\u3002\u96F7\u6728\u662F\u6B7B\u4EBA\u7684\u4E1C\u897F\u3002",
-        res: "\u90A3\u5757\u6700\u9ED1\u7684\u6728\u5934\u8FD8\u7ACB\u5728\u53F0\u8FB9\u3002\u8001\u6267\u4E8B\u7B2C\u4E8C\u5929\u6765\u628A\u5B83\u632A\u56DE\u539F\u5904\uFF0C\u7B49\u4E0B\u4E00\u4E2A\u4F1A\u70BC\u7684\u4EBA\u2014\u2014\u4ED6\u7B49\u4E86\u4E09\u5E74\uFF0C\u7B49\u5230\u7684\u662F\u522B\u4EBA\u3002",
-        eff: {
-          log: ["omen", "\u6E21\u52AB\u53F0\u8FB9\u6700\u9ED1\u7684\u90A3\u5757\u96F7\u51FB\u6728\uFF0C\u4F60\u6CA1\u53BB\u6361\u3002\u8001\u6267\u4E8B\u628A\u5B83\u7ACB\u56DE\u539F\u5904\uFF0C\u8BF4\uFF0C\u7B49\u4E0B\u4E00\u4E2A\u3002"]
-        }
-      }
-    ]
-  }
-];
-var KNOWLEDGE = [
-  {
-    id: "k_dan_1",
-    name: "\u9752\u56CA\u4E39\u7ECF\xB7\u6B8B\u5377",
-    path: "dan",
-    tier: 1,
-    from: ["library", "alchemy"],
-    how: "\u6284\u7ECF\u6284\u5230\u7B2C\u4E09\u5E74\uFF0C\u624D\u5728\u7ECF\u67B6\u6700\u5E95\u5C42\u6478\u5230\u8FD9\u4E00\u9875\u3002",
-    text: "\u9732\u4E0D\u591C\u522E\uFF0C\u4E39\u4E0D\u591C\u6210\u3002\u7089\u6709\u4E09\u5019\uFF0C\u4EBA\u53EA\u7B49\u4E00\u5019\u3002"
-  },
-  {
-    id: "k_dan_2",
-    name: "\u9752\u56CA\u4E39\u7ECF\xB7\u5939\u9875",
-    path: "dan",
-    tier: 2,
-    from: ["library", "realm", "sword"],
-    how: "\u6B8B\u5377\u91CC\u5939\u7740\u7684\u4E00\u9875\uFF0C\u7EB8\u6BD4\u522B\u7684\u9EC4\u3002",
-    text: "\u5251\u82D4\u751F\u4E8E\u77F3\u7F1D\uFF0C\u51A5\u7802\u51FA\u4E8E\u5C71\u9AA8\u3002\u4E8C\u8005\u540C\u7089\uFF0C\u53EF\u7834\u6B7B\u5173\u3002"
-  },
-  {
-    id: "k_dan_3",
-    name: "\u9752\u56CA\u4E39\u7ECF\xB7\u672B\u9875",
-    path: "dan",
-    tier: 3,
-    from: ["library", "alchemy", "tribulation"],
-    how: "\u6B8B\u5377\u6700\u540E\u4E00\u9875\uFF0C\u5B57\u8FF9\u6362\u4E86\u4E00\u4E2A\u4EBA\u3002",
-    text: "\u7EED\u547D\u8005\uFF0C\u5148\u7EED\u706B\u3002\u706B\u4ECE\u96F7\u6765\uFF0C\u4E0D\u4ECE\u6728\u6765\u3002"
-  },
-  {
-    id: "k_fu_1",
-    name: "\u7B26\u7B93\u9601\u6B8B\u8C31",
-    path: "fu",
-    tier: 1,
-    from: ["library", "map"],
-    how: "\u5728\u85CF\u7ECF\u9601\u6700\u91CC\u90A3\u6392\u67B6\u5B50\u4E0A\uFF0C\u53EA\u6709\u534A\u672C\u3002",
-    text: "\u7B26\u6210\u4E8E\u6C14\uFF0C\u8D25\u4E8E\u624B\u3002\u624B\u6296\u4E00\u5206\uFF0C\u7B26\u5DEE\u4E00\u5BF8\uFF1B\u5FC3\u6296\u4E00\u5206\uFF0C\u7B26\u5E9F\u3002"
-  },
-  {
-    id: "k_fu_2",
-    name: "\u4E00\u53E5\u9189\u8BDD",
-    path: "fu",
-    tier: 2,
-    from: ["map", "plaza", "library"],
-    how: "\u5356\u7B26\u7684\u4EBA\u559D\u591A\u4E86\uFF0C\u8BF4\u6F0F\u7684\u3002\u7B2C\u4E8C\u5929\u4ED6\u4E0D\u8BA4\u3002",
-    text: "\u7B26\u4E0D\u662F\u753B\u7ED9\u795E\u7684\u3002\u662F\u753B\u7ED9\u81EA\u5DF1\u770B\u7684\u3002\u4F60\u4FE1\u5B83\uFF0C\u5B83\u5C31\u9876\u7528\uFF1B\u4F60\u4E0D\u4FE1\uFF0C\u5B83\u5C31\u662F\u4E00\u5F20\u7EB8\u3002"
-  },
-  {
-    id: "k_zhen_1",
-    name: "\u5251\u7891\u62D3\u7247",
-    path: "zhen",
-    tier: 1,
-    from: ["sword", "library"],
-    how: "\u62D3\u7891\u90A3\u5929\u4E0B\u4E86\u96E8\uFF0C\u80CC\u9762\u4E5F\u6D07\u51FA\u4E00\u5C42\u7EB9\u3002",
-    text: "\u7891\u9634\u6709\u7EB9\uFF0C\u975E\u5B57\u975E\u753B\u3002\u4EE5\u77F3\u51FB\u4E4B\uFF0C\u5176\u58F0\u5E94\u56DB\u65B9\u3002"
-  },
-  {
-    id: "k_zhen_2",
-    name: "\u9635\u5802\u624B\u8BB0",
-    path: "zhen",
-    tier: 2,
-    from: ["library", "realm"],
-    how: "\u9635\u6CD5\u5802\u5E9F\u5C4B\u91CC\u7FFB\u51FA\u7684\u4E00\u672C\u624B\u8BB0\uFF0C\u6700\u540E\u4E00\u9875\u88AB\u6495\u4E86\u3002",
-    text: "\u9635\u4E0D\u5728\u77F3\u4E0A\uFF0C\u5728\u4EBA\u5FC3\u91CC\u3002\u4F60\u4FE1\u5B83\u56DB\u89D2\uFF0C\u5B83\u5C31\u56DB\u89D2\u3002"
-  },
-  {
-    id: "k_zhen_3",
-    name: "\u5979\u63D0\u8FC7\u4E00\u53E5",
-    path: "zhen",
-    tier: 3,
-    from: ["sword", "realm", "map"],
-    how: "\u5728\u5251\u51A2\uFF0C\u90A3\u4E2A\u5973\u5B50\u770B\u7740\u4F60\u811A\u4E0B\u7684\u7EBF\uFF0C\u5FFD\u7136\u8BF4\u7684\u3002",
-    text: "\u5C71\u5E95\u4E0B\u90A3\u5EA7\u9635\uFF0C\u662F\u5012\u7740\u5E03\u7684\u3002\u6240\u4EE5\u586B\u8FDB\u53BB\u7684\u4EBA\uFF0C\u90FD\u51FA\u4E0D\u6765\u3002"
-  }
-];
-var PATH_NAMES = {
-  dan: {
-    name: "\u70BC\u4E39",
-    desc: "\u7089\u706B\u91CC\u6362\u5BFF\u5143\u3002",
-    line: "\u4E00\u7089\u4E39\uFF0C\u4E09\u5E74\u706B\u3002",
-    how: "\u706B/\u6728\u7075\u6839\u4E0A\u54C1\u4EE5\u4E0A\uFF0C\u6216\u8BA9\u9648\u6267\u4E8B\u8BB0\u4F4F\u4F60\u3002"
-  },
-  fu: {
-    name: "\u5236\u7B26",
-    desc: "\u4E00\u5F20\u7EB8\uFF0C\u9876\u4E00\u6B21\u547D\u3002",
-    line: "\u7B26\u753B\u5B8C\u4E86\uFF0C\u624B\u8FD8\u5728\u6296\u3002",
-    how: "\u91D1/\u6C34\u7075\u6839\uFF0C\u6216\u609F\u6027\u6512\u591F\u4E86\uFF0C\u6216\u6284\u8FC7\u90A3\u534A\u672C\u6B8B\u8C31\u3002"
-  },
-  zhen: {
-    name: "\u9635\u6CD5",
-    desc: "\u628A\u5C71\u3001\u628A\u96F7\uFF0C\u6446\u5230\u4F60\u60F3\u8981\u7684\u4F4D\u7F6E\u3002",
-    line: "\u7EBF\u753B\u5728\u5730\u4E0A\uFF0C\u547D\u62BC\u5728\u7EBF\u4E0A\u3002",
-    how: "\u571F/\u6728\u7075\u6839\uFF0C\u6216\u751F\u6765\u795E\u8BC6\uFF0C\u6216\u62D3\u8FC7\u5251\u7891\u80CC\u9762\u3002"
-  }
-};
-
-// src/data_dark.js
-var DARK_TEACHER = {
-  id: "xie",
-  name: "\u88AB\u9010\u51FA\u5C71\u95E8\u7684\u4EBA",
-  \u5CF0: "\u5C71\u95E8\u5916",
-  dark: true,
-  line: "\u4ED6\u4EEC\u4E0D\u6559\u6211\uFF0C\u6211\u5C31\u81EA\u5DF1\u5B66\u3002\u73B0\u5728\u8F6E\u5230\u4F60\u4E86\u3002",
-  text: "\u6CA1\u4EBA\u63D0\u4ED6\u7684\u540D\u3002\u4ED6\u4F4F\u5C71\u95E8\u5916\u90A3\u95F4\u7834\u5C4B\u5B50\uFF0C\u95E8\u53E3\u6652\u7740\u4E00\u4E9B\u4E0D\u8BE5\u6652\u7684\u4E1C\u897F\u3002\u6709\u4EBA\u8BF4\u4ED6\u5F53\u5E74\u4E5F\u6D4B\u51FA\u8FC7\u5929\u7075\u6839\u3002\u4E5F\u6709\u4EBA\u8BF4\uFF0C\u4ED6\u628A\u81EA\u5DF1\u7684\u7075\u6839\u525C\u51FA\u6765\u6362\u4E86\u522B\u7684\u4E1C\u897F\u3002"
-};
-var DARK_MATERIALS = [
-  { id: "m_d_blood", name: "\u517D\u8840", tag: "\u8840", from: ["forest", "sword"], w: 2, text: "\u88C5\u5728\u7AF9\u7B52\u91CC\uFF0C\u8FD8\u662F\u6E29\u7684\u3002" },
-  { id: "m_d_bone", name: "\u9AA8\u7C89", tag: "\u9AA8", from: ["sword", "realm"], w: 2, text: "\u78E8\u5F97\u5F88\u7EC6\u3002\u5439\u4E00\u4E0B\uFF0C\u4F1A\u6D6E\u8D77\u6765\u3002" },
-  { id: "m_d_lamp", name: "\u9B42\u706F\u6CB9", tag: "\u5F02", from: ["realm", "tribulation"], w: 1, text: "\u70B9\u4E86\u4E0D\u4EAE\uFF0C\u53EA\u5192\u4E00\u70B9\u70B9\u70DF\u3002" },
-  { id: "m_d_ash", name: "\u7089\u7070", tag: "\u706B", from: ["alchemy"], w: 2, text: "\u522B\u4EBA\u626B\u6389\u7684\u4E1C\u897F\uFF0C\u6709\u4EBA\u6361\u8D77\u6765\u3002" },
-  { id: "m_d_nail", name: "\u6307\u7532", tag: "\u4EBA", from: ["gate", "plaza"], w: 1, text: "\u4E00\u5C0F\u628A\uFF0C\u7528\u7EA2\u7EF3\u6346\u7740\u3002" },
-  { id: "m_d_eye", name: "\u6CA1\u95ED\u4E0A\u7684\u773C", tag: "\u5F02", from: ["realm"], w: 1, text: "\u5B83\u4E0D\u770B\u4F60\u3002\u5B83\u5728\u770B\u522B\u7684\u5730\u65B9\u3002" }
-];
-var DARK_RECIPES = [
-  {
-    id: "r_d_yanshou",
-    path: "dan",
-    tier: 2,
-    name: "\u7EED\u547D\u4E39\xB7\u6539",
-    need: { m_d_blood: 2, m_d_bone: 1 },
-    years: 1,
-    out: { id: "pill", n: 2, quality: "\u4E0A\u54C1" },
-    fail: 0.12,
-    known: { via: "dark", key: null },
-    cost: { karma: 1, span: 1 },
-    text: "\u706B\u662F\u9752\u7684\u3002",
-    okText: "\u6210\u4E86\u3002\u4F60\u95FB\u4E86\u4E00\u4E0B\uFF0C\u4E0D\u592A\u60F3\u5403\u3002",
-    failText: "\u7089\u5B50\u6CA1\u70B8\u3002\u91CC\u9762\u7684\u4E1C\u897F\u6CA1\u4E86\u3002"
-  },
-  {
-    id: "r_d_duoling",
-    path: "dan",
-    tier: 3,
-    name: "\u593A\u7075\u4E39",
-    need: { m_d_lamp: 1, m_d_bone: 2 },
-    years: 1,
-    out: { id: "pill", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.18,
-    known: { via: "dark", key: null },
-    cost: { karma: 2, span: 2 },
-    text: "\u4F60\u542C\u89C1\u6709\u4EBA\u5728\u6570\u6570\u3002",
-    okText: "\u4E39\u662F\u9ED1\u7684\uFF0C\u634F\u5728\u624B\u91CC\u50CF\u4E00\u5757\u51B7\u7684\u8089\u3002",
-    failText: "\u4F60\u5C1D\u4E86\u4E00\u70B9\u3002\u540E\u6765\u6709\u4E09\u4E2A\u65F6\u8FB0\uFF0C\u4F60\u4E0D\u8BB0\u5F97\u81EA\u5DF1\u505A\u8FC7\u4EC0\u4E48\u3002"
-  },
-  {
-    id: "r_d_xuefu",
-    path: "fu",
-    tier: 2,
-    name: "\u8840\u7B26",
-    need: { m_d_blood: 1, m_d_ash: 1 },
-    years: 1,
-    out: { id: "charm", n: 2, quality: "\u4E2D\u54C1" },
-    fail: 0.1,
-    known: { via: "dark", key: null },
-    cost: { karma: 1 },
-    text: "\u7B14\u8981\u8638\u4E00\u6B21\uFF0C\u505C\u4E00\u4E0B\u3002",
-    okText: "\u7B26\u5E72\u4E86\u4EE5\u540E\u662F\u8910\u8272\u7684\u3002\u8D34\u5728\u95E8\u4E0A\uFF0C\u591C\u91CC\u6CA1\u6709\u866B\u53EB\u3002",
-    failText: "\u7B26\u81EA\u5DF1\u70E7\u4E86\u3002\u70E7\u5F97\u5F88\u5B89\u9759\u3002"
-  },
-  {
-    id: "r_d_goufu",
-    path: "fu",
-    tier: 3,
-    name: "\u52FE\u9B42\u7B26",
-    need: { m_d_lamp: 1, m_d_nail: 1 },
-    years: 1,
-    out: { id: "tally", n: 1, quality: "\u4E0A\u54C1" },
-    fail: 0.16,
-    known: { via: "dark", key: null },
-    cost: { karma: 2, span: 1 },
-    text: "\u753B\u5230\u6700\u540E\uFF0C\u624B\u4F1A\u81EA\u5DF1\u505C\u3002",
-    okText: "\u6210\u4E86\u3002\u4F60\u628A\u5B83\u6536\u8D77\u6765\uFF0C\u89C9\u5F97\u6307\u5934\u51C9\u3002",
-    failText: "\u7B26\u4E0A\u591A\u4E86\u4E00\u7B14\u3002\u4F60\u6CA1\u753B\u90A3\u4E00\u7B14\u3002"
-  },
-  {
-    id: "r_d_xuezhen",
-    path: "zhen",
-    tier: 2,
-    name: "\u8840\u9635",
-    need: { m_d_blood: 1, m_d_bone: 1 },
-    years: 1,
-    out: { id: "jade", n: 1, quality: "\u4E2D\u54C1" },
-    fail: 0.12,
-    known: { via: "dark", key: null },
-    cost: { karma: 1, span: 1 },
-    text: "\u9635\u8981\u538B\u4E1C\u897F\uFF0C\u77F3\u5934\u4E5F\u884C\uFF0C\u6D3B\u7684\u66F4\u597D\u3002",
-    okText: "\u9635\u7ACB\u4F4F\u4E86\u3002\u4F60\u7AD9\u5728\u91CC\u9762\uFF0C\u89C9\u5F97\u6BD4\u5916\u9762\u6696\u3002",
-    failText: "\u9635\u584C\u4E86\u3002\u5730\u4E0A\u4EC0\u4E48\u4E5F\u6CA1\u7559\u4E0B\uFF0C\u8FDE\u8840\u90FD\u6CA1\u6709\u3002"
-  },
-  {
-    id: "r_d_suohun",
-    path: "zhen",
-    tier: 3,
-    name: "\u9501\u9B42\u9635",
-    need: { m_d_lamp: 2, m_d_eye: 1 },
-    years: 1,
-    out: { id: "tally", n: 2, quality: "\u4E0A\u54C1" },
-    fail: 0.2,
-    known: { via: "dark", key: null },
-    cost: { karma: 3, span: 2 },
-    text: "\u6446\u5B8C\u6700\u540E\u4E00\u9897\uFF0C\u8981\u9000\u4E09\u6B65\u3002",
-    okText: "\u9635\u6210\u4E86\u3002\u4F60\u9000\u4E86\u4E09\u6B65\uFF0C\u5B83\u8DDF\u7740\u4F60\u9000\u4E86\u4E09\u6B65\u3002",
-    failText: "\u4F60\u9000\u5230\u7B2C\u4E09\u6B65\uFF0C\u56DE\u5934\uFF0C\u9635\u5728\u4F60\u811A\u5E95\u4E0B\u3002"
-  }
-];
-var DOOR = { any: [{ karmaMin: 2 }, { leftMax: 20 }], yearMin: 18 };
-var DARK_CARDS = [
-  {
-    id: "d_dan",
-    dark: true,
-    path: "dan",
-    teacher: "xie",
-    act: "\u673A\u7F18",
-    scenes: ["alchemy", "map", "forest"],
-    req: DOOR,
-    title: "\u522B\u4EBA\u5012\u6389\u7684\u7089\u7070",
-    body: "\u5C71\u9053\u8FB9\uFF0C\u4E00\u4E2A\u4EBA\u8E72\u7740\uFF0C\u628A\u522B\u4EBA\u5012\u6389\u7684\u7089\u7070\u4E00\u70B9\u70B9\u62E8\u5F00\uFF0C\u6311\u91CC\u9762\u6CA1\u70E7\u900F\u7684\u4E1C\u897F\u3002\u4F60\u770B\u4E86\u5F88\u4E45\uFF0C\u4ED6\u4E5F\u77E5\u9053\u4F60\u770B\u4E86\u5F88\u4E45\u3002\u4ED6\u6CA1\u62AC\u5934\uFF1A\u300C\u4E39\u5CF0\u4E0D\u8981\u7684\u4E1C\u897F\uFF0C\u591F\u517B\u6D3B\u4E24\u4E2A\u4EBA\u3002\u300D",
-    opts: [
-      {
-        t: "\u300C\u6559\u6211\u3002\u300D",
-        eff: {
-          learn: "dan",
-          track: "dark",
-          karma: 1,
-          log: ["omen", "\u4F60\u5728\u5C71\u9053\u8FB9\u5B66\u4F1A\u4E86\u53E6\u4E00\u79CD\u70BC\u4E39\u3002"]
-        },
-        res: "\u4ED6\u7ED9\u4E86\u4F60\u4E00\u53EA\u88C2\u4E86\u53E3\u7684\u7089\u5B50\u3002\u4ED6\u8BF4\uFF1A\u300C\u706B\u522B\u592A\u5927\u3002\u91CC\u9762\u6709\u4EBA\u3002\u300D\u4F60\u6CA1\u95EE\u662F\u8C01\u3002\u4ED6\u628A\u7089\u7070\u63A8\u7ED9\u4F60\u4E00\u534A\u3002"
-      },
-      {
-        t: "\u8D70\u5F00",
-        eff: { log: ["deed", "\u4F60\u8D70\u5F00\u4E86\u3002\u4ED6\u5728\u4F60\u80CC\u540E\u7B11\u4E86\u4E00\u58F0\uFF0C\u7EE7\u7EED\u6311\u7089\u7070\u3002"] },
-        res: "\u4F60\u8D70\u4E86\u5341\u51E0\u6B65\uFF0C\u56DE\u5934\uFF0C\u4ED6\u8FD8\u5728\u90A3\u91CC\u62E8\u4ED6\u7684\u7070\u3002"
-      }
-    ]
-  },
-  {
-    id: "d_fu",
-    dark: true,
-    path: "fu",
-    teacher: "xie",
-    act: "\u673A\u7F18",
-    scenes: ["library", "plaza", "map"],
-    req: DOOR,
-    title: "\u7B26\u662F\u753B\u7ED9\u8C01\u770B\u7684",
-    body: "\u85CF\u7ECF\u9601\u540E\u9762\uFF0C\u6709\u4EBA\u5728\u70E7\u7B26\u3002\u4E0D\u662F\u796D\uFF0C\u662F\u70E7\u2014\u2014\u4E00\u5F20\u4E00\u5F20\u5F80\u706B\u91CC\u4E22\uFF0C\u50CF\u5728\u5582\u4EC0\u4E48\u4E1C\u897F\u3002\u4ED6\u770B\u89C1\u4F60\uFF0C\u4E5F\u4E0D\u505C\u624B\uFF1A\u300C\u4F60\u4E5F\u89C9\u5F97\uFF0C\u7B26\u662F\u5199\u7ED9\u4EBA\u770B\u7684\uFF1F\u300D",
-    opts: [
-      {
-        t: "\u300C\u5199\u7ED9\u8C01\uFF1F\u300D",
-        eff: {
-          learn: "fu",
-          track: "dark",
-          karma: 1,
-          log: ["omen", "\u4F60\u77E5\u9053\u4E86\u7B26\u8FD8\u53EF\u4EE5\u753B\u7ED9\u522B\u7684\u4E1C\u897F\u770B\u3002"]
-        },
-        res: "\u300C\u5199\u7ED9\u4E0D\u6536\u4FE1\u7684\u4EBA\u3002\u300D\u4ED6\u628A\u6700\u540E\u4E00\u5F20\u9012\u7ED9\u4F60\uFF0C\u7EB8\u662F\u6E29\u7684\u3002\u4F60\u4F4E\u5934\u770B\uFF0C\u4E0A\u9762\u4E00\u4E2A\u5B57\u4E5F\u6CA1\u6709\uFF0C\u4F46\u8FB9\u89D2\u5DF2\u7ECF\u88AB\u6478\u8F6F\u4E86\u3002"
-      },
-      {
-        t: "\u300C\u6211\u4E0D\u77E5\u9053\u3002\u300D",
-        eff: { log: ["omen", "\u4ED6\u70E7\u5B8C\u6700\u540E\u4E00\u5F20\uFF0C\u8D70\u4E86\u3002\u5730\u4E0A\u6CA1\u6709\u7070\u3002"] },
-        res: "\u4ED6\u70B9\u70B9\u5934\uFF0C\u597D\u50CF\u8FD9\u4E2A\u56DE\u7B54\u4E5F\u53EF\u4EE5\u3002\u706B\u70E7\u5B8C\u4E86\uFF0C\u5730\u4E0A\u4EC0\u4E48\u4E5F\u6CA1\u5269\u3002"
-      }
-    ]
-  },
-  {
-    id: "d_zhen",
-    dark: true,
-    path: "zhen",
-    teacher: "xie",
-    act: "\u673A\u7F18",
-    scenes: ["sword", "realm", "map"],
-    req: DOOR,
-    title: "\u522B\u4EBA\u7684\u9AA8\u5934",
-    body: "\u79D8\u5883\u53E3\uFF0C\u6709\u4EBA\u8E72\u5728\u90A3\u513F\u6446\u77F3\u5934\u3002\u6446\u5F97\u5F88\u6162\uFF0C\u50CF\u5728\u7B49\u4EC0\u4E48\u3002\u4F60\u8D70\u8FD1\uFF0C\u624D\u770B\u89C1\u77F3\u5934\u5E95\u4E0B\u538B\u7740\u4E00\u622A\u6307\u9AA8\u3002\u300C\u9635\u8981\u6709\u4E1C\u897F\u538B\u7740\u624D\u7ACB\u5F97\u4F4F\uFF0C\u300D\u4ED6\u8BF4\uFF0C\u300C\u6D3B\u4EBA\u6700\u597D\uFF0C\u6B7B\u4EBA\u7701\u4E8B\u3002\u300D",
-    opts: [
-      {
-        t: "\u300C\u6211\u5B66\u3002\u300D",
-        eff: {
-          learn: "zhen",
-          track: "dark",
-          karma: 1,
-          log: ["omen", "\u4F60\u5B66\u4F1A\u4E86\u7528\u522B\u7684\u4E1C\u897F\u538B\u9635\u3002"]
-        },
-        res: "\u4ED6\u8BA9\u5F00\u534A\u4E2A\u4F4D\u7F6E\u3002\u4F60\u8E72\u4E0B\u53BB\uFF0C\u5B66\u7740\u4ED6\u7684\u6837\u5B50\u6446\u7B2C\u4E00\u9897\u77F3\u5934\u2014\u2014\u624B\u5FC3\u51FA\u6C57\uFF0C\u77F3\u5934\u6446\u5F97\u5F88\u7A33\u3002"
-      },
-      {
-        t: "\u300C\u4F60\u6446\u7684\u662F\u8C01\u7684\uFF1F\u300D",
-        eff: { log: ["omen", "\u4ED6\u6CA1\u56DE\u7B54\u3002\u4ED6\u628A\u90A3\u622A\u6307\u9AA8\u6536\u8FDB\u8896\u5B50\u91CC\uFF0C\u8D70\u4E86\u3002"] },
-        res: "\u4ED6\u770B\u4E86\u4F60\u4E00\u4F1A\u513F\uFF0C\u628A\u77F3\u5934\u6536\u8FDB\u8896\u5B50\u3002\u8D70\u7684\u65F6\u5019\u6CA1\u6709\u56DE\u5934\u3002"
-      }
-    ]
-  }
-];
-
-// src/codex.js
-var KEY = "lingxu.codex.v1";
-var BEASTS = [
-  { id: "beast_01", name: "\u9752\u9762\u7360" },
-  { id: "beast_02", name: "\u96FE\u4E2D\u5F71" },
-  { id: "beast_03", name: "\u72EC\u773C\u9B48" },
-  { id: "beast_04", name: "\u767D\u989D\u864E" },
-  { id: "beast_05", name: "\u9752\u9CDE\u86DF" },
-  { id: "beast_06", name: "\u8D64\u80CC\u87FE" },
-  { id: "beast_07", name: "\u83B2\u5C3E\u72D0" },
-  { id: "beast_08", name: "\u8D1F\u7891\u9F9F" },
-  { id: "beast_09", name: "\u8840\u9E26" },
-  { id: "beast_10", name: "\u9AA8\u9E7F" }
-];
-var ENDINGS = [
-  { id: "stele", name: "\u7891", hint: "\u540D\u5B57\u523B\u4E0A\u5C71\u95E8\u7684\u90A3\u4E00\u79CD" },
-  { id: "return", name: "\u8FD8", hint: "\u628A\u9053\u884C\u5012\u56DE\u4E95\u91CC\u7684\u90A3\u4E00\u79CD" },
-  { id: "push", name: "\u63A8", hint: "\u53F0\u4E0A\u7AD9\u7740\u522B\u4EBA\u7684\u90A3\u4E00\u79CD" },
-  { id: "back", name: "\u56DE", hint: "\u4E0B\u4E86\u5C71\u7684\u90A3\u4E00\u79CD" },
-  { id: "nameless", name: "\u65E0\u540D", hint: "\u6CA1\u6709\u540D\u5B57\u7684\u90A3\u4E00\u79CD" },
-  { id: "thunder", name: "\u96F7", hint: "\u96F7\u843D\u4E0B\u6765\u7684\u90A3\u4E00\u79CD" }
-];
-var PATHS = [
-  { id: "dan", name: "\u70BC\u4E39" },
-  { id: "fu", name: "\u5236\u7B26" },
-  { id: "zhen", name: "\u9635\u6CD5" },
-  { id: "xie", name: "\u90AA\u95E8" }
-];
-var MOUNTS2 = [
-  { id: "crane", name: "\u767D\u9E64" },
-  { id: "deer", name: "\u9752\u9E7F" },
-  { id: "fox", name: "\u8D64\u72D0" }
-];
-var RECIPES = [...DAN_RECIPES, ...CRAFT_RECIPES, ...DARK_RECIPES].map((r) => ({ id: r.id, name: r.name }));
-var ADV = PATH_CARDS.filter((c) => c.path === "shu").map((c) => ({ id: c.id, name: c.title }));
-var PEOPLE2 = NPC_POOL.filter((n) => n.art).map((n) => ({ id: n.id, name: n.name }));
-var MIND_LIST = MINDS.map((m) => ({ id: m.id, name: m.title }));
-var CATS = {
-  people: { label: "\u4F17\u751F", note: "\u8BF4\u8FC7\u8BDD\u7684\u4EBA\uFF0C\u8138\u4F1A\u6362\uFF0C\u540D\u5B57\u4E0D\u4F1A", items: PEOPLE2 },
-  beasts: { label: "\u767E\u5996", note: "\u6597\u8FC7\u7684\u4E0E\u6CA1\u6597\u8FC7\u7684\uFF0C\u90FD\u5728\u8FD9\u5C71\u91CC", items: BEASTS },
-  recipes: { label: "\u65B9\u672F", note: "\u4EB2\u624B\u70BC\u6210\u8FC7\u7684\u65B9\u5B50\uFF08\u4E39\xB7\u7B26\xB7\u9635\xB7\u90AA\u95E8\uFF09", items: RECIPES },
-  adv: { label: "\u6B8B\u9875", note: "\u8DEF\u4E0A\u9047\u89C1\u3001\u542C\u61C2\u4E86\u7684\u6B8B\u9875", items: ADV },
-  paths: { label: "\u9053\u9014", note: "\u62DC\u8FC7\u5C71\u95E8\u7684\u624B\u827A", items: PATHS },
-  mounts: { label: "\u5750\u9A91", note: "\u6536\u670D\u8FC7\u7684\u517D", items: MOUNTS2 },
-  endings: { label: "\u7ED3\u5C40", note: "\u4E00\u4E16\u6536\u573A\u7684\u65B9\u5F0F\uFF0C\u636E\u8BF4\u6709\u516D\u79CD", items: ENDINGS },
-  minds: { label: "\u5FC3\u4E8B", note: "\u4E86\u7ED3\u8FC7\u7684\u5FC3\u4E8B", items: MIND_LIST }
-};
-function read() {
-  try {
-    const d = JSON.parse(localStorage.getItem(KEY) || "null");
-    if (d && d.cats) return d;
-  } catch {
-  }
-  return { v: 1, cats: {}, seeds: {} };
-}
-function write(d) {
-  try {
-    localStorage.setItem(KEY, JSON.stringify(d));
-  } catch {
-  }
-}
-function lifeCount(d, seed) {
-  if (seed != null && !d.seeds[seed]) {
-    d.seeds[seed] = 1;
-    return true;
-  }
-  return false;
-}
-function lives(state2) {
-  const d = read();
-  return Object.keys(d.seeds).length || 1;
-}
-function record(state2, cat, id) {
-  if (!CATS[cat] || !id) return false;
-  const d = read();
-  const l = state2 && state2.life;
-  if (l && l.seed) lifeCount(d, l.seed);
-  const bucket = d.cats[cat] || (d.cats[cat] = {});
-  const isNew = !bucket[id];
-  bucket[id] = (bucket[id] || 0) + 1;
-  write(d);
-  return isNew;
-}
-function totals(d = read()) {
-  let got = 0, all = 0;
-  for (const k of Object.keys(CATS)) {
-    const bucket = d.cats[k] || {};
-    all += CATS[k].items.length;
-    for (const it of CATS[k].items) if (bucket[it.id]) got++;
-  }
-  return { got, all };
-}
-var WU_STEP = 12;
-var WU_CAP = 3;
-function wuClaimable(state2, d = read()) {
-  const l = state2 && state2.life ? state2.life : {};
-  const reached = Math.min(WU_CAP, Math.floor(totals(d).got / WU_STEP));
-  return Math.max(0, reached - (l.codexWu || 0));
-}
-function claimWu(state2) {
-  const d = read();
-  const gain2 = wuClaimable(state2, d);
-  if (!gain2) return 0;
-  const l = state2.life;
-  l.codexWu = (l.codexWu || 0) + gain2;
-  l.wu = (l.wu || 0) + gain2;
-  return gain2;
-}
-var esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
-function panelHtml(state2) {
-  const d = read();
-  const t = totals(d);
-  const claim = wuClaimable(state2, d);
-  const claimed = state2 && state2.life && state2.life.codexWu || 0;
-  const secs = Object.keys(CATS).map((k) => {
-    const bucket = d.cats[k] || {};
-    const items = CATS[k].items;
-    const got = items.filter((it) => bucket[it.id]).length;
-    const rows = items.map((it) => {
-      const seen = bucket[it.id];
-      return `<span class="cx-item${seen ? " on" : ""}" title="${seen ? "\u89C1\u8FC7 " + bucket[it.id] + " \u6B21" : "\u8FD8\u6CA1\u9047\u5230\u8FC7"}">${seen ? esc(it.name) : "???"}</span>`;
-    }).join("");
-    return `<details class="cx-sec">
-      <summary><b>${CATS[k].label}</b><span>${CATS[k].note}</span><em>${got} / ${items.length}</em></summary>
-      <div class="cx-grid">${rows}</div>
-    </details>`;
-  }).join("");
-  return `<div class="panel-title">\u767E\u518C \xB7 \u8DE8\u4E16\u56FE\u9274</div>
-    <div class="panel-text">\u8FD9\u662F\u7B2C <b>${lives(state2)}</b> \u4E16\u3002\u4EBA\u3001\u5996\u3001\u65B9\u5B50\u3001\u7ED3\u5C40\u2014\u2014\u89C1\u8FC7\u4E00\u6B21\u5C31\u6C38\u8FDC\u8BB0\u5728\u518C\u5B50\u91CC\uFF0C\u6B7B\u4E86\u4E5F\u4E0D\u4E22\u3002</div>
-    <div class="bar"><span>\u5DF2\u5F55</span><i><b style="width:${Math.min(100, t.got / Math.max(1, t.all) * 100)}%"></b></i><em>${t.got} / ${t.all}</em></div>
-    ${claim > 0 ? `<button class="btn gold" id="cx-claim">\u9886\u524D\u4E16\u4F59\u6CFD \xB7 \u609F +${claim}</button>` : `<div class="panel-text" style="opacity:.48">\u6BCF\u5F55\u6EE1 ${WU_STEP} \u6761\u53EF\u9886 1 \u70B9\u609F\uFF08\u4E00\u4E16\u6700\u591A ${WU_CAP} \u70B9\uFF0C\u8FD9\u4E00\u4E16\u5DF2\u9886 ${claimed}\uFF09</div>`}
-    ${secs}
-    <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
 }
 
 // src/craft.js
@@ -11569,7 +11597,6 @@ function npcSlot(role, tags = []) {
     npc = pickNpc(role, seed, tags);
     if (npc) {
       state.cast[role] = { id: npc.id, file: npc.file, name: npc.name };
-      record(state, "people", npc.id);
       save();
     }
   }
@@ -13162,6 +13189,13 @@ function panelPerson(id) {
     <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
 }
 function bindPerson(id) {
+  const crossNote = (r) => {
+    if (!r || !r.ok || r.favor == null || !r.delta) return "";
+    const b = r.favor - r.delta;
+    if (b < 85 && r.favor >= 85) return "\u3000\xB7\u3000\u767E\u518C\u65B0\u5F55\uFF1A\u751F\u6B7B\u4E4B\u4EA4";
+    if (b < 60 && r.favor >= 60) return "\u3000\xB7\u3000\u767E\u518C\u65B0\u5F55\uFF1A\u77E5\u5DF1";
+    return "";
+  };
   const artEl = panelRoot.querySelector("img.pp-art");
   if (artEl) {
     artEl.addEventListener("error", () => {
@@ -13192,7 +13226,7 @@ function bindPerson(id) {
       else if (a === "leave") r = leaveParty(state, id);
       else if (a === "together") r = doTogether(state, id);
       if (!r) return;
-      PERSON_VIEW = `${r.text}${r.delta ? `\u3000<span style="opacity:.55">\u4EB2\u758F ${r.delta > 0 ? "+" : ""}${r.delta}</span>` : ""}${r.back ? `<br>${r.back}` : ""}`;
+      PERSON_VIEW = `${r.text}${r.delta ? `\u3000<span style="opacity:.55">\u4EB2\u758F ${r.delta > 0 ? "+" : ""}${r.delta}</span>` : ""}${crossNote(r)}${r.back ? `<br>${r.back}` : ""}`;
       if (r.ok && a === "invite") sfx("good", true);
       toast(r.ok ? a === "invite" ? `${r.name || "\u4ED6"}\u4E0E\u4F60\u540C\u884C` : a === "together" ? `\u540C\u4ED6\u8D70\u4E86\u4E00\u8D9F\uFF1A${r.mindTitle || ""}` : r.text.slice(0, 22) : r.text);
       save();
@@ -13203,7 +13237,7 @@ function bindPerson(id) {
   panelRoot.querySelectorAll("[data-gift]").forEach((b) => {
     b.addEventListener("click", () => {
       const r = giveGift(state, id, b.dataset.gift);
-      PERSON_VIEW = `${r.text}${r.delta ? `\u3000<span style="opacity:.55">\u4EB2\u758F ${r.delta > 0 ? "+" : ""}${r.delta}</span>` : ""}${r.back ? `<br>${r.back}` : ""}`;
+      PERSON_VIEW = `${r.text}${r.delta ? `\u3000<span style="opacity:.55">\u4EB2\u758F ${r.delta > 0 ? "+" : ""}${r.delta}</span>` : ""}${crossNote(r)}${r.back ? `<br>${r.back}` : ""}`;
       if (r.ok) sfx("good", true);
       toast(r.ok ? r.delta > 0 ? `\u4ED6\u6536\u4E0B\u4E86 \xB7 \u4EB2\u758F +${r.delta}` : "\u4ED6\u6536\u4E0B\u4E86" : r.text);
       save();
@@ -13397,7 +13431,7 @@ function panelMount() {
       <div class="panel-text" style="opacity:.45">${jz.open ? "\u8FD9\u4E00\u8F6E\u95E8\u6B63\u5F00\u7740\u3002" : `\u4E0B\u4E00\u8F6E\u6F6E\u6C50\u5728 ${jz.openAt} \u5C81\u3002`}</div>
       <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
   }
-  const cards = MOUNTS.map((m) => `<div class="craft-row"><div>
+  const cards = MOUNTS2.map((m) => `<div class="craft-row"><div>
       <b>${m.name}</b><span>${m.trait} \xB7 \u6536\u670D\u8981 ${m.cost} \u5E74</span>
     </div><button class="btn ghost" data-mount="${m.id}">\u6536\u670D</button></div>`).join("");
   return `<div class="panel-title">\u5750\u9A91</div>
