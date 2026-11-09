@@ -20213,7 +20213,8 @@ var PEOPLE = {
     },
     invite: { need: 35, accept: "\u300C\u7B49\u6211\u7CFB\u4E0B\u978B\u3002\u8D70\u3002\u300D", refuse: "\u300C\u4ECA\u513F\u61D2\u3002\u6539\u5929\u3002\u300D" },
     join: "\u6C88\u4E09\u628A\u5251\u5F80\u80A9\u4E0A\u4E00\u625B\uFF1A\u300C\u8D70\uFF0C\u6211\u966A\u4F60\u7ED5\u4E00\u8D9F\u3002\u300D",
-    combat: { role: "\u653B", power: 8, atk: "\u6C88\u4E09\u4ECE\u4FA7\u9762\u9012\u4E86\u4E00\u5251", win: "\u300C\u770B\u89C1\u6CA1\uFF0C\u6211\u4E5F\u80FD\u6253\u3002\u300D", cover: "\u6C88\u4E09\u628A\u4F60\u5F80\u540E\u62FD\u4E86\u4E00\u628A" }
+    combat: { role: "\u653B", power: 8, atk: "\u6C88\u4E09\u4ECE\u4FA7\u9762\u9012\u4E86\u4E00\u5251", win: "\u300C\u770B\u89C1\u6CA1\uFF0C\u6211\u4E5F\u80FD\u6253\u3002\u300D", cover: "\u6C88\u4E09\u628A\u4F60\u5F80\u540E\u62FD\u4E86\u4E00\u628A" },
+    dsl: { cult: "\u7EC3\u6C14\u4E5D\u5C42", root: "\u5355\u6728\u7075\u6839", weapon: "\u90A3\u67C4\u4E0D\u51FA\u9798\u7684\u5251", relic: "\u65E7\u5251\u7A57", relicKind: "atk", pill: "\u65E0\u540D\u4E39" }
   },
   nvzi: {
     name: "\u90A3\u4E2A\u5973\u5B50",
@@ -20312,7 +20313,8 @@ var PEOPLE = {
     },
     invite: { need: 35, accept: "\u300C\u6211\u3001\u6211\u80FD\u8DDF\u4E0A\uFF01\u300D", refuse: "\u300C\u5E08\u59D0\u8BA9\u6211\u770B\u7B50\u2026\u2026\u300D" },
     join: "\u5C0F\u6EE1\u628A\u7B50\u5F80\u80CC\u4E0A\u4E00\u7529\uFF0C\u5C0F\u8DD1\u7740\u8DDF\u4E0A\u6765\uFF1A\u300C\u5E08\u5144\u7B49\u7B49\u6211\uFF01\u300D",
-    combat: { role: "\u63F4", power: 3, atk: "\u5C0F\u6EE1\u8FDC\u8FDC\u6254\u4E86\u5757\u77F3\u5934", win: "\u300C\u6211\u3001\u6211\u6CA1\u8EB2\uFF01\u300D", cover: "\u5C0F\u6EE1\u62FD\u4E86\u62FD\u4F60\u8896\u5B50" }
+    combat: { role: "\u63F4", power: 3, atk: "\u5C0F\u6EE1\u8FDC\u8FDC\u6254\u4E86\u5757\u77F3\u5934", win: "\u300C\u6211\u3001\u6211\u6CA1\u8EB2\uFF01\u300D", cover: "\u5C0F\u6EE1\u62FD\u4E86\u62FD\u4F60\u8896\u5B50" },
+    dsl: { cult: "\u7EC3\u6C14\u4E8C\u5C42", root: "\u6C34\u6728\u53CC\u7075\u6839", weapon: "\u836F\u9504", relic: "\u836F\u56CA", relicKind: "guard", pill: "\u795B\u5BD2\u4E39" }
   },
   fu: {
     name: "\u5356\u7B26\u7684\u4EBA",
@@ -20378,7 +20380,8 @@ var PEOPLE = {
     },
     invite: { need: 35, accept: "\u300C\u65E9\u8BE5\u53EB\u4E0A\u6211\u3002\u300D", refuse: "\u300C\u4ECA\u5929\u7EC3\u5251\u3002\u6539\u65E5\u3002\u300D" },
     join: "\u767D\u68E0\u628A\u5251\u4E00\u63D0\uFF1A\u300C\u8D70\u3002\u987A\u8DEF\u770B\u770B\u6709\u6CA1\u6709\u67B6\u6253\u3002\u300D",
-    combat: { role: "\u653B", power: 11, atk: "\u767D\u68E0\u7684\u5251\u4ECE\u53E6\u4E00\u4FA7\u538B\u8FC7\u6765", win: "\u300C\u8FD9\u56DE\u6CA1\u7559\u624B\u3002\u300D", cover: "\u767D\u68E0\u6A2A\u5251\u66FF\u4F60\u683C\u4E86\u4E00\u4E0B" }
+    combat: { role: "\u653B", power: 11, atk: "\u767D\u68E0\u7684\u5251\u4ECE\u53E6\u4E00\u4FA7\u538B\u8FC7\u6765", win: "\u300C\u8FD9\u56DE\u6CA1\u7559\u624B\u3002\u300D", cover: "\u767D\u68E0\u6A2A\u5251\u66FF\u4F60\u683C\u4E86\u4E00\u4E0B" },
+    dsl: { cult: "\u7B51\u57FA\u521D\u671F", root: "\u5355\u91D1\u7075\u6839", weapon: "\u4E09\u5C3A\u9752\u950B", relic: "\u534A\u622A\u65AD\u5251", relicKind: "atk", pill: "" }
   },
   jiangyi: {
     name: "\u7EDB\u8863",
@@ -20444,7 +20447,8 @@ var PEOPLE = {
     },
     invite: { need: 35, accept: "\u300C\u6B63\u597D\u4E0B\u5C71\uFF0C\u987A\u8DEF\u3002\u300D", refuse: "\u300C\u4ECA\u513F\u62C5\u5B50\u91CD\uFF0C\u6539\u5929\u3002\u300D" },
     join: "\u88F4\u4E03\u628A\u5305\u88B1\u5F80\u80A9\u4E0A\u4E00\u7529\uFF1A\u300C\u8D70\uFF0C\u6211\u8BA4\u5F97\u8FD1\u8DEF\u3002\u300D",
-    combat: { role: "\u62A4", power: 6, atk: "\u88F4\u4E03\u62FF\u6241\u62C5\u6A2A\u626B\u4E86\u4E00\u4E0B", win: "\u300C\u563F\uFF0C\u8FD8\u633A\u7ECF\u6253\u3002\u300D", cover: "\u88F4\u4E03\u6321\u5728\u4F60\u524D\u5934" }
+    combat: { role: "\u62A4", power: 6, atk: "\u88F4\u4E03\u62FF\u6241\u62C5\u6A2A\u626B\u4E86\u4E00\u4E0B", win: "\u300C\u563F\uFF0C\u8FD8\u633A\u7ECF\u6253\u3002\u300D", cover: "\u88F4\u4E03\u6321\u5728\u4F60\u524D\u5934" },
+    dsl: { cult: "\u7EC3\u6C14\u56DB\u5C42", root: "\u571F\u7075\u6839", weapon: "\u8DDF\u4E86\u4ED6\u516B\u5E74\u7684\u6241\u62C5", relic: "\u84D1\u8863", relicKind: "guard", pill: "\u56DE\u6C14\u4E39" }
   },
   zhao: {
     name: "\u8D75\u9608",
@@ -20477,7 +20481,8 @@ var PEOPLE = {
     },
     invite: { need: 60, accept: "\u300C\u2026\u2026\u597D\u3002\u6211\u8DDF\u7740\u3002\u300D", refuse: "\u300C\u6211\u4E00\u4E2A\u4EBA\u53BB\u60EF\u4E86\u3002\u300D" },
     join: "\u8D75\u9608\u4ECE\u7891\u4FA7\u7ED5\u51FA\u6765\uFF0C\u6CA1\u8BF4\u8BDD\uFF0C\u8D70\u5728\u4F60\u534A\u6B65\u4E4B\u540E\u3002",
-    combat: { role: "\u63F4", power: 8, atk: "\u8D75\u9608\u62AC\u624B\u62E6\u4E86\u4E00\u4E0B", win: "\u300C\u2026\u2026\u6CA1\u4E8B\u3002\u300D", cover: "\u8D75\u9608\u66FF\u4F60\u63A5\u4E86\u534A\u4E0B" }
+    combat: { role: "\u63F4", power: 8, atk: "\u8D75\u9608\u62AC\u624B\u62E6\u4E86\u4E00\u4E0B", win: "\u300C\u2026\u2026\u6CA1\u4E8B\u3002\u300D", cover: "\u8D75\u9608\u66FF\u4F60\u63A5\u4E86\u534A\u4E0B" },
+    dsl: { cult: "\u7EC3\u6C14\u516B\u5C42", root: "\u91D1\u6C34\u53CC\u7075\u6839", weapon: "\u957F\u5251", relic: "\u78E8\u5E73\u5B57\u7684\u7891\u62D3", relicKind: "guard", pill: "" }
   },
   qingwu: {
     name: "\u9752\u68A7",
@@ -20510,7 +20515,8 @@ var PEOPLE = {
     },
     invite: { need: 35, accept: "\u300C\u597D\u5440\uFF0C\u6211\u6B63\u60F3\u8D70\u8D70\u3002\u300D", refuse: "\u300C\u836F\u8FD8\u6CA1\u6D17\u5B8C\u5462\u2026\u2026\u300D" },
     join: "\u9752\u68A7\u628A\u7BEE\u5B50\u630E\u4E0A\u8098\u5F2F\uFF1A\u300C\u8D70\u5427\uFF0C\u6162\u6162\u8D70\u3002\u300D",
-    combat: { role: "\u63F4", power: 4, atk: "\u9752\u68A7\u628A\u4E00\u6367\u836F\u7C89\u6492\u4E86\u51FA\u53BB", win: "\u300C\u5B83\u8DD1\u5566\u3002\u300D", cover: "\u9752\u68A7\u62C9\u4E86\u4F60\u4E00\u628A" }
+    combat: { role: "\u63F4", power: 4, atk: "\u9752\u68A7\u628A\u4E00\u6367\u836F\u7C89\u6492\u4E86\u51FA\u53BB", win: "\u300C\u5B83\u8DD1\u5566\u3002\u300D", cover: "\u9752\u68A7\u62C9\u4E86\u4F60\u4E00\u628A" },
+    dsl: { cult: "\u7EC3\u6C14\u4E09\u5C42", root: "\u6C34\u7075\u6839", weapon: "\u836F\u8019\uFF08\u5979\u53EA\u80AF\u7528\u5E73\u7684\u80CC\uFF09", relic: "\u6EAA\u77F3", relicKind: "guard", pill: "\u5E73\u5B89\u7B26" }
   }
 };
 var PEOPLE_ORDER = ["chen", "shen", "nvzi", "laozu", "xiao", "baitang", "jiangyi", "peiqi", "fu", "zhao", "qingwu"];
@@ -20803,7 +20809,7 @@ var RUNE_MATERIALS = [
     id: "m_fu_huangzhi",
     name: "\u9EC4\u7EB8",
     tag: "\u7B26",
-    from: ["library", "plaza"],
+    from: ["library", "plaza", "fu"],
     w: 4,
     text: "\u88C1\u5F97\u6BD4\u624B\u638C\u5927\u4E00\u70B9\u3002\u85CF\u7ECF\u9601\u540E\u5899\u667E\u7740\u4E00\u6392\uFF0C\u53D7\u6F6E\u7684\u90A3\u51E0\u5F20\uFF0C\u8C01\u4E5F\u4E0D\u8981\u3002"
   },
@@ -20819,7 +20825,7 @@ var RUNE_MATERIALS = [
     id: "m_fu_yinzhu",
     name: "\u94F6\u6731",
     tag: "\u77FF",
-    from: ["alchemy", "map"],
+    from: ["alchemy", "map", "fu"],
     w: 3,
     text: "\u6BD4\u4E39\u623F\u7684\u6731\u7802\u66F4\u7EC6\uFF0C\u8C03\u8FDB\u8840\u91CC\u4F1A\u53D1\u9ED1\u3002\u753B\u9547\u7B26\u624D\u7528\u5F97\u8D77\u3002"
   },
@@ -20853,7 +20859,7 @@ var ARRAY_MATERIALS = [
     id: "m_zhen_qingshi",
     name: "\u9752\u77F3",
     tag: "\u77FF",
-    from: ["forest", "map"],
+    from: ["forest", "map", "zhen"],
     w: 4,
     text: "\u5C71\u91CC\u7684\u77F3\u5934\uFF0C\u6572\u5F00\u662F\u9752\u7684\u3002\u538B\u89D2\u7684\u4E1C\u897F\uFF0C\u8D8A\u65E7\u8D8A\u597D\u3002"
   },
@@ -20861,7 +20867,7 @@ var ARRAY_MATERIALS = [
     id: "m_zhen_cishi",
     name: "\u78C1\u77F3",
     tag: "\u77FF",
-    from: ["forest", "sword"],
+    from: ["forest", "sword", "zhen"],
     w: 3,
     text: "\u4E24\u5757\u653E\u5728\u4E00\u8D77\uFF0C\u4E00\u5757\u4F1A\u81EA\u5DF1\u7FFB\u8EAB\u3002"
   },
@@ -21920,6 +21926,10 @@ function newLife() {
     // { year, kind, text, npc }
     npc: {},
     bag: { herb: 3, blood: 0, hide: 0, bone: 0, pill: 0, charm: 0, tally: 0, jade: 0, sword: null },
+    lingshi: 0,
+    // 灵石：宗门的钱。买卖、罚、赏都走这里，不进道行公式
+    dsl: { last: 0, due: 0, dueYear: 0, best: 0, done: 0 },
+    // 宗门大比：金丹前每六年一次
     seen: {},
     // 已看过的事件卡
     met: {},
@@ -21998,6 +22008,8 @@ function newLife() {
     // 只有某个人会给你的东西（id -> { name, desc, year, from }）
     mindSeen: {},
     // 场景叫住过你的年份（scene -> year），免得反复弹
+    relicMemo: [],
+    // 前世带回来的旧物：只作念想，不作属性（人每世重排，东西认得你）
     /* 人：亲疏与往来。favor 0..100，l.npc 是它的派生缓存（0..4），老逻辑照旧能读 */
     people: {},
     // id -> { favor, gifts, giftYear, talkYear, joinYear, met, lastLine }
@@ -22037,6 +22049,7 @@ function ensure(state) {
   if (l.mindLock === void 0) l.mindLock = -1;
   if (!l.keepsakes || typeof l.keepsakes !== "object") l.keepsakes = {};
   if (!l.mindSeen || typeof l.mindSeen !== "object") l.mindSeen = {};
+  if (!Array.isArray(l.relicMemo)) l.relicMemo = [];
   if (!l.people || typeof l.people !== "object") l.people = {};
   if (!l.party || typeof l.party !== "object") l.party = { ids: [], since: null, helpCount: 0 };
   if (!Array.isArray(l.party.ids)) l.party.ids = [];
@@ -22064,6 +22077,7 @@ function takeSpent() {
 }
 function spend(state, n) {
   const l = ensure(state);
+  dslCheckMiss(state);
   l.secRun = 0;
   l.year += n;
   spentPend += n;
@@ -22190,6 +22204,34 @@ function bagCount(state) {
   let n = BAG_ORDER.reduce((a, k) => a + (l.bag[k] || 0), 0);
   if (l.bag.sword) n += 1;
   return n;
+}
+function addLingshi(state, n) {
+  const l = ensure(state);
+  l.lingshi = Math.max(0, (l.lingshi || 0) + Math.round(n));
+  return l.lingshi;
+}
+function spendLingshi(state, n) {
+  const l = ensure(state);
+  const v = Math.round(n);
+  if ((l.lingshi || 0) < v) return false;
+  l.lingshi -= v;
+  return true;
+}
+var DSL_EVERY = 6;
+function dslOpen(state) {
+  return RANKS.indexOf(rankOf(state)) < 2;
+}
+function dslCheckMiss(state) {
+  const l = ensure(state);
+  if (!l.dsl || !l.dsl.due) return 0;
+  if (l.year <= (l.dsl.dueYear || 0)) return 0;
+  const dueYear = l.dsl.dueYear;
+  const fine = Math.min(12, l.lingshi || 0);
+  if (fine > 0) spendLingshi(state, fine);
+  l.dsl.due = 0;
+  l.dsl.last = l.year;
+  log(state, "omen", `\u7B2C ${dueYear} \u5E74\u7684\u5B97\u95E8\u5927\u6BD4\u4F60\u6CA1\u53BB\u3002\u6267\u4E8B\u623F\u6309\u4F8B\u7F5A\u4E86 ${fine} \u679A\u7075\u77F3${fine ? "" : "\u2014\u2014\u4F60\u8EAB\u4E0A\u4E00\u679A\u90FD\u6CA1\u6709\uFF0C\u8BB0\u5728\u4E86\u8D26\u4E0A"}`);
+  return fine;
 }
 function daoOf(state) {
   const l = ensure(state);
@@ -22443,6 +22485,106 @@ var EVENTS = [
     ]
   }
 ];
+EVENTS.push(
+  {
+    id: "e_purse",
+    scenes: [ANY],
+    title: "\u94B1\u888B",
+    body: "\u5C71\u9053\u8FB9\u4E0A\u8EBA\u7740\u4E00\u53EA\u94B1\u888B\uFF0C\u9F13\u9F13\u7684\uFF0C\u888B\u53E3\u7684\u7EF3\u8FD8\u6CA1\u677E\u3002\u56DB\u4E0B\u6CA1\u6709\u4EBA\u3002",
+    opts: [
+      {
+        t: "\u63E3\u8FDB\u6000\u91CC",
+        res: "\u4F60\u628A\u5B83\u63E3\u8FDB\u6000\u91CC\u3002\u888B\u91CC\u7684\u7075\u77F3\u8FD8\u5E26\u7740\u4E00\u70B9\u6E29\u3002",
+        fx: (s) => {
+          const n = 6 + Math.floor(Math.random() * 11);
+          addLingshi(s, n);
+          log(s, "deed", `\u4F60\u5728\u5C71\u9053\u8FB9\u6361\u4E86\u4E00\u53EA\u94B1\u888B\uFF0C\u5F97\u7075\u77F3 ${n} \u679A\u3002\u6CA1\u6709\u4EBA\u6765\u8BA4\u9886\u3002`);
+        }
+      },
+      {
+        t: "\u4EA4\u5230\u6267\u4E8B\u623F",
+        res: "\u6267\u4E8B\u6309\u4F8B\u62BD\u4E86\u4E24\u6210\u8D4F\u4F60\uFF0C\u767B\u4E86\u4F60\u7684\u540D\u3002",
+        fx: (s) => {
+          addLingshi(s, 4);
+          log(s, "bond", "\u4F60\u628A\u6361\u5230\u7684\u94B1\u888B\u4EA4\u5230\u4E86\u6267\u4E8B\u623F\u3002\u4ED6\u4EEC\u8D4F\u4F60\u56DB\u679A\u7075\u77F3\uFF0C\u8BB0\u4E86\u4E00\u7B14\u540D\u3002");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_theft",
+    scenes: [ANY],
+    title: "\u888B\u7A7A\u4E86",
+    body: "\u6000\u91CC\u7684\u94B1\u888B\u8F7B\u4E86\u3002\u62BD\u5F00\u4E00\u770B\uFF0C\u7075\u77F3\u4E0D\u89C1\u4E86\u5927\u534A\uFF0C\u888B\u53E3\u7684\u7EF3\u662F\u88AB\u5200\u5F00\u7684\u3002",
+    cond: (s) => (ensure(s).lingshi || 0) >= 8,
+    opts: [
+      {
+        t: "\u8BA4\u4E0B\u8FD9\u53E3\u6C14",
+        res: "\u4F60\u91CD\u65B0\u7CFB\u7D27\u888B\u53E3\u3002\u5C71\u4E0A\u4E22\u4E1C\u897F\uFF0C\u4E0D\u662F\u5934\u4E00\u56DE\u4E86\u3002",
+        fx: (s) => {
+          const l = ensure(s);
+          const loss = Math.max(4, Math.ceil((l.lingshi || 0) * 0.5));
+          spendLingshi(s, loss);
+          log(s, "omen", `\u4F60\u7684\u94B1\u888B\u88AB\u4EBA\u5F00\u4E86\uFF0C\u4E22\u4E86 ${loss} \u679A\u7075\u77F3\u3002\u4F60\u6CA1\u6709\u58F0\u5F20\u3002`);
+        }
+      },
+      {
+        t: "\u53BB\u6267\u4E8B\u623F\u62A5\u5907",
+        res: "\u6267\u4E8B\u8BB0\u4E86\u4E00\u7B14\uFF0C\u8BF4\u300C\u67E5\u300D\u3002\u4F60\u7B49\u4E86\u4E09\u5E74\uFF0C\u6CA1\u6709\u4E0B\u6587\u3002",
+        fx: (s) => {
+          const l = ensure(s);
+          const loss = Math.max(4, Math.ceil((l.lingshi || 0) * 0.5));
+          spendLingshi(s, loss);
+          log(s, "deed", `\u4F60\u88AB\u5077\u4E86 ${loss} \u679A\u7075\u77F3\uFF0C\u53BB\u6267\u4E8B\u623F\u62A5\u5907\u3002\u5355\u5B50\u6536\u4E86\uFF0C\u4EBA\u6CA1\u6293\u7740\u3002`);
+        }
+      },
+      {
+        t: "\u60F3\u8D77\u90A3\u4E2A\u4E0D\u6536\u94B1\u7684\u5356\u7B26\u4EBA",
+        cond: (s) => !!ensure(s).met.fu,
+        res: "\u4F60\u8D76\u5230\u85CF\u7ECF\u9601\u4E0B\u3002\u644A\u5B50\u8FD8\u5728\u3002\u4ED6\u628A\u4F60\u7684\u94B1\u888B\u653E\u5728\u684C\u4E0A\uFF1A\u300C\u6570\u3002\u6211\u53EA\u62BD\u4E86\u4E00\u679A\u2014\u2014\u8C01\u53EB\u4F60\u4E0D\u6536\u597D\u3002\u300D",
+        fx: (s) => {
+          const l = ensure(s);
+          const loss = Math.max(2, Math.ceil((l.lingshi || 0) * 0.5) - 1);
+          spendLingshi(s, loss);
+          bond(s, "fu", -1);
+          log(s, "deed", `\u4F60\u6000\u7591\u5356\u7B26\u7684\u4EBA\u3002\u4ED6\u5F53\u7740\u4F60\u89E3\u5F00\u888B\u5B50\uFF0C\u62BD\u56DE\u4E00\u679A\uFF0C\u5269\u4E0B\u7684\u771F\u4E0D\u662F\u4ED6\u62FF\u7684\u3002\u4F60\u4FE9\u4ECE\u6B64\u90FD\u5C11\u8BF4\u4E86\u4E00\u53E5\u3002`, "fu");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_wager",
+    scenes: ["plaza", "map"],
+    npc: "shen",
+    title: "\u4E00\u679A\u7075\u77F3\u7684\u8D4C\u5C40",
+    body: "\u6C88\u4E09\u8E72\u5728\u77F3\u680F\u8FB9\uFF0C\u624B\u91CC\u6263\u7740\u4E00\u679A\u7075\u77F3\uFF1A\u300C\u731C\u6B63\u53CD\u3002\u4F60\u8D62\u4E86\u5F52\u4F60\uFF0C\u8F93\u4E86\u5F52\u6211\u3002\u300D",
+    cond: (s) => (ensure(s).lingshi || 0) >= 1,
+    opts: [
+      {
+        t: "\u62BC\u4E00\u679A",
+        fx: (s) => {
+          const l = ensure(s);
+          l._wager = Math.random() < 0.5 ? 1 : 0;
+          if (l._wager) {
+            addLingshi(s, 2);
+            bond(s, "shen", -1);
+            log(s, "deed", "\u4F60\u548C\u6C88\u4E09\u8D4C\u4E86\u4E00\u679A\u7075\u77F3\uFF0C\u8D62\u4E86\u3002\u4ED6\u628A\u7075\u77F3\u62CD\u5728\u680F\u4E0A\uFF0C\u8BF4\u4E0B\u6B21\u518D\u6765\u3002", "shen");
+          } else {
+            spendLingshi(s, 1);
+            bond(s, "shen", 1);
+            log(s, "deed", "\u4F60\u548C\u6C88\u4E09\u8D4C\u4E86\u4E00\u679A\u7075\u77F3\uFF0C\u8F93\u4E86\u3002\u4ED6\u8BF7\u4F60\u559D\u4E86\u53E3\u51C9\u6C34\uFF0C\u7B97\u626F\u5E73\u3002", "shen");
+          }
+        },
+        res: (s) => ensure(s)._wager ? "\u4ED6\u7FFB\u4E86\u624B\uFF0C\u8138\u4E0A\u4E00\u57AE\u3002\u300C\u884C\u3002\u300D\u7075\u77F3\u5F52\u4F60\uFF0C\u591A\u7684\u90A3\u679A\u662F\u4ED6\u57AB\u7684\u3002" : "\u4ED6\u644A\u5F00\u624B\uFF0C\u662F\u6B63\u7684\u3002\u4ED6\u628A\u4F60\u7684\u7075\u77F3\u62C8\u8D70\uFF0C\u5206\u4F60\u534A\u58F6\u51C9\u6C34\u3002"
+      },
+      {
+        t: "\u4E0D\u8D4C",
+        res: "\u4F60\u8BF4\u6CA1\u5E26\u94B1\u3002\u4ED6\u7B11\uFF1A\u300C\u4F60\u8896\u5B50\u91CC\u90A3\u53EA\u888B\u5B50\uFF0C\u6211\u5728\u4E09\u6761\u8857\u5916\u90FD\u542C\u89C1\u54CD\u3002\u300D",
+        fx: (s) => log(s, "deed", "\u6C88\u4E09\u7EA6\u4F60\u8D4C\u4E00\u679A\u7075\u77F3\uFF0C\u4F60\u6CA1\u63A5\u3002", "shen")
+      }
+    ]
+  }
+);
 EVENTS.push(
   {
     id: "e_well",
@@ -23138,15 +23280,20 @@ NPCCARDS.push(
 );
 function lineageGain() {
   const r = readRelic();
-  if (!r) return { span: 0, wu: 0, dao: 0, hp: 0, from: null };
+  if (!r) return { span: 0, wu: 0, dao: 0, hp: 0, from: null, keeps: [], minds: 0, party: [] };
   const realm = r.realm || 0;
   const merit = r.merit || 0;
+  const keeps = (Array.isArray(r.keepsakes) ? r.keepsakes : []).slice(0, 3);
   return {
     span: realm >= 3 ? 40 : realm === 2 ? 24 : realm === 1 ? 12 : 0,
-    wu: merit >= 400 ? 3 : merit >= 150 ? 2 : merit >= 40 ? 1 : 0,
+    // 带着别人给过的东西投胎，心里多点底：最多两分悟，不会把一世撑坏
+    wu: (merit >= 400 ? 3 : merit >= 150 ? 2 : merit >= 40 ? 1 : 0) + (keeps.length >= 3 ? 2 : keeps.length >= 1 ? 1 : 0),
     dao: realm >= 2 ? 20 : realm === 1 ? 10 : 0,
     hp: realm >= 3 ? 18 : realm === 2 ? 12 : realm === 1 ? 6 : 0,
-    from: { year: r.year, rank: r.rank, merit }
+    from: { year: r.year, rank: r.rank, merit },
+    keeps: keeps.map((k) => `${k.name}\uFF08${k.from}\uFF09`),
+    minds: r.minds || 0,
+    party: (Array.isArray(r.party) ? r.party : []).map((p) => p.name)
   };
 }
 function applyLineage(l) {
@@ -23157,6 +23304,16 @@ function applyLineage(l) {
   l.wu = (l.wu || 0) + g2.wu;
   l.secBonus = (l.secBonus || 0) + g2.dao;
   l.lineageHp = g2.hp;
+  l.relicMemo = g2.keeps.slice();
+  l.bag.herb = (l.bag.herb || 0) + Math.min(2, Math.floor(g2.keeps.length / 2));
+  if (g2.keeps.length) {
+    l.chronicle.push({
+      year: l.year,
+      kind: "omen",
+      npc: null,
+      text: `\u884C\u56CA\u91CC\u8FD8\u5E26\u7740\u4E0A\u4E00\u4E16\u7684\u65E7\u7269\uFF1A${g2.keeps.join("\u3001")}\u3002\u4EBA\u5F97\u91CD\u65B0\u8BA4\u8BC6\uFF0C\u4E1C\u897F\u5012\u662F\u8BA4\u5F97\u4F60\u3002`
+    });
+  }
   return g2;
 }
 var RELIC_KEY = "lingxu.relic.v1";
@@ -23167,11 +23324,11 @@ function readRelic() {
     return null;
   }
 }
-function writeRelic(state) {
+function relicOf(state) {
   const l = ensure(state);
   const r = rankOf(state);
   const w = initWorld(state);
-  const rec = {
+  return {
     year: l.year,
     rank: r.name,
     merit: state.merit || 0,
@@ -23180,11 +23337,18 @@ function writeRelic(state) {
     realm: realmIndex(state),
     jiazi: Object.keys(l.jiaziLog || {}).filter((k) => !k.endsWith("_taken")).length,
     // 上一世的人，只留下「他曾如何」；这一世关系会重排，所以残念半真半假
-    echoes: w.folk.slice(0, 4).map((f) => ({
+    echoes: (w.folk || []).slice(0, 4).map((f) => ({
       text: `${f.name}\uFF08${f.archName}\uFF09\u2014\u2014${f.want}\u3002${f.last || f.tell}`,
       truth: f.bond >= 1
-    }))
+    })),
+    // 人物线走到底才有：下一世不认得人，却还认得这几件东西
+    keepsakes: keepsakeList(state).map((k) => ({ id: k.id, name: k.name, from: k.from, year: k.year })),
+    minds: Object.keys(l.mindDone || {}).length,
+    party: partyOf(state).map((id) => ({ id, name: personDefOf(state, id).name }))
   };
+}
+function writeRelic(state) {
+  const rec = relicOf(state);
   try {
     localStorage.setItem(RELIC_KEY, JSON.stringify(rec));
   } catch {
@@ -24108,6 +24272,11 @@ function annualTick(state) {
       out2.push(`${d.name}\uFF1A${nm}`);
     }
   }
+  if (dslOpen(state) && !l.dsl.due && l.year - (l.dsl.last || 0) >= DSL_EVERY) {
+    l.dsl.due = 1;
+    l.dsl.dueYear = l.year;
+    out2.push("\u5B97\u95E8\u5927\u6BD4\uFF1A\u6267\u4E8B\u623F\u628A\u4F60\u7684\u540D\u5B57\u8D34\u4E0A\u4E86\u5899");
+  }
   return out2;
 }
 EVENTS.push(
@@ -24986,6 +25155,10 @@ function mindTick(state) {
     }
   }
   return out2;
+}
+function keepsakeList(state) {
+  const l = ensure(state);
+  return Object.entries(l.keepsakes || {}).map(([id, v]) => ({ id, ...v }));
 }
 function personOf(state, id) {
   const l = ensure(state);

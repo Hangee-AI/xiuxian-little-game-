@@ -897,7 +897,8 @@ var PEOPLE = {
     },
     invite: { need: 35, accept: "\u300C\u7B49\u6211\u7CFB\u4E0B\u978B\u3002\u8D70\u3002\u300D", refuse: "\u300C\u4ECA\u513F\u61D2\u3002\u6539\u5929\u3002\u300D" },
     join: "\u6C88\u4E09\u628A\u5251\u5F80\u80A9\u4E0A\u4E00\u625B\uFF1A\u300C\u8D70\uFF0C\u6211\u966A\u4F60\u7ED5\u4E00\u8D9F\u3002\u300D",
-    combat: { role: "\u653B", power: 8, atk: "\u6C88\u4E09\u4ECE\u4FA7\u9762\u9012\u4E86\u4E00\u5251", win: "\u300C\u770B\u89C1\u6CA1\uFF0C\u6211\u4E5F\u80FD\u6253\u3002\u300D", cover: "\u6C88\u4E09\u628A\u4F60\u5F80\u540E\u62FD\u4E86\u4E00\u628A" }
+    combat: { role: "\u653B", power: 8, atk: "\u6C88\u4E09\u4ECE\u4FA7\u9762\u9012\u4E86\u4E00\u5251", win: "\u300C\u770B\u89C1\u6CA1\uFF0C\u6211\u4E5F\u80FD\u6253\u3002\u300D", cover: "\u6C88\u4E09\u628A\u4F60\u5F80\u540E\u62FD\u4E86\u4E00\u628A" },
+    dsl: { cult: "\u7EC3\u6C14\u4E5D\u5C42", root: "\u5355\u6728\u7075\u6839", weapon: "\u90A3\u67C4\u4E0D\u51FA\u9798\u7684\u5251", relic: "\u65E7\u5251\u7A57", relicKind: "atk", pill: "\u65E0\u540D\u4E39" }
   },
   nvzi: {
     name: "\u90A3\u4E2A\u5973\u5B50",
@@ -996,7 +997,8 @@ var PEOPLE = {
     },
     invite: { need: 35, accept: "\u300C\u6211\u3001\u6211\u80FD\u8DDF\u4E0A\uFF01\u300D", refuse: "\u300C\u5E08\u59D0\u8BA9\u6211\u770B\u7B50\u2026\u2026\u300D" },
     join: "\u5C0F\u6EE1\u628A\u7B50\u5F80\u80CC\u4E0A\u4E00\u7529\uFF0C\u5C0F\u8DD1\u7740\u8DDF\u4E0A\u6765\uFF1A\u300C\u5E08\u5144\u7B49\u7B49\u6211\uFF01\u300D",
-    combat: { role: "\u63F4", power: 3, atk: "\u5C0F\u6EE1\u8FDC\u8FDC\u6254\u4E86\u5757\u77F3\u5934", win: "\u300C\u6211\u3001\u6211\u6CA1\u8EB2\uFF01\u300D", cover: "\u5C0F\u6EE1\u62FD\u4E86\u62FD\u4F60\u8896\u5B50" }
+    combat: { role: "\u63F4", power: 3, atk: "\u5C0F\u6EE1\u8FDC\u8FDC\u6254\u4E86\u5757\u77F3\u5934", win: "\u300C\u6211\u3001\u6211\u6CA1\u8EB2\uFF01\u300D", cover: "\u5C0F\u6EE1\u62FD\u4E86\u62FD\u4F60\u8896\u5B50" },
+    dsl: { cult: "\u7EC3\u6C14\u4E8C\u5C42", root: "\u6C34\u6728\u53CC\u7075\u6839", weapon: "\u836F\u9504", relic: "\u836F\u56CA", relicKind: "guard", pill: "\u795B\u5BD2\u4E39" }
   },
   fu: {
     name: "\u5356\u7B26\u7684\u4EBA",
@@ -1062,7 +1064,8 @@ var PEOPLE = {
     },
     invite: { need: 35, accept: "\u300C\u65E9\u8BE5\u53EB\u4E0A\u6211\u3002\u300D", refuse: "\u300C\u4ECA\u5929\u7EC3\u5251\u3002\u6539\u65E5\u3002\u300D" },
     join: "\u767D\u68E0\u628A\u5251\u4E00\u63D0\uFF1A\u300C\u8D70\u3002\u987A\u8DEF\u770B\u770B\u6709\u6CA1\u6709\u67B6\u6253\u3002\u300D",
-    combat: { role: "\u653B", power: 11, atk: "\u767D\u68E0\u7684\u5251\u4ECE\u53E6\u4E00\u4FA7\u538B\u8FC7\u6765", win: "\u300C\u8FD9\u56DE\u6CA1\u7559\u624B\u3002\u300D", cover: "\u767D\u68E0\u6A2A\u5251\u66FF\u4F60\u683C\u4E86\u4E00\u4E0B" }
+    combat: { role: "\u653B", power: 11, atk: "\u767D\u68E0\u7684\u5251\u4ECE\u53E6\u4E00\u4FA7\u538B\u8FC7\u6765", win: "\u300C\u8FD9\u56DE\u6CA1\u7559\u624B\u3002\u300D", cover: "\u767D\u68E0\u6A2A\u5251\u66FF\u4F60\u683C\u4E86\u4E00\u4E0B" },
+    dsl: { cult: "\u7B51\u57FA\u521D\u671F", root: "\u5355\u91D1\u7075\u6839", weapon: "\u4E09\u5C3A\u9752\u950B", relic: "\u534A\u622A\u65AD\u5251", relicKind: "atk", pill: "" }
   },
   jiangyi: {
     name: "\u7EDB\u8863",
@@ -1128,7 +1131,8 @@ var PEOPLE = {
     },
     invite: { need: 35, accept: "\u300C\u6B63\u597D\u4E0B\u5C71\uFF0C\u987A\u8DEF\u3002\u300D", refuse: "\u300C\u4ECA\u513F\u62C5\u5B50\u91CD\uFF0C\u6539\u5929\u3002\u300D" },
     join: "\u88F4\u4E03\u628A\u5305\u88B1\u5F80\u80A9\u4E0A\u4E00\u7529\uFF1A\u300C\u8D70\uFF0C\u6211\u8BA4\u5F97\u8FD1\u8DEF\u3002\u300D",
-    combat: { role: "\u62A4", power: 6, atk: "\u88F4\u4E03\u62FF\u6241\u62C5\u6A2A\u626B\u4E86\u4E00\u4E0B", win: "\u300C\u563F\uFF0C\u8FD8\u633A\u7ECF\u6253\u3002\u300D", cover: "\u88F4\u4E03\u6321\u5728\u4F60\u524D\u5934" }
+    combat: { role: "\u62A4", power: 6, atk: "\u88F4\u4E03\u62FF\u6241\u62C5\u6A2A\u626B\u4E86\u4E00\u4E0B", win: "\u300C\u563F\uFF0C\u8FD8\u633A\u7ECF\u6253\u3002\u300D", cover: "\u88F4\u4E03\u6321\u5728\u4F60\u524D\u5934" },
+    dsl: { cult: "\u7EC3\u6C14\u56DB\u5C42", root: "\u571F\u7075\u6839", weapon: "\u8DDF\u4E86\u4ED6\u516B\u5E74\u7684\u6241\u62C5", relic: "\u84D1\u8863", relicKind: "guard", pill: "\u56DE\u6C14\u4E39" }
   },
   zhao: {
     name: "\u8D75\u9608",
@@ -1161,7 +1165,8 @@ var PEOPLE = {
     },
     invite: { need: 60, accept: "\u300C\u2026\u2026\u597D\u3002\u6211\u8DDF\u7740\u3002\u300D", refuse: "\u300C\u6211\u4E00\u4E2A\u4EBA\u53BB\u60EF\u4E86\u3002\u300D" },
     join: "\u8D75\u9608\u4ECE\u7891\u4FA7\u7ED5\u51FA\u6765\uFF0C\u6CA1\u8BF4\u8BDD\uFF0C\u8D70\u5728\u4F60\u534A\u6B65\u4E4B\u540E\u3002",
-    combat: { role: "\u63F4", power: 8, atk: "\u8D75\u9608\u62AC\u624B\u62E6\u4E86\u4E00\u4E0B", win: "\u300C\u2026\u2026\u6CA1\u4E8B\u3002\u300D", cover: "\u8D75\u9608\u66FF\u4F60\u63A5\u4E86\u534A\u4E0B" }
+    combat: { role: "\u63F4", power: 8, atk: "\u8D75\u9608\u62AC\u624B\u62E6\u4E86\u4E00\u4E0B", win: "\u300C\u2026\u2026\u6CA1\u4E8B\u3002\u300D", cover: "\u8D75\u9608\u66FF\u4F60\u63A5\u4E86\u534A\u4E0B" },
+    dsl: { cult: "\u7EC3\u6C14\u516B\u5C42", root: "\u91D1\u6C34\u53CC\u7075\u6839", weapon: "\u957F\u5251", relic: "\u78E8\u5E73\u5B57\u7684\u7891\u62D3", relicKind: "guard", pill: "" }
   },
   qingwu: {
     name: "\u9752\u68A7",
@@ -1194,7 +1199,8 @@ var PEOPLE = {
     },
     invite: { need: 35, accept: "\u300C\u597D\u5440\uFF0C\u6211\u6B63\u60F3\u8D70\u8D70\u3002\u300D", refuse: "\u300C\u836F\u8FD8\u6CA1\u6D17\u5B8C\u5462\u2026\u2026\u300D" },
     join: "\u9752\u68A7\u628A\u7BEE\u5B50\u630E\u4E0A\u8098\u5F2F\uFF1A\u300C\u8D70\u5427\uFF0C\u6162\u6162\u8D70\u3002\u300D",
-    combat: { role: "\u63F4", power: 4, atk: "\u9752\u68A7\u628A\u4E00\u6367\u836F\u7C89\u6492\u4E86\u51FA\u53BB", win: "\u300C\u5B83\u8DD1\u5566\u3002\u300D", cover: "\u9752\u68A7\u62C9\u4E86\u4F60\u4E00\u628A" }
+    combat: { role: "\u63F4", power: 4, atk: "\u9752\u68A7\u628A\u4E00\u6367\u836F\u7C89\u6492\u4E86\u51FA\u53BB", win: "\u300C\u5B83\u8DD1\u5566\u3002\u300D", cover: "\u9752\u68A7\u62C9\u4E86\u4F60\u4E00\u628A" },
+    dsl: { cult: "\u7EC3\u6C14\u4E09\u5C42", root: "\u6C34\u7075\u6839", weapon: "\u836F\u8019\uFF08\u5979\u53EA\u80AF\u7528\u5E73\u7684\u80CC\uFF09", relic: "\u6EAA\u77F3", relicKind: "guard", pill: "\u5E73\u5B89\u7B26" }
   }
 };
 var PEOPLE_ORDER = ["chen", "shen", "nvzi", "laozu", "xiao", "baitang", "jiangyi", "peiqi", "fu", "zhao", "qingwu"];
@@ -1492,7 +1498,7 @@ var RUNE_MATERIALS = [
     id: "m_fu_huangzhi",
     name: "\u9EC4\u7EB8",
     tag: "\u7B26",
-    from: ["library", "plaza"],
+    from: ["library", "plaza", "fu"],
     w: 4,
     text: "\u88C1\u5F97\u6BD4\u624B\u638C\u5927\u4E00\u70B9\u3002\u85CF\u7ECF\u9601\u540E\u5899\u667E\u7740\u4E00\u6392\uFF0C\u53D7\u6F6E\u7684\u90A3\u51E0\u5F20\uFF0C\u8C01\u4E5F\u4E0D\u8981\u3002"
   },
@@ -1508,7 +1514,7 @@ var RUNE_MATERIALS = [
     id: "m_fu_yinzhu",
     name: "\u94F6\u6731",
     tag: "\u77FF",
-    from: ["alchemy", "map"],
+    from: ["alchemy", "map", "fu"],
     w: 3,
     text: "\u6BD4\u4E39\u623F\u7684\u6731\u7802\u66F4\u7EC6\uFF0C\u8C03\u8FDB\u8840\u91CC\u4F1A\u53D1\u9ED1\u3002\u753B\u9547\u7B26\u624D\u7528\u5F97\u8D77\u3002"
   },
@@ -1542,7 +1548,7 @@ var ARRAY_MATERIALS = [
     id: "m_zhen_qingshi",
     name: "\u9752\u77F3",
     tag: "\u77FF",
-    from: ["forest", "map"],
+    from: ["forest", "map", "zhen"],
     w: 4,
     text: "\u5C71\u91CC\u7684\u77F3\u5934\uFF0C\u6572\u5F00\u662F\u9752\u7684\u3002\u538B\u89D2\u7684\u4E1C\u897F\uFF0C\u8D8A\u65E7\u8D8A\u597D\u3002"
   },
@@ -1550,7 +1556,7 @@ var ARRAY_MATERIALS = [
     id: "m_zhen_cishi",
     name: "\u78C1\u77F3",
     tag: "\u77FF",
-    from: ["forest", "sword"],
+    from: ["forest", "sword", "zhen"],
     w: 3,
     text: "\u4E24\u5757\u653E\u5728\u4E00\u8D77\uFF0C\u4E00\u5757\u4F1A\u81EA\u5DF1\u7FFB\u8EAB\u3002"
   },
@@ -2683,6 +2689,10 @@ function newLife() {
     // { year, kind, text, npc }
     npc: {},
     bag: { herb: 3, blood: 0, hide: 0, bone: 0, pill: 0, charm: 0, tally: 0, jade: 0, sword: null },
+    lingshi: 0,
+    // 灵石：宗门的钱。买卖、罚、赏都走这里，不进道行公式
+    dsl: { last: 0, due: 0, dueYear: 0, best: 0, done: 0 },
+    // 宗门大比：金丹前每六年一次
     seen: {},
     // 已看过的事件卡
     met: {},
@@ -2761,6 +2771,8 @@ function newLife() {
     // 只有某个人会给你的东西（id -> { name, desc, year, from }）
     mindSeen: {},
     // 场景叫住过你的年份（scene -> year），免得反复弹
+    relicMemo: [],
+    // 前世带回来的旧物：只作念想，不作属性（人每世重排，东西认得你）
     /* 人：亲疏与往来。favor 0..100，l.npc 是它的派生缓存（0..4），老逻辑照旧能读 */
     people: {},
     // id -> { favor, gifts, giftYear, talkYear, joinYear, met, lastLine }
@@ -2800,6 +2812,7 @@ function ensure(state2) {
   if (l.mindLock === void 0) l.mindLock = -1;
   if (!l.keepsakes || typeof l.keepsakes !== "object") l.keepsakes = {};
   if (!l.mindSeen || typeof l.mindSeen !== "object") l.mindSeen = {};
+  if (!Array.isArray(l.relicMemo)) l.relicMemo = [];
   if (!l.people || typeof l.people !== "object") l.people = {};
   if (!l.party || typeof l.party !== "object") l.party = { ids: [], since: null, helpCount: 0 };
   if (!Array.isArray(l.party.ids)) l.party.ids = [];
@@ -2827,6 +2840,7 @@ function takeSpent() {
 }
 function spend(state2, n) {
   const l = ensure(state2);
+  dslCheckMiss(state2);
   l.secRun = 0;
   l.year += n;
   spentPend += n;
@@ -2979,6 +2993,34 @@ function bagCount(state2) {
   let n = BAG_ORDER.reduce((a, k) => a + (l.bag[k] || 0), 0);
   if (l.bag.sword) n += 1;
   return n;
+}
+function addLingshi(state2, n) {
+  const l = ensure(state2);
+  l.lingshi = Math.max(0, (l.lingshi || 0) + Math.round(n));
+  return l.lingshi;
+}
+function spendLingshi(state2, n) {
+  const l = ensure(state2);
+  const v = Math.round(n);
+  if ((l.lingshi || 0) < v) return false;
+  l.lingshi -= v;
+  return true;
+}
+var DSL_EVERY = 6;
+function dslOpen(state2) {
+  return RANKS.indexOf(rankOf(state2)) < 2;
+}
+function dslCheckMiss(state2) {
+  const l = ensure(state2);
+  if (!l.dsl || !l.dsl.due) return 0;
+  if (l.year <= (l.dsl.dueYear || 0)) return 0;
+  const dueYear = l.dsl.dueYear;
+  const fine = Math.min(12, l.lingshi || 0);
+  if (fine > 0) spendLingshi(state2, fine);
+  l.dsl.due = 0;
+  l.dsl.last = l.year;
+  log(state2, "omen", `\u7B2C ${dueYear} \u5E74\u7684\u5B97\u95E8\u5927\u6BD4\u4F60\u6CA1\u53BB\u3002\u6267\u4E8B\u623F\u6309\u4F8B\u7F5A\u4E86 ${fine} \u679A\u7075\u77F3${fine ? "" : "\u2014\u2014\u4F60\u8EAB\u4E0A\u4E00\u679A\u90FD\u6CA1\u6709\uFF0C\u8BB0\u5728\u4E86\u8D26\u4E0A"}`);
+  return fine;
 }
 var PILL_LADDER = ["\u4E0B\u54C1", "\u4E2D\u54C1", "\u4E0A\u54C1", "\u6781\u54C1"];
 var PILL_YEARS = { \u4E0B\u54C1: 0.6, \u4E2D\u54C1: 1, \u4E0A\u54C1: 1.4, \u6781\u54C1: 1.8 };
@@ -3417,6 +3459,106 @@ var EVENTS = [
     ]
   }
 ];
+EVENTS.push(
+  {
+    id: "e_purse",
+    scenes: [ANY],
+    title: "\u94B1\u888B",
+    body: "\u5C71\u9053\u8FB9\u4E0A\u8EBA\u7740\u4E00\u53EA\u94B1\u888B\uFF0C\u9F13\u9F13\u7684\uFF0C\u888B\u53E3\u7684\u7EF3\u8FD8\u6CA1\u677E\u3002\u56DB\u4E0B\u6CA1\u6709\u4EBA\u3002",
+    opts: [
+      {
+        t: "\u63E3\u8FDB\u6000\u91CC",
+        res: "\u4F60\u628A\u5B83\u63E3\u8FDB\u6000\u91CC\u3002\u888B\u91CC\u7684\u7075\u77F3\u8FD8\u5E26\u7740\u4E00\u70B9\u6E29\u3002",
+        fx: (s) => {
+          const n = 6 + Math.floor(Math.random() * 11);
+          addLingshi(s, n);
+          log(s, "deed", `\u4F60\u5728\u5C71\u9053\u8FB9\u6361\u4E86\u4E00\u53EA\u94B1\u888B\uFF0C\u5F97\u7075\u77F3 ${n} \u679A\u3002\u6CA1\u6709\u4EBA\u6765\u8BA4\u9886\u3002`);
+        }
+      },
+      {
+        t: "\u4EA4\u5230\u6267\u4E8B\u623F",
+        res: "\u6267\u4E8B\u6309\u4F8B\u62BD\u4E86\u4E24\u6210\u8D4F\u4F60\uFF0C\u767B\u4E86\u4F60\u7684\u540D\u3002",
+        fx: (s) => {
+          addLingshi(s, 4);
+          log(s, "bond", "\u4F60\u628A\u6361\u5230\u7684\u94B1\u888B\u4EA4\u5230\u4E86\u6267\u4E8B\u623F\u3002\u4ED6\u4EEC\u8D4F\u4F60\u56DB\u679A\u7075\u77F3\uFF0C\u8BB0\u4E86\u4E00\u7B14\u540D\u3002");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_theft",
+    scenes: [ANY],
+    title: "\u888B\u7A7A\u4E86",
+    body: "\u6000\u91CC\u7684\u94B1\u888B\u8F7B\u4E86\u3002\u62BD\u5F00\u4E00\u770B\uFF0C\u7075\u77F3\u4E0D\u89C1\u4E86\u5927\u534A\uFF0C\u888B\u53E3\u7684\u7EF3\u662F\u88AB\u5200\u5F00\u7684\u3002",
+    cond: (s) => (ensure(s).lingshi || 0) >= 8,
+    opts: [
+      {
+        t: "\u8BA4\u4E0B\u8FD9\u53E3\u6C14",
+        res: "\u4F60\u91CD\u65B0\u7CFB\u7D27\u888B\u53E3\u3002\u5C71\u4E0A\u4E22\u4E1C\u897F\uFF0C\u4E0D\u662F\u5934\u4E00\u56DE\u4E86\u3002",
+        fx: (s) => {
+          const l = ensure(s);
+          const loss = Math.max(4, Math.ceil((l.lingshi || 0) * 0.5));
+          spendLingshi(s, loss);
+          log(s, "omen", `\u4F60\u7684\u94B1\u888B\u88AB\u4EBA\u5F00\u4E86\uFF0C\u4E22\u4E86 ${loss} \u679A\u7075\u77F3\u3002\u4F60\u6CA1\u6709\u58F0\u5F20\u3002`);
+        }
+      },
+      {
+        t: "\u53BB\u6267\u4E8B\u623F\u62A5\u5907",
+        res: "\u6267\u4E8B\u8BB0\u4E86\u4E00\u7B14\uFF0C\u8BF4\u300C\u67E5\u300D\u3002\u4F60\u7B49\u4E86\u4E09\u5E74\uFF0C\u6CA1\u6709\u4E0B\u6587\u3002",
+        fx: (s) => {
+          const l = ensure(s);
+          const loss = Math.max(4, Math.ceil((l.lingshi || 0) * 0.5));
+          spendLingshi(s, loss);
+          log(s, "deed", `\u4F60\u88AB\u5077\u4E86 ${loss} \u679A\u7075\u77F3\uFF0C\u53BB\u6267\u4E8B\u623F\u62A5\u5907\u3002\u5355\u5B50\u6536\u4E86\uFF0C\u4EBA\u6CA1\u6293\u7740\u3002`);
+        }
+      },
+      {
+        t: "\u60F3\u8D77\u90A3\u4E2A\u4E0D\u6536\u94B1\u7684\u5356\u7B26\u4EBA",
+        cond: (s) => !!ensure(s).met.fu,
+        res: "\u4F60\u8D76\u5230\u85CF\u7ECF\u9601\u4E0B\u3002\u644A\u5B50\u8FD8\u5728\u3002\u4ED6\u628A\u4F60\u7684\u94B1\u888B\u653E\u5728\u684C\u4E0A\uFF1A\u300C\u6570\u3002\u6211\u53EA\u62BD\u4E86\u4E00\u679A\u2014\u2014\u8C01\u53EB\u4F60\u4E0D\u6536\u597D\u3002\u300D",
+        fx: (s) => {
+          const l = ensure(s);
+          const loss = Math.max(2, Math.ceil((l.lingshi || 0) * 0.5) - 1);
+          spendLingshi(s, loss);
+          bond(s, "fu", -1);
+          log(s, "deed", `\u4F60\u6000\u7591\u5356\u7B26\u7684\u4EBA\u3002\u4ED6\u5F53\u7740\u4F60\u89E3\u5F00\u888B\u5B50\uFF0C\u62BD\u56DE\u4E00\u679A\uFF0C\u5269\u4E0B\u7684\u771F\u4E0D\u662F\u4ED6\u62FF\u7684\u3002\u4F60\u4FE9\u4ECE\u6B64\u90FD\u5C11\u8BF4\u4E86\u4E00\u53E5\u3002`, "fu");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_wager",
+    scenes: ["plaza", "map"],
+    npc: "shen",
+    title: "\u4E00\u679A\u7075\u77F3\u7684\u8D4C\u5C40",
+    body: "\u6C88\u4E09\u8E72\u5728\u77F3\u680F\u8FB9\uFF0C\u624B\u91CC\u6263\u7740\u4E00\u679A\u7075\u77F3\uFF1A\u300C\u731C\u6B63\u53CD\u3002\u4F60\u8D62\u4E86\u5F52\u4F60\uFF0C\u8F93\u4E86\u5F52\u6211\u3002\u300D",
+    cond: (s) => (ensure(s).lingshi || 0) >= 1,
+    opts: [
+      {
+        t: "\u62BC\u4E00\u679A",
+        fx: (s) => {
+          const l = ensure(s);
+          l._wager = Math.random() < 0.5 ? 1 : 0;
+          if (l._wager) {
+            addLingshi(s, 2);
+            bond(s, "shen", -1);
+            log(s, "deed", "\u4F60\u548C\u6C88\u4E09\u8D4C\u4E86\u4E00\u679A\u7075\u77F3\uFF0C\u8D62\u4E86\u3002\u4ED6\u628A\u7075\u77F3\u62CD\u5728\u680F\u4E0A\uFF0C\u8BF4\u4E0B\u6B21\u518D\u6765\u3002", "shen");
+          } else {
+            spendLingshi(s, 1);
+            bond(s, "shen", 1);
+            log(s, "deed", "\u4F60\u548C\u6C88\u4E09\u8D4C\u4E86\u4E00\u679A\u7075\u77F3\uFF0C\u8F93\u4E86\u3002\u4ED6\u8BF7\u4F60\u559D\u4E86\u53E3\u51C9\u6C34\uFF0C\u7B97\u626F\u5E73\u3002", "shen");
+          }
+        },
+        res: (s) => ensure(s)._wager ? "\u4ED6\u7FFB\u4E86\u624B\uFF0C\u8138\u4E0A\u4E00\u57AE\u3002\u300C\u884C\u3002\u300D\u7075\u77F3\u5F52\u4F60\uFF0C\u591A\u7684\u90A3\u679A\u662F\u4ED6\u57AB\u7684\u3002" : "\u4ED6\u644A\u5F00\u624B\uFF0C\u662F\u6B63\u7684\u3002\u4ED6\u628A\u4F60\u7684\u7075\u77F3\u62C8\u8D70\uFF0C\u5206\u4F60\u534A\u58F6\u51C9\u6C34\u3002"
+      },
+      {
+        t: "\u4E0D\u8D4C",
+        res: "\u4F60\u8BF4\u6CA1\u5E26\u94B1\u3002\u4ED6\u7B11\uFF1A\u300C\u4F60\u8896\u5B50\u91CC\u90A3\u53EA\u888B\u5B50\uFF0C\u6211\u5728\u4E09\u6761\u8857\u5916\u90FD\u542C\u89C1\u54CD\u3002\u300D",
+        fx: (s) => log(s, "deed", "\u6C88\u4E09\u7EA6\u4F60\u8D4C\u4E00\u679A\u7075\u77F3\uFF0C\u4F60\u6CA1\u63A5\u3002", "shen")
+      }
+    ]
+  }
+);
 EVENTS.push(
   {
     id: "e_well",
@@ -4393,15 +4535,20 @@ NPCCARDS.push(
 );
 function lineageGain() {
   const r = readRelic();
-  if (!r) return { span: 0, wu: 0, dao: 0, hp: 0, from: null };
+  if (!r) return { span: 0, wu: 0, dao: 0, hp: 0, from: null, keeps: [], minds: 0, party: [] };
   const realm = r.realm || 0;
   const merit = r.merit || 0;
+  const keeps = (Array.isArray(r.keepsakes) ? r.keepsakes : []).slice(0, 3);
   return {
     span: realm >= 3 ? 40 : realm === 2 ? 24 : realm === 1 ? 12 : 0,
-    wu: merit >= 400 ? 3 : merit >= 150 ? 2 : merit >= 40 ? 1 : 0,
+    // 带着别人给过的东西投胎，心里多点底：最多两分悟，不会把一世撑坏
+    wu: (merit >= 400 ? 3 : merit >= 150 ? 2 : merit >= 40 ? 1 : 0) + (keeps.length >= 3 ? 2 : keeps.length >= 1 ? 1 : 0),
     dao: realm >= 2 ? 20 : realm === 1 ? 10 : 0,
     hp: realm >= 3 ? 18 : realm === 2 ? 12 : realm === 1 ? 6 : 0,
-    from: { year: r.year, rank: r.rank, merit }
+    from: { year: r.year, rank: r.rank, merit },
+    keeps: keeps.map((k) => `${k.name}\uFF08${k.from}\uFF09`),
+    minds: r.minds || 0,
+    party: (Array.isArray(r.party) ? r.party : []).map((p) => p.name)
   };
 }
 function applyLineage(l) {
@@ -4412,6 +4559,16 @@ function applyLineage(l) {
   l.wu = (l.wu || 0) + g.wu;
   l.secBonus = (l.secBonus || 0) + g.dao;
   l.lineageHp = g.hp;
+  l.relicMemo = g.keeps.slice();
+  l.bag.herb = (l.bag.herb || 0) + Math.min(2, Math.floor(g.keeps.length / 2));
+  if (g.keeps.length) {
+    l.chronicle.push({
+      year: l.year,
+      kind: "omen",
+      npc: null,
+      text: `\u884C\u56CA\u91CC\u8FD8\u5E26\u7740\u4E0A\u4E00\u4E16\u7684\u65E7\u7269\uFF1A${g.keeps.join("\u3001")}\u3002\u4EBA\u5F97\u91CD\u65B0\u8BA4\u8BC6\uFF0C\u4E1C\u897F\u5012\u662F\u8BA4\u5F97\u4F60\u3002`
+    });
+  }
   return g;
 }
 var RELIC_KEY = "lingxu.relic.v1";
@@ -4422,11 +4579,11 @@ function readRelic() {
     return null;
   }
 }
-function writeRelic(state2) {
+function relicOf(state2) {
   const l = ensure(state2);
   const r = rankOf(state2);
   const w = initWorld(state2);
-  const rec = {
+  return {
     year: l.year,
     rank: r.name,
     merit: state2.merit || 0,
@@ -4435,11 +4592,18 @@ function writeRelic(state2) {
     realm: realmIndex(state2),
     jiazi: Object.keys(l.jiaziLog || {}).filter((k) => !k.endsWith("_taken")).length,
     // 上一世的人，只留下「他曾如何」；这一世关系会重排，所以残念半真半假
-    echoes: w.folk.slice(0, 4).map((f) => ({
+    echoes: (w.folk || []).slice(0, 4).map((f) => ({
       text: `${f.name}\uFF08${f.archName}\uFF09\u2014\u2014${f.want}\u3002${f.last || f.tell}`,
       truth: f.bond >= 1
-    }))
+    })),
+    // 人物线走到底才有：下一世不认得人，却还认得这几件东西
+    keepsakes: keepsakeList(state2).map((k) => ({ id: k.id, name: k.name, from: k.from, year: k.year })),
+    minds: Object.keys(l.mindDone || {}).length,
+    party: partyOf(state2).map((id) => ({ id, name: personDefOf(state2, id).name }))
   };
+}
+function writeRelic(state2) {
+  const rec = relicOf(state2);
   try {
     localStorage.setItem(RELIC_KEY, JSON.stringify(rec));
   } catch {
@@ -5730,6 +5894,11 @@ function annualTick(state2) {
       out.push(`${d.name}\uFF1A${nm}`);
     }
   }
+  if (dslOpen(state2) && !l.dsl.due && l.year - (l.dsl.last || 0) >= DSL_EVERY) {
+    l.dsl.due = 1;
+    l.dsl.dueYear = l.year;
+    out.push("\u5B97\u95E8\u5927\u6BD4\uFF1A\u6267\u4E8B\u623F\u628A\u4F60\u7684\u540D\u5B57\u8D34\u4E0A\u4E86\u5899");
+  }
   return out;
 }
 function busy(state2) {
@@ -5766,6 +5935,7 @@ function setDisciple(state2, cand, stageNames) {
 }
 function interruptAt(state2, year) {
   const l = ensure(state2);
+  if (l.dsl && l.dsl.due) return { kind: "dsl", id: "dsl", text: "\u5B97\u95E8\u5927\u6BD4\u5F00\u4E86\u3002\u6267\u4E8B\u623F\u4E00\u8DEF\u627E\u5230\u6D1E\u5E9C\u6765\u53EB\u4F60\u3002" };
   const wb = WORLD_BEATS.find((b) => b.at === year && !l.world[b.id]);
   if (wb) return { kind: "world", id: wb.id, text: wb.text };
   if (l.hunt && !l.hunt.arrived && year >= l.hunt.at) {
@@ -6912,8 +7082,8 @@ function giveGift(state2, id, item) {
   p.met = true;
   l.met[id] = 1;
   const text = (d.gift || {})[liked ? "like" : hated ? "hate" : "ok"] || "\u4ED6\u6536\u4E0B\u4E86\u3002";
-  const itemName = (ITEMS[item] || {}).name || item;
-  log(state2, "bond", `\u4F60\u9001\u4E86${d.name}\u4E00\u4EF6${itemName}\u3002${text}`, id);
+  const itemName2 = (ITEMS[item] || {}).name || item;
+  log(state2, "bond", `\u4F60\u9001\u4E86${d.name}\u4E00\u4EF6${itemName2}\u3002${text}`, id);
   let back = "";
   if (before < 60 && p.favor >= 60 && !p.backGiven) {
     p.backGiven = true;
@@ -6927,6 +7097,9 @@ function giveGift(state2, id, item) {
 function partyOf(state2) {
   const l = ensure(state2);
   return l.party.ids.filter((id) => !isGone(l, id));
+}
+function partyPower(state2) {
+  return partyOf(state2).reduce((n, id) => n + ((personDefOf(state2, id).combat || {}).power || 0), 0);
 }
 function inviteCompanion(state2, id) {
   const l = ensure(state2);
@@ -6971,16 +7144,34 @@ function doTogether(state2, id) {
   if (p.joinYear === l.year) return { ok: false, text: "\u4ECA\u5E74\u5DF2\u7ECF\u540C\u4ED6\u8D70\u8FC7\u4E00\u8D9F\u4E86\u3002" };
   p.joinYear = l.year;
   const def = MIND_BY_ID[m.id];
-  for (const need of def.need || []) mindDo(state2, need.key, 1);
-  addFavor(state2, id, 6);
-  log(state2, "bond", `\u4F60\u540C${d.name}\u4E00\u9053\u53BB\u529E\u300C${def.title}\u300D\u3002${d.join || ""}`, id);
+  const inParty = l.party.ids.includes(id);
+  for (const need of def.need || []) mindDo(state2, need.key, inParty ? 2 : 1);
+  addFavor(state2, id, inParty ? 8 : 6);
+  log(state2, "bond", `${inParty ? "\u4F60\u4EEC\u4E00\u9053" : `\u4F60\u540C${d.name}\u4E00\u9053`}\u53BB\u529E\u300C${def.title}\u300D\u3002${d.join || ""}`, id);
   return {
     ok: true,
     text: d.join || `${d.name}\u8DDF\u4F60\u8D70\u4E86\u4E00\u8D9F\u3002`,
     mindTitle: def.title,
     ready: mindReady(state2, m),
-    favor: p.favor
+    favor: p.favor,
+    inParty,
+    party: inParty ? `${d.name}\u5728\u961F\u91CC\u642D\u4E86\u628A\u624B\uFF0C\u8FD9\u4E00\u6B65\u8D70\u5F97\u5FEB\u4E9B\u3002` : ""
   };
+}
+function mindTarget(state2) {
+  const l = ensure(state2);
+  for (const m of l.mind || []) {
+    const d = mindDef(m.id);
+    if (d && d.npc && !isGone(l, d.npc)) return { id: d.npc, mind: m, def: d };
+  }
+  return null;
+}
+function knownPerson(state2) {
+  const l = ensure(state2);
+  const ids = PEOPLE_ORDER.filter((id) => !isGone(l, id) && (l.met[id] || favorOf(state2, id) >= 15));
+  if (!ids.length) return null;
+  ids.sort((a, b) => favorOf(state2, b) - favorOf(state2, a));
+  return ids[0];
 }
 var YEAR_POOL = [
   {
@@ -7014,9 +7205,9 @@ var YEAR_POOL = [
       }
       if (Math.random() < 0.16) {
         spend(s, 2);
-        l.flags = l.flags || {};
+        addItem(s, "herb", 1);
         log(s, "evil", "\u540E\u5C71\u91C7\u836F\u65F6\u649E\u4E0A\u4E86\u4E1C\u897F\u3002\u4F60\u4E22\u4E86\u4E24\u5E74\u3002");
-        return ["\u836F +1", "\u4F60\u5728\u77F3\u7F1D\u91CC\u770B\u89C1\u4E00\u53CC\u773C\u775B\u3002\u8DD1\u56DE\u6765\u7684\u65F6\u5019\uFF0C\u978B\u6389\u4E86\u4E00\u53EA\u3002\uFF08\u6298\u5BFF 2 \u5E74\uFF09"];
+        return ["\u836F +1", "\u4F60\u5728\u77F3\u7F1D\u91CC\u770B\u89C1\u4E00\u53CC\u773C\u775B\u3002\u8DD1\u56DE\u6765\u7684\u65F6\u5019\uFF0C\u978B\u6389\u4E86\u4E00\u53EA\uFF0C\u624B\u91CC\u8FD8\u6525\u7740\u4E00\u682A\u3002\uFF08\u6298\u5BFF 2 \u5E74\uFF09"];
       }
       addItem(s, "herb", 2);
       log(s, "deed", "\u4F60\u5728\u540E\u5C71\u91C7\u4E86\u4E24\u682A\u836F\u3002\u77F3\u7F1D\u91CC\u7684\u8349\u6BD4\u53BB\u5E74\u5C11\u3002");
@@ -7052,8 +7243,18 @@ var YEAR_POOL = [
   {
     id: "visit",
     t: "\u53BB\u8BBF\u4E00\u4E2A\u4EBA",
-    s: "\u4EBA\u60C5 +2",
+    s: "\u4EB2\u758F +2",
     run: (s) => {
+      const t = mindTarget(s);
+      const id = t ? t.id : knownPerson(s);
+      if (id) {
+        const d = personDefOf(s, id);
+        const p = personOf(s, id);
+        const line = (d.lines || {})[lineIndex(p.favor)] || "\u4ED6\u8BF4\u4E86\u53E5\u4EC0\u4E48\uFF0C\u98CE\u628A\u5B83\u5439\u6563\u4E86\u3002";
+        const got = addFavor(s, id, 2);
+        log(s, "bond", `\u4F60\u53BB\u770B\u4E86\u4E00\u6B21${d.name}\u3002`, id);
+        return [`${d.name} \u4EB2\u758F +${got}`, line];
+      }
       const l = ensure(s);
       const folk = (l.folk || []).filter((f2) => f2.state === "\u5728\u5C71\u91CC");
       if (!folk.length) {
@@ -7071,31 +7272,215 @@ var YEAR_POOL = [
     id: "sleep",
     t: "\u7761\u4E00\u5E74",
     s: "\u6C14\u8840\u56DE\u6EE1",
+    heal: true,
+    // 由 UI 在结算后真正回血：life 层不碰 vitals，免得互相 import
     run: (s) => {
       log(s, "deed", "\u4F60\u7761\u4E86\u4E00\u5E74\u3002\u9192\u6765\u7684\u65F6\u5019\uFF0C\u7A97\u7EB8\u6362\u8FC7\u4E86\u3002");
       return ["\u6C14\u8840\u56DE\u6EE1", "\u8FD9\u4E00\u5E74\u4F60\u4EC0\u4E48\u90FD\u6CA1\u505A\u3002\u4E5F\u7B97\u4E00\u79CD\u8FC7\u6CD5\u3002"];
     }
+  },
+  /* ---- 情境牌：只有"眼下真有这事"才进候选，不会抽到一张空牌 ---- */
+  {
+    id: "together",
+    live: true,
+    when: (s) => {
+      const t = mindTarget(s);
+      return !!t && personOf(s, t.id).joinYear !== ensure(s).year && !mindReady(s, t.mind);
+    },
+    text: (s) => {
+      const t = mindTarget(s);
+      if (!t) return { t: "\u53BB\u8BBF\u4E00\u4E2A\u4EBA", s: "\u4EB2\u758F +2", note: "\u5C71\u95E8\u91CC\u7167\u65E7\u7684\u4E00\u4EF6\u4E8B" };
+      return {
+        t: `\u540C${personDefOf(s, t.id).name}\u53BB\u529E\u4E00\u4EF6\u4E8B`,
+        s: `\u300C${t.def.title}\u300D\u5F80\u524D\u4E00\u6B65`,
+        note: `\u4ED6\u6258\u4F60\u7684\u90A3\u4EF6\u4E8B\uFF0C\u8FD8\u6302\u5728\u5FC3\u4E0A`
+      };
+    },
+    run: (s) => {
+      const t = mindTarget(s);
+      if (!t) return ["\u8FD9\u4E00\u5E74\u5C71\u91CC\u9759\u5F97\u5F88\uFF0C\u6CA1\u627E\u7740\u4EBA\u3002"];
+      const r = doTogether(s, t.id);
+      if (!r.ok) return [r.text];
+      const lines = [`${r.mindTitle} \xB7 \u8D70\u4E86\u4E00\u6B65`, r.text];
+      if (r.party) lines.push(r.party);
+      if (r.ready) lines.push("\u4E1C\u897F\u9F50\u4E86\uFF0C\u56DE\u53BB\u53EF\u4EE5\u4EA4\u5DEE\u3002");
+      return lines;
+    }
+  },
+  {
+    id: "patrol",
+    live: true,
+    when: (s) => partyOf(s).length > 0,
+    text: (s) => ({
+      t: "\u4E0E\u540C\u884C\u7684\u4EBA\u5DE1\u4E00\u8D9F\u5C71",
+      s: `${partyOf(s).length} \u4EBA \xB7 \u5404\u4EB2\u758F +2`,
+      note: `\u540C\u884C\uFF1A${partyOf(s).map((id) => personDefOf(s, id).name).join("\u3001")}`
+    }),
+    run: (s) => {
+      const ids = partyOf(s);
+      const power = partyPower(s);
+      const lines = [];
+      for (const id of ids) {
+        const d = personDefOf(s, id);
+        addFavor(s, id, 2);
+        lines.push(`${d.name} \u4EB2\u758F +2`);
+      }
+      if (Math.random() < Math.min(0.7, 0.3 + power * 0.02)) {
+        const key = ["herb", "blood", "bone"][Math.floor(Math.random() * 3)];
+        addItem(s, key, 1);
+        lines.push(`${(ITEMS[key] || {}).name || key} +1`);
+      }
+      const lead = ids.length ? personDefOf(s, ids[0]) : null;
+      log(s, "bond", `${ids.map((id) => personDefOf(s, id).name).join("\u3001")}\u540C\u4F60\u5DE1\u4E86\u4E00\u8D9F\u5C71\u3002`, ids[0] || null);
+      if (lead) lines.push(lead.combat?.win || lead.join || "\u4E00\u8DEF\u65E0\u8BDD\uFF0C\u5012\u4E5F\u4E0D\u95F7\u3002");
+      return lines;
+    }
   }
 ];
+var YEAR_NOTES = {
+  seclude: "\u6D1E\u91CC\u5750\u4E00\u5E74\uFF0C\u4EC0\u4E48\u90FD\u6CA1\u53D1\u751F",
+  gather: "\u77F3\u7F1D\u91CC\u7684\u8349\uFF0C\u4E00\u5E74\u6BD4\u4E00\u5E74\u5C11",
+  errand: "\u6CA1\u4EBA\u8BB0\u5F97\u4F60\u8DD1\u8FC7\u54EA\u513F",
+  copy: "\u706F\u82AF\u77ED\u4E00\u5BF8\uFF0C\u5B57\u8981\u6284\u7A33",
+  visit: "\u8D70\u7684\u65F6\u5019\uFF0C\u4ED6\u9001\u4F60\u4E24\u6B65",
+  sleep: "\u7A97\u7EB8\u6362\u8FC7\u4E86\uFF0C\u4EC0\u4E48\u4E5F\u6CA1\u505A"
+};
 function yearChoices(state2) {
   const l = ensure(state2);
   const last = l.flags && l.flags.lastChoices || [];
-  const pool = YEAR_POOL.filter((c) => !last.includes(c.id));
-  const src = pool.length >= 3 ? pool : YEAR_POOL.slice();
+  const avail = YEAR_POOL.filter((c) => !c.when || c.when(state2));
+  const fresh = avail.filter((c) => !last.includes(c.id));
+  const pool = fresh.length >= 3 ? fresh.slice() : avail.slice();
   const picked = [];
-  while (picked.length < 3 && src.length) {
-    const i = Math.floor(Math.random() * src.length);
-    picked.push(src.splice(i, 1)[0]);
+  const pull = (from) => {
+    if (!from.length) return;
+    const c = from.splice(Math.floor(Math.random() * from.length), 1)[0];
+    const i = pool.indexOf(c);
+    if (i >= 0) pool.splice(i, 1);
+    picked.push(c);
+  };
+  const live = pool.filter((c) => c.live);
+  if (live.length) pull(live.slice());
+  while (picked.length < 3 && pool.length) {
+    const plain = pool.filter((c) => !c.live);
+    pull(plain.length ? plain : pool);
   }
   l.flags = l.flags || {};
   l.flags.lastChoices = picked.map((c) => c.id);
-  return picked.map((c) => ({ id: c.id, t: c.t, s: c.s }));
+  return picked.map((c) => {
+    let info = { t: c.t, s: c.s, note: YEAR_NOTES[c.id] || "" };
+    if (c.text) {
+      try {
+        info = Object.assign(info, c.text(state2) || {});
+      } catch {
+      }
+    }
+    return { id: c.id, t: info.t, s: info.s, note: info.note || "", live: !!c.live };
+  });
 }
 function pickYear(state2, id) {
   const c = YEAR_POOL.find((x) => x.id === id);
-  if (!c) return { lines: ["\u8FD9\u4E00\u5E74\u767D\u8FC7\u4E86\u3002"] };
+  if (!c) return { lines: ["\u8FD9\u4E00\u5E74\u767D\u8FC7\u4E86\u3002"], heal: false };
   const lines = c.run(state2) || [];
-  return { lines };
+  return { lines, heal: !!c.heal };
+}
+var SCENE_LABEL = {
+  gate: "\u5C71\u95E8",
+  map: "\u8206\u56FE",
+  plaza: "\u5B97\u95E8\u5E7F\u573A",
+  library: "\u85CF\u7ECF\u9601",
+  alchemy: "\u4E39\u623F",
+  sword: "\u5251\u51A2",
+  realm: "\u540E\u5C71\u79D8\u5883",
+  tribulation: "\u6E21\u52AB\u53F0",
+  forest: "\u8FF7\u96FE\u68EE\u6797",
+  cave: "\u6D1E\u5E9C"
+};
+function nextStep(state2) {
+  const l = ensure(state2);
+  const done = state2.done || {};
+  const left = yearsLeft(state2);
+  const minds = l.mind || [];
+  const go = (label, sub, to, urgent) => Object.assign({ label, sub, urgent: !!urgent }, to || {});
+  const short = (s, n) => s.length > n ? s.slice(0, n - 1) + "\u2026" : s;
+  const ready = minds.find((m) => mindReady(state2, m));
+  if (ready) {
+    const d = mindDef(ready.id) || {};
+    return go(
+      short(`\u4E86\u7ED3\u300C${d.title || "\u90A3\u4EF6\u4E8B"}\u300D`, 14),
+      `\u4E1C\u897F\u9F50\u4E86 \xB7 \u53BB${SCENE_LABEL[d.scene] || "\u539F\u5904"}\u4EA4\u7ED9${mindWho(state2, ready).name}${left <= 8 ? ` \xB7 \u53EA\u5269 ${left} \u5E74` : ""}`,
+      { panel: "mind" },
+      left <= 8
+    );
+  }
+  const soon = minds.filter((m) => mindLeft(state2, m) <= 2).sort((a, b) => mindLeft(state2, a) - mindLeft(state2, b))[0];
+  if (soon) {
+    const d = mindDef(soon.id) || {};
+    const n = mindLeft(state2, soon);
+    const miss = mindNeed(state2, soon).find((x) => !x.ok);
+    const cost = mindCost(state2, soon).find((x) => !x.ok);
+    const lack = miss ? `\u8FD8\u5DEE ${miss.text}` : cost ? `\u8FD8\u5DEE ${cost.name}\xD7${cost.need - cost.have}` : "\u53BB\u770B\u770B\u8FD8\u5DEE\u4EC0\u4E48";
+    return go(
+      short(`\u8D76\u5728\u671F\u9650\u5185\uFF1A${d.title || "\u90A3\u4EF6\u4E8B"}`, 15),
+      `${lack} \xB7 ${n ? `\u53EA\u5269 ${n} \u5E74` : "\u4ECA\u5E74\u5230\u671F"}`,
+      { panel: "mind" },
+      true
+    );
+  }
+  if (!state2.spirit) return go("\u53BB\u5E7F\u573A\u6D4B\u7075\u6839", "\u7075\u6839\u5B9A\u4E86\uFF0C\u8DEF\u624D\u6709\u6570", { panel: "gate" });
+  if (!Object.keys((l.craft || {}).paths || {}).length) return go("\u53BB\u85CF\u7ECF\u9601\u5B66\u4E00\u95E8\u624B\u827A", "\u70BC\u4E39 / \u5236\u7B26 / \u9635\u6CD5 \u9009\u4E00\u95E8", { panel: "library" });
+  if (!done.sword) return go("\u53BB\u5251\u51A2\u62D4\u4E00\u5251", "\u5251\u51B3\u5B9A\u540E\u9762\u600E\u4E48\u8D70", { panel: "sword" });
+  if (!done.realm) return go("\u53BB\u540E\u5C71\u79D8\u5883\u627E\u4FE1\u7269", "\u95E8\u540E\u4E5D\u683C\uFF0C\u4E09\u5E74\u4E00\u6B21", { panel: "realm" });
+  if (!done.alchemy) return go("\u53BB\u4E39\u623F\u70BC\u4E00\u7089", "\u4E24\u682A\u836F\u3001\u4E09\u628A\u706B\u3001\u4E09\u5E74", { panel: "alchemy" });
+  const cap = daoCap(state2);
+  const dao = daoOf(state2);
+  const nx = REALMS[Math.min(REALMS.length - 1, realmIndex(state2) + 1)];
+  if (cap !== Infinity && dao >= cap - 1) {
+    if (left <= nx.cost) return go("\u4F59\u5BFF\u4E0D\u591F\u95ED\u8FD9\u4E00\u5173", `\u7834 ${nx.name} \u8981 ${nx.cost} \u5E74\uFF0C\u4F60\u53EA\u5269 ${left} \u5E74`, { panel: "tribulation" }, true);
+    return go(
+      "\u53BB\u6D1E\u5E9C\u7834\u5883",
+      `${nx.name} \xB7 \u95ED\u5173 ${nx.cost} \u5E74 \xB7 \u8D70\u706B\u7EA6 ${Math.round(nx.risk * 100)}%`,
+      { panel: "breakthrough" }
+    );
+  }
+  const jz = jiaziInfo(state2);
+  if (jz.open && !jz.entered) {
+    return go("\u8D81\u6F6E\u6C50\u5F00\u95E8\u8FDB\u540E\u5C71", `\u7A97\u53E3\u5230 ${jz.closeAt} \u5C81 \xB7 \u8FDB\u53BB\u8981 ${JIAZI_COST} \u5E74`, { panel: "world" }, true);
+  }
+  if (minds.length < MIND_MAX) {
+    const offer = MINDS.filter((d) => d.scene && !l.mindDone[d.id] && !l.mindLost[d.id] && !minds.some((m) => m.id === d.id) && (!d.after || l.mindDone[d.after]) && (!d.when || d.when(l, state2)) && (!d.npc || !isGone(l, d.npc))).sort((a, b) => (b.weight || 0) - (a.weight || 0))[0];
+    if (offer) {
+      const who = offer.npc ? (NPCS[offer.npc] || {}).name : "\u6709\u4EBA";
+      return go(
+        `\u53BB${SCENE_LABEL[offer.scene] || "\u5C71\u91CC"}\u8D70\u8D70`,
+        `${who}\u50CF\u662F\u6709\u8BDD\u8981\u8BF4 \xB7 ${offer.title}`,
+        { scene: offer.scene }
+      );
+    }
+  }
+  if (minds.length) {
+    const d = mindDef(minds[0].id) || {};
+    const miss = mindNeed(state2, minds[0]).find((x) => !x.ok);
+    return go(
+      short(`\u63A5\u7740\u529E\u300C${d.title || "\u90A3\u4EF6\u4E8B"}\u300D`, 14),
+      `${d.hint || (miss ? miss.text : "\u770B\u770B\u8FD8\u5DEE\u4EC0\u4E48")} \xB7 \u8FD8\u6709 ${mindLeft(state2, minds[0])} \u5E74`,
+      { panel: "mind" }
+    );
+  }
+  if (dao < (nx.dao || 0)) {
+    return go("\u6512\u9053\u884C", `${dao}/${nx.dao} \u5230 ${nx.name} \xB7 \u70BC\u4E39\u3001\u4E86\u5FC3\u4E8B\u3001\u540C\u884C\u90FD\u7B97`, { panel: "seclude" });
+  }
+  const folks = personList(state2).filter((p) => !p.gone && p.met && SCENE_LABEL[p.scene] && p.favor < 85).sort((a, b) => b.favor - a.favor);
+  if (folks.length) {
+    const p = folks[0];
+    const next = favorNext(state2, p.id);
+    return go(
+      `\u53BB${SCENE_LABEL[p.scene]}\u770B\u770B${p.name}`,
+      `${p.tier.name} \xB7 \u79BB\u300C${next ? next.name : "\u66F4\u8FD1\u4E00\u4E9B"}\u300D\u8FD8\u5DEE ${(next ? next.at : 100) - p.favor} \u5206`,
+      { person: p.id }
+    );
+  }
+  return go("\u53BB\u6E21\u52AB\u53F0\u770B\u770B", "\u8DEF\u90FD\u8D70\u8FC7\u4E86\uFF0C\u4E0A\u53BB\u4E00\u8D9F", { panel: "tribulation" });
 }
 
 // src/vitals.js
@@ -9717,6 +10102,55 @@ function trackCount() {
   return TRACKS.length;
 }
 
+// src/data_shop.js
+var BAG_PRICE = { herb: 2, blood: 3, hide: 2, bone: 4, pill: 8, charm: 6, tally: 5, jade: 12 };
+var BAG_NAME = { herb: "\u836F\u6750", blood: "\u517D\u8840", hide: "\u517D\u76AE", bone: "\u517D\u9AA8", pill: "\u65E0\u540D\u4E39", charm: "\u65E0\u540D\u7B26", tally: "\u4FE1\u7269", jade: "\u7389" };
+var TIER_BUY = { pill: { 1: 14, 2: 28, 3: 48 }, charm: { 1: 12, 2: 24, 3: 42 } };
+function itemName(id) {
+  return BAG_NAME[id] || BY_ID[id] && BY_ID[id].name || id;
+}
+function buyPrice(id) {
+  if (BAG_PRICE[id] !== void 0) return BAG_PRICE[id];
+  const it = BY_ID[id];
+  if (!it) return 0;
+  const t = TIER_BUY[it.kind] || TIER_BUY.charm;
+  return t[it.tier] || t[1];
+}
+var sellPrice = (id) => Math.max(1, Math.floor(buyPrice(id) * 0.6));
+var SHELF = ["herb", "blood", "hide", "bone", "pill", "charm", "tally", "jade", "p_huiqi", "t_pingan", "a_dingjiao"];
+var RARE = ["p_xisui", "p_guyuan", "t_chiyan", "t_jinzhong", "a_huchen", "p_pojing"];
+function shelfOf(year) {
+  const rare = RARE[Math.floor(Math.max(0, year || 0) / 6) % RARE.length];
+  return [...SHELF, rare];
+}
+function buy(state2, id) {
+  const price = buyPrice(id);
+  if (!price) return { ok: false, why: "\u9601\u4E0A\u6CA1\u6536\u8FC7\u8FD9\u4E1C\u897F\u3002" };
+  if (!spendLingshi(state2, price)) return { ok: false, why: `\u7075\u77F3\u4E0D\u591F\uFF08\u8981 ${price} \u679A\uFF09\u3002` };
+  add(state2, id, 1);
+  return { ok: true, name: itemName(id), price };
+}
+function sellList(state2) {
+  const l = ensure(state2);
+  const out = [];
+  for (const k of Object.keys(BAG_PRICE)) {
+    const n = count(state2, k);
+    if (n > 0) out.push({ id: k, name: itemName(k), n, price: sellPrice(k) });
+  }
+  for (const id of Object.keys(l.items || {})) {
+    if (BY_ID[id] && !(id in BAG_PRICE) && (l.items[id] || 0) > 0) {
+      out.push({ id, name: BY_ID[id].name, n: l.items[id], price: sellPrice(id) });
+    }
+  }
+  return out;
+}
+function sell(state2, id) {
+  const price = sellPrice(id);
+  if (!take(state2, id, 1)) return { ok: false, why: "\u888B\u91CC\u6CA1\u6709\u8FD9\u4E2A\u3002" };
+  addLingshi(state2, price);
+  return { ok: true, name: itemName(id), price };
+}
+
 // src/scenes.js
 var SCENES = {
   gate: {
@@ -9746,7 +10180,10 @@ var SCENES = {
       { x: 57.5, y: 22, label: "\u540E\u5C71\u79D8\u5883", act: "realm", plaque: true },
       { x: 78, y: 13, label: "\u6E21\u52AB\u53F0", act: "tribulation", plaque: true },
       { x: 9, y: 84, label: "\u5916\u56F4\u8FF7\u96FE\u68EE\u6797", act: "forest", plaque: true },
-      { x: 88, y: 77, label: "\u6D1E\u5E9C \xB7 \u4F60\u7684\u5730\u65B9", act: "cave", plaque: true }
+      { x: 88, y: 77, label: "\u6D1E\u5E9C \xB7 \u4F60\u7684\u5730\u65B9", act: "cave", plaque: true },
+      { x: 60, y: 66, label: "\u5B97\u95E8\u767E\u5B9D\u9601", act: "shop", plaque: true },
+      { x: 15, y: 26, label: "\u7B26\u5C71 \xB7 \u6731\u7802\u5D16", act: "fu", plaque: true },
+      { x: 84, y: 40, label: "\u9635\u773C \xB7 \u65E7\u9635\u7A9F", act: "zhen", plaque: true }
     ]
   },
   plaza: {
@@ -9813,9 +10250,39 @@ var SCENES = {
       { x: 50, y: 55, label: "\u767B\u53F0", act: "tribulation" },
       { x: 21, y: 36, label: "\u65AD\u67F1 \xB7 \u7126\u9ED1", act: "look", id: "trib_pillar", text: "\u65AD\u67F1\u7684\u65AD\u53E3\u662F\u7126\u7684\uFF0C\u6478\u4E0A\u53BB\u8FD8\u5E26\u7740\u4E00\u70B9\u6E29\u3002\u6709\u4EBA\u8BD5\u8FC7\uFF0C\u6CA1\u7AD9\u4F4F\u3002" }
     ]
+  },
+  fu: {
+    name: "\u7B26\u5C71 \xB7 \u6731\u7802\u5D16",
+    sub: "\u753B\u4E00\u9053\u7B26",
+    img: "./assets/pano/sword.jpg",
+    spots: [
+      { x: 46, y: 56, label: "\u77F3\u6848 \xB7 \u94FA\u7EB8\u6536\u7B14", act: "drawfu" },
+      { x: 74, y: 30, label: "\u5D16\u58C1 \xB7 \u524D\u4EBA\u7B14\u610F", act: "look", id: "fu_cliff", text: "\u5D16\u58C1\u4E0A\u6709\u4E00\u6574\u7247\u6731\u7802\u7EA2\uFF0C\u7EA2\u91CC\u538B\u7740\u51E0\u9053\u7B14\u950B\u3002\u6CA1\u6709\u843D\u6B3E\u2014\u2014\u523B\u7684\u4EBA\u663E\u7136\u4E0D\u6253\u7B97\u8BA9\u8C01\u8BA4\u51FA\u6765\u3002" },
+      { x: 20, y: 74, label: "\u7EB8\u5806 \xB7 \u6CA1\u88C1\u5B8C\u7684", act: "look", id: "fu_paper", text: "\u4E00\u5806\u88C1\u4E86\u4E00\u534A\u7684\u9EC4\u7EB8\uFF0C\u5200\u53E3\u9F50\u9F50\u671D\u5C71\u4E0B\u3002\u50CF\u6709\u4EBA\u88C1\u5230\u4E00\u534A\uFF0C\u88AB\u53EB\u8D70\u4E86\uFF0C\u518D\u6CA1\u56DE\u6765\u3002" }
+    ]
+  },
+  zhen: {
+    name: "\u9635\u773C \xB7 \u65E7\u9635\u7A9F",
+    sub: "\u843D\u4E00\u5EA7\u9635",
+    img: "./assets/pano/realm.jpg",
+    spots: [
+      { x: 50, y: 60, label: "\u7A9F\u5FC3 \xB7 \u8E0F\u4F4D\u843D\u773C", act: "setzhen" },
+      { x: 24, y: 34, label: "\u6B8B\u9635 \xB7 \u7F3A\u4E86\u4E00\u89D2", act: "look", id: "zhen_broken", text: "\u5730\u4E0A\u9635\u7EB9\u6B8B\u4E86\u5927\u534A\uFF0C\u72EC\u7F3A\u4E1C\u5317\u4E00\u89D2\u3002\u7F3A\u5F97\u6574\u9F50\uFF0C\u50CF\u662F\u88AB\u4EBA\u62A0\u8D70\u7684\u3002" },
+      { x: 80, y: 72, label: "\u77F3\u7F1D \xB7 \u78C1\u77F3\u54CD", act: "look", id: "zhen_mag", text: "\u628A\u78C1\u77F3\u51D1\u8FD1\u77F3\u7F1D\uFF0C\u5B83\u81EA\u5DF1\u7FFB\u4E86\u4E2A\u8EAB\u3002\u7F1D\u91CC\u90A3\u4E2A\u65B9\u5411\uFF0C\u98CE\u90FD\u662F\u659C\u7684\u3002" }
+    ]
+  },
+  shop: {
+    name: "\u767E\u5B9D\u9601",
+    sub: "\u7075\u77F3\u4E70\u5356",
+    img: "./assets/pano/library.jpg",
+    spots: [
+      { x: 50, y: 58, label: "\u67DC\u53F0 \xB7 \u4E70\u5356", act: "shop" },
+      { x: 18, y: 26, label: "\u67B6\u9876 \xB7 \u843D\u7070\u7684\u5323\u5B50", act: "look", id: "shop_box", text: "\u6700\u4E0A\u5C42\u4E00\u53EA\u5323\u5B50\u843D\u4E86\u7070\uFF0C\u7070\u91CC\u6709\u4E00\u5708\u5E72\u51C0\u7684\u6307\u75D5\u2014\u2014\u6709\u4EBA\u6700\u8FD1\u78B0\u8FC7\uFF0C\u53C8\u653E\u56DE\u53BB\u4E86\u3002" },
+      { x: 82, y: 70, label: "\u67DC\u811A \xB7 \u4E00\u9053\u5200\u75D5", act: "look", id: "shop_scratch", text: "\u67DC\u811A\u4E0A\u4E00\u9053\u5200\u75D5\uFF0C\u75D5\u91CC\u5D4C\u7740\u4E00\u70B9\u6731\u7802\u3002\u5F00\u67DC\u7684\u4EBA\u624B\u5F88\u7A33\uFF0C\u53EA\u5212\u4E86\u4E00\u4E0B\u3002" }
+    ]
   }
 };
-var NAV = ["gate", "map", "plaza", "alchemy", "sword", "realm", "tribulation", "library", "forest"];
+var NAV = ["gate", "map", "plaza", "alchemy", "sword", "realm", "tribulation", "library", "forest", "shop", "fu", "zhen"];
 var SAVE_KEY = "lingxu.save.v1";
 var SETTINGS_KEY = "lingxu.settings.v1";
 var SLOTS_KEY = "lingxu.slots.v1";
@@ -10058,7 +10525,7 @@ function syncHud() {
   const tide = jz.open ? jz.entered ? "\u6F6E\u6C50\u5DF2\u5165" : "\u6F6E\u6C50\u5F00\u7A97" : `\u6F6E\u6C50 ${Math.max(0, jz.openAt - l.year)} \u5E74\u540E`;
   const capNow = daoCap(state);
   const atCap = capNow !== Infinity && daoOf(state) >= capNow - 1;
-  meritEl.textContent = `\u9053\u884C ${daoOf(state)} \xB7 ${rankOf(state).name}${atCap ? " \xB7 \u53EF\u7834\u5883" : ""} \xB7 ${tide}`;
+  meritEl.textContent = `\u9053\u884C ${daoOf(state)} \xB7 ${rankOf(state).name}${atCap ? " \xB7 \u53EF\u7834\u5883" : ""} \xB7 ${tide}${l.lingshi ? ` \xB7 \u7075\u77F3 ${l.lingshi}` : ""}`;
   renderVitals();
   if (ageEl) ageEl.textContent = `\u5E74 ${l.year}`;
   if (leftEl) {
@@ -10092,7 +10559,8 @@ function syncHud() {
     }
     syncHud._mindN = ms.length;
     mindBtn.innerHTML = ms.length ? `\u5FC3\u4E8B<span class="mind-n${readyN ? " hot" : ""}">${readyN || ms.length}</span>` : "\u5FC3\u4E8B";
-    mindBtn.title = ms.length ? readyN ? `${readyN} \u4EF6\u53EF\u4EE5\u53BB\u4EA4\u5DEE` : `\u5FC3\u4E0A\u6302\u7740 ${ms.length} \u4EF6\u4E8B` : "\u6682\u65F6\u6CA1\u6709\u5FC3\u4E8B";
+    const dueN = ms.filter((m) => !mindReady(state, m) && mindLeft(state, m) <= 2).length;
+    mindBtn.title = ms.length ? readyN ? `${readyN} \u4EF6\u53EF\u4EE5\u53BB\u4EA4\u5DEE` : dueN ? `${dueN} \u4EF6\u5FEB\u5230\u671F\u4E86` : `\u5FC3\u4E0A\u6302\u7740 ${ms.length} \u4EF6\u4E8B` : "\u6682\u65F6\u6CA1\u6709\u5FC3\u4E8B";
   }
   updateDock();
   renderPeopleRail();
@@ -10103,57 +10571,85 @@ var DOCK_ITEMS = [
   { key: "sword", name: "\u62E9\u4E00\u5251" },
   { key: "realm", name: "\u5BFB\u4FE1\u7269" }
 ];
-function nextStepOf(st) {
-  const sp = st.spirit;
-  if (!sp) return { label: "\u53BB\u5E7F\u573A\u6D4B\u7075\u6839", sub: "\u7075\u6839\u5B9A\u4E86\uFF0C\u8DEF\u624D\u6709\u6570", panel: "gate" };
-  const c = ensure(st).craft || {};
-  const paths = Object.keys(c.paths || {});
-  if (!paths.length) return { label: "\u53BB\u85CF\u7ECF\u9601\u5B66\u4E00\u95E8\u624B\u827A", sub: "\u70BC\u4E39/\u5236\u7B26/\u9635\u6CD5 \u9009\u4E00\u95E8", panel: "library" };
-  if (!st.done.sword) return { label: "\u53BB\u5251\u51A2\u62D4\u4E00\u5251", sub: "\u5251\u51B3\u5B9A\u540E\u9762\u600E\u4E48\u8D70", panel: "sword" };
-  if (!st.done.realm) return { label: "\u53BB\u540E\u5C71\u79D8\u5883\u627E\u4FE1\u7269", sub: "\u95E8\u540E\u4E5D\u683C\uFF0C\u4E09\u5E74\u4E00\u6B21", panel: "realm" };
-  if (!st.done.alchemy) return { label: "\u53BB\u4E39\u623F\u70BC\u4E00\u7089", sub: "\u4E24\u682A\u836F\u3001\u4E09\u628A\u706B\u3001\u4E09\u5E74", panel: "alchemy" };
-  if (daoOf(st) >= daoCap(st) - 1) return { label: "\u53BB\u6E21\u52AB\u53F0\u7834\u5883", sub: "\u9053\u884C\u5DF2\u9876\u5230\u95E8\u53E3", panel: "tribulation" };
-  return { label: "\u53BB\u6E21\u52AB\u53F0\u770B\u770B", sub: "\u56DB\u4E8B\u9F50\u4E86\u518D\u4E0A\u53F0", panel: "tribulation" };
-}
 function updateDock() {
   const rank = document.getElementById("dock-rank");
   if (!rank) return;
-  const l = ensure(state);
+  ensure(state);
   rank.textContent = rankOf(state).name;
   const left = document.getElementById("dock-left");
   if (left) left.textContent = `\u5BFF\u5143 ${yearsLeft(state)}`;
   const dots = document.getElementById("dock-dots");
   if (dots) {
-    const n = DOCK_ITEMS.filter((it) => state.done[it.key]).length;
-    dots.innerHTML = `<b>${n}/${DOCK_ITEMS.length}</b>` + DOCK_ITEMS.map((it) => `<i class="dock-dot${state.done[it.key] ? " on" : ""}" title="${it.name}${state.done[it.key] ? "\uFF08\u5DF2\u5B8C\u6210\uFF09" : "\uFF08\u672A\u5B8C\u6210\uFF09"}"></i>`).join("");
+    const done = state.done || {};
+    const n = DOCK_ITEMS.filter((it) => done[it.key]).length;
+    dots.innerHTML = `<b>${n}/${DOCK_ITEMS.length}</b>` + DOCK_ITEMS.map((it) => `<i class="dock-dot${done[it.key] ? " on" : ""}" title="${it.name}${done[it.key] ? "\uFF08\u5DF2\u5B8C\u6210\uFF09" : "\uFF08\u672A\u5B8C\u6210\uFF09"}"></i>`).join("");
   }
-  const nx = nextStepOf(state);
+  const nx = nextStep(state);
   const nl = document.getElementById("dock-next-label");
   const ns = document.getElementById("dock-next-sub");
+  const box = document.getElementById("dock-next");
   if (nl) nl.textContent = nx.label;
-  if (ns) ns.textContent = "";
+  if (ns) ns.textContent = nx.sub || "";
+  if (box) {
+    box.classList.toggle("urgent", !!nx.urgent);
+    box.title = `${nx.label}\u3000${nx.sub || ""}`;
+  }
+}
+function gotoNextStep() {
+  if (isDead(state)) return showDeath();
+  const nx = nextStep(state);
+  if (nx.person) return openPanel("person", nx.person);
+  if (nx.scene && SCENES[nx.scene]) return renderScene(nx.scene);
+  if (nx.panel) return openPanel(nx.panel);
+}
+var dockNextEl = document.getElementById("dock-next");
+dockNextEl?.addEventListener("click", gotoNextStep);
+dockNextEl?.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    gotoNextStep();
+  }
+});
+var yearResultTimer = 0;
+function showYearResult(year, title, lines) {
+  const el = document.getElementById("year-result");
+  if (!el || !lines || !lines.length) return;
+  el.innerHTML = `<div class="yr-head"><span>\u7B2C ${year} \u5E74</span><b>${title}</b></div>
+    <div class="yr-lines">${lines.map((s, i) => `<div class="yr-line${i === 0 ? " first" : ""}">${s}</div>`).join("")}</div>
+    <div class="yr-foot">\u70B9\u4E00\u4E0B\u6536\u8D77</div>`;
+  el.classList.add("show");
+  el.onclick = () => el.classList.remove("show");
+  clearTimeout(yearResultTimer);
+  yearResultTimer = setTimeout(() => el.classList.remove("show"), 3600);
 }
 function showYearChoice(done) {
   if (isDead(state)) return showDeath();
   const l = ensure(state);
   const opts = yearChoices(state);
   const left = yearsLeft(state);
+  const titles = Object.fromEntries(opts.map((o) => [o.id, o.t]));
   panelRoot.dataset.pid = "year";
-  panelRoot.innerHTML = `<div class="panel ev-panel">
-    <div class="ev-kicker">\u7B2C ${l.year} \u5E74 \xB7 \u4E00\u5E74\u53EA\u591F\u505A\u4E00\u4EF6</div>
+  panelRoot.innerHTML = `<div class="panel ev-panel yc-panel">
+    <div class="ev-kicker">\u7B2C ${l.year} \u5E74 \xB7 \u6C99\u6F0F\u7FFB\u8FC7\u4E86\u4E00\u683C</div>
     <div class="ev-age">${numCn(l.year)}\u5C81${left <= 15 ? `<b>\u53EA\u5269 ${left} \u5E74</b>` : ""}</div>
-    <div class="ev-title" style="margin-top:10px">\u4ECA\u5E74\u505A\u4EC0\u4E48</div>
-    <div class="ev-opts">${opts.map((o, i) => `<button class="btn ${i === 0 ? "gold" : "ghost"}" data-y="${o.id}">${o.t}<i class="ev-chip">${o.s}</i></button>`).join("")}</div>
+    <div class="ev-title" style="margin-top:10px">\u8FD9\u4E00\u5E74\u505A\u4EC0\u4E48</div>
+    <div class="yc-sub">\u4E09\u5F20\u724C\uFF0C\u9009\u4E00\u5F20\u3002\u4E3B\u52A8\u53BB\u505A\u4E8B\u4E5F\u6298\u5BFF\u5143\uFF0C\u8FD9\u91CC\u53EA\u662F\u6C99\u6F0F\u66FF\u4F60\u7FFB\u8FC7\u53BB\u7684\u90A3\u4E00\u5E74\u3002</div>
+    <div class="ev-opts yc-opts">${opts.map((o, i) => `<button class="yc-card${o.live ? " live" : ""}" data-y="${o.id}">
+        <span class="yc-no">${"\u4E00\u4E8C\u4E09"[i] || i + 1}</span>
+        <span class="yc-main"><b>${o.t}</b>${o.note ? `<em>${o.note}</em>` : ""}</span>
+        <i class="ev-chip">${o.s}</i>
+      </button>`).join("")}</div>
   </div>`;
   panelRoot.classList.add("open");
   panelRoot.querySelectorAll("[data-y]").forEach((b) => {
     b.addEventListener("click", () => {
       const r = pickYear(state, b.dataset.y);
+      if (r.heal) heal(state, 999);
       save();
       syncHud();
       closePanel();
-      if (r.lines && r.lines.length) toast(r.lines.join(" \xB7 "));
       if (isDead(state)) return showDeath();
+      if (r.lines && r.lines.length) showYearResult(ensure(state).year, titles[b.dataset.y] || "\u8FD9\u4E00\u5E74", r.lines);
       if (done) done();
     });
   });
@@ -10361,6 +10857,14 @@ function onSpot(s, noFate) {
     const r = see(state, s.id || `look_${s.label || "\u67D0\u5904"}`, s.label);
     save();
     if (r.first) {
+      let egg = "";
+      if (Math.random() < 0.15) {
+        const n = 2 + Math.floor(Math.random() * 5);
+        addLingshi(state, n);
+        log(state, "deed", `\u4F60\u5728${s.label.split(" \xB7 ")[0]}\u7684\u7F1D\u91CC\u62A0\u51FA ${n} \u679A\u7075\u77F3\u3002`);
+        egg = `
+\u77F3\u7F1D\u91CC\u8FD8\u6EDA\u51FA ${n} \u679A\u7075\u77F3\u3002`;
+      }
       syncHud();
       try {
         spotsLayer.querySelectorAll(".spot.egg").forEach((el) => {
@@ -10368,7 +10872,7 @@ function onSpot(s, noFate) {
         });
       } catch {
       }
-      toast(`${s.text || "\u4F60\u591A\u770B\u4E86\u4E24\u773C\u3002"}
+      toast(`${s.text || "\u4F60\u591A\u770B\u4E86\u4E24\u773C\u3002"}${egg}
 \uFF08${r.notes.join(" \xB7 ")}\uFF09`);
     } else toast(s.text || "\u4F60\u591A\u770B\u4E86\u4E24\u773C\u3002");
     return;
@@ -10402,6 +10906,18 @@ function onSpot(s, noFate) {
   }
   if (s.act === "library" || s.act === "forest") {
     tryPano(s.act, () => fogTo(s.act, SCENES[s.act]?.name || ""));
+    return;
+  }
+  if (s.act === "fu" || s.act === "zhen") {
+    fogTo(s.act, SCENES[s.act].name);
+    return;
+  }
+  if (s.act === "drawfu") {
+    pushTo(s, () => openPanel("fu"));
+    return;
+  }
+  if (s.act === "setzhen") {
+    pushTo(s, () => openPanel("zhen"));
     return;
   }
   if (s.act === "sword" || s.act === "alchemy" || s.act === "tribulation" || s.act === "cave") {
@@ -10617,7 +11133,10 @@ function openPanel(id, arg) {
     breakthrough: typeof panelBreakthrough === "function" ? panelBreakthrough : null,
     mount: typeof panelMount === "function" ? panelMount : null,
     archive: typeof panelArchive === "function" ? panelArchive : null,
-    codex: panelCodex
+    codex: panelCodex,
+    shop: panelShop,
+    fu: panelFu,
+    zhen: panelZhen
   };
   const fn = fns[id];
   if (typeof fn !== "function") {
@@ -10629,7 +11148,7 @@ function openPanel(id, arg) {
   }
   const html = fn(arg);
   lastPanel = { id, arg };
-  const wide = ["realm", "tribulation", "bio", "seclude", "craft", "world", "folk", "mind", "person", "jiazi", "breakthrough", "mount", "archive", "sect", "cave", "codex"].includes(id);
+  const wide = ["realm", "tribulation", "bio", "seclude", "craft", "world", "folk", "mind", "person", "jiazi", "breakthrough", "mount", "archive", "sect", "cave", "codex", "shop"].includes(id);
   panelRoot.innerHTML = `<div class="panel ${wide ? "wide" : ""}">${html}</div>`;
   panelRoot.classList.add("open");
   document.addEventListener("keydown", onEsc);
@@ -10737,12 +11256,346 @@ function bindPanel(id, arg) {
   if (id === "mind") bindMind();
   if (id === "person") bindPerson(arg);
   if (id === "codex") bindCodex();
+  if (id === "shop") bindShop();
+  if (id === "fu") bindTiming(FU, FU_CFG);
+  if (id === "zhen") bindTiming(ZHEN, ZHEN_CFG);
   if (id === "jiazi") bindJiazi();
   if (id === "breakthrough") bindBreakthrough();
   if (id === "mount") bindMount();
   if (["bio", "tribulation", "seclude", "realm"].includes(id)) bindItemUse(id);
   if (id === "archive") bindArchive();
 }
+function panelShop() {
+  const l = ensure(state);
+  const purse = l.lingshi || 0;
+  const shelf = shelfOf(l.year).map((id) => {
+    const price = buyPrice(id);
+    const it = BY_ID[id];
+    const ok = purse >= price;
+    return `<div class="craft-row">
+      <div><b>${itemName(id)}</b><em>${price} \u679A${it && it.desc ? ` \xB7 ${it.desc}` : ""}</em></div>
+      <button class="btn ${ok ? "gold" : "ghost"}" data-buy="${id}" ${ok ? "" : "disabled"}>${ok ? "\u4E70" : "\u94B1\u4E0D\u591F"}</button>
+    </div>`;
+  }).join("");
+  const sells = sellList(state);
+  const sellHtml = sells.length ? sells.map((x) => `<div class="craft-row">
+        <div><b>${x.name}</b><em>\xD7${x.n} \xB7 \u6298 ${x.price} \u679A</em></div>
+        <button class="btn" data-sell="${x.id}">\u5356\u4E00\u4EF6</button>
+      </div>`).join("") : '<div class="chron-row" style="opacity:.4"><span class="ct">\u888B\u91CC\u6CA1\u6709\u9601\u4E0A\u6536\u7684\u4E1C\u897F\u3002</span></div>';
+  return `<div class="panel-title">\u767E\u5B9D\u9601 \xB7 \u67DC\u53F0</div>
+    <div class="panel-text">\u5B88\u67DC\u7684\u6267\u4E8B\u62AC\u4E86\u4E0B\u773C\u76AE\uFF1A\u300C${purse ? `\u8EAB\u4E0A ${purse} \u679A\u7075\u77F3\uFF0C` : ""}\u4E70\u8FD8\u662F\u5356\uFF1F\u5356\u4E1C\u897F\u6298\u516D\u6210\uFF0C\u9601\u5B50\u4E5F\u8981\u5403\u996D\u3002\u300D</div>
+    <div class="bio-sec">\u67B6\u4E0A\uFF08\u4E70\uFF09</div>
+    <div class="craft">${shelf}</div>
+    <div class="bio-sec">\u888B\u91CC\uFF08\u5356 \xB7 \u6298\u516D\u6210\uFF09</div>
+    <div class="craft">${sellHtml}</div>
+    <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
+}
+function bindShop() {
+  panelRoot.querySelectorAll("[data-buy]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const r = buy(state, b.dataset.buy);
+      if (!r.ok) return toast(r.why || "\u4E70\u4E0D\u4E86\u3002");
+      log(state, "deed", `\u4F60\u5728\u767E\u5B9D\u9601\u82B1\u4E86 ${r.price} \u679A\u7075\u77F3\uFF0C\u4E70\u4E86${r.name}\u3002`);
+      sfx("good");
+      save();
+      syncHud();
+      toast(`${r.name} +1\uFF08\u2212${r.price} \u679A\u7075\u77F3\uFF09`);
+      openPanel("shop");
+    });
+  });
+  panelRoot.querySelectorAll("[data-sell]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const r = sell(state, b.dataset.sell);
+      if (!r.ok) return toast(r.why || "\u8FD9\u4E2A\u9601\u4E0A\u4E0D\u6536\u3002");
+      log(state, "deed", `\u4F60\u628A\u4E00\u4EF6${r.name}\u5356\u8FDB\u767E\u5B9D\u9601\uFF0C\u5F97\u7075\u77F3 ${r.price} \u679A\u3002`);
+      sfx("good");
+      save();
+      syncHud();
+      toast(`${r.name} \u22121\uFF08+${r.price} \u679A\u7075\u77F3\uFF09`);
+      openPanel("shop");
+    });
+  });
+}
+var FU = { left: 34, width: 20, pos: 0, dir: 1, hits: 0, gold: 0, raf: 0, phase: "idle" };
+var ZHEN = { left: 34, width: 16, pos: 0, dir: 1, hits: 0, gold: 0, raf: 0, phase: "idle" };
+function timingIntro(G, opts) {
+  const { title, lore, needTxt, enough, openId, openTxt, gatherId, gatherTxt, failTxt } = opts;
+  const l = ensure(state);
+  const done = !!state.done[opts.doneKey];
+  return `<div class="panel-title">${title}</div>
+    <div class="panel-text">${lore}</div>
+    <div class="panel-text" style="opacity:.62">${needTxt}${done ? " \xB7 \u8FD9\u4E00\u5904\u4F60\u5DF2\u7ECF\u8D70\u901A\u8FC7\u4E00\u56DE\u3002" : ""}</div>
+    ${enough ? `<button class="btn gold" id="${openId}">${openTxt}</button>` : `<button class="btn ghost" id="${gatherId}">${gatherTxt}</button>`}
+    ${opts.matId ? `<button class="btn" id="${opts.matId}">${opts.matTxt}</button>` : ""}
+    <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>
+    ${failTxt || ""}`;
+}
+function timingPanel(G, opts) {
+  const l = ensure(state);
+  if (G.phase === "ruin") {
+    return `<div class="panel-title">${opts.title}</div>
+      <div class="panel-text" style="color:#c98b6a">${opts.ruinTxt}</div>
+      <div class="panel-text" style="opacity:.62">${l.wu > 0 ? "\u4F60\u8BFB\u8FC7\u7684\u90A3\u5377\u7ECF\u8FD8\u5728\u2014\u2014\u53EF\u4EE5\u51ED\u5B83\uFF0C\u91CD\u6765\u4E00\u904D\u3002" : opts.ruinHint}</div>
+      ${l.wu > 0 ? `<button class="btn gold" id="${opts.retryId}">\u4EE5\u300C\u609F\u300D\u91CD\u6765\uFF08\u22121 \u609F\uFF09</button>` : ""}
+      <button class="btn ghost" id="${opts.giveId}">${opts.giveTxt}</button>`;
+  }
+  if (G.phase === "go") {
+    return `<div class="panel-title">${opts.title}</div>
+      <div class="panel-text">${opts.goTxt}</div>
+      <div class="brew-bar"><div class="brew-zone" style="left:${G.left}%;width:${G.width}%"></div><div class="brew-marker" style="left:${G.pos}%"></div></div>
+      <div class="panel-text" id="${opts.tipId}">${opts.progressPrefix} ${G.hits}/3</div>
+      <button class="btn gold" id="${opts.btnId}">${opts.btnTxt}</button>
+      <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
+  }
+  return null;
+}
+function panelFu() {
+  const l = ensure(state);
+  const p = timingPanel(FU, {
+    title: "\u7B26\u5C71 \xB7 \u77F3\u6848",
+    goTxt: "\u7B14\u950B\u884C\u81F3\u6731\u7802\u6BB5\u65F6\u70B9\u300C\u6536\u7B14\u300D\u3002\u4E09\u7B14\u6210\u7B26\u3002",
+    ruinTxt: "\u6700\u540E\u4E00\u7B14\u6B6A\u4E86\uFF0C\u4E00\u7EB8\u7684\u58A8\u628A\u6574\u9053\u7B26\u5403\u6210\u4E86\u9ED1\u56E2\u3002",
+    ruinHint: "\u7EB8\u662F\u73B0\u6210\u7684\uFF0C\u6731\u7802\u4E0D\u662F\u3002\u4E0B\u6B21\u6536\u7B14\u518D\u7A33\u4E9B\u3002",
+    retryId: "fu-retry",
+    giveId: "fu-give",
+    giveTxt: "\u6536\u7B14",
+    btnId: "fu-btn",
+    btnTxt: "\u6536\u7B14",
+    tipId: "fu-tip",
+    progressPrefix: "\u7B26\u6210"
+  });
+  if (p) return p;
+  const herb = l.bag.herb || 0;
+  return timingIntro(FU, {
+    title: "\u7B26\u5C71 \xB7 \u77F3\u6848",
+    doneKey: "fu",
+    lore: "\u77F3\u6848\u88AB\u5386\u4EE3\u7684\u7B14\u950B\u78E8\u51FA\u4E86\u4E00\u9053\u6D45\u69FD\u3002\u4F60\u628A\u7EB8\u6309\u8FDB\u69FD\u91CC\u2014\u2014\u6B63\u597D\u5408\u3002",
+    needTxt: `\u753B\u4E00\u5F20\u7B26\uFF1A\u836F\u6750 \xD72\uFF08\u73B0 ${herb}\uFF09\xB7 \u4E24\u5E74\u3002`,
+    enough: herb >= 2,
+    openId: "fu-open",
+    openTxt: "\u94FA\u7EB8 \xB7 \u5F00\u753B",
+    gatherId: "fu-gather",
+    gatherTxt: "\u5C71\u4E0B \xB7 \u91C7\u836F\u53BB",
+    matId: "fu-mat",
+    matTxt: "\u5D16\u8FB9 \xB7 \u53D6\u7B26\u6599"
+  });
+}
+function panelZhen() {
+  const l = ensure(state);
+  const p = timingPanel(ZHEN, {
+    title: "\u9635\u773C \xB7 \u7A9F\u5FC3",
+    goTxt: "\u9635\u773C\u6F02\u5F97\u6BD4\u706B\u5019\u5FEB\u3002\u884C\u81F3\u843D\u4F4D\u6BB5\u65F6\u70B9\u300C\u8E0F\u4F4D\u300D\u3002\u4E09\u8E0F\u6210\u9635\u3002",
+    ruinTxt: "\u6700\u540E\u4E00\u811A\u8E0F\u504F\uFF0C\u9635\u7EB9\u4ECE\u7F3A\u53E3\u5904\u6CC4\u4E86\u4E2A\u5E72\u51C0\u3002",
+    ruinHint: "\u9AA8\u5934\u7ECF\u4E0D\u8D77\u8FD9\u4E48\u6CC4\u3002\u4E0B\u6B21\u843D\u773C\u518D\u51C6\u4E9B\u3002",
+    retryId: "zhen-retry",
+    giveId: "zhen-give",
+    giveTxt: "\u6B47\u624B",
+    btnId: "zhen-btn",
+    btnTxt: "\u8E0F\u4F4D",
+    tipId: "zhen-tip",
+    progressPrefix: "\u9635\u6210"
+  });
+  if (p) return p;
+  const bone = l.bag.bone || 0;
+  return timingIntro(ZHEN, {
+    title: "\u9635\u773C \xB7 \u7A9F\u5FC3",
+    doneKey: "zhen",
+    lore: "\u7A9F\u5FC3\u7684\u5730\u4E0A\u6B8B\u7740\u65E7\u9635\u7EB9\uFF0C\u7F3A\u7684\u90A3\u4E00\u89D2\uFF0C\u521A\u597D\u591F\u4F60\u518D\u843D\u4E00\u5EA7\u5C0F\u7684\u3002",
+    needTxt: `\u843D\u4E00\u5EA7\u9635\uFF1A\u517D\u9AA8 \xD72\uFF08\u73B0 ${bone}\uFF09\xB7 \u4E24\u5E74\u3002`,
+    enough: bone >= 2,
+    openId: "zhen-open",
+    openTxt: "\u6E05\u4F4D \xB7 \u843D\u9635",
+    gatherId: "zhen-gather",
+    gatherTxt: "\u51FA\u7A9F \xB7 \u5BFB\u9AA8\u53BB",
+    matId: "zhen-mat",
+    matTxt: "\u7A9F\u91CC \xB7 \u53D6\u9635\u6599"
+  });
+}
+function bindTiming(G, cfg) {
+  const l = ensure(state);
+  const matBtn = cfg.matId ? document.getElementById(cfg.matId) : null;
+  if (matBtn) {
+    matBtn.addEventListener("click", () => {
+      const r = gather(state, cfg.panelId);
+      save();
+      syncHud();
+      if (isDead(state)) return showDeath();
+      toast(r.ok ? `\u53D6\u5230 ${r.names}` : r.why || "\u8FD9\u91CC\u6CA1\u6709\u80FD\u5E26\u8D70\u7684\u4E1C\u897F\u3002");
+      openPanel(cfg.panelId);
+    });
+  }
+  const open = document.getElementById(cfg.openId);
+  if (open) {
+    open.addEventListener("click", () => {
+      if (!takeItem(state, cfg.costKey, cfg.costN)) {
+        toast(`${cfg.costName}\u4E0D\u591F\u3002`);
+        return;
+      }
+      spend(state, cfg.costYears);
+      log(state, "deed", `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u5728${cfg.placeName}\u52A8\u8D77\u624B\u6765\u3002${cfg.costN} \u6837${cfg.costName}\uFF0C\u4E24\u5E74\u3002`);
+      G.hits = 0;
+      G.gold = 0;
+      G.phase = "go";
+      G.width = cfg.width0;
+      G.left = 20 + Math.random() * (60 - G.width);
+      save();
+      syncHud();
+      if (isDead(state)) return showDeath();
+      openPanel(cfg.panelId);
+    });
+    return;
+  }
+  const gather2 = document.getElementById(cfg.gatherId);
+  if (gather2) {
+    gather2.addEventListener("click", () => {
+      closePanel();
+      fogTo(cfg.gatherTo, cfg.gatherTo === "forest" ? "\u5916\u56F4 \xB7 \u8FF7\u96FE\u68EE\u6797" : cfg.placeName);
+    });
+    return;
+  }
+  const retry = document.getElementById(cfg.retryId);
+  if (retry) {
+    retry.addEventListener("click", () => {
+      if (l.wu <= 0) return;
+      l.wu -= 1;
+      G.hits = 0;
+      G.gold = 0;
+      G.phase = "go";
+      G.width = cfg.width0;
+      G.left = 20 + Math.random() * (60 - G.width);
+      log(state, "omen", cfg.retryLine);
+      save();
+      syncHud();
+      openPanel(cfg.panelId);
+    });
+    return;
+  }
+  const give = document.getElementById(cfg.giveId);
+  if (give) {
+    give.addEventListener("click", () => {
+      G.phase = "idle";
+      closePanel();
+    });
+    return;
+  }
+  const btn = document.getElementById(cfg.btnId);
+  if (!btn) return;
+  const bar = panelRoot.querySelector(".brew-marker");
+  const zone = panelRoot.querySelector(".brew-zone");
+  const tip = document.getElementById(cfg.tipId);
+  G.pos = 0;
+  G.dir = 1;
+  let prevT = 0;
+  const step = (t) => {
+    if (!prevT) prevT = t;
+    const dt = Math.min(48, t - prevT) / 16.67;
+    prevT = t;
+    G.pos += cfg.speed * dt * G.dir;
+    if (G.pos > 100) {
+      G.pos = 100;
+      G.dir = -1;
+    }
+    if (G.pos < 0) {
+      G.pos = 0;
+      G.dir = 1;
+    }
+    if (bar) bar.style.left = G.pos + "%";
+    G.raf = requestAnimationFrame(step);
+  };
+  cancelAnimationFrame(G.raf);
+  G.raf = requestAnimationFrame(step);
+  btn.addEventListener("click", () => {
+    const hit = G.pos >= G.left && G.pos <= G.left + G.width;
+    if (!hit) {
+      cancelAnimationFrame(G.raf);
+      G.phase = "ruin";
+      log(state, "deed", cfg.failLine);
+      save();
+      syncHud();
+      openPanel(cfg.panelId);
+      return;
+    }
+    G.hits += 1;
+    if (Math.abs(G.pos - (G.left + G.width / 2)) <= G.width * 0.2) G.gold = (G.gold || 0) + 1;
+    G.width = Math.max(cfg.widthMin, G.width - cfg.shrink);
+    G.left = 20 + Math.random() * (60 - G.width);
+    if (zone) {
+      zone.style.left = G.left + "%";
+      zone.style.width = G.width + "%";
+    }
+    if (G.hits >= 3) {
+      cancelAnimationFrame(G.raf);
+      G.phase = "idle";
+      const perfect = G.gold >= 3;
+      const n = perfect ? 2 : 1;
+      addItem(state, cfg.outKey, n);
+      if (cfg.outKey === "charm") mindDo(state, "craft_fu", 1);
+      log(state, "deed", cfg.winLine(n, perfect));
+      const first = !state.done[cfg.panelId];
+      gain(cfg.panelId, cfg.merit);
+      toast(`${cfg.winToast} \xB7 \u5F97${cfg.outName} \xD7${n}${perfect ? "\uFF08\u7B14\u7B14\u6B63\u4E2D\uFF09" : ""}${first ? ` \xB7 \u529F\u5FB7 +${cfg.merit}` : ""}`);
+      save();
+      syncHud();
+      openPanel(cfg.panelId);
+    } else if (tip) {
+      tip.textContent = `${cfg.progressPrefix} ${G.hits}/3`;
+    }
+  });
+}
+var FU_CFG = {
+  panelId: "fu",
+  placeName: "\u7B26\u5C71",
+  openId: "fu-open",
+  gatherId: "fu-gather",
+  gatherTo: "forest",
+  retryId: "fu-retry",
+  giveId: "fu-give",
+  btnId: "fu-btn",
+  tipId: "fu-tip",
+  costKey: "herb",
+  costN: 2,
+  costName: "\u836F",
+  costYears: 2,
+  speed: 0.9,
+  width0: 20,
+  widthMin: 10,
+  shrink: 4,
+  merit: 20,
+  outKey: "charm",
+  outName: "\u7B26",
+  progressPrefix: "\u7B26\u6210",
+  failLine: `\u6700\u540E\u4E00\u7B14\u6B6A\u4E86\uFF0C\u7EB8\u58A8\u540C\u5F52\u4E8E\u5C3D\u3002`,
+  retryLine: "\u4F60\u628A\u90A3\u5F20\u6B6A\u6389\u7684\u7B26\u629A\u5E73\uFF0C\u51ED\u7ECF\u91CC\u7684\u8BDD\uFF0C\u4ECE\u5934\u753B\u8D77\u3002",
+  winLine: (n, perfect) => `\u7B2C ${ensure(state).year} \u5E74\uFF0C\u7B26\u6210\u3002${perfect ? "\u4E09\u7B14\u5168\u843D\u5728\u6B63\u4E2D\u2014\u2014" : ""}\u4F60\u6536\u4E0B ${n} \u5F20\u3002`,
+  winToast: "\u7B26\u6210"
+};
+var ZHEN_CFG = {
+  panelId: "zhen",
+  placeName: "\u9635\u773C",
+  openId: "zhen-open",
+  gatherId: "zhen-gather",
+  gatherTo: "map",
+  retryId: "zhen-retry",
+  giveId: "zhen-give",
+  btnId: "zhen-btn",
+  tipId: "zhen-tip",
+  costKey: "bone",
+  costN: 2,
+  costName: "\u9AA8",
+  costYears: 2,
+  speed: 1.15,
+  width0: 16,
+  widthMin: 9,
+  shrink: 3,
+  merit: 20,
+  outKey: "jade",
+  outName: "\u7389",
+  progressPrefix: "\u9635\u6210",
+  failLine: `\u6700\u540E\u4E00\u811A\u8E0F\u504F\uFF0C\u9635\u7EB9\u6CC4\u4E86\u3002`,
+  retryLine: "\u4F60\u628A\u6CC4\u6389\u7684\u9635\u7EB9\u91CD\u65B0\u538B\u56DE\u571F\u91CC\uFF0C\u51ED\u7ECF\u91CC\u7684\u8BDD\uFF0C\u518D\u843D\u4E00\u904D\u3002",
+  winLine: (n, perfect) => `\u7B2C ${ensure(state).year} \u5E74\uFF0C\u9635\u6210\u3002${perfect ? "\u4E09\u8E0F\u5168\u843D\u5728\u9635\u773C\u2014\u2014" : ""}\u571F\u91CC\u7FFB\u51FA ${n} \u679A\u7389\u3002`,
+  winToast: "\u9635\u6210"
+};
 var BREW = { left: 30, width: 22, pos: 0, dir: 1, hits: 0, raf: 0, phase: "idle", perfect: true };
 var danLevel = () => hasPath(state, "dan") ? 1 : 0;
 var brewWidth = () => 22 + effects(state.spirit).brewZone + (danLevel() ? 8 : 0);
@@ -11680,7 +12533,7 @@ function panelBio(tab) {
     const swordCell = `<div class="bag-slot ${sw ? "" : "ghost"} wide-slot">
       <b>${sw ? sw.name : "\u5251"}</b><em>${sw ? "\u968F\u8EAB" : "\u7A7A"}</em>
       <span>${sw ? sw.rule : "\u5251\u51A2\u91CC\u90A3\u4E09\u67C4\uFF0C\u8FD8\u63D2\u5728\u77F3\u4E2D\u3002"}</span></div>`;
-    return `<div class="panel-title">\u50A8\u7269\u888B</div>${tabs}
+    return `<div class="panel-title">\u50A8\u7269\u888B${l.lingshi ? ` \xB7 \u7075\u77F3 ${l.lingshi} \u679A` : ""}</div>${tabs}
       <div class="bag-grid">${cells}${swordCell}</div>
       ${itemList("bio")}
       <div class="panel-text" style="opacity:.5">\u888B\u5B50\u91CC\u7684\u4E1C\u897F\u4E0D\u662F\u6536\u85CF\u54C1\u3002\u5B83\u53EA\u5728\u4E00\u4E2A\u5730\u65B9\u6709\u7528\uFF1A\u522B\u7684\u5730\u70B9\u3002</div>
@@ -12404,8 +13257,15 @@ function showDeath() {
     if (g.wu) parts.push(`\u609F +${g.wu}`);
     if (g.dao) parts.push(`\u9996\u6B21\u95ED\u5173\u9053\u884C +${g.dao}`);
     if (g.hp) parts.push(`\u6C14\u8840\u4E0A\u9650 +${g.hp}`);
-    return parts.length ? `<div class="panel-text" style="margin-top:14px;color:#f2dfb2">\u524D\u4E16\u9057\u6CFD \xB7 \u4E0B\u4E00\u4E16\u5E26\u7740\u8D70</div>
-           <div class="panel-text" style="opacity:.66">${parts.join(" \xB7 ")}</div>` : `<div class="panel-text" style="opacity:.4;margin-top:12px">\u8FD9\u4E00\u4E16\u6CA1\u7559\u4E0B\u4EC0\u4E48\u3002\u4E0B\u4E00\u4E16\u8FD8\u662F\u767D\u7EB8\u3002</div>`;
+    const born = parts.length ? `<div class="panel-text" style="margin-top:14px;color:#f2dfb2">\u8FD9\u4E00\u4E16\u5F00\u5C40\u5E26\u7740\u7684</div>
+           <div class="panel-text" style="opacity:.66">${parts.join(" \xB7 ")}${g.keeps.length ? `<br>\u524D\u4E16\u65E7\u7269\uFF1A${g.keeps.join("\u3001")}` : ""}</div>` : `<div class="panel-text" style="opacity:.4;margin-top:12px">\u8FD9\u4E00\u4E16\u662F\u767D\u7EB8\u6765\u7684\u3002</div>`;
+    const rec = relicOf(state);
+    const keeps = rec.keepsakes || [];
+    const mates = (rec.party || []).map((p) => p.name).join("\u3001");
+    const take2 = keeps.length ? `<div class="panel-text" style="margin-top:14px;color:#f2dfb2">\u4E0B\u4E00\u4E16\u4F1A\u5E26\u8D70\u7684 \xB7 ${keeps.length} \u4EF6\u65E7\u7269</div>
+           <div class="panel-text" style="opacity:.72">${keeps.map((k) => `${k.name}\uFF08${k.from}\uFF09`).join("\u3001")}</div>
+           <div class="panel-text" style="opacity:.48">\u4EBA\u5F97\u91CD\u65B0\u8BA4\u8BC6\uFF0C\u4E1C\u897F\u5012\u662F\u8BA4\u5F97\u4F60\u3002\u8FD9\u4E00\u4E16\u4E86\u7ED3 ${rec.minds || 0} \u4EF6\u4E8B${mates ? ` \xB7 \u6700\u540E\u4E00\u7A0B\u540C\u884C\uFF1A${mates}` : ""}\u3002</div>` : `<div class="panel-text" style="opacity:.4;margin-top:12px">\u6CA1\u4ECE\u8C01\u624B\u91CC\u63A5\u8FC7\u4EC0\u4E48\u3002\u4E0B\u4E00\u4E16\u8FD8\u662F\u767D\u7EB8\u3002</div>`;
+    return born + take2;
   })()}
     <button class="btn gold" id="reborn">\u91CD\u5165\u8F6E\u56DE</button>
   </div>`;
@@ -13058,6 +13918,7 @@ function panelMind() {
   const partyRow = partyIds.length ? `<div class="panel-text" style="opacity:.7">\u540C\u884C\uFF1A${partyIds.map((id) => personDefOf(state, id).name).join("\u3001")}\u3000<span style="opacity:.6">\uFF08\u505A\u5F97\u591A\u4E00\u4EF6\uFF0C\u6597\u5F97\u5C11\u6298\u5BFF\uFF09</span></div>` : "";
   const keeps = keepsakeList(state);
   const keepsRow = keeps.length ? `<div class="panel-text" style="opacity:.72">\u8FD9\u4E00\u4E16\u6512\u4E0B\u7684\u4E1C\u897F\uFF1A${keeps.map((k) => `<br><b style="color:#f2dfb2;font-weight:400">${k.name}</b> \xB7 ${k.desc}<span style="opacity:.5">\uFF08${k.from} \xB7 ${k.year} \u5C81\uFF09</span>`).join("")}</div>` : "";
+  const memoRow = (l.relicMemo || []).length ? `<div class="panel-text" style="opacity:.4">\u524D\u4E16\u5E26\u56DE\u6765\u7684\uFF1A${l.relicMemo.join("\u3001")}\u3000<span style="opacity:.7">\u4EBA\u5F97\u91CD\u65B0\u8BA4\u8BC6\u3002</span></div>` : "";
   const head = `<div class="panel-title">\u5FC3\u4E8B<span>\u7B54\u5E94\u8FC7\u7684\u4EBA\uFF0C\u548C\u7B54\u5E94\u8FC7\u81EA\u5DF1\u7684\u4E8B</span></div>
     ${viewHtml}
     <div class="panel-text">\u8FD9\u4E00\u4E16\u4E86\u7ED3 <b>${doneN}</b> \u4EF6\uFF0C\u672A\u4E86 <b>${lostN}</b> \u4EF6\u3002${mins.length ? `\u5FC3\u4E0A\u8FD8\u6302\u7740 ${mins.length} \u4EF6${readyN ? `\uFF0C\u5176\u4E2D ${readyN} \u4EF6\u53EF\u4EE5\u53BB\u4EA4\u5DEE\u4E86` : ""}\u3002` : ""}</div>
@@ -13065,7 +13926,8 @@ function panelMind() {
     ${doneRow}
     ${lostRow}
     ${partyRow}
-    ${keepsRow}`;
+    ${keepsRow}
+    ${memoRow}`;
   return `${head}
     ${body}
     <div class="panel-text" style="opacity:.42">\u91C7\u8FC7\u7684\u836F\u3001\u70BC\u8FC7\u7684\u4E39\u3001\u53BB\u8FC7\u7684\u5C71\u5934\uFF0C\u90FD\u8BB0\u5728\u8FD9\u4E9B\u4E8B\u4E0A\u3002\u671F\u9650\u4E00\u8FC7\uFF0C\u5C31\u53D8\u6210"\u6CA1\u505A\u6210\u7684\u4E8B"\u3002</div>
@@ -13089,8 +13951,12 @@ function renderPeopleRail() {
   const party = partyOf(state);
   const ph = document.getElementById("pr-party");
   if (ph) ph.textContent = party.length ? `\u540C\u884C ${party.length}/${PARTY_MAX}` : "\u5C1A\u65E0\u540C\u884C";
+  const readyN = people.filter((p) => p.ready).length;
+  const taskN = people.filter((p) => p.active.length && !p.ready).length;
+  const stat = document.getElementById("pr-stat");
+  if (stat) stat.innerHTML = readyN || taskN ? `<b>${readyN}</b> \u4EF6\u53EF\u4EA4\u5DEE\u3000<b>${taskN}</b> \u4EBA\u6258\u4E86\u4E8B` : "\u773C\u4E0B\u6CA1\u4EBA\u7B49\u4F60";
   box.innerHTML = people.map((p) => {
-    const badge = p.gone ? '<span class="pr-badge gray">\u8D70</span>' : p.ready ? '<span class="pr-badge">\uFF01</span>' : p.active.length ? `<span class="pr-badge">\u4E8B${p.active.length}</span>` : p.inParty ? '<span class="pr-badge">\u961F</span>' : "";
+    const badge = p.gone ? '<span class="pr-badge gray">\u8D70</span>' : p.ready ? '<span class="pr-badge ready">\u4EA4\u5DEE</span>' : p.active.length ? `<span class="pr-badge task">\u4E8B${p.active.length}</span>` : p.inParty ? '<span class="pr-badge party">\u961F</span>' : "";
     const face = p.art ? `<img class="pr-face" src="./assets/npc/${p.art}" alt="">` : `<div class="pr-face noart">${p.met ? p.name.slice(0, 1) : "\uFF1F"}</div>`;
     const cls = [
       "pr-item",
@@ -13119,10 +13985,26 @@ function renderPeopleRail() {
     });
   });
 }
-document.getElementById("people-toggle")?.addEventListener("click", () => {
+var RAIL_KEY = "lingxu.rail.closed";
+var railButton = document.getElementById("people-toggle");
+try {
+  if (localStorage.getItem(RAIL_KEY) === "1") {
+    document.body.classList.add("rail-closed");
+    if (railButton) {
+      railButton.textContent = "\u4EBA\u7269 \u203A";
+      railButton.setAttribute("aria-expanded", "false");
+    }
+  }
+} catch {
+}
+railButton?.addEventListener("click", () => {
   const closed = document.body.classList.toggle("rail-closed");
-  const t = document.getElementById("people-toggle");
-  if (t) t.textContent = closed ? "\u4EBA\u7269 \u203A" : "\u4EBA\u7269 \u2039";
+  railButton.textContent = closed ? "\u4EBA\u7269 \u203A" : "\u4EBA\u7269 \u2039";
+  railButton.setAttribute("aria-expanded", String(!closed));
+  try {
+    localStorage.setItem(RAIL_KEY, closed ? "1" : "0");
+  } catch {
+  }
 });
 function personItemNames(ids) {
   return ids.map((k) => (mindDef(k) || {}).title).filter(Boolean).join("\u3001") || "\u6CA1\u6709";
@@ -13141,7 +14023,7 @@ function panelPerson(id) {
   const tags = (d.traits || []).map((t) => `<span>${t}</span>`).join("");
   const art = d.art ? `<img class="pp-art" src="./assets/npc/${d.art}" alt="">` : `<div class="pp-art noart">${p.name.slice(0, 1)}</div>`;
   const tierNote = p.gone ? "\u4ED6\u5DF2\u4E0D\u5728\u5C71\u4E0A" : next ? `\u79BB\u300C${next.name}\u300D\u8FD8\u5DEE ${next.at - p.favor} \u5206` : "\u5DF2\u7ECF\u4E0D\u5FC5\u518D\u8FD1\u4E86";
-  const itemName = (k) => (ITEMS[k] || {}).name || k;
+  const itemName2 = (k) => (ITEMS[k] || {}).name || k;
   const minds = p.active.map((m) => {
     const def = mindDef(m.id);
     return `<div class="pp-mind">\xB7 <b>${def ? def.title : ""}</b>\u3000${mindReady(state, m) ? "\u53EF\u4EE5\u53BB\u4EA4\u5DEE\u4E86" : `\u8FD8\u5269 ${mindLeft(state, m)} \u5E74`}</div>`;
@@ -13150,22 +14032,24 @@ function panelPerson(id) {
   let acts = "";
   if (!p.gone) {
     const btns = [
-      '<button class="btn ghost" data-act="talk">\u8BF4\u8BF4\u8BDD</button>',
+      p.active.length ? '<button class="btn ghost main" data-act="together">\u4E00\u8D77\u53BB\u529E</button>' : "",
+      '<button class="btn ghost main" data-act="talk">\u8BF4\u8BF4\u8BDD</button>',
       `<button class="btn ${PERSON_GIFT_OPEN ? "gold" : "ghost"}" data-act="gift">\u8D60\u793C</button>`,
-      p.inParty ? '<button class="btn ghost" data-act="leave">\u8BF7\u4ED6\u5148\u56DE</button>' : '<button class="btn ghost" data-act="invite">\u9080\u4ED6\u540C\u884C</button>'
+      p.inParty ? '<button class="btn ghost" data-act="leave">\u8BF7\u4ED6\u5148\u56DE</button>' : '<button class="btn ghost" data-act="invite">\u9080\u4ED6\u540C\u884C</button>',
+      '<button class="btn ghost" data-act="goto">\u53BB\u770B\u770B</button>'
     ];
-    if (p.active.length) btns.push('<button class="btn ghost" data-act="together">\u4E00\u8D77\u53BB\u529E</button>');
-    btns.push('<button class="btn ghost" data-act="goto">\u53BB\u770B\u770B</button>');
-    acts = `<div class="pp-acts">${btns.join("")}</div>`;
+    acts = `<div class="pp-acts">${btns.filter(Boolean).join("")}</div>` + (p.inParty && p.active.length ? '<div class="pp-hint">\u4ED6\u5728\u961F\u91CC\uFF1A\u4E00\u8D77\u53BB\u529E\uFF0C\u8FD9\u4E00\u6B65\u80FD\u8D70\u4E24\u6B65\u3002</div>' : "");
   }
   const po = personOf(state, id);
   const giftLeft = Math.max(0, GIFT_PER_YEAR - (po.giftYear === l.year ? po.gifts : 0));
   const giftItems = BAG_ORDER.filter((k) => (l.bag[k] || 0) > 0);
+  const giftMark = (k) => (d.like || []).includes(k) ? '<em class="like">\u559C</em>' : (d.hate || []).includes(k) ? '<em class="hate">\u4E0D\u6536</em>' : "";
   const gifts = PERSON_GIFT_OPEN ? `<div class="pp-sec"><h4>\u9001\u4ED6\u4E00\u4EF6\uFF08\u4ECA\u5E74\u8FD8\u80FD\u9001 ${giftLeft} \u56DE\uFF09</h4>
-        <div class="pp-gifts">${giftItems.length ? giftItems.map((k) => `<button class="pp-gift" data-gift="${k}"><b>${itemName(k)}</b>\xD7${l.bag[k]}</button>`).join("") : '<span style="opacity:.5">\u4F60\u624B\u4E0A\u7A7A\u7A7A\u7684\u3002</span>'}</div>
-        <div class="panel-text" style="opacity:.5;font-size:11.5px">\u4ED6\u559C\u6B22\uFF1A${(d.like || []).map(itemName).join("\u3001") || "\u8BF4\u4E0D\u51C6"}\u3000\xB7\u3000\u4E0D\u6536\uFF1A${(d.hate || []).map(itemName).join("\u3001") || "\u6CA1\u542C\u8BF4"}</div>
+        <div class="pp-gifts">${giftItems.length ? giftItems.map((k) => `<button class="pp-gift" data-gift="${k}">${giftMark(k)}<b>${itemName2(k)}</b><small>\xD7${l.bag[k]}</small></button>`).join("") : '<span style="opacity:.5">\u4F60\u624B\u4E0A\u7A7A\u7A7A\u7684\u3002</span>'}</div>
+        <div class="panel-text" style="opacity:.5;font-size:11.5px">\u4ED6\u559C\u6B22\uFF1A${(d.like || []).map(itemName2).join("\u3001") || "\u8BF4\u4E0D\u51C6"}\u3000\xB7\u3000\u4E0D\u6536\uFF1A${(d.hate || []).map(itemName2).join("\u3001") || "\u6CA1\u542C\u8BF4"}</div>
       </div>` : "";
   const view = PERSON_VIEW ? `<div class="pp-line">${PERSON_VIEW}</div>` : "";
+  const ticks = tiers.filter((t) => t.at > 0 && t.at < 100).map((t) => `<i class="pp-tick${p.favor >= t.at ? " on" : ""}" style="left:${t.at}%" title="${t.name} \xB7 ${t.at}"></i>`).join("");
   return `
     <div class="pp-head">${art}<div style="flex:1;min-width:0">
       <div class="pp-title">${p.met ? p.name : "\uFF1F\uFF1F\uFF1F"}</div>
@@ -13173,7 +14057,7 @@ function panelPerson(id) {
       <div class="pp-intro">${p.met ? d.intro : "\u5C71\u91CC\u4EBA\u4E0D\u5C11\u3002\u6709\u4E9B\u8981\u8D70\u8FD1\u4E86\uFF0C\u624D\u77E5\u9053\u59D3\u540D\u3002"}</div>
       <div class="pp-tags">${tags}</div>
       <div class="pp-bar"><span style="font-size:11.5px;letter-spacing:.1em;color:#e8c98a">${p.tier.name} \xB7 ${p.tier.note}</span>
-        <i><b style="width:${Math.min(100, p.favor)}%"></b></i>
+        <i><b style="width:${Math.min(100, p.favor)}%"></b>${ticks}</i>
         <small>\u4EB2\u758F ${p.favor}/100\u3000${tierNote}\u3000${p.inParty ? "\xB7 \u540C\u884C\u4E2D" : ""}</small></div>
     </div></div>
     ${view}
