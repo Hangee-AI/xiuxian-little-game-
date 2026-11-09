@@ -19633,11 +19633,11 @@ function worldTick(state) {
   }
   return out2;
 }
-function log(state, kind, text, npc) {
+function log(state, kind2, text, npc) {
   const l = ensure(state);
-  l.chronicle.push({ year: l.year, kind, text, npc: npc || null });
+  l.chronicle.push({ year: l.year, kind: kind2, text, npc: npc || null });
   if (l.chronicle.length > 120) l.chronicle.shift();
-  if (kind === "evil") l.karma += 1;
+  if (kind2 === "evil") l.karma += 1;
   if (npc) l.met[npc] = 1;
   return l.chronicle[l.chronicle.length - 1];
 }
@@ -23927,13 +23927,13 @@ function newBattle(opts) {
     // 'win' | 'lose' | 'flee'
   };
 }
-function act(state, b, kind) {
+function act(state, b, kind2) {
   const l = ensure(state);
   const out2 = { text: "", dmg: 0, heal: 0 };
   if (b.over) return out2;
   const my = powerOf(state);
   const sw = swing(my);
-  if (kind === "sword") {
+  if (kind2 === "sword") {
     const crit = Math.random() < 0.18;
     const swB = sw + (b.atkBonus || 0);
     const dmg = Math.max(1, Math.round(swB * (0.85 + Math.random() * 0.35) * (crit ? 1.8 : 1)));
@@ -23941,7 +23941,7 @@ function act(state, b, kind) {
     out2.dmg = dmg;
     out2.crit = crit;
     out2.text = crit ? `\u4E00\u5251\u65A9\u5728\u5B83\u9888\u4FA7\uFF0C\u8840\u6E85\u4E86\u4F60\u534A\u8EAB\u3002\uFF08\u66B4\u51FB ${dmg}\uFF09` : `\u5251\u950B\u5212\u8FC7\uFF0C\u4F24\u4E86\u5B83 ${dmg} \u5206\u3002`;
-  } else if (kind === "fu") {
+  } else if (kind2 === "fu") {
     if (!l.bag.charm) {
       out2.text = "\u888B\u91CC\u7684\u7B26\u7528\u5B8C\u4E86\u3002";
       return out2;
@@ -23951,7 +23951,7 @@ function act(state, b, kind) {
     b.enemyHp = Math.max(b.noEdge ? 1 : 0, b.enemyHp - dmg);
     out2.dmg = dmg;
     out2.text = `\u4F60\u6296\u5F00\u4E00\u5F20\u7B26\uFF0C\u8D34\u5728\u5B83\u8EAB\u4E0A\u3002\u7B26\u7EB8\u70E7\u5C3D\uFF0C\u5B83\u9000\u4E86\u534A\u6B65\u3002\uFF08${dmg}\uFF09`;
-  } else if (kind === "herb") {
+  } else if (kind2 === "herb") {
     if (!l.bag.herb) {
       out2.text = "\u6CA1\u6709\u836F\u4E86\u3002";
       return out2;
@@ -23960,7 +23960,7 @@ function act(state, b, kind) {
     const healed = heal(state, 8);
     out2.heal = healed;
     out2.text = healed ? `\u4F60\u54AC\u4E86\u4E24\u53E3\u751F\u836F\uFF0C\u82E6\u5F97\u820C\u6839\u53D1\u9EBB\u3002\uFF08\u6C14\u8840 +${healed}\uFF09` : "\u836F\u56BC\u788E\u4E86\uFF0C\u53EF\u4F60\u5DF2\u7ECF\u4E0D\u9700\u8981\u5B83\u3002";
-  } else if (kind === "dan") {
+  } else if (kind2 === "dan") {
     if (!l.bag.pill) {
       out2.text = "\u6CA1\u6709\u4E39\u4E86\u3002";
       return out2;
@@ -23969,7 +23969,7 @@ function act(state, b, kind) {
     const healed = heal(state, Math.max(18, Math.round(hpMax(state) * 0.2)));
     out2.heal = healed;
     out2.text = healed ? `\u4F60\u54AC\u788E\u4E00\u9897\u4E39\uFF0C\u8840\u6C14\u7FFB\u4E0A\u6765\u3002\uFF08\u6C14\u8840 +${healed}\uFF09` : "\u4E39\u541E\u4E0B\u53BB\u4E86\uFF0C\u53EF\u4F60\u5DF2\u7ECF\u4E0D\u9700\u8981\u5B83\u3002";
-  } else if (kind === "art") {
+  } else if (kind2 === "art") {
     const arts = [];
     if (hasPath(state, "fu")) arts.push("fu");
     if (hasPath(state, "zhen")) arts.push("zhen");
@@ -23996,7 +23996,7 @@ function act(state, b, kind) {
       out2.dmg = dmg;
       out2.text = `\u4E39\u6C14\u4ECE\u638C\u5FC3\u6563\u51FA\u53BB\uFF0C\u542B\u7740\u4E00\u70B9\u836F\u529B\u3002\uFF08\u6C14\u8840 +${healed}\uFF0C\u654C ${dmg}\uFF09`;
     }
-  } else if (kind === "flee") {
+  } else if (kind2 === "flee") {
     const p = Math.max(0.15, 0.55 - b.danger * 0.5);
     if (Math.random() < p) {
       b.over = "flee";
@@ -24395,6 +24395,10 @@ var freezeUntil = 0;
 var raf = 0;
 var dpr = 1;
 var kickMag = 0;
+var kind = "normal";
+function setKind(k) {
+  kind = k || "normal";
+}
 var easeIn = (k) => k * k;
 var easeOut = (k) => 1 - (1 - k) * (1 - k) * (1 - k);
 var easeIO = (k) => k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
@@ -24609,6 +24613,7 @@ function mount(opts = {}) {
   onResize = () => resize();
   addEventListener("resize", onResize);
   setMe({ name: opts.meName });
+  setKind(opts.kind);
   setFoe({ name: opts.foeName, portrait: opts.portrait, plate: opts.plate, foeText: opts.foeText });
   lastNow = performance.now();
   raf = requestAnimationFrame(tick);
@@ -24735,7 +24740,9 @@ async function foeStrike(at, o = {}) {
       ring(F, { r0: 8, r1: 26, c: "200,90,64", life: 420, width: 1.4 });
       dust(point(F).x, point(F).y + 42, 8);
     }
-    await slide(F, 170, { tx: -7, ty: 1.6, rot: 4, sc: 1.05 }, easeIn);
+    const windup = kind === "heavy" ? 260 : kind === "mist" ? 130 : 170;
+    if (kind === "heavy") ring(F, { r0: 10, r1: 34, c: "120,120,130", life: 520, width: 1.2 });
+    await slide(F, windup, { tx: -7, ty: 1.6, rot: 4, sc: 1.05 }, easeIn);
     F.el.classList.remove("telegraph");
     await slide(F, 130, { tx: 3, ty: 0.4, rot: 3, sc: 1.02 }, easeIn);
     await slide(F, 105, { tx: -38 }, easeOut, { ghost: 3 });
@@ -24774,12 +24781,14 @@ function contact(s, r, o = {}) {
       bolt(p.x);
     }
     slash2(p.x, p.y, { crit: r.crit, rot: o.rot !== void 0 ? o.rot : o.burn ? 0.5 : -0.32 });
-    spark(p.x, p.y, { n: r.crit ? 26 : 14, color: o.thunder ? "190,225,255" : r.crit ? "255,215,150" : "255,150,100" });
+    const foeTint = { water: "160,215,240", mist: "205,205,215", bone: "228,222,200", poison: "165,210,150" }[kind];
+    spark(p.x, p.y, { n: r.crit ? 26 : 14, color: o.thunder ? "190,225,255" : r.crit ? "255,215,150" : s === F && foeTint || "255,150,100" });
     burst(p.x, p.y, r.crit ? 1.5 : 1);
     kick(r.crit ? 24 : 13);
     freezeFor(r.crit ? 145 : 95);
     number(s, `\u2212${r.dmg}`, r.crit ? "crit" : "");
     if (s === F) {
+      if (kind === "mist") dust(p.x, p.y, 10);
       s.el.classList.add("bleed");
       setTimeout(() => s.el && s.el.classList.remove("bleed"), r.crit ? 620 : 420);
     }
@@ -24812,6 +24821,10 @@ function wound(s, r) {
       void vc.offsetWidth;
       vc.classList.add("shake");
     }
+    document.body.classList.remove("got-hit");
+    void document.body.offsetWidth;
+    document.body.classList.add("got-hit");
+    setTimeout(() => document.body.classList.remove("got-hit"), 360);
     sink(s, r);
   } else if (r.blocked) {
     guard(s, r);
@@ -24886,9 +24899,9 @@ function wave(from, to) {
   const a = point(from), b = point(to);
   P({ k: "wave", x1: a.x, x2: b.x, y: a.y + 48, life: 420, c: "216,184,119" });
 }
-function projectile(from, to, kind) {
+function projectile(from, to, kind2) {
   const a = point(from), b = point(to);
-  P({ k: "proj", kind, x: a.x, y: a.y - 10, x1: a.x, y1: a.y - 10, x2: b.x, y2: b.y - 6, ms: 250, life: 250, rot: 0, c: "255,200,140" });
+  P({ k: "proj", kind: kind2, x: a.x, y: a.y - 10, x1: a.x, y1: a.y - 10, x2: b.x, y2: b.y - 6, ms: 250, life: 250, rot: 0, c: "255,200,140" });
 }
 function graze(s) {
   const p = point(s);
@@ -25134,14 +25147,14 @@ function resize() {
   cv.width = Math.round(cv.clientWidth * dpr);
   cv.height = Math.round(cv.clientHeight * dpr);
 }
-function stamp(text, kind = "win") {
+function stamp(text, kind2 = "win") {
   let el = document.getElementById("ar-stamp");
   if (!el) {
     el = document.createElement("div");
     el.id = "ar-stamp";
     document.body.appendChild(el);
   }
-  el.className = kind;
+  el.className = kind2;
   el.textContent = text;
   void el.offsetWidth;
   el.classList.add("on");
@@ -25510,7 +25523,7 @@ try {
 } catch {
 }
 var panoAudio = null;
-function panoSfx(kind) {
+function panoSfx(kind2) {
   const vol = settings.volume === void 0 ? 50 : settings.volume;
   if (settings.sound === false || !(vol > 0)) return;
   try {
@@ -25519,7 +25532,7 @@ function panoSfx(kind) {
     panoAudio = panoAudio || new AC();
     if (panoAudio.state === "suspended") panoAudio.resume();
     const t = panoAudio.currentTime;
-    const c = kind === "enter" ? { f: 150, to: 70, dur: 0.5, type: "sine" } : { f: 480, to: 620, dur: 0.1, type: "sine" };
+    const c = kind2 === "enter" ? { f: 150, to: 70, dur: 0.5, type: "sine" } : { f: 480, to: 620, dur: 0.1, type: "sine" };
     const o = panoAudio.createOscillator();
     const g2 = panoAudio.createGain();
     o.type = c.type;
@@ -26035,15 +26048,15 @@ function openArts() {
 }
 var BEASTS = [
   { key: "beast_01", name: "\u9752\u9762\u7360", danger: 0, desc: "\u4E00\u5934\u9752\u9762\u7360\u4ECE\u96FE\u91CC\u7ACB\u8D77\u6765\uFF0C\u6BD4\u4EBA\u9AD8\u4E00\u4E2A\u5934\u3002\u5B83\u4E0D\u53EB\uFF0C\u53EA\u662F\u770B\u4F60\u3002" },
-  { key: "beast_02", name: "\u96FE\u4E2D\u5F71", danger: -0.08, desc: "\u96FE\u91CC\u6709\u4E2A\u5F71\u5B50\u8DDF\u7740\u4F60\u8D70\u4E86\u5F88\u4E45\uFF0C\u73B0\u5728\u5B83\u505C\u4E0B\u4E86\uFF0C\u6321\u5728\u8DEF\u4E2D\u95F4\u3002" },
+  { key: "beast_02", kind: "mist", name: "\u96FE\u4E2D\u5F71", danger: -0.08, desc: "\u96FE\u91CC\u6709\u4E2A\u5F71\u5B50\u8DDF\u7740\u4F60\u8D70\u4E86\u5F88\u4E45\uFF0C\u73B0\u5728\u5B83\u505C\u4E0B\u4E86\uFF0C\u6321\u5728\u8DEF\u4E2D\u95F4\u3002" },
   { key: "beast_03", name: "\u72EC\u773C\u9B48", danger: 0.06, desc: "\u72EC\u773C\u9B48\u8E72\u5728\u77F3\u4E0A\uFF0C\u4E00\u53EA\u773C\u775B\u6BD4\u4F60\u7684\u8138\u8FD8\u5927\u3002\u5B83\u5728\u7B49\u4F60\u5148\u52A8\u3002" },
   { key: "beast_04", file: "beast_04.cut.png", name: "\u767D\u989D\u864E", danger: 0.12, desc: "\u767D\u989D\u864E\u4ECE\u6811\u540E\u7ED5\u51FA\u6765\uFF0C\u811A\u6B65\u5F88\u8F7B\u3002\u5B83\u77E5\u9053\u4F60\u5728\u54EA\uFF0C\u4F60\u8FD8\u6CA1\u770B\u89C1\u5B83\u3002" },
-  { key: "beast_05", file: "beast_05.cut.png", name: "\u9752\u9CDE\u86DF", danger: 0.04, desc: "\u6F6D\u6C34\u91CC\u6D6E\u51FA\u4E00\u6761\u9752\u9CDE\u86DF\uFF0C\u9CDE\u7247\u6CDB\u7740\u6C34\u5149\u3002\u5B83\u5728\u770B\u4F60\uFF0C\u50CF\u5728\u6382\u91CF\u3002" },
-  { key: "beast_06", file: "beast_06.cut.png", name: "\u8D64\u80CC\u87FE", danger: -0.1, desc: "\u4E00\u53EA\u8D64\u80CC\u87FE\u8E72\u5728\u77F3\u4E0A\uFF0C\u80CC\u4E0A\u7684\u8113\u5305\u6CDB\u7740\u7D2B\u5149\u3002\u5B83\u4E0D\u8FFD\u4EBA\uFF0C\u53EA\u662F\u4E0D\u8BA9\u4F60\u8FC7\u3002" },
+  { key: "beast_05", file: "beast_05.cut.png", kind: "water", name: "\u9752\u9CDE\u86DF", danger: 0.04, desc: "\u6F6D\u6C34\u91CC\u6D6E\u51FA\u4E00\u6761\u9752\u9CDE\u86DF\uFF0C\u9CDE\u7247\u6CDB\u7740\u6C34\u5149\u3002\u5B83\u5728\u770B\u4F60\uFF0C\u50CF\u5728\u6382\u91CF\u3002" },
+  { key: "beast_06", file: "beast_06.cut.png", kind: "poison", name: "\u8D64\u80CC\u87FE", danger: -0.1, desc: "\u4E00\u53EA\u8D64\u80CC\u87FE\u8E72\u5728\u77F3\u4E0A\uFF0C\u80CC\u4E0A\u7684\u8113\u5305\u6CDB\u7740\u7D2B\u5149\u3002\u5B83\u4E0D\u8FFD\u4EBA\uFF0C\u53EA\u662F\u4E0D\u8BA9\u4F60\u8FC7\u3002" },
   { key: "beast_07", file: "beast_07.cut.png", name: "\u83B2\u5C3E\u72D0", danger: -0.14, desc: "\u83B2\u5C3E\u72D0\u7AD9\u5728\u8DEF\u5F53\u4E2D\uFF0C\u5C3E\u5DF4\u5C16\u4E0A\u5F00\u7740\u4E00\u6735\u83B2\u82B1\u3002\u5B83\u4E0D\u54AC\u4EBA\uFF0C\u53EA\u662F\u770B\u4F60\u3002" },
-  { key: "beast_08", file: "beast_08.png", name: "\u8D1F\u7891\u9F9F", danger: 0.16, desc: "\u8D1F\u7891\u9F9F\u6162\u6162\u8F6C\u8FC7\u8EAB\u5B50\uFF0C\u80CC\u4E0A\u7684\u7891\u538B\u5F97\u77F3\u9636\u90FD\u88C2\u4E86\u3002\u5B83\u6BD4\u4F60\u60F3\u8C61\u5F97\u5FEB\u3002" },
+  { key: "beast_08", file: "beast_08.png", kind: "heavy", name: "\u8D1F\u7891\u9F9F", danger: 0.16, desc: "\u8D1F\u7891\u9F9F\u6162\u6162\u8F6C\u8FC7\u8EAB\u5B50\uFF0C\u80CC\u4E0A\u7684\u7891\u538B\u5F97\u77F3\u9636\u90FD\u88C2\u4E86\u3002\u5B83\u6BD4\u4F60\u60F3\u8C61\u5F97\u5FEB\u3002" },
   { key: "beast_09", name: "\u8840\u9E26", danger: 0.02, desc: "\u67AF\u679D\u4E0A\u843D\u7740\u4E00\u53EA\u5DE8\u9E26\uFF0C\u4E09\u53EA\u773C\u775B\u540C\u65F6\u8F6C\u8FC7\u6765\u3002\u96FE\u91CC\u7684\u58F0\u97F3\u505C\u4E86\u3002" },
-  { key: "beast_10", file: "beast_10.cut.png", name: "\u9AA8\u9E7F", danger: 0.08, desc: "\u4E00\u5934\u9AA8\u9E7F\u7ACB\u5728\u96FE\u91CC\uFF0C\u89D2\u4E0A\u6302\u7740\u94C3\u94DB\uFF0C\u5374\u4E00\u70B9\u58F0\u97F3\u4E5F\u6CA1\u6709\u3002" }
+  { key: "beast_10", file: "beast_10.cut.png", kind: "bone", name: "\u9AA8\u9E7F", danger: 0.08, desc: "\u4E00\u5934\u9AA8\u9E7F\u7ACB\u5728\u96FE\u91CC\uFF0C\u89D2\u4E0A\u6302\u7740\u94C3\u94DB\uFF0C\u5374\u4E00\u70B9\u58F0\u97F3\u4E5F\u6CA1\u6709\u3002" }
 ];
 var lifeFxTimer = 0;
 var lifeFxTotal = 0;
@@ -26307,7 +26320,7 @@ function openBeast() {
     </div>
     <div id="beast-out" class="lede" style="color:#e8c98a"></div>`;
   panelRoot.classList.add("open");
-  mount({ meName: lf.name || "\u65E0\u540D", foeName: beast.name, portrait: beast.file || `${beast.key}.png`, plate: !!beast.plate, foeText: "\u5B83\u8FD8\u6CA1\u52A8" });
+  mount({ meName: lf.name || "\u65E0\u540D", foeName: beast.name, kind: beast.kind, portrait: beast.file || `${beast.key}.png`, plate: !!beast.plate, foeText: "\u5B83\u8FD8\u6CA1\u52A8" });
   document.body.classList.add("in-beast", "modal-lock");
   const roll = (label, ok, text) => {
     const cur = saveNow((c, l) => {
@@ -26422,30 +26435,43 @@ function openBattle(beast, opt = {}) {
   B.beast = beast;
   B.noEdge = !!opt.noEdge;
   B.foe0 = B.foe;
-  mount({ meName: lf.name || "\u65E0\u540D", foeName: beast.name, portrait: B.portrait, plate: B.plate });
+  mount({ meName: lf.name || "\u65E0\u540D", foeName: beast.name, kind: B.kind, portrait: B.portrait, plate: B.plate });
   document.body.classList.remove("in-beast");
   document.body.classList.add("in-battle", "modal-lock");
   renderBattle();
 }
-function itemIcon(kind) {
-  if (kind === "pill") {
+function itemIcon(kind2) {
+  if (kind2 === "pill") {
     return `<svg viewBox="0 0 24 24" aria-hidden="true">
       <circle cx="12" cy="12" r="8" fill="#b8503c"/>
       <circle cx="12" cy="12" r="8" fill="none" stroke="rgba(255,220,190,.35)" stroke-width="1"/>
       <ellipse cx="9.2" cy="9" rx="2.6" ry="1.9" fill="rgba(255,235,215,.55)"/>
     </svg>`;
   }
-  if (kind === "array") {
+  if (kind2 === "array") {
     return `<svg viewBox="0 0 24 24" aria-hidden="true">
       <circle cx="12" cy="12" r="8.4" fill="none" stroke="#c9a86a" stroke-width="1.3"/>
       <circle cx="12" cy="12" r="3.2" fill="none" stroke="rgba(201,168,106,.65)" stroke-width="1"/>
       <path d="M12 3.2v3.4M12 17.4v3.4M3.2 12h3.4M17.4 12h3.4" stroke="#c9a86a" stroke-width="1.1"/>
     </svg>`;
   }
-  if (kind === "dark") {
+  if (kind2 === "dark") {
     return `<svg viewBox="0 0 24 24" aria-hidden="true">
       <rect x="6.4" y="3.4" width="11.2" height="17.2" rx="2" fill="#2a1d33" stroke="#8d6bb0" stroke-width="1.2"/>
       <path d="M9.4 7.5h5.2M9.4 12h5.2M9.4 16.5h3.4" stroke="#b98fd6" stroke-width="1.1"/>
+    </svg>`;
+  }
+  if (kind2 === "beast") {
+    return `<svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 4.4c3 4.4 4.6 6.6 4.6 8.6a4.6 4.6 0 0 1-9.2 0c0-2 1.6-4.2 4.6-8.6z" fill="#8f2f2a" stroke="rgba(255,200,180,.35)" stroke-width="1"/>
+      <path d="M7.4 19.6l2-2.6 2 2 2-2 2 2.6" fill="none" stroke="#c9a86a" stroke-width="1.2"/>
+    </svg>`;
+  }
+  if (kind2 === "spirit") {
+    return `<svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="7.4" fill="none" stroke="#c9a86a" stroke-width="1.2"/>
+      <circle cx="12" cy="12" r="2.6" fill="#e8c98a" opacity=".85"/>
+      <circle cx="12" cy="12" r="11" fill="none" stroke="rgba(232,201,138,.2)" stroke-width="1"/>
     </svg>`;
   }
   return `<svg viewBox="0 0 24 24" aria-hidden="true">
@@ -26465,9 +26491,25 @@ function renderBattleEnd() {
   saveNow((c) => {
     lines = settle(c, B);
   });
+  const win = B.over === "win";
+  const loot = (lines || []).map((t) => {
+    const m = /^(.*?)\s*[×x]\s*(\d+)$/.exec(t);
+    const name = m ? m[1] : t;
+    const n = m ? m[2] : "";
+    const icon = /药|丹/.test(name) ? "pill" : /符|阵/.test(name) ? "charm" : /血|皮|骨|牙|角/.test(name) ? "beast" : "spirit";
+    return `<div class="bt-loot"><i class="bag-ico">${itemIcon(icon)}</i><b>${name}</b>${n ? `<em>\xD7${n}</em>` : ""}</div>`;
+  }).join("");
   panelBody.innerHTML = `<h2>\u6597 \u6CD5<span>${B.name}</span></h2>
-    <div class="bt-end">${B.over === "win" ? "\u5B83\u5012\u4E86\u3002" : B.over === "lose" ? "\u4F60\u88AB\u62AC\u4E86\u56DE\u53BB\u3002" : B.surrender ? "\u4F60\u8BA4\u4E86\u8F93\u3002" : "\u4F60\u9000\u4E86\u51FA\u53BB\u3002"}</div>
-    <div class="lede">${lines.join("\u3000") || "\u4EC0\u4E48\u90FD\u6CA1\u7559\u4E0B\u3002"}</div>
+    <div class="bt-result ${B.over}">
+      <div class="bt-verdict">${win ? "\u5B83\u5012\u4E86\u3002" : B.over === "lose" ? "\u4F60\u88AB\u62AC\u4E86\u56DE\u53BB\u3002" : B.surrender ? "\u4F60\u8BA4\u4E86\u8F93\u3002" : "\u4F60\u9000\u4E86\u51FA\u53BB\u3002"}</div>
+      <div class="bt-flavor">${win ? [
+    "\u96FE\u6563\u4E86\u4E00\u70B9\u3002\u4F60\u7AD9\u5728\u539F\u5730\uFF0C\u542C\u81EA\u5DF1\u5598\u6C14\u7684\u58F0\u97F3\u6162\u6162\u5E73\u4E0B\u6765\u3002",
+    "\u4F60\u628A\u5251\u5728\u8896\u5B50\u4E0A\u64E6\u4E86\u64E6\u3002\u624B\u8FD8\u5728\u6296\uFF0C\u4F46\u5DF2\u7ECF\u63E1\u5F97\u4F4F\u4E86\u3002",
+    "\u5B83\u5012\u4E0B\u53BB\u7684\u65F6\u5019\u6CA1\u6709\u58F0\u97F3\u3002\u5C71\u91CC\u7684\u591C\u53C8\u5408\u4E0A\u4E86\u3002"
+  ][B.turn % 3] : "\u8FD9\u4E00\u591C\u4F60\u6CA1\u80FD\u8FC7\u53BB\u3002\u9192\u6765\u7684\u65F6\u5019\uFF0C\u5929\u5DF2\u7ECF\u4EAE\u4E86\u3002"}</div>
+      <div class="bt-loot-row">${loot || '<div class="bt-loot"><b>\u4EC0\u4E48\u90FD\u6CA1\u7559\u4E0B</b></div>'}</div>
+      <div class="bt-meta">\u9053\u884C ${life.daoOf(readSave())} \xB7 \u8D26\u4E0A\u7B2C ${ensure(readSave()).year} \u5E74</div>
+    </div>
     <button class="btn" data-close3>\u6536 \u8D77</button>`;
   panelBody.querySelector("[data-close3]").addEventListener("click", () => {
     syncMerit();
@@ -26507,29 +26549,29 @@ function renderBattle(msg) {
   }
   const acts = panelBody.querySelector(".bt-acts");
   let busy = false;
-  const use = async (kind) => {
+  const use = async (kind2) => {
     if (busy || B.over) return;
     busy = true;
     acts?.classList.add("wait");
-    const isItem = kind.startsWith("item:");
-    const key = isItem ? kind.slice(5) : kind;
+    const isItem = kind2.startsWith("item:");
+    const key = isItem ? kind2.slice(5) : kind2;
     let variant = ["melee", "melee2", "melee3"][(B.turn || 0) % 3];
     if (isItem) variant = itemVariant(key);
-    else if (kind === "art") variant = artNow(readSave())?.variant || "talisman";
-    else if (kind === "fu") variant = "talisman";
-    else if (kind === "dan") variant = "motes";
-    else if (kind === "flee") variant = "flee";
+    else if (kind2 === "art") variant = artNow(readSave())?.variant || "talisman";
+    else if (kind2 === "fu") variant = "talisman";
+    else if (kind2 === "dan") variant = "motes";
+    else if (kind2 === "flee") variant = "flee";
     try {
       await perform(variant, () => {
         const st2 = readSave();
-        const m = isItem ? useBattleItem(st2, B, key) : act(st2, B, kind);
+        const m = isItem ? useBattleItem(st2, B, key) : act(st2, B, kind2);
         writeSave(st2);
         arenaSync(st2, ensure(st2));
         pushLog(m.text);
-        if (kind === "flee") flee();
+        if (kind2 === "flee") flee();
         else if (m.heal) heal2();
         else if (m.dmg) slash();
-        else if (kind === "art") thud(0.7);
+        else if (kind2 === "art") thud(0.7);
         else talisman();
         return m;
       });
@@ -26581,8 +26623,8 @@ function renderBattle(msg) {
       busy = false;
     }
   };
-  const actBtn = (id, kind) => {
-    panelBody.querySelector(id)?.addEventListener("click", () => use(kind));
+  const actBtn = (id, kind2) => {
+    panelBody.querySelector(id)?.addEventListener("click", () => use(kind2));
   };
   actBtn("#bt-sword", "sword");
   actBtn("#bt-art", "art");
@@ -26598,9 +26640,9 @@ function renderBattle(msg) {
   panelBody.querySelector("#bag-back")?.addEventListener("click", () => toggleBag(false));
   bagPop?.querySelectorAll("[data-use]").forEach((el) => {
     el.addEventListener("click", () => {
-      const kind = el.dataset.use;
+      const kind2 = el.dataset.use;
       toggleBag(false);
-      use(kind);
+      use(kind2);
     });
   });
 }
@@ -27110,6 +27152,14 @@ function needGender() {
   return g2 !== "\u7537" && g2 !== "\u5973";
 }
 var FORCE_INTRO = qs.get("intro") === "1";
+if (qs.get("reset") === "1") {
+  try {
+    localStorage.removeItem("lingxu.save.v1");
+  } catch {
+  }
+  const clean = location.pathname + (qs.get("reset") === "1" && location.hash ? location.hash : "");
+  location.replace(clean || "./panorama.html");
+}
 var skipVideo = !FORCE_INTRO && (qs.get("nointro") === "1" || !IS_GATE || !!settings.skipIntro);
 var gateAfterIntro = false;
 function showGate() {
