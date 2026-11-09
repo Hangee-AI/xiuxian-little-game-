@@ -840,6 +840,32 @@
         .yc-card, #year-result, #people-rail, #people-toggle, #dock-next, #toast { transition: none !important; animation: none !important; }
         .yc-card:hover, .yc-card:focus-visible { transform: none; }
       }
+
+      /* ================== 两个人的事：关系 / 组队委托 ================== */
+      /* 三种脸色：合得来是青，合不来是赤，翻篇了是金。别用数值说话，用颜色。 */
+      .pr-mood { margin-top: 5px; padding: 3px 7px; border-radius: 5px; font-size: 10.5px;
+        letter-spacing: .08em; display: inline-block; }
+      .pr-mood i { font-style: normal; opacity: .62; margin-left: 6px; font-size: 9.5px; }
+      .pm-mood { padding: 1px 7px; border-radius: 5px; font-size: 11px; letter-spacing: .08em; }
+      .pr-mood.warm, .pm-mood.warm, .pp-pair.warm h4 { color: #9fd8bd; border-color: rgba(159,216,189,.42); background: rgba(159,216,189,.1); }
+      .pr-mood.awkward, .pm-mood.awkward, .pp-pair.awkward h4 { color: #e0a08a; border-color: rgba(224,160,138,.42); background: rgba(224,160,138,.1); }
+      .pr-mood.eased, .pm-mood.eased, .pp-pair.eased h4 { color: #f0d79a; border-color: rgba(240,215,154,.42); background: rgba(240,215,154,.1); }
+      .pr-mood, .pm-mood { border: 1px solid transparent; }
+      .mc-pair { margin-top: 7px; padding: 5px 9px; border-radius: 6px; font-size: 11.5px;
+        line-height: 1.7; letter-spacing: .04em; border-left: 2px solid; }
+      .mc-pair.ok { color: rgba(159,216,189,.9); border-left-color: #9fd8bd; background: rgba(159,216,189,.07); }
+      .mc-pair.no { color: rgba(224,160,138,.92); border-left-color: #e0a08a; background: rgba(224,160,138,.07); }
+      .btn.ghost.mini { display: inline-block; margin-left: 8px; padding: 2px 9px; font-size: 10.5px;
+        letter-spacing: .06em; border-radius: 5px; }
+      .pp-pair { border-left-width: 2px; }
+      .pp-pair h4 { display: inline-block; padding: 2px 8px; border-radius: 5px; border: 1px solid transparent;
+        letter-spacing: .1em; }
+      .pp-pair-name { margin-top: 7px; font-size: 14px; letter-spacing: .12em; color: #f2dfb2; }
+      .pp-pair-note { margin-top: 5px; font-size: 12px; line-height: 1.85; opacity: .72; }
+      .pp-pair-line { margin-top: 6px; padding-left: 10px; border-left: 1px solid rgba(232,201,138,.35);
+        font-size: 12px; line-height: 1.85; color: rgba(242,223,178,.86); }
+      .pp-pair-rule { margin-top: 6px; font-size: 10.5px; line-height: 1.7; opacity: .48; }
+      .pp-banter { color: #9fd8bd; font-size: 12px; line-height: 1.8; }
 </style>
   </head>
   <body>

@@ -20143,6 +20143,67 @@ var MINDS = [
     due: 12,
     hint: "\u5B97\u95E8\u5E7F\u573A \xB7 \u518D\u53BB\u4E00\u6B21",
     weight: 6
+  },
+  /* ------------- 两个人的事：人齐了才开口，人齐了才了得结 -------------
+     这些不挂在某一个人的线上，挂的是"他俩之间"。
+     接取与交差都要求 party 里两人同时在队；中途拆了队，事还挂着，
+     只是谁也不肯先开口。办成了，两个人的旧账也就翻篇了。 */
+  {
+    id: "pair_stove",
+    npc: "chen",
+    party: ["chen", "xiao"],
+    title: "\u4E00\u7089\u4E24\u4E2A\u4EBA\u7684\u706B",
+    say: "\u9648\u6267\u4E8B\u8BF4\u8FD9\u7089\u4E39\u8981\u4E24\u4E2A\u4EBA\u5B88\uFF1B\u5C0F\u6EE1\u5728\u65C1\u8FB9\u5C0F\u58F0\u8865\u4E86\u53E5\uFF1A\u300C\u6211\u6765\u6DFB\u67F4\u3002\u300D",
+    scene: "alchemy",
+    call: "\u4E39\u623F\u91CC\uFF0C\u9648\u6267\u4E8B\u628A\u7089\u95E8\u538B\u597D\uFF0C\u5C0F\u6EE1\u5DF2\u7ECF\u642C\u4E86\u77EE\u51F3\u5750\u5728\u65C1\u8FB9\uFF1A\u300C\u5E08\u5144\uFF0C\u8FD9\u56DE\u8981\u4E24\u4E2A\u4EBA\u5B88\u3002\u300D",
+    need: [
+      { key: "herb", n: 2, text: "\u4E24\u4EBA\u4E00\u9053\u91C7\u4E24\u682A\u836F" },
+      { key: "visit_alchemy", n: 1, text: "\u56DE\u4E39\u623F\u5B88\u4E00\u7089" }
+    ],
+    cost: { herb: 2 },
+    pay: { bond: 2, merit: 14, log: "\u4E00\u7089\u4E39\u5B88\u5230\u5929\u4EAE\u3002\u9648\u6267\u4E8B\u6CA1\u5938\u8C01\uFF0C\u53EA\u628A\u90A3\u5F20\u5199\u4E86\u4E00\u534A\u7684\u706B\u5019\u7EB8\u63A8\u5230\u5C0F\u6EE1\u9762\u524D\u3002" },
+    keepsake: { id: "pair_stove_paper", name: "\u534A\u5F20\u706B\u5019\u7EB8", desc: "\u524D\u534A\u5F20\u5B57\u5F88\u7A33\uFF0C\u540E\u534A\u5F20\u6B6A\u6B6A\u626D\u626D\uFF0C\u50CF\u662F\u4E24\u4E2A\u4EBA\u5199\u7684\u3002" },
+    due: 10,
+    hint: "\u4E39\u623F \xB7 \u9700\u9648\u6267\u4E8B\u4E0E\u5C0F\u6EE1\u540C\u884C",
+    weight: 14
+  },
+  {
+    id: "pair_charm",
+    npc: "fu",
+    party: ["fu", "peiqi"],
+    title: "\u4E00\u5F20\u4E0D\u6536\u94B1\u7684\u7B26",
+    say: "\u5356\u7B26\u7684\u8981\u628A\u4E00\u5F20\u7B26\u9001\u51FA\u53BB\uFF0C\u88F4\u4E03\u4E0D\u80AF\u767D\u62FF\u3002\u4E24\u4EBA\u4E3A\u8FD9\u4E2A\u5728\u9601\u4E0B\u7AD9\u4E86\u534A\u664C\u3002",
+    scene: "library",
+    call: "\u85CF\u7ECF\u9601\u4E0B\uFF0C\u5356\u7B26\u7684\u628A\u644A\u5B50\u4E00\u652F\uFF1A\u300C\u753B\u4E00\u5F20\uFF0C\u9001\u51FA\u53BB\uFF0C\u4E0D\u6536\u94B1\u3002\u300D\u88F4\u4E03\u6241\u62C5\u4E00\u6A2A\uFF1A\u300C\u90A3\u6211\u4E0D\u501F\u3002\u300D",
+    need: [
+      { key: "craft_fu", n: 2, text: "\u5728\u9601\u4E0B\u5404\u753B\u4E24\u5F20\u7B26" },
+      { key: "visit_library", n: 1, text: "\u966A\u4E24\u4EBA\u628A\u8BDD\u8BF4\u5B8C" }
+    ],
+    cost: { charm: 1 },
+    pay: { bond: 2, merit: 12, log: "\u90A3\u5F20\u7B26\u5230\u5E95\u9001\u51FA\u53BB\u4E86\u3002\u5356\u7B26\u7684\u8BF4\u300C\u9001\u51FA\u53BB\u5C31\u4E0D\u7B97\u8D26\u300D\uFF0C\u88F4\u4E03\u628A\u94DC\u94B1\u6536\u56DE\u4E86\u6000\u91CC\u3002" },
+    keepsake: { id: "pair_charcoal", name: "\u534A\u622A\u70AD\u7B14", desc: "\u78E8\u5F97\u4E00\u8FB9\u9AD8\u4E00\u8FB9\u4F4E\u3002\u4E24\u4EBA\u8C01\u4E5F\u6CA1\u8BF4\u662F\u8C01\u753B\u7684\u3002" },
+    due: 10,
+    hint: "\u85CF\u7ECF\u9601 \xB7 \u9700\u5356\u7B26\u7684\u4EBA\u4E0E\u88F4\u4E03\u540C\u884C",
+    weight: 14
+  },
+  {
+    id: "pair_names",
+    npc: "laozu",
+    party: ["laozu", "zhao"],
+    title: "\u6CA1\u70E7\u5B8C\u7684\u90A3\u5F20\u7EB8",
+    say: "\u8001\u4EBA\u8BF4\u7EB8\u603B\u662F\u4E0D\u591F\u6570\uFF1B\u8D75\u9608\u8BF4\u4E0D\u7528\u523B\uFF0C\u8BB0\u7740\u5C31\u884C\u3002\u4E24\u4E2A\u4EBA\u8BF4\u7684\u50CF\u662F\u540C\u4E00\u4EF6\u4E8B\u3002",
+    scene: "tribulation",
+    call: "\u6E21\u52AB\u53F0\u8FB9\uFF0C\u8001\u4EBA\u4E00\u5F20\u4E00\u5F20\u6570\u7EB8\uFF0C\u8D75\u9608\u7AD9\u5728\u534A\u6B65\u4E4B\u540E\uFF1A\u300C\u8FD9\u4E2A\uFF0C\u5FF5\u4E00\u904D\u3002\u300D",
+    need: [
+      { key: "visit_tribulation", n: 1, text: "\u966A\u4E24\u4EBA\u4E0A\u4E00\u8D9F\u53F0" },
+      { key: "copy", n: 2, text: "\u628A\u90A3\u51E0\u4E2A\u540D\u5B57\u5404\u6284\u4E00\u904D" }
+    ],
+    cost: { tally: 1 },
+    pay: { bond: 2, merit: 14, log: "\u90A3\u5F20\u7EB8\u6700\u540E\u6CA1\u70E7\u3002\u8001\u4EBA\u628A\u5B83\u5939\u8FDB\u6574\u53E0\u7684\u6700\u91CC\u5C42\uFF0C\u8D75\u9608\u5728\u7891\u65C1\u53C8\u7AD9\u4E86\u4E00\u4F1A\u513F\u3002" },
+    keepsake: { id: "pair_unsent_paper", name: "\u6CA1\u70E7\u5B8C\u7684\u4E00\u5F20\u7EB8", desc: "\u4E0A\u5934\u53EA\u6709\u4E00\u4E2A\u540D\u5B57\uFF0C\u58A8\u8FD8\u65B0\u3002\u7EB8\u89D2\u88AB\u706B\u71CE\u8FC7\u4E00\u70B9\u3002" },
+    due: 12,
+    hint: "\u6E21\u52AB\u53F0 \xB7 \u9700\u5B88\u53F0\u8001\u4EBA\u4E0E\u8D75\u9608\u540C\u884C",
+    weight: 14
   }
 ];
 var MIND_MAX = 3;
@@ -20521,6 +20582,106 @@ var PEOPLE = {
 };
 var PEOPLE_ORDER = ["chen", "shen", "nvzi", "laozu", "xiao", "baitang", "jiangyi", "peiqi", "fu", "zhao", "qingwu"];
 var personDef = (id) => PEOPLE[id] || null;
+function pairKey(a, b) {
+  return [a, b].sort().join("|");
+}
+var PAIR_BONDS = {
+  "chen|xiao": {
+    tone: "warm",
+    name: "\u65E7\u7089\u8FB9",
+    gain: 1.25,
+    tick: 1,
+    note: "\u5C0F\u6EE1\u5728\u4E39\u623F\u5E2E\u8FC7\u5DE5\u3002\u9648\u6267\u4E8B\u5634\u4E0A\u4E0D\u8BF4\uFF0C\u6DFB\u67F4\u603B\u7ED9\u5979\u591A\u7559\u4E00\u6839\u3002",
+    lines: {
+      join: "\u5C0F\u6EE1\u4E00\u8FDB\u4E39\u623F\u5C31\u81EA\u5DF1\u642C\u4E86\u77EE\u51F3\u3002\u9648\u6267\u4E8B\u300C\u55EF\u300D\u4E86\u4E00\u58F0\uFF0C\u6CA1\u8D76\u5979\u3002",
+      patrol: "\u4E00\u4E2A\u6DFB\u67F4\uFF0C\u4E00\u4E2A\u9012\u836F\uFF0C\u8C01\u4E5F\u6CA1\u591A\u8BDD\uFF0C\u706B\u5374\u6BD4\u5E73\u65E5\u7A33\u3002",
+      battle: "\u9648\u6267\u4E8B\u5F80\u524D\u534A\u6B65\uFF0C\u5C0F\u6EE1\u6B63\u597D\u628A\u836F\u7C89\u9012\u5230\u4ED6\u624B\u8FB9\u3002",
+      part: "\u5C0F\u6EE1\u628A\u77EE\u51F3\u653E\u56DE\u539F\u5904\uFF0C\u624D\u5C0F\u8DD1\u7740\u8DDF\u4E0A\u6765\u3002"
+    }
+  },
+  "laozu|zhao": {
+    tone: "warm",
+    name: "\u4E03\u4E2A\u540D\u5B57",
+    gain: 1.2,
+    tick: 1,
+    note: "\u4E00\u4E2A\u628A\u540D\u5B57\u8BB0\u5728\u7EB8\u4E0A\uFF0C\u4E00\u4E2A\u628A\u540D\u5B57\u8BB0\u5728\u7891\u4E0A\u3002\u8C01\u90FD\u4E0D\u80AF\u5148\u5F00\u53E3\u3002",
+    lines: {
+      join: "\u8D75\u9608\u8D70\u5230\u53F0\u8FB9\u5C31\u505C\u4F4F\u4E86\u3002\u8001\u4EBA\u628A\u706B\u62E8\u5C0F\u4E9B\uFF0C\u6CA1\u50AC\u4ED6\u3002",
+      patrol: "\u4E00\u8DEF\u4E0A\u4E24\u4EBA\u9694\u7740\u534A\u6B65\uFF0C\u5230\u53F0\u524D\u5374\u540C\u65F6\u505C\u4E86\u4E0B\u6765\u3002",
+      battle: "\u8001\u4EBA\u62FF\u62D0\u6756\u987F\u4E86\u4E00\u4E0B\u5730\uFF0C\u8D75\u9608\u5DF2\u7ECF\u5148\u62AC\u4E86\u624B\u3002",
+      part: "\u8001\u4EBA\u628A\u90A3\u53E0\u7EB8\u6536\u56DE\u6000\u91CC\uFF0C\u8D75\u9608\u5728\u7891\u65C1\u53C8\u7AD9\u4E86\u4E00\u4F1A\u513F\u3002"
+    }
+  },
+  "baitang|shen": {
+    tone: "warm",
+    name: "\u770B\u6BD4\u5251\u7684",
+    gain: 1.15,
+    tick: 1,
+    note: "\u4E00\u4E2A\u603B\u5728\u77F3\u680F\u8FB9\u770B\uFF0C\u4E00\u4E2A\u603B\u5728\u7B49\u6709\u4EBA\u4E0A\u6765\u6BD4\u3002\u521A\u597D\u51D1\u6210\u4E00\u5C40\u3002",
+    lines: {
+      join: "\u6C88\u4E09\u5F80\u77F3\u680F\u90A3\u8FB9\u4E00\u5750\uFF1A\u300C\u4ECA\u5929\u6709\u4EBA\u6BD4\u5251\uFF1F\u300D\u767D\u68E0\u628A\u5251\u6A2A\u5230\u819D\u4E0A\uFF1A\u300C\u6709\u3002\u300D",
+      patrol: "\u4E00\u8DEF\u8D70\u4E00\u8DEF\u62CC\uFF0C\u8C01\u4E5F\u6CA1\u771F\u52A8\u5251\u3002",
+      battle: "\u6C88\u4E09\u90A3\u67C4\u4E0D\u51FA\u9798\u7684\u5251\u5230\u5E95\u51FA\u4E86\u9798\uFF0C\u767D\u68E0\u7B11\u4E86\u4E00\u58F0\u3002",
+      part: "\u6C88\u4E09\u628A\u5251\u625B\u56DE\u80A9\u4E0A\uFF1A\u300C\u4E0B\u56DE\u8FD8\u770B\u3002\u300D"
+    }
+  },
+  "qingwu|xiao": {
+    tone: "warm",
+    name: "\u534A\u7BEE\u836F",
+    gain: 1.15,
+    tick: 1,
+    note: "\u4E00\u4E2A\u91C7\u4E0D\u6EE1\u4E00\u7B50\uFF0C\u4E00\u4E2A\u7BEE\u5B50\u6C38\u8FDC\u534A\u6EE1\u3002\u5012\u662F\u8C01\u4E5F\u4E0D\u7740\u6025\u3002",
+    lines: {
+      join: "\u9752\u68A7\u628A\u7BEE\u5B50\u5F80\u5C0F\u6EE1\u90A3\u8FB9\u632A\u4E86\u632A\uFF1A\u300C\u591F\u4E86\u5C31\u597D\u3002\u300D",
+      patrol: "\u4E24\u4E2A\u4EBA\u8E72\u5728\u6EAA\u8FB9\u6311\u4E86\u534A\u5929\u836F\uFF0C\u56DE\u53BB\u65F6\u7B50\u8FD8\u662F\u534A\u6EE1\u3002",
+      battle: "\u4E00\u6367\u836F\u7C89\u3001\u4E00\u5757\u77F3\u5934\uFF0C\u5C45\u7136\u90FD\u6254\u51C6\u4E86\u3002",
+      part: "\u5C0F\u6EE1\u8981\u80CC\u7B50\uFF0C\u9752\u68A7\u5DF2\u7ECF\u5206\u4E86\u5979\u4E00\u534A\u3002"
+    }
+  },
+  "baitang|nvzi": {
+    tone: "awkward",
+    name: "\u5251\u51A2\u90A3\u5757\u7891",
+    gain: 0.8,
+    tick: -1,
+    note: "\u767D\u68E0\u7684\u5E08\u59D0\u57CB\u5728\u5251\u51A2\uFF0C\u5979\u8BA4\u4E0D\u5F97\u8DEF\u4E5F\u4E0D\u80AF\u95EE\uFF1B\u5B88\u5251\u7684\u4EBA\u504F\u4E0D\u80AF\u8BF4\u8C01\u78E8\u5E73\u4E86\u7891\u4E0A\u7684\u5B57\u3002",
+    lines: {
+      join: "\u767D\u68E0\u8DDF\u5230\u98CE\u53E3\u5C31\u505C\u4E86\u3002\u90A3\u5973\u5B50\u628A\u5251\u63D2\u56DE\u571F\u91CC\uFF0C\u6CA1\u62AC\u5934\u3002",
+      patrol: "\u4E00\u8DEF\u65E0\u8BDD\u3002\u56DE\u5230\u5C94\u53E3\uFF0C\u4E24\u4EBA\u5404\u8D70\u4E00\u8FB9\u3002",
+      battle: "\u4E24\u67C4\u5251\u540C\u65F6\u51FA\u9798\uFF0C\u53C8\u540C\u65F6\u6536\u4E86\u534A\u5206\u2014\u2014\u8C01\u90FD\u4E0D\u80AF\u66FF\u5BF9\u65B9\u8865\u90A3\u4E00\u5200\u3002",
+      part: "\u767D\u68E0\u5148\u8D70\u3002\u90A3\u5973\u5B50\u5728\u7891\u524D\u591A\u7AD9\u4E86\u4E00\u4F1A\u513F\u3002",
+      ease: "\u540E\u6765\u767D\u68E0\u81EA\u5DF1\u53BB\u4E86\u5251\u51A2\u3002\u51FA\u6765\u65F6\u53EA\u8BF4\uFF1A\u300C\u7891\u4E0A\u7684\u5B57\uFF0C\u4E0D\u78E8\u4E5F\u7F62\u3002\u300D"
+    }
+  },
+  "fu|peiqi": {
+    tone: "awkward",
+    name: "\u4E00\u5F20\u7B26\u7684\u8D26",
+    gain: 0.85,
+    tick: -1,
+    note: "\u4E00\u4E2A\u4ECE\u4E0D\u6536\u94B1\uFF0C\u4E00\u4E2A\u4ECE\u4E0D\u6B20\u4EBA\u3002\u4E3A\u4E00\u5F20\u7B26\u80FD\u62CC\u534A\u6761\u5C71\u9053\u3002",
+    lines: {
+      join: "\u5356\u7B26\u7684\u628A\u644A\u5B50\u4E00\u5377\uFF1A\u300C\u4E0D\u6536\u94B1\u3002\u300D\u88F4\u4E03\u628A\u6241\u62C5\u4E00\u6A2A\uFF1A\u300C\u90A3\u6211\u4E0D\u501F\u3002\u300D",
+      patrol: "\u534A\u6761\u5C71\u9053\u90FD\u5728\u7B97\u90A3\u5F20\u7B26\u503C\u51E0\u4E2A\u94B1\uFF0C\u6700\u540E\u8C01\u4E5F\u6CA1\u7B97\u6E05\u3002",
+      battle: "\u4E00\u5F20\u7B26\u4ECE\u4FA7\u9762\u98DE\u51FA\u53BB\uFF0C\u88F4\u4E03\u7684\u6241\u62C5\u4E5F\u4ECE\u53E6\u4E00\u8FB9\u626B\u4E86\u8FC7\u53BB\u3002",
+      part: "\u88F4\u4E03\u5230\u5E95\u7559\u4E0B\u4E00\u679A\u94DC\u94B1\uFF0C\u5356\u7B26\u7684\u5230\u5E95\u6CA1\u6536\u3002",
+      ease: "\u540E\u6765\u90A3\u5F20\u7B26\u8C01\u4E5F\u6CA1\u8FD8\u3002\u5356\u7B26\u7684\u8BF4\u300C\u9001\u51FA\u53BB\u5C31\u4E0D\u7B97\u8D26\u300D\uFF0C\u88F4\u4E03\u60F3\u4E86\u60F3\uFF0C\u628A\u94DC\u94B1\u6536\u4E86\u56DE\u53BB\u3002"
+    }
+  },
+  "chen|jiangyi": {
+    tone: "awkward",
+    name: "\u4E0D\u95EE\u6765\u5904",
+    gain: 0.85,
+    tick: -1,
+    note: "\u9648\u6267\u4E8B\u8BA4\u706B\u4E0D\u8BA4\u4EBA\uFF0C\u56DB\u5341\u5E74\u6CA1\u95EE\u8FC7\u8C01\u4ECE\u54EA\u513F\u6765\uFF1B\u7EDB\u8863\u504F\u6700\u4E0D\u7231\u628A\u8BDD\u8BF4\u5168\u3002",
+    lines: {
+      join: "\u7EDB\u8863\u4ECE\u95E8\u8FB9\u76F4\u8D77\u8EAB\u3002\u9648\u6267\u4E8B\u770B\u4E86\u773C\u7089\u706B\uFF0C\u6CA1\u95EE\u5979\u662F\u8C01\u3002",
+      patrol: "\u4E00\u4E2A\u95EE\u5F97\u542B\u7CCA\uFF0C\u4E00\u4E2A\u7B54\u5F97\u7701\u5B57\u3002\u8D70\u4E86\u4E00\u8D9F\uFF0C\u4EC0\u4E48\u4E5F\u6CA1\u95EE\u51FA\u6765\u3002",
+      battle: "\u7089\u8FB9\u7684\u4EBA\u5F80\u524D\u6321\u4E86\u534A\u6B65\uFF0C\u95E8\u8FB9\u7684\u4EBA\u8896\u91CC\u98DE\u51FA\u4E00\u9053\u6697\u5149\u3002\u8C01\u4E5F\u6CA1\u9053\u8C22\u3002",
+      part: "\u7EDB\u8863\u5148\u56DE\u95E8\u8FB9\u3002\u9648\u6267\u4E8B\u628A\u7089\u95E8\u538B\u597D\uFF0C\u624D\u8BF4\uFF1A\u300C\u8D70\u597D\u3002\u300D",
+      ease: "\u540E\u6765\u9648\u6267\u4E8B\u591A\u6DFB\u4E86\u4E00\u6839\u67F4\uFF0C\u6CA1\u8BF4\u662F\u7ED9\u8C01\u7559\u7684\u706B\u3002\u7EDB\u8863\u4E5F\u6CA1\u95EE\u3002"
+    }
+  }
+};
+var pairDef = (a, b) => PAIR_BONDS[pairKey(a, b)] || null;
 function folkProfile(f) {
   const tags = f && f.arch ? [f.arch] : [];
   const gentle = /gentle|温柔|soft/i.test(String(tags.join(" "))) || /柔|静|书|药/.test(f?.name || "");
@@ -21877,7 +22038,7 @@ function panelHtml(state) {
   return `<div class="panel-title">\u767E\u518C \xB7 \u8DE8\u4E16\u56FE\u9274</div>
     <div class="panel-text">\u8FD9\u662F\u7B2C <b>${lives(state)}</b> \u4E16\u3002\u4EBA\u3001\u5996\u3001\u65B9\u5B50\u3001\u7ED3\u5C40\u2014\u2014\u89C1\u8FC7\u4E00\u6B21\u5C31\u6C38\u8FDC\u8BB0\u5728\u518C\u5B50\u91CC\uFF0C\u6B7B\u4E86\u4E5F\u4E0D\u4E22\u3002</div>
     <div class="bar"><span>\u5DF2\u5F55</span><i><b style="width:${Math.min(100, t.got / Math.max(1, t.all) * 100)}%"></b></i><em>${t.got} / ${t.all}</em></div>
-    ${claim > 0 ? `<button class="btn gold" id="cx-claim">\u9886\u524D\u4E16\u4F59\u6CFD \xB7 \u609F +${claim}</button>` : `<div class="panel-text" style="opacity:.48">\u6BCF\u5F55\u6EE1 ${WU_STEP} \u6761\u53EF\u9886 1 \u70B9\u609F\uFF08\u4E00\u4E16\u6700\u591A ${WU_CAP} \u70B9\uFF0C\u8FD9\u4E00\u4E16\u5DF2\u9886 ${claimed}\uFF09</div>`}
+    ${claim > 0 ? `<button class="btn gold" id="cx-claim">\u9886\u524D\u4E16\u4F59\u6CFD \xB7 \u609F +${claim}</button>` : `<div class="panel-text" style="opacity:.48">${claimed >= WU_CAP ? `\u8FD9\u4E00\u4E16\u7684 ${WU_CAP} \u70B9\u5DF2\u7ECF\u9886\u5B8C\uFF0C\u591A\u5F55\u7684\u7559\u7ED9\u4E0B\u4E00\u4E16\u3002` : `\u8FD8\u5DEE ${WU_STEP - t.got % WU_STEP} \u6761\u5C31\u80FD\u518D\u9886 1 \u70B9\u609F\uFF08\u8FD9\u4E00\u4E16\u5DF2\u9886 ${claimed} / ${WU_CAP}\uFF09`}</div>`}
     ${secs}
     <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
 }
@@ -22013,8 +22174,10 @@ function newLife() {
     /* 人：亲疏与往来。favor 0..100，l.npc 是它的派生缓存（0..4），老逻辑照旧能读 */
     people: {},
     // id -> { favor, gifts, giftYear, talkYear, joinYear, met, lastLine }
-    party: { ids: [], since: null, helpCount: 0 }
+    party: { ids: [], since: null, helpCount: 0 },
     // 同行小队：最多带两个人
+    pairEase: {}
+    // 两人之间的旧账：key -> 和解进度（2 为翻篇）
   };
 }
 function ensure(state) {
@@ -22029,6 +22192,7 @@ function ensure(state) {
   if (!Array.isArray(l.chronicle)) l.chronicle = [];
   if (!l.npc || typeof l.npc !== "object") l.npc = {};
   if (!l.seen || typeof l.seen !== "object") l.seen = {};
+  if (!l.seenCount || typeof l.seenCount !== "object") l.seenCount = {};
   if (!l.met || typeof l.met !== "object") l.met = {};
   if (!l.flags || typeof l.flags !== "object") l.flags = {};
   if (!l.world || typeof l.world !== "object") l.world = {};
@@ -22053,6 +22217,7 @@ function ensure(state) {
   if (!l.people || typeof l.people !== "object") l.people = {};
   if (!l.party || typeof l.party !== "object") l.party = { ids: [], since: null, helpCount: 0 };
   if (!Array.isArray(l.party.ids)) l.party.ids = [];
+  if (!l.pairEase || typeof l.pairEase !== "object") l.pairEase = {};
   for (const [id, v] of Object.entries(l.npc || {})) {
     if (!l.people[id]) {
       l.people[id] = {
@@ -22186,8 +22351,12 @@ function addItem(state, id, n = 1) {
   const l = ensure(state);
   let extra = 0;
   if (n > 0 && l.party.ids.length && BAG_ORDER.includes(id)) {
-    l.party.helpCount = (l.party.helpCount || 0) + 1;
-    if (l.party.helpCount % 3 === 0) extra = 1;
+    const gain = partyMood(state).gain || 1;
+    l.party.helpCount = (Number(l.party.helpCount) || 0) + gain;
+    if (l.party.helpCount >= 3) {
+      l.party.helpCount -= 3;
+      extra = 1;
+    }
   }
   l.bag[id] = (l.bag[id] || 0) + n + extra;
   return l.bag[id];
@@ -22256,7 +22425,7 @@ function gainMerit(state, n) {
     return n;
   }
   const cap = daoCap(state);
-  const withParty = n + Math.round(n * 0.1 * partyOf(state).length);
+  const withParty = n + Math.round(n * 0.1 * partyOf(state).length * (partyMood(state).gain || 1));
   const add2 = Math.max(0, Math.min(withParty, cap - cur));
   state.merit = cur + add2;
   return add2;
@@ -22836,6 +23005,101 @@ EVENTS.push(
     opts: [
       { t: "\u8D77\u6765\u770B", res: "\u949F\u697C\u4E0B\u6CA1\u6709\u4EBA\u3002\u949F\u8FD8\u5728\u8F7B\u8F7B\u6643\u3002", fx: (s) => log(s, "omen", "\u534A\u591C\u949F\u54CD\u4E86\u4E00\u58F0\u3002\u4F60\u53BB\u770B\uFF0C\u949F\u697C\u4E0B\u6CA1\u6709\u4EBA\u3002") },
       { t: "\u8499\u5934\u63A5\u7740\u7761", res: "\u4F60\u53C8\u7761\u7740\u4E86\u3002\u7B2C\u4E8C\u5929\u542C\u8BF4\uFF0C\u6628\u665A\u5750\u5316\u4E86\u4E00\u4E2A\u957F\u8001\u3002", fx: (s) => log(s, "deed", "\u534A\u591C\u949F\u54CD\u4E86\u4E00\u58F0\u3002\u4F60\u6CA1\u8D77\u6765\u3002") }
+    ]
+  }
+);
+function pursuerOf(state) {
+  const l = initWorld(state);
+  if (l.gender === "\u672A\u5B9A") return null;
+  const want = l.gender === "\u7537" ? "\u5973" : "\u7537";
+  return l.folk.find((f) => f.gender === want && f.state === "\u5728\u5C71\u91CC" && f.age >= 18) || null;
+}
+function freeFolk(state) {
+  const l = initWorld(state);
+  return l.folk.filter((f) => f.state === "\u5728\u5C71\u91CC" && f.age >= 18 && f.id !== l.daoLv);
+}
+EVENTS.push(
+  {
+    id: "e_pursuit",
+    scenes: [ANY],
+    ageMin: 22,
+    ageMax: 33,
+    cond: (s) => !initWorld(s).daoLv && !!pursuerOf(s),
+    title: "\u5C71\u8DEF\u4E0A\u7684\u8BDD",
+    body: (s) => {
+      const f = pursuerOf(s);
+      return f ? `${f.name}\u8FDE\u7740\u51E0\u5929\u5728\u4F60\u56DE\u6D1E\u5E9C\u7684\u8DEF\u4E0A\u7B49\u7740\u3002\u8FD9\u5929\u6CA1\u518D\u7ED5\u5F2F\u5B50\uFF1A\u300C\u8FD9\u4E00\u5E74\uFF0C\u80AF\u4E0D\u80AF\u7559\u7ED9\u5C71\u8DEF\u3002\u300D` : "";
+    },
+    opts: [
+      {
+        t: "\u628A\u8FD9\u4E00\u5E74\u7559\u7ED9\u8FD9\u6761\u8DEF\uFF08\u22121 \u5E74\uFF09",
+        res: (s) => {
+          const f = pursuerOf(s);
+          return f ? `\u4F60\u4EEC\u8D70\u4E86\u4E00\u6BB5\u5F88\u957F\u7684\u5C71\u8DEF\u3002\u5230\u5C94\u53E3\uFF0C${f.name}\u8BF4\uFF1A\u300C\u660E\u5E74\u8FD9\u4E2A\u65F6\u5019\uFF0C\u6211\u8FD8\u5728\u8FD9\u513F\u3002\u300D` : "\u4F60\u4E00\u4E2A\u4EBA\u8D70\u5B8C\u4E86\u90A3\u6761\u8DEF\u3002";
+        },
+        fx: (s) => {
+          const f = pursuerOf(s);
+          if (f) bondWith(s, f.id);
+        }
+      },
+      {
+        t: "\u8BF4\u6E05\u695A\uFF1A\u6211\u8FD8\u5728\u8DEF\u4E0A",
+        res: "\u4F60\u628A\u8BDD\u8BF4\u5F97\u5F88\u6162\u3002\u5BF9\u65B9\u542C\u5B8C\uFF0C\u70B9\u4E86\u70B9\u5934\uFF0C\u5148\u8D70\u4E86\u3002",
+        fx: (s) => log(s, "bond", "\u6709\u4EBA\u5728\u56DE\u6D1E\u5E9C\u7684\u8DEF\u4E0A\u7B49\u8FC7\u4F60\u3002\u4F60\u8BF4\u4F60\u8FD8\u5728\u8DEF\u4E0A\u3002")
+      }
+    ]
+  },
+  {
+    id: "e_peer",
+    scenes: [ANY],
+    ageMin: 30,
+    ageMax: 46,
+    cond: (s) => !initWorld(s).daoLv && freeFolk(s).length > 0,
+    title: "\u540C\u9F84\u4EBA",
+    body: "\u4ECE\u524D\u4E00\u8D77\u4E0A\u5C71\u7684\u90A3\u6279\u4EBA\uFF0C\u6765\u9001\u5B69\u5B50\u5165\u95E8\u7684\u5DF2\u7ECF\u6362\u4E86\u4E24\u4EE3\u3002\u7BA1\u4E8B\u66FF\u4F60\u5F20\u7F57\u4E86\u4E00\u56DE\uFF0C\u8BF4\uFF1A\u603B\u5F97\u6709\u4E2A\u4F5C\u4F34\u7684\u3002",
+    opts: [
+      {
+        t: "\u53BB\u89C1\u4E00\u9762\uFF08\u22121 \u5E74\uFF09",
+        res: (s) => {
+          const list = freeFolk(s);
+          const f = list[Math.floor(Math.random() * list.length)];
+          return f ? `\u4F60\u548C${f.name}\u5728\u8336\u68DA\u5750\u4E86\u4E00\u4E0B\u5348\u3002\u8BDD\u4E0D\u591A\uFF0C\u591A\u534A\u662F\u8BF4\u5C71\u4E0A\u54EA\u68F5\u6811\u8FD8\u6CA1\u6B7B\u3002` : "\u4F60\u4E00\u4E2A\u4EBA\u5750\u4E86\u4E00\u4E0B\u5348\u3002";
+        },
+        fx: (s) => {
+          const list = freeFolk(s);
+          const f = list[Math.floor(Math.random() * list.length)];
+          if (f) bondWith(s, f.id);
+        }
+      },
+      {
+        t: "\u8C22\u7EDD",
+        res: "\u4F60\u8BF4\u8FD9\u4E00\u4E16\u5C31\u5148\u8FD9\u6837\u3002\u7BA1\u4E8B\u6CA1\u518D\u529D\uFF0C\u6536\u8D70\u4E86\u8336\u76CF\u3002",
+        fx: (s) => log(s, "deed", "\u7BA1\u4E8B\u66FF\u4F60\u8BF4\u4E86\u4E00\u95E8\u4EB2\u3002\u4F60\u56DE\u7EDD\u4E86\u3002")
+      }
+    ]
+  },
+  {
+    id: "e_junior",
+    scenes: [ANY],
+    ageMin: 40,
+    ageMax: 58,
+    title: "\u53EB\u4F60\u5E08\u5144",
+    body: "\u65B0\u5165\u95E8\u7684\u51E0\u4E2A\u5B69\u5B50\u5728\u5ECA\u4E0B\u7B49\u4F60\u3002\u4ED6\u4EEC\u542C\u8BF4\u4F60\u6D3B\u5F97\u4E45\uFF0C\u60F3\u95EE\u7684\u5168\u662F\u540C\u4E00\u4EF6\u4E8B\uFF1A\u540E\u6765\u600E\u4E48\u529E\u3002",
+    opts: [
+      {
+        t: "\u6559\u4ED6\u4EEC\uFF08\u22121 \u5E74\uFF09",
+        res: "\u4F60\u8BF4\u4E86\u534A\u4E2A\u65F6\u8FB0\uFF0C\u8BF4\u5230\u6700\u540E\u81EA\u5DF1\u4E5F\u505C\u4E86\u505C\u3002\u6709\u51E0\u4E2A\u95EE\u9898\uFF0C\u4F60\u4E5F\u6CA1\u6709\u7B54\u6848\u3002",
+        fx: (s) => {
+          spend(s, 1);
+          gainMerit(s, 3);
+          log(s, "deed", "\u540E\u8F88\u5728\u5ECA\u4E0B\u7B49\u4E86\u4F60\u534A\u65E5\u3002\u4F60\u6559\u4E86\u4ED6\u4EEC\u4E00\u5E74\u3002");
+        }
+      },
+      {
+        t: "\u8BA9\u4ED6\u4EEC\u53BB\u95EE\u522B\u4EBA",
+        res: "\u4ED6\u4EEC\u9053\u4E86\u8C22\uFF0C\u8D70\u4E86\u3002\u5ECA\u4E0B\u7A7A\u51FA\u6765\uFF0C\u98CE\u7A7F\u8FC7\u53BB\u3002",
+        fx: (s) => log(s, "deed", "\u540E\u8F88\u6765\u95EE\u540E\u6765\u600E\u4E48\u529E\u3002\u4F60\u8BA9\u4ED6\u4EEC\u53BB\u95EE\u522B\u4EBA\u3002")
+      }
     ]
   }
 );
@@ -24047,6 +24311,14 @@ var ARCHETYPES = [
 ];
 var NAMES_M = ["\u6C88\u4E09", "\u9648\u6267\u4E8B", "\u8D75\u9608", "\u5468\u884D", "\u77F3\u7FC1", "\u9646\u4E5D", "\u767D\u5341\u4E09", "\u8C22\u65E0\u548E", "\u987E\u957F\u98CE", "\u836F\u7F57", "\u79E6\u4E59"];
 var NAMES_F = ["\u5C0F\u6EE1", "\u963F\u829C", "\u67F3\u5982\u7709", "\u963F\u6A80", "\u4E91\u5A18", "\u82CF\u5A18", "\u9752\u8605", "\u8042\u5C0F\u9497", "\u7D20\u95EE", "\u963F\u8605"];
+function bondTierOf(f) {
+  const b = f ? f.bond || 0 : 0;
+  if (b >= 5) return "\u751F\u6B7B\u53EF\u6258";
+  if (b >= 3) return "\u4EA4\u5FC3";
+  if (b >= 2) return "\u6709\u4EBA\u60C5";
+  if (b >= 1) return "\u9762\u719F";
+  return "\u751F\u758F";
+}
 var DEBT_KINDS = ["\u6B20\u8FC7\u4E00\u6761\u547D", "\u593A\u8FC7\u4E00\u5904\u673A\u7F18", "\u6709\u65E7\u6028", "\u540C\u95E8\u4E00\u573A", "\u5E08\u627F\u76F8\u62A4", "\u66FF\u4ED6\u80CC\u8FC7\u9505"];
 var RUMORS = [
   "\u540E\u5C71\u4ECA\u5E74\u6709\u6F6E\u58F0\uFF0C\u95E8\u6015\u662F\u8981\u5F00\u3002",
@@ -24202,6 +24474,17 @@ function realmIndex(state) {
   return Math.min(RANKS.length - 1, Math.max(0, l.realm || 0));
 }
 var folkOf = (state, id) => initWorld(state).folk.find((f) => f.id === id) || null;
+function bondWith(state, id) {
+  const l = initWorld(state);
+  const f = folkOf(state, id);
+  if (!f || f.state !== "\u5728\u5C71\u91CC") return false;
+  spend(state, 1);
+  f.bond += 1;
+  f.lastBondYear = l.year;
+  f.last = `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u966A${f.name}\u5F85\u4E86\u4E00\u5E74\u3002${bondTierOf(f)}\u3002`;
+  log(state, "bond", f.last);
+  return true;
+}
 function folkTick(state) {
   const l = initWorld(state);
   if (l.tickYear === l.year) return [];
@@ -25248,6 +25531,61 @@ function addFavor(state, id, n) {
   l.npc[id] = Math.floor(p.favor / 25);
   return p.favor - before;
 }
+function partyReady(state, def) {
+  if (!def || !Array.isArray(def.party) || !def.party.length) return true;
+  const ids = partyOf(state);
+  return def.party.every((id) => ids.includes(id));
+}
+function partyNames(state, def) {
+  return (def && def.party || []).map((id) => personDefOf(state, id).name);
+}
+function partyMissing(state, def) {
+  if (!def || !def.party) return [];
+  const ids = partyOf(state);
+  return def.party.filter((id) => !ids.includes(id));
+}
+var PLAIN_MOOD = {
+  key: "",
+  tone: "plain",
+  name: "\u5BFB\u5E38",
+  gain: 1,
+  tick: 0,
+  note: "",
+  lines: {},
+  pair: []
+};
+function partyMood(state) {
+  const l = ensure(state);
+  const ids = partyOf(state);
+  if (ids.length < 2) return { ...PLAIN_MOOD, pair: ids };
+  const d = pairDef(ids[0], ids[1]);
+  if (!d) return { ...PLAIN_MOOD, pair: ids, note: "\u4E24\u4E2A\u4EBA\u642D\u4F34\uFF0C\u5012\u4E5F\u6CA1\u4EC0\u4E48\u8BDD\u3002" };
+  const key = pairKey(ids[0], ids[1]);
+  const base = { ...d, key, pair: ids };
+  if (d.tone === "awkward" && (l.pairEase[key] || 0) >= 2) {
+    return {
+      ...base,
+      tone: "eased",
+      name: "\u4E0D\u8BA1\u524D\u5ACC",
+      gain: 1.05,
+      tick: 0,
+      note: `${d.note}\u3000${d.lines.ease || "\u540E\u6765\u8C01\u4E5F\u6CA1\u518D\u63D0\u3002"}`
+    };
+  }
+  return base;
+}
+function easePair(state, a, b, n = 1) {
+  const l = ensure(state);
+  const d = pairDef(a, b);
+  if (!d || d.tone !== "awkward") return { ok: false, line: "" };
+  const key = pairKey(a, b);
+  if ((l.pairEase[key] || 0) >= 2) return { ok: false, line: "" };
+  l.pairEase[key] = Math.min(2, (l.pairEase[key] || 0) + n);
+  if (l.pairEase[key] < 2) return { ok: false, line: "\u4E24\u4E2A\u4EBA\u8FD8\u662F\u5404\u8D70\u5404\u7684\uFF0C\u53EA\u662F\u8FD9\u56DE\u6CA1\u62CC\u5634\u3002" };
+  const line = d.lines.ease || "\u540E\u6765\u8C01\u4E5F\u6CA1\u518D\u63D0\u3002";
+  log(state, "bond", `\u540C\u884C\u65E7\u8D26\u7FFB\u7BC7\uFF1A${line}`, a);
+  return { ok: true, line };
+}
 function partyOf(state) {
   const l = ensure(state);
   return l.party.ids.filter((id) => !isGone(l, id));
@@ -25255,10 +25593,12 @@ function partyOf(state) {
 function partyTick(state) {
   const l = ensure(state);
   const ids = partyOf(state);
-  for (const id of ids) addFavor(state, id, 1);
+  const mood = partyMood(state);
+  const gain = Math.max(0, 1 + (mood.tick || 0));
+  for (const id of ids) addFavor(state, id, gain);
   if (ids.length && l.year % 5 === 0) {
     const names = ids.map((id) => personDefOf(state, id).name).join("\u3001");
-    log(state, "bond", `\u8FD9\u4E00\u5E74\uFF0C${names}\u548C\u4F60\u8D70\u5728\u4E00\u5904\u3002`, null);
+    log(state, "bond", `\u8FD9\u4E00\u5E74\uFF0C${names}\u548C\u4F60\u8D70\u5728\u4E00\u5904\u3002${mood.name !== "\u5BFB\u5E38" ? `\uFF08${mood.name}\uFF09` : ""}`, null);
   }
   return ids;
 }
@@ -26370,6 +26710,8 @@ function settle(state, b) {
   const mates = partyOf(state);
   const lead = mates.length ? personDefOf(state, mates[0]) : null;
   const combat = lead && lead.combat || {};
+  const mood = partyMood(state);
+  const inStep = (mood.gain || 1) >= 1;
   if (b.over === "win") {
     if (b.noEdge) {
       l.wu = (l.wu || 0) + 1;
@@ -26380,9 +26722,13 @@ function settle(state, b) {
     }
     const drops = lootOf(b);
     if (mates.length) {
-      const first = drops[0];
-      drops.push({ id: first.id, n: 1, ...LOOT_META[first.id] });
-      lines.push(combat.atk || `${lead.name}\u642D\u4E86\u628A\u624B`);
+      lines.push(mood.lines.battle || combat.atk || `${lead.name}\u642D\u4E86\u628A\u624B`);
+      if (inStep) {
+        const first = drops[0];
+        drops.push({ id: first.id, n: 1, ...LOOT_META[first.id] });
+      } else {
+        lines.push("\u4E24\u4E2A\u4EBA\u5404\u6536\u5404\u7684\u5251\uFF0C\u6CA1\u987E\u4E0A\u591A\u5265\u4E00\u4EF6\u3002");
+      }
     }
     for (const d of drops) {
       addItem(state, d.id, d.n);
@@ -26391,12 +26737,16 @@ function settle(state, b) {
     l.wu = (l.wu || 0) + 1;
     lines.push("\u609F +1");
     if (mates.length) {
-      for (const id of mates) addFavor(state, id, 4);
+      for (const id of mates) addFavor(state, id, mood.tone === "warm" ? 6 : 4);
       lines.push(combat.win || `${lead.name}\u6536\u4E86\u624B\uFF1A\u300C\u8D70\u5427\u3002\u300D`);
+    }
+    if (mates.length >= 2 && mood.tone === "awkward") {
+      const e = easePair(state, mates[0], mates[1], 1);
+      if (e.line) lines.push(e.line);
     }
     log(state, "deed", `\u4F60\u5728\u96FE\u91CC\u6597\u5012\u4E86\u4E00\u5934${b.name}\u3002${drops.map((d) => `${d.name}\xD7${d.n}`).join("\u3001")}\u3002${mates.length ? `\uFF08${mates.map((id) => personDefOf(state, id).name).join("\u3001")}\u540C\u884C\uFF09` : ""}`);
   } else if (b.over === "lose") {
-    const cut = Math.max(1, 3 - mates.length);
+    const cut = Math.max(1, 3 - mates.length + (mood.tone === "awkward" ? 1 : 0));
     spend(state, cut);
     lines.push(`\u6298\u5BFF ${cut} \u5E74`);
     if (mates.length) lines.push(combat.cover || `${lead.name}\u66FF\u4F60\u6321\u4E86\u4E00\u4E0B`);
@@ -26409,8 +26759,9 @@ function settle(state, b) {
   } else {
     const DROP_NAME = { blood: "\u517D\u8840", hide: "\u517D\u76AE", bone: "\u517D\u9AA8" };
     const pool2 = ["blood", "hide", "bone"].filter((id) => (l.bag[id] || 0) > 0);
-    const drop = mates.length || !pool2.length ? null : pool2[Math.floor(Math.random() * pool2.length)];
-    if (mates.length) lines.push(combat.cover || `${lead.name}\u65AD\u540E\uFF0C\u4F60\u624D\u8D70\u8131`);
+    const guarded = mates.length > 0 && inStep;
+    const drop = guarded || !pool2.length ? null : pool2[Math.floor(Math.random() * pool2.length)];
+    if (mates.length) lines.push(guarded ? combat.cover || `${lead.name}\u65AD\u540E\uFF0C\u4F60\u624D\u8D70\u8131` : "\u5404\u6709\u5404\u7684\u9000\u8DEF\uFF0C\u8C01\u4E5F\u6CA1\u987E\u4E0A\u66FF\u8C01\u65AD\u540E\u3002");
     if (b.surrender) {
       spend(state, 2);
       lines.push("\u6298\u5BFF 2 \u5E74");
@@ -28200,19 +28551,24 @@ function syncMindLine() {
   const l = ensure(st);
   const mins = l.mind || [];
   const party = partyOf(st);
-  const tail = party.length ? `\u3000\xB7\u3000\u540C\u884C\uFF1A${party.map((id) => personDefOf(st, id).name).join("\u3001")}` : "";
+  const mood = partyMood(st);
+  const tail = party.length ? `\u3000\xB7\u3000\u540C\u884C\uFF1A${party.map((id) => personDefOf(st, id).name).join("\u3001")}${mood.tone !== "plain" ? `\uFF08${mood.name}\uFF09` : ""}` : "";
   if (!mins.length) {
     el.innerHTML = `<span style="opacity:.5">\u53BB\u8206\u56FE\u4E0A\u8D70\u8D70\uFF0C\u4F1A\u6709\u4EBA\u53EB\u4F4F\u4F60</span>${tail}`;
     return;
   }
   const m = mins[0];
   const who = mindWho(st, m);
-  if (mindReady(st, m)) {
-    el.innerHTML = `<b>${who.name}</b>\u6258\u7684\u4E8B\uFF0C\u53EF\u4EE5\u53BB\u4EA4\u5DEE\u4E86${tail}`;
+  const def = mindDef(m.id) || {};
+  const pairOk = partyReady(st, def);
+  const name = def.party ? partyNames(st, def).join("\u3001") : who.name;
+  const pairTxt = def.party ? pairOk ? "\u3000\xB7\u3000\u4E24\u4EBA\u9F50\u4E86" : `\u3000\xB7\u3000\u8FD8\u5DEE${partyMissing(st, def).map((x) => personDefOf(st, x).name).join("\u3001")}` : "";
+  if (mindReady(st, m) && pairOk) {
+    el.innerHTML = `<b>${name}</b>\u6258\u7684\u4E8B\uFF0C\u53EF\u4EE5\u53BB\u4EA4\u5DEE\u4E86${tail}${pairTxt}`;
     return;
   }
   const left = mindLeft(st, m);
-  el.innerHTML = `\u5FC3\u4E0A\uFF1A<b>${who.name}</b>\u7684\u4E8B\uFF0C\u8FD8\u5269 ${left} \u5E74${tail}`;
+  el.innerHTML = `\u5FC3\u4E0A\uFF1A<b>${name}</b>\u7684\u4E8B\uFF0C\u8FD8\u5269 ${left} \u5E74${tail}${pairTxt}`;
 }
 function spiritCardHTML(sp) {
   const e = effects(sp);

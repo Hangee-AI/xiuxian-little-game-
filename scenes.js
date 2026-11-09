@@ -820,6 +820,67 @@ var MINDS = [
     due: 12,
     hint: "\u5B97\u95E8\u5E7F\u573A \xB7 \u518D\u53BB\u4E00\u6B21",
     weight: 6
+  },
+  /* ------------- 两个人的事：人齐了才开口，人齐了才了得结 -------------
+     这些不挂在某一个人的线上，挂的是"他俩之间"。
+     接取与交差都要求 party 里两人同时在队；中途拆了队，事还挂着，
+     只是谁也不肯先开口。办成了，两个人的旧账也就翻篇了。 */
+  {
+    id: "pair_stove",
+    npc: "chen",
+    party: ["chen", "xiao"],
+    title: "\u4E00\u7089\u4E24\u4E2A\u4EBA\u7684\u706B",
+    say: "\u9648\u6267\u4E8B\u8BF4\u8FD9\u7089\u4E39\u8981\u4E24\u4E2A\u4EBA\u5B88\uFF1B\u5C0F\u6EE1\u5728\u65C1\u8FB9\u5C0F\u58F0\u8865\u4E86\u53E5\uFF1A\u300C\u6211\u6765\u6DFB\u67F4\u3002\u300D",
+    scene: "alchemy",
+    call: "\u4E39\u623F\u91CC\uFF0C\u9648\u6267\u4E8B\u628A\u7089\u95E8\u538B\u597D\uFF0C\u5C0F\u6EE1\u5DF2\u7ECF\u642C\u4E86\u77EE\u51F3\u5750\u5728\u65C1\u8FB9\uFF1A\u300C\u5E08\u5144\uFF0C\u8FD9\u56DE\u8981\u4E24\u4E2A\u4EBA\u5B88\u3002\u300D",
+    need: [
+      { key: "herb", n: 2, text: "\u4E24\u4EBA\u4E00\u9053\u91C7\u4E24\u682A\u836F" },
+      { key: "visit_alchemy", n: 1, text: "\u56DE\u4E39\u623F\u5B88\u4E00\u7089" }
+    ],
+    cost: { herb: 2 },
+    pay: { bond: 2, merit: 14, log: "\u4E00\u7089\u4E39\u5B88\u5230\u5929\u4EAE\u3002\u9648\u6267\u4E8B\u6CA1\u5938\u8C01\uFF0C\u53EA\u628A\u90A3\u5F20\u5199\u4E86\u4E00\u534A\u7684\u706B\u5019\u7EB8\u63A8\u5230\u5C0F\u6EE1\u9762\u524D\u3002" },
+    keepsake: { id: "pair_stove_paper", name: "\u534A\u5F20\u706B\u5019\u7EB8", desc: "\u524D\u534A\u5F20\u5B57\u5F88\u7A33\uFF0C\u540E\u534A\u5F20\u6B6A\u6B6A\u626D\u626D\uFF0C\u50CF\u662F\u4E24\u4E2A\u4EBA\u5199\u7684\u3002" },
+    due: 10,
+    hint: "\u4E39\u623F \xB7 \u9700\u9648\u6267\u4E8B\u4E0E\u5C0F\u6EE1\u540C\u884C",
+    weight: 14
+  },
+  {
+    id: "pair_charm",
+    npc: "fu",
+    party: ["fu", "peiqi"],
+    title: "\u4E00\u5F20\u4E0D\u6536\u94B1\u7684\u7B26",
+    say: "\u5356\u7B26\u7684\u8981\u628A\u4E00\u5F20\u7B26\u9001\u51FA\u53BB\uFF0C\u88F4\u4E03\u4E0D\u80AF\u767D\u62FF\u3002\u4E24\u4EBA\u4E3A\u8FD9\u4E2A\u5728\u9601\u4E0B\u7AD9\u4E86\u534A\u664C\u3002",
+    scene: "library",
+    call: "\u85CF\u7ECF\u9601\u4E0B\uFF0C\u5356\u7B26\u7684\u628A\u644A\u5B50\u4E00\u652F\uFF1A\u300C\u753B\u4E00\u5F20\uFF0C\u9001\u51FA\u53BB\uFF0C\u4E0D\u6536\u94B1\u3002\u300D\u88F4\u4E03\u6241\u62C5\u4E00\u6A2A\uFF1A\u300C\u90A3\u6211\u4E0D\u501F\u3002\u300D",
+    need: [
+      { key: "craft_fu", n: 2, text: "\u5728\u9601\u4E0B\u5404\u753B\u4E24\u5F20\u7B26" },
+      { key: "visit_library", n: 1, text: "\u966A\u4E24\u4EBA\u628A\u8BDD\u8BF4\u5B8C" }
+    ],
+    cost: { charm: 1 },
+    pay: { bond: 2, merit: 12, log: "\u90A3\u5F20\u7B26\u5230\u5E95\u9001\u51FA\u53BB\u4E86\u3002\u5356\u7B26\u7684\u8BF4\u300C\u9001\u51FA\u53BB\u5C31\u4E0D\u7B97\u8D26\u300D\uFF0C\u88F4\u4E03\u628A\u94DC\u94B1\u6536\u56DE\u4E86\u6000\u91CC\u3002" },
+    keepsake: { id: "pair_charcoal", name: "\u534A\u622A\u70AD\u7B14", desc: "\u78E8\u5F97\u4E00\u8FB9\u9AD8\u4E00\u8FB9\u4F4E\u3002\u4E24\u4EBA\u8C01\u4E5F\u6CA1\u8BF4\u662F\u8C01\u753B\u7684\u3002" },
+    due: 10,
+    hint: "\u85CF\u7ECF\u9601 \xB7 \u9700\u5356\u7B26\u7684\u4EBA\u4E0E\u88F4\u4E03\u540C\u884C",
+    weight: 14
+  },
+  {
+    id: "pair_names",
+    npc: "laozu",
+    party: ["laozu", "zhao"],
+    title: "\u6CA1\u70E7\u5B8C\u7684\u90A3\u5F20\u7EB8",
+    say: "\u8001\u4EBA\u8BF4\u7EB8\u603B\u662F\u4E0D\u591F\u6570\uFF1B\u8D75\u9608\u8BF4\u4E0D\u7528\u523B\uFF0C\u8BB0\u7740\u5C31\u884C\u3002\u4E24\u4E2A\u4EBA\u8BF4\u7684\u50CF\u662F\u540C\u4E00\u4EF6\u4E8B\u3002",
+    scene: "tribulation",
+    call: "\u6E21\u52AB\u53F0\u8FB9\uFF0C\u8001\u4EBA\u4E00\u5F20\u4E00\u5F20\u6570\u7EB8\uFF0C\u8D75\u9608\u7AD9\u5728\u534A\u6B65\u4E4B\u540E\uFF1A\u300C\u8FD9\u4E2A\uFF0C\u5FF5\u4E00\u904D\u3002\u300D",
+    need: [
+      { key: "visit_tribulation", n: 1, text: "\u966A\u4E24\u4EBA\u4E0A\u4E00\u8D9F\u53F0" },
+      { key: "copy", n: 2, text: "\u628A\u90A3\u51E0\u4E2A\u540D\u5B57\u5404\u6284\u4E00\u904D" }
+    ],
+    cost: { tally: 1 },
+    pay: { bond: 2, merit: 14, log: "\u90A3\u5F20\u7EB8\u6700\u540E\u6CA1\u70E7\u3002\u8001\u4EBA\u628A\u5B83\u5939\u8FDB\u6574\u53E0\u7684\u6700\u91CC\u5C42\uFF0C\u8D75\u9608\u5728\u7891\u65C1\u53C8\u7AD9\u4E86\u4E00\u4F1A\u513F\u3002" },
+    keepsake: { id: "pair_unsent_paper", name: "\u6CA1\u70E7\u5B8C\u7684\u4E00\u5F20\u7EB8", desc: "\u4E0A\u5934\u53EA\u6709\u4E00\u4E2A\u540D\u5B57\uFF0C\u58A8\u8FD8\u65B0\u3002\u7EB8\u89D2\u88AB\u706B\u71CE\u8FC7\u4E00\u70B9\u3002" },
+    due: 12,
+    hint: "\u6E21\u52AB\u53F0 \xB7 \u9700\u5B88\u53F0\u8001\u4EBA\u4E0E\u8D75\u9608\u540C\u884C",
+    weight: 14
   }
 ];
 var MIND_MAX = 3;
@@ -1205,6 +1266,106 @@ var PEOPLE = {
 };
 var PEOPLE_ORDER = ["chen", "shen", "nvzi", "laozu", "xiao", "baitang", "jiangyi", "peiqi", "fu", "zhao", "qingwu"];
 var personDef = (id) => PEOPLE[id] || null;
+function pairKey(a, b) {
+  return [a, b].sort().join("|");
+}
+var PAIR_BONDS = {
+  "chen|xiao": {
+    tone: "warm",
+    name: "\u65E7\u7089\u8FB9",
+    gain: 1.25,
+    tick: 1,
+    note: "\u5C0F\u6EE1\u5728\u4E39\u623F\u5E2E\u8FC7\u5DE5\u3002\u9648\u6267\u4E8B\u5634\u4E0A\u4E0D\u8BF4\uFF0C\u6DFB\u67F4\u603B\u7ED9\u5979\u591A\u7559\u4E00\u6839\u3002",
+    lines: {
+      join: "\u5C0F\u6EE1\u4E00\u8FDB\u4E39\u623F\u5C31\u81EA\u5DF1\u642C\u4E86\u77EE\u51F3\u3002\u9648\u6267\u4E8B\u300C\u55EF\u300D\u4E86\u4E00\u58F0\uFF0C\u6CA1\u8D76\u5979\u3002",
+      patrol: "\u4E00\u4E2A\u6DFB\u67F4\uFF0C\u4E00\u4E2A\u9012\u836F\uFF0C\u8C01\u4E5F\u6CA1\u591A\u8BDD\uFF0C\u706B\u5374\u6BD4\u5E73\u65E5\u7A33\u3002",
+      battle: "\u9648\u6267\u4E8B\u5F80\u524D\u534A\u6B65\uFF0C\u5C0F\u6EE1\u6B63\u597D\u628A\u836F\u7C89\u9012\u5230\u4ED6\u624B\u8FB9\u3002",
+      part: "\u5C0F\u6EE1\u628A\u77EE\u51F3\u653E\u56DE\u539F\u5904\uFF0C\u624D\u5C0F\u8DD1\u7740\u8DDF\u4E0A\u6765\u3002"
+    }
+  },
+  "laozu|zhao": {
+    tone: "warm",
+    name: "\u4E03\u4E2A\u540D\u5B57",
+    gain: 1.2,
+    tick: 1,
+    note: "\u4E00\u4E2A\u628A\u540D\u5B57\u8BB0\u5728\u7EB8\u4E0A\uFF0C\u4E00\u4E2A\u628A\u540D\u5B57\u8BB0\u5728\u7891\u4E0A\u3002\u8C01\u90FD\u4E0D\u80AF\u5148\u5F00\u53E3\u3002",
+    lines: {
+      join: "\u8D75\u9608\u8D70\u5230\u53F0\u8FB9\u5C31\u505C\u4F4F\u4E86\u3002\u8001\u4EBA\u628A\u706B\u62E8\u5C0F\u4E9B\uFF0C\u6CA1\u50AC\u4ED6\u3002",
+      patrol: "\u4E00\u8DEF\u4E0A\u4E24\u4EBA\u9694\u7740\u534A\u6B65\uFF0C\u5230\u53F0\u524D\u5374\u540C\u65F6\u505C\u4E86\u4E0B\u6765\u3002",
+      battle: "\u8001\u4EBA\u62FF\u62D0\u6756\u987F\u4E86\u4E00\u4E0B\u5730\uFF0C\u8D75\u9608\u5DF2\u7ECF\u5148\u62AC\u4E86\u624B\u3002",
+      part: "\u8001\u4EBA\u628A\u90A3\u53E0\u7EB8\u6536\u56DE\u6000\u91CC\uFF0C\u8D75\u9608\u5728\u7891\u65C1\u53C8\u7AD9\u4E86\u4E00\u4F1A\u513F\u3002"
+    }
+  },
+  "baitang|shen": {
+    tone: "warm",
+    name: "\u770B\u6BD4\u5251\u7684",
+    gain: 1.15,
+    tick: 1,
+    note: "\u4E00\u4E2A\u603B\u5728\u77F3\u680F\u8FB9\u770B\uFF0C\u4E00\u4E2A\u603B\u5728\u7B49\u6709\u4EBA\u4E0A\u6765\u6BD4\u3002\u521A\u597D\u51D1\u6210\u4E00\u5C40\u3002",
+    lines: {
+      join: "\u6C88\u4E09\u5F80\u77F3\u680F\u90A3\u8FB9\u4E00\u5750\uFF1A\u300C\u4ECA\u5929\u6709\u4EBA\u6BD4\u5251\uFF1F\u300D\u767D\u68E0\u628A\u5251\u6A2A\u5230\u819D\u4E0A\uFF1A\u300C\u6709\u3002\u300D",
+      patrol: "\u4E00\u8DEF\u8D70\u4E00\u8DEF\u62CC\uFF0C\u8C01\u4E5F\u6CA1\u771F\u52A8\u5251\u3002",
+      battle: "\u6C88\u4E09\u90A3\u67C4\u4E0D\u51FA\u9798\u7684\u5251\u5230\u5E95\u51FA\u4E86\u9798\uFF0C\u767D\u68E0\u7B11\u4E86\u4E00\u58F0\u3002",
+      part: "\u6C88\u4E09\u628A\u5251\u625B\u56DE\u80A9\u4E0A\uFF1A\u300C\u4E0B\u56DE\u8FD8\u770B\u3002\u300D"
+    }
+  },
+  "qingwu|xiao": {
+    tone: "warm",
+    name: "\u534A\u7BEE\u836F",
+    gain: 1.15,
+    tick: 1,
+    note: "\u4E00\u4E2A\u91C7\u4E0D\u6EE1\u4E00\u7B50\uFF0C\u4E00\u4E2A\u7BEE\u5B50\u6C38\u8FDC\u534A\u6EE1\u3002\u5012\u662F\u8C01\u4E5F\u4E0D\u7740\u6025\u3002",
+    lines: {
+      join: "\u9752\u68A7\u628A\u7BEE\u5B50\u5F80\u5C0F\u6EE1\u90A3\u8FB9\u632A\u4E86\u632A\uFF1A\u300C\u591F\u4E86\u5C31\u597D\u3002\u300D",
+      patrol: "\u4E24\u4E2A\u4EBA\u8E72\u5728\u6EAA\u8FB9\u6311\u4E86\u534A\u5929\u836F\uFF0C\u56DE\u53BB\u65F6\u7B50\u8FD8\u662F\u534A\u6EE1\u3002",
+      battle: "\u4E00\u6367\u836F\u7C89\u3001\u4E00\u5757\u77F3\u5934\uFF0C\u5C45\u7136\u90FD\u6254\u51C6\u4E86\u3002",
+      part: "\u5C0F\u6EE1\u8981\u80CC\u7B50\uFF0C\u9752\u68A7\u5DF2\u7ECF\u5206\u4E86\u5979\u4E00\u534A\u3002"
+    }
+  },
+  "baitang|nvzi": {
+    tone: "awkward",
+    name: "\u5251\u51A2\u90A3\u5757\u7891",
+    gain: 0.8,
+    tick: -1,
+    note: "\u767D\u68E0\u7684\u5E08\u59D0\u57CB\u5728\u5251\u51A2\uFF0C\u5979\u8BA4\u4E0D\u5F97\u8DEF\u4E5F\u4E0D\u80AF\u95EE\uFF1B\u5B88\u5251\u7684\u4EBA\u504F\u4E0D\u80AF\u8BF4\u8C01\u78E8\u5E73\u4E86\u7891\u4E0A\u7684\u5B57\u3002",
+    lines: {
+      join: "\u767D\u68E0\u8DDF\u5230\u98CE\u53E3\u5C31\u505C\u4E86\u3002\u90A3\u5973\u5B50\u628A\u5251\u63D2\u56DE\u571F\u91CC\uFF0C\u6CA1\u62AC\u5934\u3002",
+      patrol: "\u4E00\u8DEF\u65E0\u8BDD\u3002\u56DE\u5230\u5C94\u53E3\uFF0C\u4E24\u4EBA\u5404\u8D70\u4E00\u8FB9\u3002",
+      battle: "\u4E24\u67C4\u5251\u540C\u65F6\u51FA\u9798\uFF0C\u53C8\u540C\u65F6\u6536\u4E86\u534A\u5206\u2014\u2014\u8C01\u90FD\u4E0D\u80AF\u66FF\u5BF9\u65B9\u8865\u90A3\u4E00\u5200\u3002",
+      part: "\u767D\u68E0\u5148\u8D70\u3002\u90A3\u5973\u5B50\u5728\u7891\u524D\u591A\u7AD9\u4E86\u4E00\u4F1A\u513F\u3002",
+      ease: "\u540E\u6765\u767D\u68E0\u81EA\u5DF1\u53BB\u4E86\u5251\u51A2\u3002\u51FA\u6765\u65F6\u53EA\u8BF4\uFF1A\u300C\u7891\u4E0A\u7684\u5B57\uFF0C\u4E0D\u78E8\u4E5F\u7F62\u3002\u300D"
+    }
+  },
+  "fu|peiqi": {
+    tone: "awkward",
+    name: "\u4E00\u5F20\u7B26\u7684\u8D26",
+    gain: 0.85,
+    tick: -1,
+    note: "\u4E00\u4E2A\u4ECE\u4E0D\u6536\u94B1\uFF0C\u4E00\u4E2A\u4ECE\u4E0D\u6B20\u4EBA\u3002\u4E3A\u4E00\u5F20\u7B26\u80FD\u62CC\u534A\u6761\u5C71\u9053\u3002",
+    lines: {
+      join: "\u5356\u7B26\u7684\u628A\u644A\u5B50\u4E00\u5377\uFF1A\u300C\u4E0D\u6536\u94B1\u3002\u300D\u88F4\u4E03\u628A\u6241\u62C5\u4E00\u6A2A\uFF1A\u300C\u90A3\u6211\u4E0D\u501F\u3002\u300D",
+      patrol: "\u534A\u6761\u5C71\u9053\u90FD\u5728\u7B97\u90A3\u5F20\u7B26\u503C\u51E0\u4E2A\u94B1\uFF0C\u6700\u540E\u8C01\u4E5F\u6CA1\u7B97\u6E05\u3002",
+      battle: "\u4E00\u5F20\u7B26\u4ECE\u4FA7\u9762\u98DE\u51FA\u53BB\uFF0C\u88F4\u4E03\u7684\u6241\u62C5\u4E5F\u4ECE\u53E6\u4E00\u8FB9\u626B\u4E86\u8FC7\u53BB\u3002",
+      part: "\u88F4\u4E03\u5230\u5E95\u7559\u4E0B\u4E00\u679A\u94DC\u94B1\uFF0C\u5356\u7B26\u7684\u5230\u5E95\u6CA1\u6536\u3002",
+      ease: "\u540E\u6765\u90A3\u5F20\u7B26\u8C01\u4E5F\u6CA1\u8FD8\u3002\u5356\u7B26\u7684\u8BF4\u300C\u9001\u51FA\u53BB\u5C31\u4E0D\u7B97\u8D26\u300D\uFF0C\u88F4\u4E03\u60F3\u4E86\u60F3\uFF0C\u628A\u94DC\u94B1\u6536\u4E86\u56DE\u53BB\u3002"
+    }
+  },
+  "chen|jiangyi": {
+    tone: "awkward",
+    name: "\u4E0D\u95EE\u6765\u5904",
+    gain: 0.85,
+    tick: -1,
+    note: "\u9648\u6267\u4E8B\u8BA4\u706B\u4E0D\u8BA4\u4EBA\uFF0C\u56DB\u5341\u5E74\u6CA1\u95EE\u8FC7\u8C01\u4ECE\u54EA\u513F\u6765\uFF1B\u7EDB\u8863\u504F\u6700\u4E0D\u7231\u628A\u8BDD\u8BF4\u5168\u3002",
+    lines: {
+      join: "\u7EDB\u8863\u4ECE\u95E8\u8FB9\u76F4\u8D77\u8EAB\u3002\u9648\u6267\u4E8B\u770B\u4E86\u773C\u7089\u706B\uFF0C\u6CA1\u95EE\u5979\u662F\u8C01\u3002",
+      patrol: "\u4E00\u4E2A\u95EE\u5F97\u542B\u7CCA\uFF0C\u4E00\u4E2A\u7B54\u5F97\u7701\u5B57\u3002\u8D70\u4E86\u4E00\u8D9F\uFF0C\u4EC0\u4E48\u4E5F\u6CA1\u95EE\u51FA\u6765\u3002",
+      battle: "\u7089\u8FB9\u7684\u4EBA\u5F80\u524D\u6321\u4E86\u534A\u6B65\uFF0C\u95E8\u8FB9\u7684\u4EBA\u8896\u91CC\u98DE\u51FA\u4E00\u9053\u6697\u5149\u3002\u8C01\u4E5F\u6CA1\u9053\u8C22\u3002",
+      part: "\u7EDB\u8863\u5148\u56DE\u95E8\u8FB9\u3002\u9648\u6267\u4E8B\u628A\u7089\u95E8\u538B\u597D\uFF0C\u624D\u8BF4\uFF1A\u300C\u8D70\u597D\u3002\u300D",
+      ease: "\u540E\u6765\u9648\u6267\u4E8B\u591A\u6DFB\u4E86\u4E00\u6839\u67F4\uFF0C\u6CA1\u8BF4\u662F\u7ED9\u8C01\u7559\u7684\u706B\u3002\u7EDB\u8863\u4E5F\u6CA1\u95EE\u3002"
+    }
+  }
+};
+var pairDef = (a, b) => PAIR_BONDS[pairKey(a, b)] || null;
 function favorTier(v) {
   let t = FAVOR_TIERS[0];
   for (const x of FAVOR_TIERS) if (v >= x.at) t = x;
@@ -2640,7 +2801,7 @@ function panelHtml(state2) {
   return `<div class="panel-title">\u767E\u518C \xB7 \u8DE8\u4E16\u56FE\u9274</div>
     <div class="panel-text">\u8FD9\u662F\u7B2C <b>${lives(state2)}</b> \u4E16\u3002\u4EBA\u3001\u5996\u3001\u65B9\u5B50\u3001\u7ED3\u5C40\u2014\u2014\u89C1\u8FC7\u4E00\u6B21\u5C31\u6C38\u8FDC\u8BB0\u5728\u518C\u5B50\u91CC\uFF0C\u6B7B\u4E86\u4E5F\u4E0D\u4E22\u3002</div>
     <div class="bar"><span>\u5DF2\u5F55</span><i><b style="width:${Math.min(100, t.got / Math.max(1, t.all) * 100)}%"></b></i><em>${t.got} / ${t.all}</em></div>
-    ${claim > 0 ? `<button class="btn gold" id="cx-claim">\u9886\u524D\u4E16\u4F59\u6CFD \xB7 \u609F +${claim}</button>` : `<div class="panel-text" style="opacity:.48">\u6BCF\u5F55\u6EE1 ${WU_STEP} \u6761\u53EF\u9886 1 \u70B9\u609F\uFF08\u4E00\u4E16\u6700\u591A ${WU_CAP} \u70B9\uFF0C\u8FD9\u4E00\u4E16\u5DF2\u9886 ${claimed}\uFF09</div>`}
+    ${claim > 0 ? `<button class="btn gold" id="cx-claim">\u9886\u524D\u4E16\u4F59\u6CFD \xB7 \u609F +${claim}</button>` : `<div class="panel-text" style="opacity:.48">${claimed >= WU_CAP ? `\u8FD9\u4E00\u4E16\u7684 ${WU_CAP} \u70B9\u5DF2\u7ECF\u9886\u5B8C\uFF0C\u591A\u5F55\u7684\u7559\u7ED9\u4E0B\u4E00\u4E16\u3002` : `\u8FD8\u5DEE ${WU_STEP - t.got % WU_STEP} \u6761\u5C31\u80FD\u518D\u9886 1 \u70B9\u609F\uFF08\u8FD9\u4E00\u4E16\u5DF2\u9886 ${claimed} / ${WU_CAP}\uFF09`}</div>`}
     ${secs}
     <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
 }
@@ -2776,8 +2937,10 @@ function newLife() {
     /* 人：亲疏与往来。favor 0..100，l.npc 是它的派生缓存（0..4），老逻辑照旧能读 */
     people: {},
     // id -> { favor, gifts, giftYear, talkYear, joinYear, met, lastLine }
-    party: { ids: [], since: null, helpCount: 0 }
+    party: { ids: [], since: null, helpCount: 0 },
     // 同行小队：最多带两个人
+    pairEase: {}
+    // 两人之间的旧账：key -> 和解进度（2 为翻篇）
   };
 }
 function ensure(state2) {
@@ -2792,6 +2955,7 @@ function ensure(state2) {
   if (!Array.isArray(l.chronicle)) l.chronicle = [];
   if (!l.npc || typeof l.npc !== "object") l.npc = {};
   if (!l.seen || typeof l.seen !== "object") l.seen = {};
+  if (!l.seenCount || typeof l.seenCount !== "object") l.seenCount = {};
   if (!l.met || typeof l.met !== "object") l.met = {};
   if (!l.flags || typeof l.flags !== "object") l.flags = {};
   if (!l.world || typeof l.world !== "object") l.world = {};
@@ -2816,6 +2980,7 @@ function ensure(state2) {
   if (!l.people || typeof l.people !== "object") l.people = {};
   if (!l.party || typeof l.party !== "object") l.party = { ids: [], since: null, helpCount: 0 };
   if (!Array.isArray(l.party.ids)) l.party.ids = [];
+  if (!l.pairEase || typeof l.pairEase !== "object") l.pairEase = {};
   for (const [id, v] of Object.entries(l.npc || {})) {
     if (!l.people[id]) {
       l.people[id] = {
@@ -2975,8 +3140,12 @@ function addItem(state2, id, n = 1) {
   const l = ensure(state2);
   let extra = 0;
   if (n > 0 && l.party.ids.length && BAG_ORDER.includes(id)) {
-    l.party.helpCount = (l.party.helpCount || 0) + 1;
-    if (l.party.helpCount % 3 === 0) extra = 1;
+    const gain2 = partyMood(state2).gain || 1;
+    l.party.helpCount = (Number(l.party.helpCount) || 0) + gain2;
+    if (l.party.helpCount >= 3) {
+      l.party.helpCount -= 3;
+      extra = 1;
+    }
   }
   l.bag[id] = (l.bag[id] || 0) + n + extra;
   return l.bag[id];
@@ -3021,6 +3190,14 @@ function dslCheckMiss(state2) {
   l.dsl.last = l.year;
   log(state2, "omen", `\u7B2C ${dueYear} \u5E74\u7684\u5B97\u95E8\u5927\u6BD4\u4F60\u6CA1\u53BB\u3002\u6267\u4E8B\u623F\u6309\u4F8B\u7F5A\u4E86 ${fine} \u679A\u7075\u77F3${fine ? "" : "\u2014\u2014\u4F60\u8EAB\u4E0A\u4E00\u679A\u90FD\u6CA1\u6709\uFF0C\u8BB0\u5728\u4E86\u8D26\u4E0A"}`);
   return fine;
+}
+function sectStandingOf(state2) {
+  const l = ensure(state2);
+  const done = l.dsl.done || 0;
+  const best = l.dsl.best || 0;
+  if (done >= 2 && best >= 2) return { tier: 2, name: "\u771F\u4F20\u5F1F\u5B50", cut: 0.1 };
+  if (done >= 1 && best >= 1) return { tier: 1, name: "\u5185\u95E8\u5F1F\u5B50", cut: 0.05 };
+  return { tier: 0, name: "\u5916\u95E8\u5F1F\u5B50", cut: 0 };
 }
 function dslFinish(state2, won, total) {
   const l = ensure(state2);
@@ -3073,7 +3250,7 @@ function gainMerit(state2, n) {
     return n;
   }
   const cap = daoCap(state2);
-  const withParty = n + Math.round(n * 0.1 * partyOf(state2).length);
+  const withParty = n + Math.round(n * 0.1 * partyOf(state2).length * (partyMood(state2).gain || 1));
   const add2 = Math.max(0, Math.min(withParty, cap - cur3));
   state2.merit = cur3 + add2;
   return add2;
@@ -3821,6 +3998,101 @@ EVENTS.push(
     ]
   }
 );
+function pursuerOf(state2) {
+  const l = initWorld(state2);
+  if (l.gender === "\u672A\u5B9A") return null;
+  const want = l.gender === "\u7537" ? "\u5973" : "\u7537";
+  return l.folk.find((f) => f.gender === want && f.state === "\u5728\u5C71\u91CC" && f.age >= 18) || null;
+}
+function freeFolk(state2) {
+  const l = initWorld(state2);
+  return l.folk.filter((f) => f.state === "\u5728\u5C71\u91CC" && f.age >= 18 && f.id !== l.daoLv);
+}
+EVENTS.push(
+  {
+    id: "e_pursuit",
+    scenes: [ANY],
+    ageMin: 22,
+    ageMax: 33,
+    cond: (s) => !initWorld(s).daoLv && !!pursuerOf(s),
+    title: "\u5C71\u8DEF\u4E0A\u7684\u8BDD",
+    body: (s) => {
+      const f = pursuerOf(s);
+      return f ? `${f.name}\u8FDE\u7740\u51E0\u5929\u5728\u4F60\u56DE\u6D1E\u5E9C\u7684\u8DEF\u4E0A\u7B49\u7740\u3002\u8FD9\u5929\u6CA1\u518D\u7ED5\u5F2F\u5B50\uFF1A\u300C\u8FD9\u4E00\u5E74\uFF0C\u80AF\u4E0D\u80AF\u7559\u7ED9\u5C71\u8DEF\u3002\u300D` : "";
+    },
+    opts: [
+      {
+        t: "\u628A\u8FD9\u4E00\u5E74\u7559\u7ED9\u8FD9\u6761\u8DEF\uFF08\u22121 \u5E74\uFF09",
+        res: (s) => {
+          const f = pursuerOf(s);
+          return f ? `\u4F60\u4EEC\u8D70\u4E86\u4E00\u6BB5\u5F88\u957F\u7684\u5C71\u8DEF\u3002\u5230\u5C94\u53E3\uFF0C${f.name}\u8BF4\uFF1A\u300C\u660E\u5E74\u8FD9\u4E2A\u65F6\u5019\uFF0C\u6211\u8FD8\u5728\u8FD9\u513F\u3002\u300D` : "\u4F60\u4E00\u4E2A\u4EBA\u8D70\u5B8C\u4E86\u90A3\u6761\u8DEF\u3002";
+        },
+        fx: (s) => {
+          const f = pursuerOf(s);
+          if (f) bondWith(s, f.id);
+        }
+      },
+      {
+        t: "\u8BF4\u6E05\u695A\uFF1A\u6211\u8FD8\u5728\u8DEF\u4E0A",
+        res: "\u4F60\u628A\u8BDD\u8BF4\u5F97\u5F88\u6162\u3002\u5BF9\u65B9\u542C\u5B8C\uFF0C\u70B9\u4E86\u70B9\u5934\uFF0C\u5148\u8D70\u4E86\u3002",
+        fx: (s) => log(s, "bond", "\u6709\u4EBA\u5728\u56DE\u6D1E\u5E9C\u7684\u8DEF\u4E0A\u7B49\u8FC7\u4F60\u3002\u4F60\u8BF4\u4F60\u8FD8\u5728\u8DEF\u4E0A\u3002")
+      }
+    ]
+  },
+  {
+    id: "e_peer",
+    scenes: [ANY],
+    ageMin: 30,
+    ageMax: 46,
+    cond: (s) => !initWorld(s).daoLv && freeFolk(s).length > 0,
+    title: "\u540C\u9F84\u4EBA",
+    body: "\u4ECE\u524D\u4E00\u8D77\u4E0A\u5C71\u7684\u90A3\u6279\u4EBA\uFF0C\u6765\u9001\u5B69\u5B50\u5165\u95E8\u7684\u5DF2\u7ECF\u6362\u4E86\u4E24\u4EE3\u3002\u7BA1\u4E8B\u66FF\u4F60\u5F20\u7F57\u4E86\u4E00\u56DE\uFF0C\u8BF4\uFF1A\u603B\u5F97\u6709\u4E2A\u4F5C\u4F34\u7684\u3002",
+    opts: [
+      {
+        t: "\u53BB\u89C1\u4E00\u9762\uFF08\u22121 \u5E74\uFF09",
+        res: (s) => {
+          const list = freeFolk(s);
+          const f = list[Math.floor(Math.random() * list.length)];
+          return f ? `\u4F60\u548C${f.name}\u5728\u8336\u68DA\u5750\u4E86\u4E00\u4E0B\u5348\u3002\u8BDD\u4E0D\u591A\uFF0C\u591A\u534A\u662F\u8BF4\u5C71\u4E0A\u54EA\u68F5\u6811\u8FD8\u6CA1\u6B7B\u3002` : "\u4F60\u4E00\u4E2A\u4EBA\u5750\u4E86\u4E00\u4E0B\u5348\u3002";
+        },
+        fx: (s) => {
+          const list = freeFolk(s);
+          const f = list[Math.floor(Math.random() * list.length)];
+          if (f) bondWith(s, f.id);
+        }
+      },
+      {
+        t: "\u8C22\u7EDD",
+        res: "\u4F60\u8BF4\u8FD9\u4E00\u4E16\u5C31\u5148\u8FD9\u6837\u3002\u7BA1\u4E8B\u6CA1\u518D\u529D\uFF0C\u6536\u8D70\u4E86\u8336\u76CF\u3002",
+        fx: (s) => log(s, "deed", "\u7BA1\u4E8B\u66FF\u4F60\u8BF4\u4E86\u4E00\u95E8\u4EB2\u3002\u4F60\u56DE\u7EDD\u4E86\u3002")
+      }
+    ]
+  },
+  {
+    id: "e_junior",
+    scenes: [ANY],
+    ageMin: 40,
+    ageMax: 58,
+    title: "\u53EB\u4F60\u5E08\u5144",
+    body: "\u65B0\u5165\u95E8\u7684\u51E0\u4E2A\u5B69\u5B50\u5728\u5ECA\u4E0B\u7B49\u4F60\u3002\u4ED6\u4EEC\u542C\u8BF4\u4F60\u6D3B\u5F97\u4E45\uFF0C\u60F3\u95EE\u7684\u5168\u662F\u540C\u4E00\u4EF6\u4E8B\uFF1A\u540E\u6765\u600E\u4E48\u529E\u3002",
+    opts: [
+      {
+        t: "\u6559\u4ED6\u4EEC\uFF08\u22121 \u5E74\uFF09",
+        res: "\u4F60\u8BF4\u4E86\u534A\u4E2A\u65F6\u8FB0\uFF0C\u8BF4\u5230\u6700\u540E\u81EA\u5DF1\u4E5F\u505C\u4E86\u505C\u3002\u6709\u51E0\u4E2A\u95EE\u9898\uFF0C\u4F60\u4E5F\u6CA1\u6709\u7B54\u6848\u3002",
+        fx: (s) => {
+          spend(s, 1);
+          gainMerit(s, 3);
+          log(s, "deed", "\u540E\u8F88\u5728\u5ECA\u4E0B\u7B49\u4E86\u4F60\u534A\u65E5\u3002\u4F60\u6559\u4E86\u4ED6\u4EEC\u4E00\u5E74\u3002");
+        }
+      },
+      {
+        t: "\u8BA9\u4ED6\u4EEC\u53BB\u95EE\u522B\u4EBA",
+        res: "\u4ED6\u4EEC\u9053\u4E86\u8C22\uFF0C\u8D70\u4E86\u3002\u5ECA\u4E0B\u7A7A\u51FA\u6765\uFF0C\u98CE\u7A7F\u8FC7\u53BB\u3002",
+        fx: (s) => log(s, "deed", "\u540E\u8F88\u6765\u95EE\u540E\u6765\u600E\u4E48\u529E\u3002\u4F60\u8BA9\u4ED6\u4EEC\u53BB\u95EE\u522B\u4EBA\u3002")
+      }
+    ]
+  }
+);
 var ECHOES = {
   evil: (c) => ({
     id: "echo_evil_" + c.year,
@@ -4239,7 +4511,8 @@ function drawEvent(state2, sceneId, force = false) {
   else if (yearsLeft(state2) <= 30) chance = 0.6;
   if (!force && Math.random() > chance) return null;
   l.seenYear = l.seenYear || {};
-  const notTooRecent = (id) => !l.seen[id] || l.year - (l.seenYear[id] || 0) >= 8;
+  l.seenCount = l.seenCount || {};
+  const notTooRecent = (id) => (l.seenCount[id] || 0) < 3 && (!l.seen[id] || l.year - (l.seenYear[id] || 0) >= 12);
   const fits = (e) => (e.scenes.includes(ANY) || e.scenes.includes(sceneId)) && (!e.cond || e.cond(state2)) && (!e.once || !l.seen[e.id]) && notTooRecent(e.id) && (!e.ageMin || l.year >= e.ageMin) && (!e.ageMax || l.year <= e.ageMax);
   const pick4 = (arr) => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
   let card = null;
@@ -4264,6 +4537,7 @@ function drawEvent(state2, sceneId, force = false) {
   if (!card) return null;
   l.seen[card.id] = 1;
   l.seenYear[card.id] = l.year;
+  l.seenCount[card.id] = (l.seenCount[card.id] || 0) + 1;
   l.evCount += 1;
   l.lastEv = l.year;
   return card;
@@ -5738,10 +6012,16 @@ var SHUANG_TEASES = [
   "\u7B11\u9053\uFF1A\u5148\u628A\u529F\u8BFE\u505A\u5B8C\u3002\u6025\u4EC0\u4E48\u3002"
 ];
 var shuangWait = (state2) => Math.max(0, SHUANG_CD - (initWorld(state2).year - initWorld(state2).lastShuang));
-function dualCultivate(state2) {
+function daoPartnerOf(state2) {
   const l = initWorld(state2);
   const f = folkOf(state2, l.daoLv);
-  if (!f || f.state !== "\u5728\u5C71\u91CC") return { ok: false, why: "\u8EAB\u8FB9\u6CA1\u6709\u4EBA\u3002" };
+  return f && f.state === "\u5728\u5C71\u91CC" ? f : null;
+}
+var shuangGainOf = (state2) => 6 + 2 * Math.max(0, RANKS.indexOf(rankOf(state2)));
+function dualCultivate(state2) {
+  const l = initWorld(state2);
+  const f = daoPartnerOf(state2);
+  if (!f) return { ok: false, why: "\u8EAB\u8FB9\u6CA1\u6709\u4EBA\u3002" };
   const wait = shuangWait(state2);
   if (wait > 0) {
     return { ok: false, why: SHUANG_TEASES[Math.floor(Math.random() * SHUANG_TEASES.length)], wait };
@@ -5749,8 +6029,7 @@ function dualCultivate(state2) {
   spend(state2, 1);
   l.lastShuang = l.year;
   f.bond += 1;
-  const gain2 = 6 + 2 * Math.max(0, RANKS.indexOf(rankOf(state2)));
-  gainMerit(state2, gain2);
+  const gain2 = gainMerit(state2, shuangGainOf(state2));
   f.last = `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u4EEC\u95ED\u95E8\u53CC\u4FEE\u4E86\u4E00\u56DE\u3002${bondTierOf(f)}\u3002`;
   log(state2, "bond", `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u548C${f.name}\u53CC\u4FEE\u4E86\u4E00\u56DE\u3002\u9053\u884C +${gain2}\u3002`);
   return { ok: true, why: f.last, gain: gain2, folk: f };
@@ -6920,11 +7199,21 @@ function mindFinish(state2, id) {
     return { ok: false, why: "\u8FD9\u4EF6\u4E8B\u8BB0\u4E0D\u6E05\u4E86\u3002" };
   }
   if (!mindReady(state2, m)) return { ok: false, why: "\u8FD8\u6CA1\u5230\u65F6\u5019\u3002" };
+  if (!partyReady(state2, def)) {
+    const miss = partyMissing(state2, def).map((x) => personDefOf(state2, x).name).join("\u3001");
+    return { ok: false, why: `\u8FD9\u4EF6\u4E8B\u5F97\u4E24\u4E2A\u4EBA\u4E00\u8D77\u4E86\u7ED3\uFF0C\u8FD8\u5DEE${miss}\u3002` };
+  }
   for (const [k2, v] of Object.entries(def.cost || {})) l.bag[k2] = Math.max(0, (l.bag[k2] || 0) - v);
   l.mind.splice(i, 1);
   l.mindDone[id] = l.year;
   const pay = def.pay || {};
   if (pay.bond && def.npc) bond(state2, def.npc, pay.bond);
+  let pairLine = "";
+  if (def.party && def.party.length >= 2) {
+    for (const x of def.party) if (x !== def.npc) addFavor(state2, x, 8);
+    const e = easePair(state2, def.party[0], def.party[1], 2);
+    if (e.line) pairLine = e.line;
+  }
   if (pay.merit) state2.merit = (state2.merit || 0) + pay.merit;
   if (pay.karma) l.karma += pay.karma;
   if (pay.item) addItem(state2, pay.item[0], pay.item[1] || 1);
@@ -6957,7 +7246,8 @@ function mindFinish(state2, id) {
     merit: pay.merit || 0,
     bond: pay.bond || 0,
     next: nextTitle,
-    keepsake
+    keepsake,
+    pairLine
   };
 }
 function mindDrop(state2, id) {
@@ -6976,7 +7266,7 @@ function mindSceneCall(state2, scene) {
   if (!scene) return null;
   const ready = l.mind.find((m) => {
     const d = mindDef(m.id);
-    return d && d.scene === scene && mindReady(state2, m);
+    return d && d.scene === scene && mindReady(state2, m) && partyReady(state2, d);
   });
   if (ready) {
     const rk = "r:" + scene + ":" + ready.id;
@@ -6984,28 +7274,23 @@ function mindSceneCall(state2, scene) {
     l.mindSeen[rk] = l.year;
     const d = mindDef(ready.id);
     const who = mindWho(state2, ready);
+    const names = d.party ? partyNames(state2, d).join("\u3001") : who.name;
     return {
       kind: "ready",
       id: ready.id,
       def: d,
-      who,
+      who: { ...who, name: names },
       title: d.title,
-      line: `${who.name}\u5F80\u4F60\u624B\u4E0A\u770B\u4E86\u4E00\u773C\u3002\u4E1C\u897F\u5E26\u9F50\u4E86\u3002`
+      line: `${names}\u5F80\u4F60\u624B\u4E0A\u770B\u4E86\u4E00\u773C\u3002\u4E1C\u897F\u5E26\u9F50\u4E86\u3002`
     };
   }
   if (l.mindSeen[scene] === l.year || l.mind.length >= MIND_MAX) return null;
-  const cand = MINDS.filter((d) => d.scene === scene && !l.mindDone[d.id] && !l.mindLost[d.id] && !l.mind.some((m) => m.id === d.id) && (!d.after || l.mindDone[d.after]) && (!d.when || d.when(l, state2)) && (!d.npc || !isGone(l, d.npc))).sort((a, b) => (b.weight || 0) - (a.weight || 0));
+  const cand = MINDS.filter((d) => d.scene === scene && !l.mindDone[d.id] && !l.mindLost[d.id] && !l.mind.some((m) => m.id === d.id) && (!d.after || l.mindDone[d.after]) && (!d.when || d.when(l, state2)) && (!d.npc || !isGone(l, d.npc)) && partyReady(state2, d)).sort((a, b) => (b.weight || 0) - (a.weight || 0));
   if (cand.length) {
     const d = cand[0];
     l.mindSeen[scene] = l.year;
-    return {
-      kind: "offer",
-      id: d.id,
-      def: d,
-      title: d.title,
-      who: d.npc ? NPCS[d.npc] || { name: d.npc, role: "" } : { name: "\u81EA\u5DF1", role: "\u7B54\u5E94\u8FC7\u81EA\u5DF1\u7684\u4E8B" },
-      line: d.call || d.say
-    };
+    const who = d.party ? { name: partyNames(state2, d).join("\u3001"), role: "\u4E24\u4E2A\u4EBA\u7684\u4E8B" } : d.npc ? NPCS[d.npc] || { name: d.npc, role: "" } : { name: "\u81EA\u5DF1", role: "\u7B54\u5E94\u8FC7\u81EA\u5DF1\u7684\u4E8B" };
+    return { kind: "offer", id: d.id, def: d, title: d.title, who, line: d.call || d.say };
   }
   const hang = l.mind.find((m) => {
     const d = mindDef(m.id);
@@ -7014,6 +7299,8 @@ function mindSceneCall(state2, scene) {
   if (hang) {
     const d = mindDef(hang.id);
     const who = mindWho(state2, hang);
+    const short = !partyReady(state2, d);
+    const miss = short ? partyMissing(state2, d).map((x) => personDefOf(state2, x).name).join("\u3001") : "";
     l.mindSeen[scene] = l.year;
     return {
       kind: "hint",
@@ -7021,7 +7308,7 @@ function mindSceneCall(state2, scene) {
       def: d,
       who,
       title: d.title,
-      line: `${who.name}\u6CA1\u63D0\u90A3\u4EF6\u4E8B\uFF0C\u53EA\u5F80\u4F60\u8FD9\u8FB9\u770B\u4E86\u4E00\u773C\u3002`
+      line: short ? `\u90A3\u4EF6\u4E8B\u5F97\u4E24\u4E2A\u4EBA\u4E00\u8D77\u4E86\u7ED3\u3002\u8FD8\u5DEE${miss}\u3002` : `${who.name}\u6CA1\u63D0\u90A3\u4EF6\u4E8B\uFF0C\u53EA\u5F80\u4F60\u8FD9\u8FB9\u770B\u4E86\u4E00\u773C\u3002`
     };
   }
   return null;
@@ -7032,6 +7319,7 @@ function mindOffer(state2, id) {
   if (!d || l.mindDone[id] || l.mindLost[id] || l.mind.some((m) => m.id === id)) return false;
   if (l.mind.length >= MIND_MAX) return false;
   if (d.after && !l.mindDone[d.after]) return false;
+  if (!partyReady(state2, d)) return false;
   l.mind.push({ id, got: l.year, due: l.year + (d.due || 8) });
   const who = d.npc ? (NPCS[d.npc] || {}).name : "\u4F60\u81EA\u5DF1";
   log(state2, "bond", `${who}\u6258\u4F60\u4E00\u4EF6\u4E8B\uFF1A${d.title}\u3002`, d.npc || null);
@@ -7090,9 +7378,13 @@ function personList(state2) {
     const d = personDefOf(state2, id);
     const p = personOf(state2, id);
     const defOf = (k) => MIND_BY_ID[k] || {};
-    const active = (l.mind || []).filter((m) => defOf(m.id).npc === id);
-    const done = Object.keys(l.mindDone || {}).filter((k) => defOf(k).npc === id);
-    const lost = Object.keys(l.mindLost || {}).filter((k) => defOf(k).npc === id);
+    const about = (k) => {
+      const x = defOf(k);
+      return x.npc === id || (x.party || []).includes(id);
+    };
+    const active = (l.mind || []).filter((m) => about(m.id));
+    const done = Object.keys(l.mindDone || {}).filter(about);
+    const lost = Object.keys(l.mindLost || {}).filter(about);
     const keeps = Object.values(l.keepsakes || {}).filter((k) => k.from === d.name);
     const seen = !!(p.met || l.met[id] || active.length || done.length);
     const met = !!personDef(id) || seen;
@@ -7173,6 +7465,61 @@ function giveGift(state2, id, item) {
   }
   return { ok: true, text, back, delta, favor: p.favor, tier: favorTier(p.favor).name };
 }
+function partyReady(state2, def) {
+  if (!def || !Array.isArray(def.party) || !def.party.length) return true;
+  const ids = partyOf(state2);
+  return def.party.every((id) => ids.includes(id));
+}
+function partyNames(state2, def) {
+  return (def && def.party || []).map((id) => personDefOf(state2, id).name);
+}
+function partyMissing(state2, def) {
+  if (!def || !def.party) return [];
+  const ids = partyOf(state2);
+  return def.party.filter((id) => !ids.includes(id));
+}
+var PLAIN_MOOD = {
+  key: "",
+  tone: "plain",
+  name: "\u5BFB\u5E38",
+  gain: 1,
+  tick: 0,
+  note: "",
+  lines: {},
+  pair: []
+};
+function partyMood(state2) {
+  const l = ensure(state2);
+  const ids = partyOf(state2);
+  if (ids.length < 2) return { ...PLAIN_MOOD, pair: ids };
+  const d = pairDef(ids[0], ids[1]);
+  if (!d) return { ...PLAIN_MOOD, pair: ids, note: "\u4E24\u4E2A\u4EBA\u642D\u4F34\uFF0C\u5012\u4E5F\u6CA1\u4EC0\u4E48\u8BDD\u3002" };
+  const key = pairKey(ids[0], ids[1]);
+  const base = { ...d, key, pair: ids };
+  if (d.tone === "awkward" && (l.pairEase[key] || 0) >= 2) {
+    return {
+      ...base,
+      tone: "eased",
+      name: "\u4E0D\u8BA1\u524D\u5ACC",
+      gain: 1.05,
+      tick: 0,
+      note: `${d.note}\u3000${d.lines.ease || "\u540E\u6765\u8C01\u4E5F\u6CA1\u518D\u63D0\u3002"}`
+    };
+  }
+  return base;
+}
+function easePair(state2, a, b, n = 1) {
+  const l = ensure(state2);
+  const d = pairDef(a, b);
+  if (!d || d.tone !== "awkward") return { ok: false, line: "" };
+  const key = pairKey(a, b);
+  if ((l.pairEase[key] || 0) >= 2) return { ok: false, line: "" };
+  l.pairEase[key] = Math.min(2, (l.pairEase[key] || 0) + n);
+  if (l.pairEase[key] < 2) return { ok: false, line: "\u4E24\u4E2A\u4EBA\u8FD8\u662F\u5404\u8D70\u5404\u7684\uFF0C\u53EA\u662F\u8FD9\u56DE\u6CA1\u62CC\u5634\u3002" };
+  const line = d.lines.ease || "\u540E\u6765\u8C01\u4E5F\u6CA1\u518D\u63D0\u3002";
+  log(state2, "bond", `\u540C\u884C\u65E7\u8D26\u7FFB\u7BC7\uFF1A${line}`, a);
+  return { ok: true, line };
+}
 function partyOf(state2) {
   const l = ensure(state2);
   return l.party.ids.filter((id) => !isGone(l, id));
@@ -7190,26 +7537,40 @@ function inviteCompanion(state2, id) {
   if (favorOf(state2, id) < need) {
     return { ok: false, text: (d.invite || {}).refuse || "\u4ED6\u6447\u5934\uFF1A\u300C\u8FD8\u4E0D\u719F\u3002\u300D" };
   }
+  const before = partyOf(state2).slice();
   l.party.ids.push(id);
   if (l.party.since === null || l.party.since === void 0) l.party.since = l.year;
-  log(state2, "bond", `${d.name}\u7B54\u5E94\u4E0E\u4F60\u540C\u884C\u3002`, id);
-  return { ok: true, text: (d.invite || {}).accept || "\u300C\u597D\uFF0C\u8D70\u4E00\u8D9F\u3002\u300D", name: d.name };
+  const mood = partyMood(state2);
+  const banter = before.length ? mood.lines.join || "" : "";
+  log(state2, "bond", `${d.name}\u7B54\u5E94\u4E0E\u4F60\u540C\u884C\u3002${banter}`, id);
+  return {
+    ok: true,
+    text: (d.invite || {}).accept || "\u300C\u597D\uFF0C\u8D70\u4E00\u8D9F\u3002\u300D",
+    name: d.name,
+    banter,
+    mood: mood.name,
+    tone: mood.tone,
+    mate: before.length ? personDefOf(state2, before[0]).name : ""
+  };
 }
 function leaveParty(state2, id) {
   const l = ensure(state2);
   const d = personDefOf(state2, id);
+  const mood = partyMood(state2);
   l.party.ids = l.party.ids.filter((x) => x !== id);
   if (!l.party.ids.length) l.party.since = null;
   log(state2, "bond", `${d.name}\u5148\u56DE\u53BB\u4E86\u3002`, id);
-  return { ok: true, text: `${d.name}\u5148\u56DE\u53BB\u4E86\u3002\u8DEF\u4E0A\u5C0F\u5FC3\u3002` };
+  return { ok: true, text: `${d.name}\u5148\u56DE\u53BB\u4E86\u3002\u8DEF\u4E0A\u5C0F\u5FC3\u3002`, banter: mood.lines.part || "" };
 }
 function partyTick(state2) {
   const l = ensure(state2);
   const ids = partyOf(state2);
-  for (const id of ids) addFavor(state2, id, 1);
+  const mood = partyMood(state2);
+  const gain2 = Math.max(0, 1 + (mood.tick || 0));
+  for (const id of ids) addFavor(state2, id, gain2);
   if (ids.length && l.year % 5 === 0) {
     const names = ids.map((id) => personDefOf(state2, id).name).join("\u3001");
-    log(state2, "bond", `\u8FD9\u4E00\u5E74\uFF0C${names}\u548C\u4F60\u8D70\u5728\u4E00\u5904\u3002`, null);
+    log(state2, "bond", `\u8FD9\u4E00\u5E74\uFF0C${names}\u548C\u4F60\u8D70\u5728\u4E00\u5904\u3002${mood.name !== "\u5BFB\u5E38" ? `\uFF08${mood.name}\uFF09` : ""}`, null);
   }
   return ids;
 }
@@ -7218,14 +7579,27 @@ function doTogether(state2, id) {
   const p = personOf(state2, id);
   const d = personDefOf(state2, id);
   if (isGone(l, id)) return { ok: false, text: "\u4ED6\u4EBA\u5DF2\u4E0D\u5728\u5C71\u4E0A\u3002" };
-  const m = (l.mind || []).find((x) => (MIND_BY_ID[x.id] || {}).npc === id);
+  const m = (l.mind || []).find((x) => {
+    const def2 = MIND_BY_ID[x.id] || {};
+    return def2.npc === id || (def2.party || []).includes(id);
+  });
   if (!m) return { ok: false, text: `${d.name}\u8FD9\u4F1A\u513F\u6CA1\u6709\u6258\u4F60\u4EC0\u4E48\u4E8B\u3002` };
   if (p.joinYear === l.year) return { ok: false, text: "\u4ECA\u5E74\u5DF2\u7ECF\u540C\u4ED6\u8D70\u8FC7\u4E00\u8D9F\u4E86\u3002" };
-  p.joinYear = l.year;
   const def = MIND_BY_ID[m.id];
   const inParty = l.party.ids.includes(id);
-  for (const need of def.need || []) mindDo(state2, need.key, inParty ? 2 : 1);
+  const isPair = !!(def.party && def.party.length);
+  const pairOk = isPair && partyReady(state2, def);
+  if (isPair && !pairOk) {
+    const miss = partyMissing(state2, def).map((x) => personDefOf(state2, x).name).join("\u3001");
+    return { ok: false, text: `\u8FD9\u4EF6\u4E8B\u5F97\u4E24\u4E2A\u4EBA\u4E00\u8D77\u529E\uFF0C\u8FD8\u5DEE${miss}\u3002` };
+  }
+  p.joinYear = l.year;
+  const stepN = (inParty ? 2 : 1) + (pairOk ? 1 : 0);
+  for (const need of def.need || []) mindDo(state2, need.key, stepN);
   addFavor(state2, id, inParty ? 8 : 6);
+  if (pairOk) {
+    for (const x of def.party) if (x !== id) addFavor(state2, x, 4);
+  }
   log(state2, "bond", `${inParty ? "\u4F60\u4EEC\u4E00\u9053" : `\u4F60\u540C${d.name}\u4E00\u9053`}\u53BB\u529E\u300C${def.title}\u300D\u3002${d.join || ""}`, id);
   return {
     ok: true,
@@ -7390,28 +7764,32 @@ var YEAR_POOL = [
     id: "patrol",
     live: true,
     when: (s) => partyOf(s).length > 0,
-    text: (s) => ({
-      t: "\u4E0E\u540C\u884C\u7684\u4EBA\u5DE1\u4E00\u8D9F\u5C71",
-      s: `${partyOf(s).length} \u4EBA \xB7 \u5404\u4EB2\u758F +2`,
-      note: `\u540C\u884C\uFF1A${partyOf(s).map((id) => personDefOf(s, id).name).join("\u3001")}`
-    }),
+    text: (s) => {
+      const m = partyMood(s);
+      return {
+        t: "\u4E0E\u540C\u884C\u7684\u4EBA\u5DE1\u4E00\u8D9F\u5C71",
+        s: `${partyOf(s).length} \u4EBA \xB7 ${m.name}`,
+        note: `\u540C\u884C\uFF1A${partyOf(s).map((id) => personDefOf(s, id).name).join("\u3001")}${m.note ? ` \xB7 ${m.note}` : ""}`
+      };
+    },
     run: (s) => {
       const ids = partyOf(s);
       const power = partyPower(s);
+      const mood = partyMood(s);
       const lines = [];
       for (const id of ids) {
         const d = personDefOf(s, id);
         addFavor(s, id, 2);
         lines.push(`${d.name} \u4EB2\u758F +2`);
       }
-      if (Math.random() < Math.min(0.7, 0.3 + power * 0.02)) {
+      if (Math.random() < Math.min(0.7, (0.3 + power * 0.02) * (mood.gain || 1))) {
         const key = ["herb", "blood", "bone"][Math.floor(Math.random() * 3)];
         addItem(s, key, 1);
         lines.push(`${(ITEMS[key] || {}).name || key} +1`);
       }
       const lead = ids.length ? personDefOf(s, ids[0]) : null;
-      log(s, "bond", `${ids.map((id) => personDefOf(s, id).name).join("\u3001")}\u540C\u4F60\u5DE1\u4E86\u4E00\u8D9F\u5C71\u3002`, ids[0] || null);
-      if (lead) lines.push(lead.combat?.win || lead.join || "\u4E00\u8DEF\u65E0\u8BDD\uFF0C\u5012\u4E5F\u4E0D\u95F7\u3002");
+      log(s, "bond", `${ids.map((id) => personDefOf(s, id).name).join("\u3001")}\u540C\u4F60\u5DE1\u4E86\u4E00\u8D9F\u5C71\u3002\uFF08${mood.name}\uFF09`, ids[0] || null);
+      lines.push(mood.lines.patrol || lead && (lead.combat?.win || lead.join) || "\u4E00\u8DEF\u65E0\u8BDD\uFF0C\u5012\u4E5F\u4E0D\u95F7\u3002");
       return lines;
     }
   }
@@ -7527,9 +7905,26 @@ function nextStep(state2) {
     return go("\u8D81\u6F6E\u6C50\u5F00\u95E8\u8FDB\u540E\u5C71", `\u7A97\u53E3\u5230 ${jz.closeAt} \u5C81 \xB7 \u8FDB\u53BB\u8981 ${JIAZI_COST} \u5E74`, { panel: "world" }, true);
   }
   if (minds.length < MIND_MAX) {
-    const offer = MINDS.filter((d) => d.scene && !l.mindDone[d.id] && !l.mindLost[d.id] && !minds.some((m) => m.id === d.id) && (!d.after || l.mindDone[d.after]) && (!d.when || d.when(l, state2)) && (!d.npc || !isGone(l, d.npc))).sort((a, b) => (b.weight || 0) - (a.weight || 0))[0];
+    const hung = minds.find((m) => {
+      const d = mindDef(m.id);
+      return d && d.party && !partyReady(state2, d);
+    });
+    if (hung) {
+      const d = mindDef(hung.id);
+      const miss = partyMissing(state2, d)[0];
+      if (miss) return go(`\u518D\u9080${personDefOf(state2, miss).name}\u540C\u884C`, `${d.title} \xB7 \u8FD9\u4EF6\u4E8B\u5F97\u4E24\u4E2A\u4EBA`, { person: miss });
+    }
+    const ids = partyOf(state2);
+    const pair = MINDS.filter((d) => d.party && ids.length === 1 && d.party.includes(ids[0]) && !l.mindDone[d.id] && !l.mindLost[d.id] && !minds.some((m) => m.id === d.id) && !partyReady(state2, d) && (!d.when || d.when(l, state2))).sort((a, b) => (b.weight || 0) - (a.weight || 0))[0];
+    if (pair) {
+      const miss = partyMissing(state2, pair)[0];
+      if (miss) return go(`\u518D\u9080${personDefOf(state2, miss).name}\u540C\u884C`, `${pair.title} \xB7 \u8FD9\u4EF6\u4E8B\u5F97\u4E24\u4E2A\u4EBA`, { person: miss });
+    }
+  }
+  if (minds.length < MIND_MAX) {
+    const offer = MINDS.filter((d) => d.scene && !l.mindDone[d.id] && !l.mindLost[d.id] && !minds.some((m) => m.id === d.id) && (!d.after || l.mindDone[d.after]) && (!d.when || d.when(l, state2)) && (!d.npc || !isGone(l, d.npc)) && partyReady(state2, d)).sort((a, b) => (b.weight || 0) - (a.weight || 0))[0];
     if (offer) {
-      const who = offer.npc ? (NPCS[offer.npc] || {}).name : "\u6709\u4EBA";
+      const who = offer.party ? partyNames(state2, offer).join("\u3001") : offer.npc ? (NPCS[offer.npc] || {}).name : "\u6709\u4EBA";
       return go(
         `\u53BB${SCENE_LABEL[offer.scene] || "\u5C71\u91CC"}\u8D70\u8D70`,
         `${who}\u50CF\u662F\u6709\u8BDD\u8981\u8BF4 \xB7 ${offer.title}`,
@@ -10188,12 +10583,20 @@ var TIER_BUY = { pill: { 1: 14, 2: 28, 3: 48 }, charm: { 1: 12, 2: 24, 3: 42 } }
 function itemName(id) {
   return BAG_NAME[id] || BY_ID[id] && BY_ID[id].name || id;
 }
-function buyPrice(id) {
-  if (BAG_PRICE[id] !== void 0) return BAG_PRICE[id];
-  const it = BY_ID[id];
-  if (!it) return 0;
-  const t = TIER_BUY[it.kind] || TIER_BUY.charm;
-  return t[it.tier] || t[1];
+function buyPrice(id, state2) {
+  let base = 0;
+  if (BAG_PRICE[id] !== void 0) base = BAG_PRICE[id];
+  else {
+    const it = BY_ID[id];
+    if (!it) return 0;
+    const t = TIER_BUY[it.kind] || TIER_BUY.charm;
+    base = t[it.tier] || t[1];
+  }
+  if (state2) {
+    const cut = sectStandingOf(state2).cut;
+    if (cut > 0) return Math.max(1, Math.round(base * (1 - cut)));
+  }
+  return base;
 }
 var sellPrice = (id) => Math.max(1, Math.floor(buyPrice(id) * 0.6));
 var SHELF = ["herb", "blood", "hide", "bone", "pill", "charm", "tally", "jade", "p_huiqi", "t_pingan", "a_dingjiao"];
@@ -10203,7 +10606,7 @@ function shelfOf(year) {
   return [...SHELF, rare];
 }
 function buy(state2, id) {
-  const price = buyPrice(id);
+  const price = buyPrice(id, state2);
   if (!price) return { ok: false, why: "\u9601\u4E0A\u6CA1\u6536\u8FC7\u8FD9\u4E1C\u897F\u3002" };
   if (!spendLingshi(state2, price)) return { ok: false, why: `\u7075\u77F3\u4E0D\u591F\uFF08\u8981 ${price} \u679A\uFF09\u3002` };
   add(state2, id, 1);
@@ -11733,8 +12136,9 @@ function bindPanel(id, arg) {
 function panelShop() {
   const l = ensure(state);
   const purse = l.lingshi || 0;
+  const stand = sectStandingOf(state);
   const shelf = shelfOf(l.year).map((id) => {
-    const price = buyPrice(id);
+    const price = buyPrice(id, state);
     const it = BY_ID[id];
     const ok = purse >= price;
     return `<div class="craft-row">
@@ -11749,6 +12153,7 @@ function panelShop() {
       </div>`).join("") : '<div class="chron-row" style="opacity:.4"><span class="ct">\u888B\u91CC\u6CA1\u6709\u9601\u4E0A\u6536\u7684\u4E1C\u897F\u3002</span></div>';
   return `<div class="panel-title">\u767E\u5B9D\u9601 \xB7 \u67DC\u53F0</div>
     <div class="panel-text">\u5B88\u67DC\u7684\u6267\u4E8B\u62AC\u4E86\u4E0B\u773C\u76AE\uFF1A\u300C${purse ? `\u8EAB\u4E0A ${purse} \u679A\u7075\u77F3\uFF0C` : ""}\u4E70\u8FD8\u662F\u5356\uFF1F\u5356\u4E1C\u897F\u6298\u516D\u6210\uFF0C\u9601\u5B50\u4E5F\u8981\u5403\u996D\u3002\u300D</div>
+    <div class="panel-text" style="opacity:.5">\u5B97\u95E8\u5730\u4F4D\uFF1A${stand.name}${stand.cut ? ` \xB7 \u4E70\u4EF7\u51CF ${Math.round(stand.cut * 100)}%` : " \xB7 \u5927\u6BD4\u6253\u4E0A\u5185\u95E8\uFF0C\u4E70\u4EF7\u80FD\u5C11\u4E00\u6210"}</div>
     <div class="bio-sec">\u67B6\u4E0A\uFF08\u4E70\uFF09</div>
     <div class="craft">${shelf}</div>
     <div class="bio-sec">\u888B\u91CC\uFF08\u5356 \xB7 \u6298\u516D\u6210\uFF09</div>
@@ -11796,7 +12201,7 @@ function panelDsl() {
       return `<div class="panel-title">\u5B97\u95E8\u5927\u6BD4 \xB7 \u540D\u518C</div>
         <div class="panel-text">\u53F0\u4E0A\u6302\u7740\u672C\u5C4A\u7684\u540D\u518C\uFF0C\u4F60\u7684\u540D\u5B57\u4E0D\u5728\u4E0A\u9762\u3002</div>
         <div class="panel-text" style="opacity:.62">${dslOpen(state) ? `\u4E0B\u4E00\u6B21\u70B9\u540D\u5728\u7B2C ${next} \u5E74\u3002\u91D1\u4E39\u4E4B\u524D\uFF0C\u5C4A\u5C4A\u90FD\u8981\u5230\uFF1B\u7F3A\u5E2D\u4E00\u6B21\uFF0C\u6267\u4E8B\u623F\u7F5A\u7075\u77F3\u5341\u4E8C\u679A\u4EE5\u5185\u3002` : "\u4F60\u5DF2\u91D1\u4E39\u3002\u540D\u518C\u8FB9\u4E0A\u8D34\u7740\u4E00\u884C\u5C0F\u5B57\uFF1A\u300C\u91D1\u4E39\u4EE5\u4E0A\uFF0C\u5217\u5E2D\u89C2\u6218\u3002\u300D"}</div>
-        ${l.dsl.done ? `<div class="panel-text" style="opacity:.55">\u4F60\u6253\u8FC7 ${l.dsl.done} \u5C4A\uFF0C\u6700\u597D\u4E00\u573A\u8FDE\u80DC ${l.dsl.best} \u4EBA\u3002</div>` : ""}
+        ${l.dsl.done ? `<div class="panel-text" style="opacity:.55">\u4F60\u6253\u8FC7 ${l.dsl.done} \u5C4A\uFF0C\u6700\u597D\u4E00\u573A\u8FDE\u80DC ${l.dsl.best} \u4EBA\u3002\u5B97\u95E8\u5730\u4F4D\uFF1A${sectStandingOf(state).name}\uFF08\u767E\u5B9D\u9601\u6309\u5730\u4F4D\u6253\u6298\uFF09\u3002</div>` : ""}
         <button class="btn ghost" data-close>\u4E0B\u53F0\uFF08Esc\uFF09</button>`;
     }
     const list = roster(state);
@@ -13478,10 +13883,14 @@ function panelCave() {
       <div class="panel-text" id="md-line" style="opacity:.55;min-height:3.2em">${digestLine(state)}</div>
       <button class="btn gold" id="md-rise">\u8D77\u8EAB</button>`;
   }
+  const dao = daoPartnerOf(state);
+  const shuangWait2 = dao ? shuangWait(state) : 0;
+  const shuangGain = dao ? shuangGainOf(state) : 0;
   return `<div class="panel-title">\u6D1E\u5E9C</div>
     <div class="panel-text">\u5B97\u95E8\u540E\u5C71\u811A\u4E0B\u4E00\u95F4\u80CC\u98CE\u7684\u77F3\u5BA4\u3002\u95E8\u4E0B\u538B\u7740\u4E00\u5757\u77F3\u5934\uFF0C\u77F3\u5934\u4E0A\u523B\u7740\u4F60\u7684\u540D\u5B57\u3002\u5730\u65B9\u4E0D\u5927\uFF0C\u591F\u4F60\u628A\u95E8\u5173\u4E0A\u3002</div>
     <div class="panel-text" style="opacity:.62">\u4ECA\u5E74 ${l.year} \u5C81 \xB7 \u5BFF\u5143\u5269 ${left} \u5E74 \xB7 \u9053\u884C ${daoOf(state)}\uFF08${rankOf(state).name}\uFF09\xB7 \u7075\u6839 \xD7${mul.toFixed(2)}</div>
     <div class="bio-sec">\u80FD\u505A\u7684\u4E8B</div>
+    ${dao ? `<div class="craft-row"><div><b>\u53CC\u4FEE \xB7 ${dao.name}</b><span>\u95ED\u95E8\u4E00\u5E74\u3002\u9053\u884C +${shuangGain}\uFF0C\u4E0E${dao.name}\u7684\u7F81\u7ECA +1\u3002\u4E00\u4E2A\u4EBA\u7684\u529F\u8BFE\u662F\u529F\u8BFE\uFF0C\u4E24\u4E2A\u4EBA\u7684\u529F\u8BFE\u662F\u522B\u7684\u3002<br><em style="opacity:.5;font-style:normal">\u5341\u5E74\u4E00\u56DE${shuangWait2 > 0 ? ` \xB7 \u8FD8\u5DEE ${shuangWait2} \u5E74` : ""}</em></span></div>${shuangWait2 > 0 ? `<button class="btn ghost" disabled>\u8FD8\u5DEE ${shuangWait2} \u5E74</button>` : `<button class="btn gold" data-shuang="${dao.id}">\u53CC\u4FEE</button>`}</div>` : ""}
     <div class="craft-row"><div><b>\u95ED\u5173</b><span>\u4E00\u53E3\u6C14\u95ED\u51E0\u5E74\u3002\u51FA\u6765\u624D\u77E5\u9053\u5916\u9762\u53D8\u4E86\u4EC0\u4E48\u3002</span></div><button class="btn ghost" id="cave-seclude">\u95ED\u5173</button></div>
     ${(YEAR_POOL || []).map(
     (c) => `<div class="craft-row"><div><b>${c.t}</b><span>${c.s} \xB7 \u4E00\u5E74</span></div><button class="btn ghost" data-year="${c.id}">\u53BB\u505A</button></div>`
@@ -13544,6 +13953,16 @@ function bindCave() {
     caveMeditateStop();
     openPanel("cave");
   });
+  panelRoot.querySelectorAll("[data-shuang]").forEach((b) => b.addEventListener("click", () => {
+    const r = dualCultivate(state);
+    save();
+    syncHud();
+    if (isDead(state)) return showDeath();
+    toast(
+      r.ok ? r.gain ? `\u53CC\u4FEE\u4E00\u56DE\uFF0C\u9053\u884C +${r.gain}\u3002\u7F81\u7ECA\u66F4\u6DF1\u4E86\u4E00\u5C42\u3002` : "\u53CC\u4FEE\u4E00\u56DE\u3002\u9053\u884C\u5DF2\u7ECF\u5230\u5934\u4E86\uFF0C\u8FD9\u4E00\u5E74\u53EA\u843D\u4E2A\u6E05\u51C0\u3002" : `${r.why}${r.wait ? `\uFF08\u8FD8\u5DEE ${r.wait} \u5E74\uFF09` : ""}`
+    );
+    openPanel("cave");
+  }));
 }
 function showDecadeCard(dc, done) {
   panelRoot.innerHTML = `<div class="panel wide">
@@ -13677,6 +14096,7 @@ function showEventCard(card, done, onCancel) {
       lNow.evCount = Math.max(0, lNow.evCount - 1);
     } else {
       delete lNow.seen[card.id];
+      if (lNow.seenCount && lNow.seenCount[card.id]) lNow.seenCount[card.id] -= 1;
     }
     save();
     syncHud();
@@ -13701,7 +14121,7 @@ function showEventCard(card, done, onCancel) {
     ${ageLine}
     ${shot}
     <div class="ev-title">${card.title}</div>
-    <div class="ev-body">${card.body}</div>
+    <div class="ev-body">${typeof card.body === "function" ? card.body(state) : card.body}</div>
     ${firstHint ? '<div class="ev-tail" style="color:#c9a86a">\u6C99\u6F0F\u4ECE\u8FD9\u4E00\u5E74\u8D70\u8D77\uFF1A\u4F60\u7AD9\u5728\u8FD9\u513F\u803D\u6401\u4E00\u5206\u949F\uFF0C\u8FD9\u4E00\u4E16\u5C31\u5C11\u4E00\u5E74\u3002\u8FDB\u4E86\u95E8\u518D\u529E\u4E8B\uFF0C\u65F6\u95F4\u624D\u7B49\u4F60\u3002</div>' : ""}
     ${voice ? `<div class="ev-tail">${voice.line}</div>` : ""}
     <div class="ev-opts">${opts.map((o, i) => `<button class="btn ${i === 0 ? "gold" : "ghost"}" data-ev="${i}">${o.t}${optChips(o).length ? `<i class="ev-chip">${optChips(o).join(" \xB7 ")}</i>` : ""}</button>`).join("")}</div>
@@ -13971,7 +14391,7 @@ if (qsPanel) {
 }
 syncHud();
 save();
-window.__scene = { render: renderScene, open: openPanel, state: () => state, card: showEventCard, close: closePanel, panel: () => panelRoot.innerHTML, go: fogTo, decade: showDecadeCard, trib: () => TRIB, moment: showMoment, spot: onSpot, scenes: SCENES, death: () => showDeath(), timing: () => ({ fu: FU, zhen: ZHEN }) };
+window.__scene = { render: renderScene, open: openPanel, state: () => state, card: showEventCard, close: closePanel, panel: () => panelRoot.innerHTML, go: fogTo, decade: showDecadeCard, trib: () => TRIB, moment: showMoment, spot: onSpot, scenes: SCENES, death: () => showDeath(), timing: () => ({ fu: FU, zhen: ZHEN }), events: () => EVENTS };
 document.getElementById("btn-archive")?.addEventListener("click", () => openPanel("archive"));
 var ARCHIVE_VIEW = "";
 var ARCHIVE_CONFIRM = "";
@@ -14419,7 +14839,8 @@ var FOLK_VIEW = null;
 function panelFolk() {
   const l = initWorld(state);
   const gap = lifespanGap(state);
-  const cards = l.folk.map((f) => {
+  const sortKey = (f) => (l.daoLv === f.id ? -1e3 : 0) + (f.state === "\u5728\u5C71\u91CC" ? 0 : 1e3) - f.bond;
+  const cards = l.folk.slice().sort((a, b) => sortKey(a) - sortKey(b)).map((f) => {
     const debt = (l.debts || []).filter((d) => d.a === f.id || d.b === f.id).map((d) => {
       const other = l.folk.find((x) => x.id === (d.a === f.id ? d.b : d.a));
       return `${other ? other.name : "\u67D0\u4EBA"}${d.what}`;
@@ -14435,11 +14856,11 @@ function panelFolk() {
       <span>${f.archName} \xB7 ${bondTierOf(f)} \xB7 \u60F3\u8981${f.want} \xB7 ${f.age}/${f.span} \u5C81\uFF08${REALMS[f.realm].name}\uFF09</span><br>
       <span style="opacity:.55">${f.last || f.tell}</span>
       ${debt ? `<br><span style="opacity:.45">\u65E7\u8D26\uFF1A${debt}</span>` : ""}
-      ${isDao && alive ? `<br><span style="opacity:.45">\u53CC\u4FEE\uFF1A${wait > 0 ? `\u518D\u7B49 ${wait} \u5E74` : "\u53EF\u4EE5\u4E86"} \xB7 \u5341\u5E74\u4E00\u56DE \xB7 \u9053\u884C +${shuangGain}</span>` : ""}
+      ${isDao && alive ? `<br><span style="opacity:.45">\u53CC\u4FEE\u5728\u6D1E\u5E9C\u91CC\uFF1A\u5341\u5E74\u4E00\u56DE\uFF0C\u9053\u884C +${shuangGain}\u3001\u7F81\u7ECA +1${wait > 0 ? ` \xB7 \u8FD8\u5DEE ${wait} \u5E74` : " \xB7 \u73B0\u5728\u5C31\u53EF\u4EE5"}</span>` : ""}
       ${alive && !l.daoLv ? `<br><span style="opacity:.45">\u7ED3\u5951\uFF1A${chk.ok ? "\u65F6\u5019\u5230\u4E86" : chk.why}</span>` : ""}
     </div><div>
       ${alive && !isDao ? `<button class="btn ghost" data-bond="${f.id}">\u966A\u4E00\u5E74</button>` : ""}
-      ${alive && isDao ? `<button class="btn gold" data-shuang="${f.id}">\u53CC\u4FEE</button>` : ""}
+      ${alive && isDao ? `<button class="btn ghost" data-open-cave="1">\u56DE\u6D1E\u5E9C</button>` : ""}
       ${alive && !l.daoLv ? `<button class="btn ${chk.ok ? "gold" : "ghost"}" data-marry="${f.id}">\u63D0\u7ED3\u5951</button>` : ""}
     </div></div>`;
   }).join("");
@@ -14457,6 +14878,7 @@ function panelFolk() {
     ${viewHtml}
     ${genderRow}
     ${gapHtml}
+    <div class="panel-text" style="opacity:.45">\u7ED3\u5951\u8981\u4E09\u6837\uFF1A\u966A\u591F\u4E09\u5E74\u3001\u5BF9\u65B9\u80AF\u3001\u8D26\u4E0A\u6CA1\u6709\u538B\u7740\u7684\u4E8B\u3002\u7ED3\u5951\u4E4B\u540E\uFF0C\u53CC\u4FEE\u5728\u6D1E\u5E9C\u91CC\uFF0C\u5341\u5E74\u4E00\u56DE\u3002</div>
     <div class="bio-sec">\u5728\u5C71\u91CC\u7684</div>
     ${cards}
     <div class="panel-text" style="opacity:.42;margin-top:12px">\u597D\u611F\u53EA\u7ED9\u6863\u4F4D\uFF0C\u4E0D\u7ED9\u6570\u5B57\u3002\u966A\u4E00\u5E74\u8FDB\u4E00\u6863\uFF0C\u516B\u5E74\u4E0D\u89C1\u4F1A\u6DE1\uFF1B\u6709\u4EBA\u4F1A\u4E3B\u52A8\u9760\u8FD1\uFF0C\u4E5F\u6709\u4EBA\u4E00\u76F4\u5728\u6253\u542C\u4F60\u7684\u5BFF\u5143\u3002\u7ED3\u5951\u8981\u4EA4\u5FC3\uFF0C\u8FD8\u8981\u5BF9\u65B9\u80AF\u3002</div>
@@ -14480,11 +14902,7 @@ function bindFolk() {
     FOLK_VIEW = r.ok ? `${r.why}\u5F80\u540E\u4F60\u4EEC\u7684\u65F6\u95F4\u8981\u4E00\u8D77\u7B97\u4E86\u3002` : r.why;
     if (!afterYears()) openPanel("folk");
   }));
-  panelRoot.querySelectorAll("[data-shuang]").forEach((b) => b.addEventListener("click", () => {
-    const r = dualCultivate(state);
-    FOLK_VIEW = r.ok ? `${r.why}\u9053\u884C +${r.gain}\u3002` : r.why;
-    if (!afterYears()) openPanel("folk");
-  }));
+  panelRoot.querySelectorAll("[data-open-cave]").forEach((b) => b.addEventListener("click", () => openPanel("cave")));
   document.getElementById("f-mount")?.addEventListener("click", () => openPanel("mount"));
 }
 var MIND_VIEW = null;
@@ -14501,22 +14919,30 @@ function mindCardHtml(m) {
   const costTxt = cost.length ? `\u4EA4\uFF1A${cost.map((c) => `${c.name} ${Math.min(c.have, c.need)}/${c.need}`).join(" \xB7 ")}` : "";
   const cond = [steps, costTxt].filter(Boolean).join(" \xB7 ");
   const tone = left <= 2 ? "#c0705a" : ready ? "#f0d79a" : "inherit";
+  const pair = def.party && def.party.length ? def.party : null;
+  const pairOk = partyReady(state, def);
+  const missIds = partyMissing(state, def);
+  const names = pair ? partyNames(state, def).join("\u3001") : who.name;
+  const role = pair ? "\u4E24\u4E2A\u4EBA\u7684\u4E8B" : who.role;
+  const pairRow = pair ? `<div class="mc-pair ${pairOk ? "ok" : "no"}">\u9700\u4E24\u4EBA\u540C\u884C\uFF1A${names}\u3000\xB7\u3000${pairOk ? "\u4EBA\u9F50\u4E86" : `\u8FD8\u5DEE${missIds.map((x) => personDefOf(state, x).name).join("\u3001")}`}
+        ${!pairOk && missIds[0] ? `<button class="btn ghost mini" data-person-jump="${missIds[0]}">\u53BB\u9080</button>` : ""}</div>` : "";
   return `<div class="craft-row"><div>
-    <b>${who.name}${who.role ? " \xB7 " + who.role : ""}\u3000${def.title}${def.chain ? `<i style="font-style:normal;font-size:11px;opacity:.5;margin-left:10px;letter-spacing:.1em">\u8FD9\u6761\u7EBF\u7684\u7B2C ${def.step} \u4EF6</i>` : ""}</b>
+    <b>${names}${role ? " \xB7 " + role : ""}\u3000${def.title}${def.chain ? `<i style="font-style:normal;font-size:11px;opacity:.5;margin-left:10px;letter-spacing:.1em">\u8FD9\u6761\u7EBF\u7684\u7B2C ${def.step} \u4EF6</i>` : ""}</b>
     <span style="float:right;color:${tone}">${left > 0 ? `\u8FD8\u5269 ${left} \u5E74` : "\u4ECA\u5E74\u5230\u671F"}</span><br>
     <span style="opacity:.62">\u300C${def.say}\u300D</span><br>
     <span>${cond || "\u53BB\u4E86\u7ED3"}</span>
     <div class="bar"><span>\u8FDB\u5EA6</span><i><b style="width:${pct}%"></b></i><em>${pct}%</em></div>
     <span style="opacity:.42">\u53BB\u54EA\u513F\uFF1A${def.hint}</span>
+    ${pairRow}
   </div><div>
-    ${ready ? `<button class="btn gold" data-mind-done="${m.id}">\u53BB\u4E86\u7ED3</button>` : ""}
+    ${ready && pairOk ? `<button class="btn gold" data-mind-done="${m.id}">\u53BB\u4E86\u7ED3</button>` : ""}
     ${def.npc ? `<button class="btn ghost" data-person-jump="${def.npc}">\u770B\u770B\u8FD9\u4EBA</button>` : ""}
     <button class="btn ghost" data-mind-drop="${m.id}">\u653E\u4E0B</button>
   </div></div>`;
 }
 function panelMind() {
   const l = ensure(state);
-  const mins = (l.mind || []).slice();
+  const mins = (l.mind || []).slice().sort((a, b) => mindLeft(state, a) - mindLeft(state, b));
   const doneN = Object.keys(l.mindDone || {}).length;
   const lostN = Object.keys(l.mindLost || {}).length;
   const viewHtml = MIND_VIEW ? `<div class="panel-text" style="color:#f2dfb2">${MIND_VIEW}</div>` : "";
@@ -14531,7 +14957,11 @@ function panelMind() {
   const doneRow = doneTitles.length ? `<div class="panel-text" style="opacity:.5">\u4E86\u7ED3\u8FC7\u7684\uFF1A${doneTitles.join("\u3001")}</div>` : "";
   const lostRow = lostTitles.length ? `<div class="panel-text" style="opacity:.36">\u6CA1\u80FD\u4E86\u7ED3\u7684\uFF1A${lostTitles.slice(-8).join("\u3001")}</div>` : "";
   const partyIds = partyOf(state);
-  const partyRow = partyIds.length ? `<div class="panel-text" style="opacity:.7">\u540C\u884C\uFF1A${partyIds.map((id) => personDefOf(state, id).name).join("\u3001")}\u3000<span style="opacity:.6">\uFF08\u505A\u5F97\u591A\u4E00\u4EF6\uFF0C\u6597\u5F97\u5C11\u6298\u5BFF\uFF09</span></div>` : "";
+  const mood = partyMood(state);
+  const moodTxt = mood.tone !== "plain" ? `<span class="pm-mood ${mood.tone}" title="${mood.note}">${mood.name}</span>\u3000<span style="opacity:.55">${mood.note}</span>` : "";
+  const moodRule = partyIds.length < 2 ? "\u518D\u9080\u4E00\u4EBA\u540C\u884C\uFF0C\u624D\u770B\u5F97\u51FA\u8FD9\u4E24\u4EBA\u5408\u4E0D\u5408\u5F97\u6765\u3002" : mood.tone === "awkward" ? "\u4E24\u4EBA\u5408\u4E0D\u6765\uFF1A\u4EA7\u51FA\u5C11\u4E9B\u3001\u6218\u8D25\u591A\u6298\u4E00\u5E74\u3002\u4E00\u8D77\u8D62\u4E24\u573A\uFF0C\u6216\u529E\u6210\u4E00\u4EF6\u4E24\u4E2A\u4EBA\u7684\u4E8B\uFF0C\u5C31\u80FD\u7FFB\u7BC7\u3002" : mood.tone === "eased" ? "\u65E7\u8D26\u7FFB\u7BC7\u4E86\u3002\u8FD9\u4E00\u7A0B\u8D70\u5F97\u6BD4\u4ECE\u524D\u987A\u3002" : "\u505A\u5F97\u591A\u4E00\u4EF6\uFF0C\u6597\u5F97\u5C11\u6298\u5BFF\u3002";
+  const partyRow = partyIds.length ? `<div class="panel-text" style="opacity:.78">\u540C\u884C\uFF1A${partyIds.map((id) => personDefOf(state, id).name).join("\u3001")}\u3000${moodTxt}
+        <div style="opacity:.52;font-size:11px;margin-top:3px">${moodRule}</div></div>` : "";
   const keeps = keepsakeList(state);
   const keepsRow = keeps.length ? `<div class="panel-text" style="opacity:.72">\u8FD9\u4E00\u4E16\u6512\u4E0B\u7684\u4E1C\u897F\uFF1A${keeps.map((k) => `<br><b style="color:#f2dfb2;font-weight:400">${k.name}</b> \xB7 ${k.desc}<span style="opacity:.5">\uFF08${k.from} \xB7 ${k.year} \u5C81\uFF09</span>`).join("")}</div>` : "";
   const memoRow = (l.relicMemo || []).length ? `<div class="panel-text" style="opacity:.4">\u524D\u4E16\u5E26\u56DE\u6765\u7684\uFF1A${l.relicMemo.join("\u3001")}\u3000<span style="opacity:.7">\u4EBA\u5F97\u91CD\u65B0\u8BA4\u8BC6\u3002</span></div>` : "";
@@ -14570,7 +15000,9 @@ function renderPeopleRail() {
   const readyN = people.filter((p) => p.ready).length;
   const taskN = people.filter((p) => p.active.length && !p.ready).length;
   const stat = document.getElementById("pr-stat");
-  if (stat) stat.innerHTML = readyN || taskN ? `<b>${readyN}</b> \u4EF6\u53EF\u4EA4\u5DEE\u3000<b>${taskN}</b> \u4EBA\u6258\u4E86\u4E8B` : "\u773C\u4E0B\u6CA1\u4EBA\u7B49\u4F60";
+  const mood = partyMood(state);
+  const moodRow = party.length >= 2 && mood.tone !== "plain" ? `<div class="pr-mood ${mood.tone}" title="${mood.note}">${mood.name}<i>${mood.tone === "awkward" ? "\u522B\u626D" : mood.tone === "eased" ? "\u5DF2\u7FFB\u7BC7" : "\u987A\u624B"}</i></div>` : "";
+  if (stat) stat.innerHTML = (readyN || taskN ? `<b>${readyN}</b> \u4EF6\u53EF\u4EA4\u5DEE\u3000<b>${taskN}</b> \u4EBA\u6258\u4E86\u4E8B` : "\u773C\u4E0B\u6CA1\u4EBA\u7B49\u4F60") + moodRow;
   box.innerHTML = people.map((p) => {
     const badge = p.gone ? '<span class="pr-badge gray">\u8D70</span>' : p.ready ? '<span class="pr-badge ready">\u4EA4\u5DEE</span>' : p.active.length ? `<span class="pr-badge task">\u4E8B${p.active.length}</span>` : p.inParty ? '<span class="pr-badge party">\u961F</span>' : "";
     const face = p.art ? `<img class="pr-face" src="./assets/npc/${p.art}" alt="">` : `<div class="pr-face noart">${p.met ? p.name.slice(0, 1) : "\uFF1F"}</div>`;
@@ -14666,6 +15098,16 @@ function panelPerson(id) {
       </div>` : "";
   const view = PERSON_VIEW ? `<div class="pp-line">${PERSON_VIEW}</div>` : "";
   const ticks = tiers.filter((t) => t.at > 0 && t.at < 100).map((t) => `<i class="pp-tick${p.favor >= t.at ? " on" : ""}" style="left:${t.at}%" title="${t.name} \xB7 ${t.at}"></i>`).join("");
+  const partyIds = partyOf(state);
+  const mood = partyMood(state);
+  const mateId = partyIds.find((x) => x !== id);
+  const pairRule = mood.tone === "awkward" ? "\u4EA7\u51FA\u4E0E\u6597\u6CD5\u90FD\u6253\u6298\uFF1B\u4E00\u8D77\u8D62\u4E24\u573A\uFF0C\u6216\u529E\u6210\u4E00\u4EF6\u4E24\u4E2A\u4EBA\u7684\u4E8B\uFF0C\u5C31\u80FD\u7FFB\u7BC7\u3002" : mood.tone === "eased" ? "\u65E7\u8D26\u7FFB\u7BC7\u4E86\uFF0C\u52A0\u6210\u56DE\u6765\u4E00\u70B9\u3002" : mood.tone === "warm" ? "\u4E24\u4EBA\u5408\u5F97\u6765\uFF0C\u4EA7\u51FA\u3001\u9053\u884C\u3001\u6597\u6CD5\u90FD\u5FEB\u4E9B\u3002" : "\u5BFB\u5E38\u642D\u4F34\uFF0C\u4E0D\u504F\u4E0D\u501A\u3002";
+  const pairBlock = p.inParty && mateId ? `<div class="pp-sec pp-pair ${mood.tone}"><h4>\u540C\u884C\u7684\u53E6\u4E00\u4F4D \xB7 ${mood.name}</h4>
+        <div class="pp-pair-name">${personDefOf(state, mateId).name}</div>
+        <div class="pp-pair-note">${mood.note || "\u4E24\u4E2A\u4EBA\u642D\u4F34\uFF0C\u5012\u4E5F\u6CA1\u4EC0\u4E48\u8BDD\u3002"}</div>
+        ${mood.lines.join ? `<div class="pp-pair-line">${mood.lines.join}</div>` : ""}
+        <div class="pp-pair-rule">${pairRule}</div>
+      </div>` : "";
   return `
     <div class="pp-head">${art}<div style="flex:1;min-width:0">
       <div class="pp-title">${p.met ? p.name : "\uFF1F\uFF1F\uFF1F"}</div>
@@ -14677,6 +15119,7 @@ function panelPerson(id) {
         <small>\u4EB2\u758F ${p.favor}/100\u3000${tierNote}\u3000${p.inParty ? "\xB7 \u540C\u884C\u4E2D" : ""}</small></div>
     </div></div>
     ${view}
+    ${pairBlock}
     <div class="pp-sec pp-bio"><h4>\u5C0F\u4F20</h4>${bio}</div>
     <div class="pp-sec"><h4>\u4E0E\u4F60\u7684\u7275\u626F</h4>
       ${minds || '<div class="pp-mind" style="opacity:.5">\u8FD9\u4F1A\u513F\u6CA1\u6258\u4F60\u4EC0\u4E48\u4E8B\u3002</div>'}
@@ -14726,9 +15169,10 @@ function bindPerson(id) {
       else if (a === "leave") r = leaveParty(state, id);
       else if (a === "together") r = doTogether(state, id);
       if (!r) return;
-      PERSON_VIEW = `${r.text}${r.delta ? `\u3000<span style="opacity:.55">\u4EB2\u758F ${r.delta > 0 ? "+" : ""}${r.delta}</span>` : ""}${crossNote(r)}${r.back ? `<br>${r.back}` : ""}`;
+      PERSON_VIEW = `${r.text}${r.delta ? `\u3000<span style="opacity:.55">\u4EB2\u758F ${r.delta > 0 ? "+" : ""}${r.delta}</span>` : ""}${crossNote(r)}${r.back ? `<br>${r.back}` : ""}${r.banter ? `<br><span class="pp-banter">${r.banter}</span>` : ""}`;
       if (r.ok && a === "invite") sfx("good", true);
-      toast(r.ok ? a === "invite" ? `${r.name || "\u4ED6"}\u4E0E\u4F60\u540C\u884C` : a === "together" ? `\u540C\u4ED6\u8D70\u4E86\u4E00\u8D9F\uFF1A${r.mindTitle || ""}` : r.text.slice(0, 22) : r.text);
+      const inviteToast = `${r.name || "\u4ED6"}\u4E0E\u4F60\u540C\u884C${r.mood && r.tone !== "plain" ? ` \xB7 ${r.mood}` : ""}`;
+      toast(r.ok ? a === "invite" ? inviteToast : a === "together" ? `\u540C\u4ED6\u8D70\u4E86\u4E00\u8D9F\uFF1A${r.mindTitle || ""}` : r.text.slice(0, 22) : r.text);
       save();
       syncHud();
       openPanel("person", id);
@@ -14754,7 +15198,7 @@ function bindMind() {
   }));
   panelRoot.querySelectorAll("[data-mind-done]").forEach((b) => b.addEventListener("click", () => {
     const r = mindFinish(state, b.dataset.mindDone);
-    MIND_VIEW = r.ok ? `${r.text}${r.merit ? `\uFF08\u9053\u884C +${r.merit}\uFF09` : ""}${r.keepsake ? `<br>\u4F60\u6536\u4E0B\u4E86 <b>${r.keepsake}</b>\u3002` : ""}${r.next ? `<br>\u5FC3\u4E0A\u53C8\u591A\u4E86\u4E00\u4EF6\u4E8B\uFF1A${r.next}\u3002` : ""}` : r.why;
+    MIND_VIEW = r.ok ? `${r.text}${r.merit ? `\uFF08\u9053\u884C +${r.merit}\uFF09` : ""}${r.keepsake ? `<br>\u4F60\u6536\u4E0B\u4E86 <b>${r.keepsake}</b>\u3002` : ""}${r.pairLine ? `<br><span style="color:#9fd8bd">${r.pairLine}</span>` : ""}${r.next ? `<br>\u5FC3\u4E0A\u53C8\u591A\u4E86\u4E00\u4EF6\u4E8B\uFF1A${r.next}\u3002` : ""}` : r.why;
     if (r.ok) {
       record(state, "minds", b.dataset.mindDone);
       sfx("good", true);
