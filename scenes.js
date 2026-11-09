@@ -183,6 +183,195 @@ function pickNpc(role, seedStr, tags = []) {
   return hashPick(candidates(role, tags), seedStr);
 }
 
+// src/data_mind.js
+var MINDS = [
+  {
+    id: "chen_herb",
+    npc: "chen",
+    title: "\u4E24\u682A\u836F",
+    say: "\u9648\u6267\u4E8B\u628A\u836F\u78BE\u505C\u5728\u534A\u7A7A\uFF1A\u300C\u91C7\u4E24\u682A\u56DE\u6765\u3002\u6211\u6559\u4F60\u8BA4\u706B\u3002\u300D",
+    need: [{ key: "herb", n: 2, text: "\u91C7\u4E24\u682A\u836F" }],
+    cost: { herb: 2 },
+    pay: { bond: 1, merit: 6, log: "\u4F60\u628A\u4E24\u682A\u836F\u653E\u5728\u78BE\u5B50\u8FB9\u4E0A\u3002\u9648\u6267\u4E8B\u6CA1\u62AC\u5934\uFF0C\u53EA\u8BF4\u4E86\u4E00\u53E5\u300C\u706B\u8981\u5148\u5C0F\u540E\u5927\u300D\u3002" },
+    due: 5,
+    hint: "\u8FF7\u96FE\u68EE\u6797 \xB7 \u91C7\u836F",
+    weight: 9
+  },
+  {
+    id: "shen_plaza",
+    npc: "shen",
+    title: "\u66FF\u4ED6\u770B\u4E00\u773C",
+    say: "\u6C88\u4E09\u8BF4\u4ED6\u8981\u95ED\u5173\u4E86\uFF1A\u300C\u5E7F\u573A\u4E0A\u90A3\u573A\u6BD4\u8BD5\uFF0C\u4F60\u66FF\u6211\u770B\u4E00\u773C\u3002\u8C01\u8D62\u4E86\uFF0C\u56DE\u6765\u544A\u8BC9\u6211\u3002\u300D",
+    need: [{ key: "visit_plaza", n: 1, text: "\u53BB\u5B97\u95E8\u5E7F\u573A\u770B\u90A3\u573A\u6BD4\u8BD5" }],
+    pay: { bond: 1, merit: 4, log: "\u4F60\u56DE\u6765\u8BF4\uFF1A\u8D62\u7684\u662F\u4E2A\u7528\u77ED\u5200\u7684\u3002\u6C88\u4E09\u300C\u54E6\u300D\u4E86\u4E00\u58F0\uFF0C\u5F88\u4E45\u6CA1\u518D\u8BF4\u8BDD\u3002" },
+    due: 6,
+    hint: "\u8206\u56FE \xB7 \u5B97\u95E8\u5E7F\u573A",
+    weight: 8
+  },
+  {
+    id: "nvzi_sword",
+    npc: "nvzi",
+    title: "\u518D\u53BB\u4E00\u6B21\u5251\u51A2",
+    say: "\u90A3\u4E2A\u5973\u5B50\u628A\u5251\u63D2\u56DE\u571F\u91CC\uFF1A\u300C\u4E0B\u6B21\u6765\uFF0C\u522B\u7A7A\u7740\u624B\u3002\u300D",
+    need: [{ key: "visit_sword", n: 1, text: "\u518D\u53BB\u4E00\u6B21\u5251\u51A2" }],
+    pay: { bond: 1, merit: 5, log: "\u5251\u51A2\u7684\u98CE\u6BD4\u4E0A\u6B21\u66F4\u51B7\u3002\u5979\u7AD9\u5728\u539F\u5904\uFF0C\u50CF\u662F\u8FD9\u4E09\u5E74\u6CA1\u632A\u8FC7\u5730\u65B9\u3002" },
+    due: 8,
+    hint: "\u8206\u56FE \xB7 \u5251\u51A2",
+    weight: 8
+  },
+  {
+    id: "laozu_paper",
+    npc: "laozu",
+    title: "\u4E00\u53E0\u7EB8",
+    say: "\u5B88\u53F0\u8001\u4EBA\u6570\u4E86\u6570\u624B\u91CC\u7684\u7EB8\uFF0C\u4E0D\u591F\u70E7\uFF1A\u300C\u4E0B\u56DE\u4E0A\u6765\uFF0C\u5E26\u4E00\u53E0\u3002\u300D",
+    need: [{ key: "visit_tribulation", n: 1, text: "\u53BB\u5B64\u5CF0\u6E21\u52AB\u53F0" }],
+    pay: { bond: 1, merit: 5, log: "\u4F60\u628A\u7EB8\u70E7\u5B8C\u3002\u8001\u4EBA\u8E72\u7740\u770B\u706B\uFF0C\u8BF4\u8FD9\u5EA7\u53F0\u4E0A\u6B7B\u8FC7\u7684\u4EBA\uFF0C\u540D\u5B57\u4ED6\u90FD\u8BB0\u7740\u3002" },
+    due: 7,
+    hint: "\u8206\u56FE \xB7 \u6E21\u52AB\u53F0",
+    weight: 7
+  },
+  {
+    id: "fu_charm",
+    npc: "fu",
+    title: "\u4E00\u5F20\u7B26",
+    say: "\u5356\u7B26\u7684\u4EBA\u4E0D\u6536\u94B1\uFF1A\u300C\u4F60\u753B\u4E00\u5F20\u7ED9\u6211\u770B\u770B\u3002\u753B\u6B6A\u4E86\u4E5F\u7B97\u3002\u300D",
+    need: [{ key: "craft_fu", n: 1, text: "\u4EB2\u624B\u5236\u4E00\u5F20\u7B26" }],
+    pay: { bond: 1, merit: 6, item: ["charm", 1], log: "\u4ED6\u628A\u4F60\u753B\u7684\u7B26\u5BF9\u7740\u5149\u770B\u4E86\u770B\uFF0C\u8BF4\uFF1A\u300C\u6B6A\u662F\u6B6A\uFF0C\u4F46\u6C14\u662F\u901A\u7684\u3002\u300D" },
+    due: 6,
+    hint: "\u8206\u56FE \xB7 \u5236\u7B26",
+    weight: 6
+  },
+  {
+    id: "xiao_herb",
+    npc: "xiao",
+    title: "\u5C0F\u6EE1\u7684\u836F",
+    say: "\u5C0F\u6EE1\u628A\u624B\u7F29\u56DE\u8896\u5B50\u91CC\uFF1A\u300C\u5E08\u5144\uFF0C\u6211\u624B\u7B28\uFF0C\u91C7\u4E0D\u6EE1\u4E00\u7B50\u2026\u2026\u300D",
+    need: [{ key: "herb", n: 3, text: "\u91C7\u4E09\u682A\u836F" }],
+    cost: { herb: 3 },
+    pay: { bond: 2, merit: 8, log: "\u5C0F\u6EE1\u62B1\u7740\u90A3\u4E09\u682A\u836F\u8DD1\u4E86\u4E24\u6B65\uFF0C\u53C8\u56DE\u5934\uFF0C\u5F88\u5C0F\u58F0\u5730\u8BF4\u4E86\u53E5\u8C22\u8C22\u3002" },
+    due: 5,
+    hint: "\u8FF7\u96FE\u68EE\u6797 \xB7 \u91C7\u836F",
+    weight: 7
+  },
+  {
+    id: "baitang_duel",
+    npc: "baitang",
+    title: "\u4E0E\u5979\u6BD4\u4E00\u573A",
+    say: "\u767D\u68E0\u628A\u5251\u6A2A\u5728\u819D\u4E0A\uFF1A\u300C\u4F60\u6211\u90FD\u8FD8\u6D3B\u7740\uFF0C\u5C31\u8BE5\u6BD4\u4E00\u6B21\u3002\u300D",
+    need: [{ key: "battle", n: 1, text: "\u4E0E\u4EBA\u6597\u4E00\u6B21\u6CD5" }],
+    pay: { bond: 2, merit: 10, log: "\u4F60\u4EEC\u8C01\u4E5F\u6CA1\u8D62\u3002\u6536\u5251\u7684\u65F6\u5019\u5979\u8BF4\uFF1A\u300C\u4E0B\u4E00\u6B21\u522B\u7559\u624B\u3002\u300D" },
+    due: 8,
+    hint: "\u4EFB\u610F\u5730\u65B9 \xB7 \u6597\u6CD5",
+    weight: 6
+  },
+  {
+    id: "jiangyi_tally",
+    npc: "jiangyi",
+    title: "\u4E00\u4EF6\u4FE1\u7269",
+    say: "\u7EDB\u8863\u8BF4\uFF1A\u300C\u79D8\u5883\u91CC\u5E26\u51FA\u6765\u7684\u65E7\u4E1C\u897F\uFF0C\u7ED9\u6211\u4E00\u4EF6\u3002\u6211\u8BA4\u5F97\u51FA\u5B83\u539F\u5148\u5728\u8C01\u624B\u4E0A\u3002\u300D",
+    need: [],
+    cost: { tally: 1 },
+    pay: { bond: 2, karma: 1, log: "\u5979\u628A\u4FE1\u7269\u7FFB\u8FC7\u6765\u770B\u4E86\u5F88\u4E45\uFF0C\u7B11\u4E86\u4E00\u4E0B\uFF0C\u4EC0\u4E48\u4E5F\u6CA1\u8BF4\u3002" },
+    due: 10,
+    hint: "\u79D8\u5883 \xB7 \u6478\u5230\u4FE1\u7269\u540E\u56DE\u6765",
+    weight: 5
+  },
+  {
+    id: "peiqi_night",
+    npc: "peiqi",
+    title: "\u5B88\u4E00\u591C",
+    say: "\u88F4\u4E03\u8BF4\u4ED6\u8981\u4E0B\u5C71\u4E00\u8D9F\uFF1A\u300C\u6797\u5B50\u90A3\u5934\uFF0C\u4F60\u66FF\u6211\u5B88\u4E00\u591C\u3002\u5929\u4EAE\u5C31\u56DE\u6765\u3002\u300D",
+    need: [{ key: "visit_forest", n: 1, text: "\u5728\u8FF7\u96FE\u68EE\u6797\u5B88\u4E00\u591C" }],
+    pay: { bond: 1, merit: 5, log: "\u5929\u5FEB\u4EAE\u65F6\u8D77\u4E86\u96FE\u3002\u4F60\u6CA1\u7761\uFF0C\u4E5F\u6CA1\u770B\u89C1\u4EC0\u4E48\u3002\u88F4\u4E03\u56DE\u6765\u65F6\u5E26\u4E86\u4E24\u4E2A\u51B7\u9992\u5934\u3002" },
+    due: 6,
+    hint: "\u8206\u56FE \xB7 \u8FF7\u96FE\u68EE\u6797",
+    weight: 6
+  },
+  {
+    id: "zhao_word",
+    npc: "zhao",
+    title: "\u5E26\u4E00\u53E5\u8BDD",
+    say: "\u8D75\u9608\u7684\u58F0\u97F3\u5F88\u4F4E\uFF1A\u300C\u53BB\u5E7F\u573A\uFF0C\u66FF\u6211\u770B\u770B\u90A3\u5757\u7891\u8FD8\u5728\u4E0D\u5728\u3002\u300D",
+    need: [{ key: "visit_plaza", n: 1, text: "\u53BB\u5B97\u95E8\u5E7F\u573A\u770B\u4E00\u773C" }],
+    pay: { bond: 1, merit: 4, log: "\u7891\u8FD8\u5728\uFF0C\u5B57\u88AB\u4EBA\u78E8\u5E73\u4E86\u4E00\u534A\u3002\u4F60\u56DE\u6765\u544A\u8BC9\u4ED6\uFF0C\u4ED6\u70B9\u70B9\u5934\uFF0C\u8BF4\u77E5\u9053\u4E86\u3002" },
+    due: 7,
+    hint: "\u8206\u56FE \xB7 \u5B97\u95E8\u5E7F\u573A",
+    weight: 5,
+    when: (l) => !!l.met.zhao
+  },
+  {
+    id: "sect_copy",
+    npc: null,
+    title: "\u6284\u6EE1\u4E94\u5377",
+    say: "\u85CF\u7ECF\u9601\u7684\u6267\u4E8B\u8BF4\u7ECF\u5377\u7F3A\u4E86\u4EBA\u624B\uFF1A\u300C\u6284\u4E94\u5377\u3002\u4E0D\u7528\u6284\u5F97\u597D\uFF0C\u522B\u6284\u9519\u5B57\u3002\u300D",
+    need: [{ key: "copy", n: 5, text: "\u5728\u85CF\u7ECF\u9601\u6284\u4E94\u5377\u7ECF" }],
+    pay: { merit: 12, log: "\u4E94\u5377\u6284\u5B8C\uFF0C\u4F60\u7684\u624B\u8155\u9178\u4E86\u4E09\u5929\u3002\u6267\u4E8B\u6536\u8D70\u65F6\u8BF4\uFF1A\u300C\u5B57\u6BD4\u4E0A\u56DE\u7A33\u3002\u300D" },
+    due: 8,
+    hint: "\u85CF\u7ECF\u9601 \xB7 \u6284\u7ECF",
+    weight: 5
+  },
+  {
+    id: "chen_brew",
+    npc: "chen",
+    title: "\u5F00\u4E00\u6B21\u7089",
+    say: "\u9648\u6267\u4E8B\u8BF4\u4E39\u623F\u7A7A\u7740\u4E00\u7089\uFF1A\u300C\u4F60\u81EA\u5DF1\u70B9\u4E00\u6B21\u706B\u3002\u70B8\u4E86\u7B97\u6211\u7684\u3002\u300D",
+    need: [{ key: "brew", n: 1, text: "\u4EB2\u624B\u70BC\u4E00\u7089\u4E39" }],
+    pay: { bond: 1, merit: 8, log: "\u7089\u76D6\u6380\u5F00\u65F6\uFF0C\u4E39\u6210\u4E86\u3002\u9648\u6267\u4E8B\u770B\u4E86\u5F88\u4E45\uFF0C\u8BF4\uFF1A\u300C\u4F60\u6BD4\u6211\u5F53\u5E74\u5F3A\u3002\u300D" },
+    due: 8,
+    hint: "\u4E39\u623F \xB7 \u70BC\u4E39",
+    weight: 6
+  },
+  {
+    id: "laozu_pill",
+    npc: "laozu",
+    title: "\u7ED9\u4ED6\u4E00\u9897\u4E39",
+    say: "\u5B88\u53F0\u8001\u4EBA\u54B3\u4E86\u4E00\u58F0\uFF1A\u300C\u8FD9\u53F0\u4E0A\u5F85\u4E45\u4E86\uFF0C\u9AA8\u5934\u662F\u51C9\u7684\u3002\u300D",
+    need: [],
+    cost: { pill: 1 },
+    pay: { bond: 2, merit: 10, log: "\u4ED6\u63A5\u8FC7\u4E39\uFF0C\u6CA1\u5403\uFF0C\u63E3\u8FDB\u6000\u91CC\uFF1A\u300C\u7559\u7740\u3002\u4E0B\u56DE\u8FD8\u6709\u4EBA\u4E0A\u6765\u3002\u300D" },
+    due: 10,
+    hint: "\u70BC\u4E39\u4E4B\u540E \xB7 \u4E0A\u6E21\u52AB\u53F0",
+    weight: 4
+  },
+  {
+    id: "self_sea",
+    npc: null,
+    title: "\u53BB\u770B\u4E00\u6B21\u6D77",
+    say: "\u4F60\u5728\u5FC3\u91CC\u8BB0\u4E86\u4E00\u53E5\uFF1A\u7B51\u57FA\u4E4B\u524D\uFF0C\u603B\u8981\u4E0B\u5C71\u770B\u4E00\u6B21\u6D77\u3002",
+    need: [{ key: "visit_map", n: 1, text: "\u8D70\u51FA\u5C71\u95E8\uFF0C\u770B\u4E00\u773C\u8206\u56FE\u5916\u7684\u5929\u5730" }],
+    pay: { merit: 8, log: "\u4F60\u5728\u5C71\u95E8\u5916\u7684\u5761\u4E0A\u7AD9\u4E86\u4E00\u4F1A\u513F\u3002\u8FDC\u5904\u6CA1\u6709\u6D77\uFF0C\u53EA\u6709\u96FE\u3002\u4E5F\u7B97\u770B\u8FC7\u4E86\u3002" },
+    due: 12,
+    hint: "\u8206\u56FE \xB7 \u5C71\u95E8",
+    weight: 3,
+    when: (l) => l.year >= 20
+  },
+  {
+    id: "shen_farewell",
+    npc: "shen",
+    title: "\u4ED6\u8D70\u4E86",
+    say: "\u6C88\u4E09\u7B51\u57FA\u540E\u642C\u53BB\u5185\u95E8\uFF0C\u8D70\u4E4B\u524D\u7559\u4E86\u53E5\u8BDD\uFF1A\u300C\u6709\u7A7A\u6765\u5750\u3002\u300D",
+    need: [{ key: "visit_plaza", n: 1, text: "\u53BB\u5E7F\u573A\u7AD9\u4E00\u4F1A\u513F" }],
+    pay: { bond: 1, merit: 5, log: "\u5E7F\u573A\u4E0A\u4ED6\u7AD9\u8FC7\u7684\u5730\u65B9\u957F\u4E86\u8349\u3002\u4F60\u6CA1\u6709\u5750\u4E0B\uFF0C\u7AD9\u4E86\u4E00\u4F1A\u513F\u5C31\u8D70\u4E86\u3002" },
+    due: 12,
+    hint: "\u8206\u56FE \xB7 \u5B97\u95E8\u5E7F\u573A",
+    weight: 4,
+    when: (l) => !!l.world.shen_inner
+  },
+  {
+    id: "peiqi_charm",
+    npc: "peiqi",
+    title: "\u501F\u4E00\u5F20\u7B26",
+    say: "\u88F4\u4E03\u6320\u5934\uFF1A\u300C\u6211\u8981\u4E0B\u5C71\u4E00\u8D9F\uFF0C\u501F\u6211\u4E00\u5F20\u7B26\u3002\u56DE\u6765\u8FD8\u4F60\u4E24\u5F20\u3002\u300D",
+    need: [],
+    cost: { charm: 1 },
+    pay: { bond: 1, merit: 4, item: ["charm", 2], log: "\u4ED6\u56DE\u6765\u65F6\u771F\u7684\u8FD8\u4E86\u4E24\u5F20\uFF0C\u8BF4\u591A\u7684\u4E00\u5F20\u662F\u5229\u94B1\u3002" },
+    due: 6,
+    hint: "\u5236\u7B26 \xB7 \u624B\u91CC\u6709\u7B26",
+    weight: 5
+  }
+];
+var MIND_MAX = 3;
+
 // src/life.js
 var START_YEAR = 16;
 var START_SPAN = 80;
@@ -207,7 +396,8 @@ var NPCS = {
   fu: { name: "\u5356\u7B26\u7684\u4EBA", role: "\u5C71\u9053" },
   baitang: { name: "\u767D\u68E0", role: "\u5251\u4FEE" },
   jiangyi: { name: "\u7EDB\u8863", role: "\u9B54\u9053" },
-  peiqi: { name: "\u88F4\u4E03", role: "\u540C\u95E8" }
+  peiqi: { name: "\u88F4\u4E03", role: "\u540C\u95E8" },
+  qingwu: { name: "\u9752\u68A7", role: "\u6EAA\u8FB9" }
 };
 var RANKS = [
   { name: "\u7EC3\u6C14", note: "\u9053\u884C\u672A\u6210", at: 0 },
@@ -288,7 +478,18 @@ function newLife() {
     // 玩家自择，不替玩家定
     difficulty: "normal",
     // 难度一世一算，中途改下一世才生效
-    diffApplied: 0
+    diffApplied: 0,
+    /* 心事：答应过别人的、答应过自己的 */
+    mind: [],
+    // 进行中：{ id, got, due }
+    mindCount: {},
+    // 各类事情的累计次数（采药、炼丹、去过某地……）
+    mindDone: {},
+    // 了结过的（id -> 年份）
+    mindLost: {},
+    // 没能了结的
+    mindLock: -1
+    // 上次接取心事的年份
   };
 }
 function ensure(state2) {
@@ -313,6 +514,11 @@ function ensure(state2) {
   if (!l.exp || typeof l.exp !== "object") l.exp = { last: -99, count: 0 };
   if (!l.items || typeof l.items !== "object") l.items = {};
   for (const k of ["tribBoost", "guard", "secBonus", "secRisk", "expSave"]) if (l[k] === void 0) l[k] = 0;
+  if (!Array.isArray(l.mind)) l.mind = [];
+  if (!l.mindCount || typeof l.mindCount !== "object") l.mindCount = {};
+  if (!l.mindDone || typeof l.mindDone !== "object") l.mindDone = {};
+  if (!l.mindLost || typeof l.mindLost !== "object") l.mindLost = {};
+  if (l.mindLock === void 0) l.mindLock = -1;
   return l;
 }
 var yearsLeft = (state2) => Math.max(0, ensure(state2).span - ensure(state2).year);
@@ -386,6 +592,11 @@ function worldTick(state2) {
     out.push(...folkTick(state2));
   } catch (err) {
     console.warn("folkTick failed", err);
+  }
+  try {
+    out.push(...mindTick(state2));
+  } catch (err) {
+    console.warn("mindTick failed", err);
   }
   return out;
 }
@@ -1195,6 +1406,8 @@ var ECHOES = {
 var NPCCARDS = [
   {
     id: "n_shen",
+    art: "b_05.png",
+    who: "\u6C88\u4E09",
     scenes: ["forest", "map", "plaza"],
     title: "\u534A\u5757\u997C",
     body: "\u6C88\u4E09\u5728\u5C71\u9053\u4E0A\u7B49\u4F60\u3002\u4ED6\u8896\u5B50\u91CC\u63E3\u7740\u534A\u5757\u997C\u2014\u2014\u53E6\u4E00\u534A\u6628\u5929\u5C31\u5403\u4E86\u3002\u4ED6\u8BF4\uFF1A\u7B49\u4F60\u6709\u51FA\u606F\u4E86\uFF0C\u8BB0\u5F97\u63D0\u6211\u4E00\u53E5\u3002",
@@ -1216,6 +1429,8 @@ var NPCCARDS = [
   },
   {
     id: "n_chen",
+    art: "elder_danfeng.png",
+    who: "\u9648\u6267\u4E8B",
     scenes: ["alchemy", "map"],
     title: "\u9648\u6267\u4E8B\u7684\u7B97\u76D8",
     body: "\u9648\u6267\u4E8B\u5728\u4E39\u623F\u95E8\u53E3\u62E8\u7B97\u76D8\uFF0C\u5934\u4E5F\u4E0D\u62AC\uFF1A\u300C\u836F\uFF0C\u6211\u6536\u3002\u4EF7\uFF0C\u6211\u8BF4\u3002\u300D\u4ED6\u62AC\u773C\u770B\u4F60\uFF0C\u300C\u4E24\u682A\uFF0C\u6362\u4E00\u7089\u4E39\u3002\u300D",
@@ -1243,6 +1458,8 @@ var NPCCARDS = [
   },
   {
     id: "n_zhao",
+    art: "b_09.png",
+    who: "\u8D75\u9608",
     scenes: ["sword", "map"],
     title: "\u77F3\u9636\u4E0A\u7684\u8D75\u9608",
     body: "\u8D75\u9608\u6321\u5728\u5251\u51A2\u77F3\u9636\u4E0A\uFF0C\u5185\u95E8\u5F1F\u5B50\u7684\u888D\u89D2\u5E72\u5E72\u51C0\u51C0\u3002\u300C\u5916\u95E8\u7684\uFF0C\u4E5F\u6765\u62D4\u5251\uFF1F\u300D",
@@ -1267,6 +1484,8 @@ var NPCCARDS = [
   },
   {
     id: "n_nvzi",
+    art: "b_06.png",
+    who: "\u767D\u8863\u5973\u5B50",
     scenes: ["realm", "map"],
     title: "\u767D\u8863\u5973\u5B50",
     body: "\u79D8\u5883\u53E3\u5750\u7740\u90A3\u4E2A\u5973\u5B50\uFF0C\u767D\u8863\u670D\uFF0C\u770B\u4E0D\u6E05\u8138\u3002\u300C\u4F60\u5E26\u7B26\u4E86\u5417\uFF1F\u300D\u5979\u95EE\u3002",
@@ -1291,6 +1510,8 @@ var NPCCARDS = [
   },
   {
     id: "n_laozu",
+    art: "a_09.png",
+    who: "\u5B88\u53F0\u8001\u4EBA",
     scenes: ["tribulation", "map"],
     title: "\u70E7\u7EB8\u7684\u8001\u4EBA",
     body: "\u5B88\u53F0\u8001\u4EBA\u8E72\u5728\u5B64\u5CF0\u4E0B\u70E7\u7EB8\uFF0C\u706B\u5149\u7167\u7740\u4ED6\u7684\u624B\u3002\u300C\u4E0A\u53F0\u7684\uFF0C\u90FD\u8981\u88AB\u95EE\u4E09\u53E5\u3002\u300D\u4ED6\u987F\u4E86\u987F\uFF0C\u300C\u7B54\u9519\u4E00\u53E5\uFF0C\u5C11\u6D3B\u51E0\u5E74\u3002\u300D",
@@ -1723,6 +1944,8 @@ NPCCARDS.push(
   {
     id: "n_xiao",
     stage: 1,
+    art: "b_08.png",
+    who: "\u5C0F\u6EE1",
     npc: "xiao",
     scenes: ["alchemy", "forest", "map"],
     title: "\u836F\u5703\u8FB9\u4E0A\u7684\u5C0F\u5B69",
@@ -1774,6 +1997,8 @@ NPCCARDS.push(
   {
     id: "n_fu",
     stage: 1,
+    art: "b_02.png",
+    who: "\u5356\u7B26\u7684\u4EBA",
     npc: "fu",
     scenes: ["forest", "plaza", "map"],
     title: "\u5C71\u9053\u4E0A\u5356\u7B26\u7684\u4EBA",
@@ -2652,7 +2877,7 @@ var ARCHETYPES = [
   { k: "admirer", name: "\u8FFD\u6155\u8005", want: "\u79BB\u4F60\u8FD1\u4E00\u70B9", tell: "\u4F60\u8D70\u5230\u54EA\u513F\uFF0C\u4ED6\uFF08\u5979\uFF09\u603B\u6BD4\u4F60\u65E9\u5230\u4E00\u6B65\u3002" },
   { k: "kindred", name: "\u540C\u9053", want: "\u4E00\u8D77\u628A\u8DEF\u8D70\u5B8C", tell: "\u4F60\u4EEC\u8981\u8D70\u7684\u662F\u540C\u4E00\u6761\u8DEF\uFF0C\u53EA\u662F\u4ED6\u5148\u8D70\u4E86\u51E0\u5E74\u3002" }
 ];
-var NAMES_M = ["\u6C88\u4E09", "\u9648\u6267\u4E8B", "\u8D75\u9608", "\u88F4\u4E03", "\u77F3\u7FC1", "\u9646\u4E5D", "\u767D\u5341\u4E09", "\u8C22\u65E0\u548E", "\u987E\u957F\u98CE", "\u836F\u7F57", "\u79E6\u4E59"];
+var NAMES_M = ["\u6C88\u4E09", "\u9648\u6267\u4E8B", "\u8D75\u9608", "\u5468\u884D", "\u77F3\u7FC1", "\u9646\u4E5D", "\u767D\u5341\u4E09", "\u8C22\u65E0\u548E", "\u987E\u957F\u98CE", "\u836F\u7F57", "\u79E6\u4E59"];
 var NAMES_F = ["\u5C0F\u6EE1", "\u963F\u829C", "\u67F3\u5982\u7709", "\u963F\u6A80", "\u4E91\u5A18", "\u82CF\u5A18", "\u9752\u8605", "\u8042\u5C0F\u9497", "\u7D20\u95EE", "\u963F\u8605"];
 var MARRY_BOND = 3;
 var pronounOf = (f) => f && f.gender === "\u5973" ? "\u5979" : "\u4ED6";
@@ -3878,8 +4103,223 @@ EVENTS.push(
         }
       }
     ]
+  },
+  {
+    id: "e_qw",
+    scenes: ["forest", "realm"],
+    art: "c_01.png",
+    who: "\u9752\u68A7",
+    title: "\u6EAA\u8FB9\u7684\u4EBA",
+    body: "\u9752\u68A7\u5750\u5728\u6EAA\u8FB9\u6D17\u836F\uFF0C\u8896\u5B50\u633D\u5230\u8098\u4E0A\u3002\u300C\u4F60\u8D70\u8DEF\u7684\u6837\u5B50\u4E0D\u5BF9\u3002\u300D\u5979\u6CA1\u62AC\u5934\uFF0C\u300C\u53F3\u8FB9\u90A3\u6761\u817F\uFF0C\u53D7\u8FC7\u4F24\u5427\u3002\u300D",
+    opts: [
+      {
+        t: "\u5750\u4E0B\uFF0C\u8BA9\u5979\u770B\u770B\uFF08\u4E00\u5E74\uFF09",
+        res: "\u5979\u6309\u4E86\u6309\u4F60\u7684\u811A\u8E1D\uFF0C\u8BF4\uFF1A\u300C\u9AA8\u5934\u957F\u6B6A\u4E86\u4E00\u70B9\u3002\u4E0D\u788D\u4E8B\uFF0C\u4F46\u4F60\u5F97\u77E5\u9053\u3002\u300D\u5979\u7ED9\u4E86\u4F60\u4E00\u5C0F\u5305\u836F\u3002",
+        fx: (s) => {
+          spend(s, 1);
+          addItem(s, "herb", 2);
+          ensure(s).wu += 1;
+          log(s, "bond", "\u9752\u68A7\u5728\u6EAA\u8FB9\u770B\u51FA\u4F60\u817F\u4E0A\u6709\u65E7\u4F24\uFF0C\u7ED9\u4E86\u4F60\u4E00\u5C0F\u5305\u836F\u3002", "qingwu");
+        }
+      },
+      {
+        t: "\u8BF4\uFF1A\u6CA1\u6709",
+        res: "\u5979\u54E6\u4E86\u4E00\u58F0\uFF0C\u7EE7\u7EED\u6D17\u836F\u3002\u6C34\u58F0\u5F88\u5927\uFF0C\u4F60\u4EEC\u90FD\u6CA1\u518D\u8BF4\u8BDD\u3002",
+        fx: (s) => log(s, "omen", "\u9752\u68A7\u8BF4\u4F60\u817F\u4E0A\u6709\u65E7\u4F24\u3002\u4F60\u8BF4\u6CA1\u6709\u3002")
+      }
+    ]
+  },
+  {
+    id: "e_daoke",
+    scenes: ["map", "gate"],
+    art: "c_07.png",
+    who: "\u8D6D\u8863\u5200\u5BA2",
+    title: "\u8D4C\u4E00\u628A\u5200",
+    body: "\u8D6D\u8863\u5200\u5BA2\u628A\u5200\u6A2A\u5728\u819D\u4E0A\uFF0C\u8D4C\u4F60\uFF1A\u300C\u4E00\u5200\u3002\u4F60\u8D62\u4E86\uFF0C\u8FD9\u5200\u5F52\u4F60\uFF1B\u8F93\u4E86\uFF0C\u4F60\u8EAB\u4E0A\u90A3\u5F20\u517D\u76AE\u5F52\u6211\u3002\u300D",
+    opts: [
+      {
+        t: "\u8D4C\uFF08\u4E00\u5E74\uFF09",
+        res: "\u5200\u5F88\u5FEB\uFF0C\u4F60\u53EA\u770B\u89C1\u4E00\u9053\u767D\u5149\u3002\u4ED6\u6CA1\u780D\u4F60\uFF0C\u5200\u80CC\u505C\u5728\u4F60\u80A9\u4E0A\uFF1A\u300C\u517D\u76AE\u7559\u4E0B\u3002\u300D",
+        fx: (s) => {
+          spend(s, 1);
+          ensure(s).wu += 1;
+          if (s.life.bag.hide > 0) {
+            takeItem(s, "hide", 1);
+            log(s, "deed", "\u4F60\u548C\u8D6D\u8863\u5200\u5BA2\u8D4C\u4E86\u4E00\u5200\uFF0C\u8F93\u4E86\u4E00\u5F20\u517D\u76AE\u3002");
+          } else {
+            log(s, "deed", "\u4F60\u548C\u8D6D\u8863\u5200\u5BA2\u8D4C\u4E86\u4E00\u5200\u3002\u8EAB\u4E0A\u6CA1\u94B1\uFF0C\u4ED6\u6446\u6446\u624B\u8BA9\u4F60\u8D70\u3002");
+          }
+        }
+      },
+      {
+        t: "\u4E0D\u8D4C\uFF0C\u95EE\u4ED6\u5200\u4ECE\u54EA\u6765",
+        res: "\u300C\u6361\u7684\u3002\u300D\u4ED6\u628A\u5200\u6536\u56DE\u9798\u91CC\uFF0C\u300C\u6361\u7684\u4E1C\u897F\uFF0C\u8D4C\u8F93\u4E86\u4E5F\u4E0D\u5FC3\u75BC\u3002\u300D",
+        fx: (s) => {
+          ensure(s).wu += 1;
+          log(s, "omen", "\u8D6D\u8863\u5200\u5BA2\u8BF4\uFF0C\u5200\u662F\u6361\u6765\u7684\u3002");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_shuzhai",
+    scenes: ["library", "library-in"],
+    art: "c_08.png",
+    who: "\u4E66\u658B\u5973\u5B50",
+    title: "\u6B8B\u5377",
+    body: "\u4E66\u658B\u5973\u5B50\u644A\u5F00\u4E00\u9875\u6B8B\u5377\uFF0C\u8FB9\u89D2\u88AB\u866B\u86C0\u8FC7\u3002\u300C\u5C11\u4E86\u4E00\u884C\u3002\u300D\u5979\u8BF4\uFF0C\u300C\u4F60\u6284\u8FC7\u7C7B\u4F3C\u7684\u5417\uFF1F\u300D",
+    opts: [
+      {
+        t: "\u966A\u5979\u8865\u8FD9\u4E00\u9875\uFF08\u4E00\u5E74\uFF09",
+        res: "\u4F60\u4EEC\u8865\u5230\u5929\u4EAE\u3002\u8865\u4E0A\u7684\u90A3\u4E00\u884C\u662F\u5979\u81EA\u5DF1\u5199\u7684\uFF0C\u7B14\u8FF9\u548C\u539F\u5377\u63A5\u5F97\u4E0A\u3002",
+        fx: (s) => {
+          spend(s, 1);
+          ensure(s).wu += 2;
+          ensure(s).merit += 3;
+          log(s, "deed", "\u4F60\u966A\u4E66\u658B\u5973\u5B50\u8865\u4E86\u4E00\u9875\u6B8B\u5377\u3002\u8865\u4E0A\u7684\u90A3\u4E00\u884C\u662F\u5979\u5199\u7684\u3002");
+        }
+      },
+      {
+        t: "\u8BF4\u6284\u8FC7\uFF0C\u4F46\u8BB0\u4E0D\u6E05\u4E86",
+        res: "\u5979\u70B9\u70B9\u5934\uFF0C\u628A\u6B8B\u5377\u6536\u8D77\u6765\u3002\u300C\u8BB0\u4E0D\u6E05\u4E5F\u597D\u3002\u8BB0\u6E05\u4E86\uFF0C\u53CD\u800C\u7761\u4E0D\u7740\u3002\u300D",
+        fx: (s) => {
+          ensure(s).wu += 1;
+          log(s, "omen", "\u4E66\u658B\u5973\u5B50\u95EE\u4F60\u6284\u6CA1\u6284\u8FC7\u90A3\u9875\u6B8B\u5377\u3002\u4F60\u8BF4\u8BB0\u4E0D\u6E05\u4E86\u3002");
+        }
+      }
+    ]
+  },
+  {
+    id: "e_zhenxiu",
+    scenes: ["plaza", "map"],
+    art: "b_10.png",
+    who: "\u9635\u4FEE\u5E08\u59D0",
+    title: "\u7F3A\u4E00\u5757\u9AA8",
+    body: "\u9635\u4FEE\u5E08\u59D0\u8E72\u5728\u5730\u4E0A\u6446\u9635\uFF0C\u6446\u5230\u4E00\u534A\u505C\u4F4F\u4E86\u3002\u300C\u5C11\u4E00\u5757\u517D\u9AA8\u3002\u300D\u5979\u62AC\u5934\uFF0C\u300C\u4F60\u8EAB\u4E0A\u6709\u5417\uFF1F\u6211\u62FF\u7B26\u6362\u3002\u300D",
+    opts: [
+      {
+        t: "\u7ED9\u5979\u4E00\u5757\u517D\u9AA8\uFF08\u22121 \u9AA8\uFF09",
+        cond: (s) => hasItem(s, "bone", 1),
+        res: "\u5979\u628A\u517D\u9AA8\u5D4C\u8FDB\u9635\u773C\uFF0C\u9635\u4EAE\u4E86\u534A\u606F\u3002\u300C\u6210\u4E86\u3002\u300D\u5979\u585E\u7ED9\u4F60\u4E00\u5F20\u7B26\uFF0C\u300C\u522B\u5ACC\u5C11\u3002\u300D",
+        fx: (s) => {
+          takeItem(s, "bone", 1);
+          addItem(s, "charm", 1);
+          log(s, "deed", "\u4F60\u7ED9\u9635\u4FEE\u5E08\u59D0\u4E00\u5757\u517D\u9AA8\uFF0C\u5979\u56DE\u4F60\u4E00\u5F20\u7B26\u3002");
+        }
+      },
+      {
+        t: "\u8BF4\u6CA1\u6709",
+        res: "\u5979\u53F9\u4E86\u53E3\u6C14\uFF0C\u628A\u6446\u4E86\u4E00\u534A\u7684\u9635\u6536\u8D77\u6765\u3002\u300C\u90A3\u6211\u518D\u7B49\u4E00\u5E74\u3002\u300D",
+        fx: (s) => log(s, "omen", "\u9635\u4FEE\u5E08\u59D0\u7F3A\u4E00\u5757\u517D\u9AA8\uFF0C\u4F60\u8BF4\u6CA1\u6709\u3002")
+      }
+    ]
   }
 );
+var MIND_BY_ID = Object.fromEntries(MINDS.map((m) => [m.id, m]));
+var mindDef = (id) => MIND_BY_ID[id] || null;
+function mindWho(state2, m) {
+  const def = mindDef(m.id);
+  if (!def) return { name: "\u2014", role: "" };
+  if (!def.npc) return { name: "\u81EA\u5DF1", role: "\u7B54\u5E94\u8FC7\u81EA\u5DF1\u7684\u4E8B" };
+  return NPCS[def.npc] || { name: def.npc, role: "" };
+}
+function mindLeft(state2, m) {
+  const l = ensure(state2);
+  const def = mindDef(m.id);
+  if (!def) return 0;
+  return Math.max(0, (m.due ?? l.year) - l.year);
+}
+function mindNeed(state2, m) {
+  const def = mindDef(m.id);
+  const l = ensure(state2);
+  if (!def || !def.need) return [];
+  return def.need.map((n) => {
+    const have = Math.min(n.n, l.mindCount[n.key] || 0);
+    return { key: n.key, text: n.text, need: n.n, have, ok: have >= n.n };
+  });
+}
+function mindCost(state2, m) {
+  const def = mindDef(m.id);
+  const l = ensure(state2);
+  if (!def || !def.cost) return [];
+  return Object.entries(def.cost).map(([k, v]) => ({
+    key: k,
+    name: ITEMS[k] && ITEMS[k].name || k,
+    need: v,
+    have: l.bag[k] || 0,
+    ok: (l.bag[k] || 0) >= v
+  }));
+}
+function mindReady(state2, m) {
+  return mindNeed(state2, m).every((n) => n.ok) && mindCost(state2, m).every((c) => c.ok);
+}
+function mindProgress(state2, m) {
+  const parts = [
+    ...mindNeed(state2, m).map((n) => n.have / n.n),
+    ...mindCost(state2, m).map((c) => Math.min(1, c.have / c.need))
+  ];
+  if (!parts.length) return 1;
+  return parts.reduce((a, b) => a + b, 0) / parts.length;
+}
+function mindTick(state2) {
+  const l = ensure(state2);
+  const out = [];
+  for (let i = l.mind.length - 1; i >= 0; i--) {
+    const m = l.mind[i];
+    const def = mindDef(m.id);
+    if (def && l.year > (m.due ?? Infinity)) {
+      l.mindLost[m.id] = l.year;
+      l.mind.splice(i, 1);
+      const who = mindWho(state2, m).name;
+      log(state2, "omen", `\u4F60\u7B54\u5E94${who}\u7684\u4E8B\uFF0C\u6700\u540E\u6CA1\u505A\u6210\u3002`, def.npc || null);
+      out.push(`\u300C${def.title}\u300D\u6CA1\u80FD\u4E86\u7ED3\u3002`);
+    }
+  }
+  if (l.mind.length < MIND_MAX && l.mindLock < l.year) {
+    const cand = MINDS.filter((d) => !l.mindDone[d.id] && !l.mindLost[d.id] && !l.mind.some((m) => m.id === d.id) && (!d.when || d.when(l, state2)) && (!d.npc || !isGone(l, d.npc))).sort((a, b) => (b.weight || 0) - (a.weight || 0));
+    const pick4 = cand.find((d) => !mindReady(state2, { id: d.id, due: l.year + (d.due || 8) })) || cand[0];
+    if (pick4) {
+      l.mind.push({ id: pick4.id, got: l.year, due: l.year + (pick4.due || 8) });
+      l.mindLock = l.year;
+      const who = pick4.npc ? (NPCS[pick4.npc] || {}).name : "\u4F60\u81EA\u5DF1";
+      log(state2, "bond", `${who}\u6258\u4F60\u4E00\u4EF6\u4E8B\uFF1A${pick4.title}\u3002`, pick4.npc || null);
+      out.push(`\u5FC3\u4E0A\u591A\u4E86\u4E00\u4EF6\u4E8B\uFF1A${pick4.title}`);
+    }
+  }
+  return out;
+}
+function mindFinish(state2, id) {
+  const l = ensure(state2);
+  const i = l.mind.findIndex((m2) => m2.id === id);
+  if (i < 0) return { ok: false, why: "\u8FD9\u4EF6\u4E8B\u5DF2\u7ECF\u4E0D\u5728\u5FC3\u4E0A\u4E86\u3002" };
+  const m = l.mind[i];
+  const def = mindDef(id);
+  if (!def) {
+    l.mind.splice(i, 1);
+    return { ok: false, why: "\u8FD9\u4EF6\u4E8B\u8BB0\u4E0D\u6E05\u4E86\u3002" };
+  }
+  if (!mindReady(state2, m)) return { ok: false, why: "\u8FD8\u6CA1\u5230\u65F6\u5019\u3002" };
+  for (const [k, v] of Object.entries(def.cost || {})) l.bag[k] = Math.max(0, (l.bag[k] || 0) - v);
+  l.mind.splice(i, 1);
+  l.mindDone[id] = l.year;
+  const pay = def.pay || {};
+  if (pay.bond && def.npc) bond(state2, def.npc, pay.bond);
+  if (pay.merit) state2.merit = (state2.merit || 0) + pay.merit;
+  if (pay.karma) l.karma += pay.karma;
+  if (pay.item) addItem(state2, pay.item[0], pay.item[1] || 1);
+  if (pay.log) log(state2, "deed", pay.log, def.npc || null);
+  return { ok: true, text: pay.log || "\u8FD9\u4EF6\u4E8B\uFF0C\u7B97\u4E86\u4E86\u3002", merit: pay.merit || 0, bond: pay.bond || 0 };
+}
+function mindDrop(state2, id) {
+  const l = ensure(state2);
+  const i = l.mind.findIndex((m) => m.id === id);
+  if (i < 0) return false;
+  const def = mindDef(id);
+  l.mind.splice(i, 1);
+  l.mindLost[id] = l.year;
+  log(state2, "omen", `\u4F60\u628A\u300C${def ? def.title : "\u90A3\u4EF6\u4E8B"}\u300D\u653E\u4E0B\u4E86\u3002`, def && def.npc || null);
+  return true;
+}
 
 // src/vitals.js
 function hpMax(state2) {
@@ -8086,6 +8526,13 @@ function syncHud() {
   });
   const sectBtn = document.getElementById("btn-sect");
   if (sectBtn) sectBtn.style.display = elderOpen(state) ? "" : "none";
+  const mindBtn = document.getElementById("btn-mind");
+  if (mindBtn) {
+    const ms = l.mind || [];
+    const readyN = ms.filter((m) => mindReady(state, m)).length;
+    mindBtn.innerHTML = ms.length ? `\u5FC3\u4E8B<span class="mind-n${readyN ? " hot" : ""}">${readyN || ms.length}</span>` : "\u5FC3\u4E8B";
+    mindBtn.title = ms.length ? readyN ? `${readyN} \u4EF6\u53EF\u4EE5\u53BB\u4EA4\u5DEE` : `\u5FC3\u4E0A\u6302\u7740 ${ms.length} \u4EF6\u4E8B` : "\u6682\u65F6\u6CA1\u6709\u5FC3\u4E8B";
+  }
   updateDock();
 }
 var DOCK_ITEMS = [
@@ -8537,6 +8984,7 @@ function openPanel(id, arg) {
     // 下面几页可能还在写：没写好的页面不至于把整个图集拖死
     world: typeof panelWorld === "function" ? panelWorld : null,
     folk: typeof panelFolk === "function" ? panelFolk : null,
+    mind: typeof panelMind === "function" ? panelMind : null,
     jiazi: typeof panelJiazi === "function" ? panelJiazi : null,
     breakthrough: typeof panelBreakthrough === "function" ? panelBreakthrough : null,
     mount: typeof panelMount === "function" ? panelMount : null,
@@ -8552,7 +9000,7 @@ function openPanel(id, arg) {
   }
   const html = fn(arg);
   lastPanel = { id, arg };
-  const wide = ["realm", "tribulation", "bio", "seclude", "craft", "world", "folk", "jiazi", "breakthrough", "mount", "archive", "sect", "cave"].includes(id);
+  const wide = ["realm", "tribulation", "bio", "seclude", "craft", "world", "folk", "mind", "jiazi", "breakthrough", "mount", "archive", "sect", "cave"].includes(id);
   panelRoot.innerHTML = `<div class="panel ${wide ? "wide" : ""}">${html}</div>`;
   panelRoot.classList.add("open");
   document.addEventListener("keydown", onEsc);
@@ -8657,6 +9105,7 @@ function bindPanel(id, arg) {
   if (id === "cave") bindCave();
   if (id === "world") bindWorld();
   if (id === "folk") bindFolk();
+  if (id === "mind") bindMind();
   if (id === "jiazi") bindJiazi();
   if (id === "breakthrough") bindBreakthrough();
   if (id === "mount") bindMount();
@@ -10761,6 +11210,10 @@ function bindArchive() {
 }
 document.getElementById("btn-world")?.addEventListener("click", () => openPanel("world"));
 document.getElementById("btn-folk")?.addEventListener("click", () => openPanel("folk"));
+document.getElementById("btn-mind")?.addEventListener("click", () => {
+  MIND_VIEW = null;
+  openPanel("mind");
+});
 document.getElementById("btn-break")?.addEventListener("click", () => openPanel("breakthrough"));
 document.getElementById("btn-mount")?.addEventListener("click", () => openPanel("mount"));
 var JIAZI_VIEW = null;
@@ -10891,6 +11344,69 @@ function bindFolk() {
     if (!afterYears()) openPanel("folk");
   }));
   document.getElementById("f-mount")?.addEventListener("click", () => openPanel("mount"));
+}
+var MIND_VIEW = null;
+function mindCardHtml(m) {
+  const def = mindDef(m.id);
+  if (!def) return "";
+  const who = mindWho(state, m);
+  const left = mindLeft(state, m);
+  const need = mindNeed(state, m);
+  const cost = mindCost(state, m);
+  const ready = mindReady(state, m);
+  const pct = Math.round(mindProgress(state, m) * 100);
+  const steps = need.map((n) => `${n.text} ${n.have}/${n.need}`).join(" \xB7 ");
+  const costTxt = cost.length ? `\u4EA4\uFF1A${cost.map((c) => `${c.name} ${Math.min(c.have, c.need)}/${c.need}`).join(" \xB7 ")}` : "";
+  const cond = [steps, costTxt].filter(Boolean).join(" \xB7 ");
+  const tone = left <= 2 ? "#c0705a" : ready ? "#f0d79a" : "inherit";
+  return `<div class="craft-row"><div>
+    <b>${who.name}${who.role ? " \xB7 " + who.role : ""}\u3000${def.title}</b>
+    <span style="float:right;color:${tone}">${left > 0 ? `\u8FD8\u5269 ${left} \u5E74` : "\u4ECA\u5E74\u5230\u671F"}</span><br>
+    <span style="opacity:.62">\u300C${def.say}\u300D</span><br>
+    <span>${cond || "\u53BB\u4E86\u7ED3"}</span>
+    <div class="bar"><span>\u8FDB\u5EA6</span><i><b style="width:${pct}%"></b></i><em>${pct}%</em></div>
+    <span style="opacity:.42">\u53BB\u54EA\u513F\uFF1A${def.hint}</span>
+  </div><div>
+    ${ready ? `<button class="btn gold" data-mind-done="${m.id}">\u53BB\u4E86\u7ED3</button>` : ""}
+    <button class="btn ghost" data-mind-drop="${m.id}">\u653E\u4E0B</button>
+  </div></div>`;
+}
+function panelMind() {
+  const l = ensure(state);
+  const mins = (l.mind || []).slice();
+  const doneN = Object.keys(l.mindDone || {}).length;
+  const lostN = Object.keys(l.mindLost || {}).length;
+  const viewHtml = MIND_VIEW ? `<div class="panel-text" style="color:#f2dfb2">${MIND_VIEW}</div>` : "";
+  const body = mins.length ? mins.map(mindCardHtml).join("") : `<div class="panel-text">\u5FC3\u4E0A\u6682\u65F6\u6CA1\u6709\u4E8B\u3002\u53BB\u8206\u56FE\u4E0A\u8D70\u8D70\uFF0C\u548C\u4EBA\u8BF4\u8BF4\u8BDD\u2014\u2014\u4E8B\u4F1A\u81EA\u5DF1\u627E\u4E0A\u6765\u3002</div>
+       <div class="panel-text" style="opacity:.5">\u6BCF\u8FC7\u4E00\u5E74\uFF0C\u6700\u591A\u4F1A\u6709\u4E00\u4EF6\u4E8B\u843D\u5230\u4F60\u5FC3\u4E0A\u3002</div>`;
+  const readyN = mins.filter((m) => mindReady(state, m)).length;
+  const head = `<div class="panel-title">\u5FC3\u4E8B<span>\u7B54\u5E94\u8FC7\u7684\u4EBA\uFF0C\u548C\u7B54\u5E94\u8FC7\u81EA\u5DF1\u7684\u4E8B</span></div>
+    ${viewHtml}
+    <div class="panel-text">\u8FD9\u4E00\u4E16\u4E86\u7ED3 <b>${doneN}</b> \u4EF6\uFF0C\u672A\u4E86 <b>${lostN}</b> \u4EF6\u3002${mins.length ? `\u5FC3\u4E0A\u8FD8\u6302\u7740 ${mins.length} \u4EF6${readyN ? `\uFF0C\u5176\u4E2D ${readyN} \u4EF6\u53EF\u4EE5\u53BB\u4EA4\u5DEE\u4E86` : ""}\u3002` : ""}</div>`;
+  return `${head}
+    ${body}
+    <div class="panel-text" style="opacity:.42">\u91C7\u8FC7\u7684\u836F\u3001\u70BC\u8FC7\u7684\u4E39\u3001\u53BB\u8FC7\u7684\u5C71\u5934\uFF0C\u90FD\u8BB0\u5728\u8FD9\u4E9B\u4E8B\u4E0A\u3002\u671F\u9650\u4E00\u8FC7\uFF0C\u5C31\u53D8\u6210"\u6CA1\u505A\u6210\u7684\u4E8B"\u3002</div>
+    <button class="btn ghost" id="mind-close2" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
+}
+function bindMind() {
+  panelRoot.querySelectorAll("[data-mind-done]").forEach((b) => b.addEventListener("click", () => {
+    const r = mindFinish(state, b.dataset.mindDone);
+    MIND_VIEW = r.ok ? `${r.text}${r.merit ? `\uFF08\u9053\u884C +${r.merit}\uFF09` : ""}` : r.why;
+    if (r.ok) {
+      sfx("good", true);
+      toast(`\u4E86\u4E86\u4E00\u4EF6\u4E8B${r.merit ? ` \xB7 \u9053\u884C +${r.merit}` : ""}`);
+    }
+    save();
+    syncHud();
+    openPanel("mind");
+  }));
+  panelRoot.querySelectorAll("[data-mind-drop]").forEach((b) => b.addEventListener("click", () => {
+    mindDrop(state, b.dataset.mindDrop);
+    MIND_VIEW = "\u4F60\u628A\u5B83\u653E\u4E0B\u4E86\u3002\u6CA1\u4EBA\u602A\u4F60\uFF0C\u53EA\u662F\u8FD9\u6761\u8DEF\u8D70\u4E0D\u56DE\u6765\u4E86\u3002";
+    save();
+    syncHud();
+    openPanel("mind");
+  }));
 }
 function panelJiazi() {
   const l = initWorld(state);
