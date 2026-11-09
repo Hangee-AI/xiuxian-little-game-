@@ -22305,15 +22305,21 @@ function ensureItems(state) {
 }
 var count = (state, id) => {
   const l = ensureItems(state);
-  if (l.items[id]) return l.items[id];
-  return l.bag[id] || 0;
+  return (l.items[id] || 0) + (l.bag[id] || 0);
 };
 function take(state, id, n = 1) {
   const l = ensureItems(state);
   if (BY_ID[id]) {
-    if ((l.items[id] || 0) < n) return false;
-    l.items[id] -= n;
-    if (l.items[id] <= 0) delete l.items[id];
+    const owned2 = l.items[id] || 0;
+    if (owned2 >= n) {
+      l.items[id] -= n;
+      if (l.items[id] <= 0) delete l.items[id];
+      return true;
+    }
+    const need = n - owned2;
+    if ((l.bag[id] || 0) < need) return false;
+    if (owned2) delete l.items[id];
+    l.bag[id] -= need;
     return true;
   }
   return takeItem(state, id, n);
@@ -24068,31 +24074,43 @@ function enemyTurn(state, b) {
   }
   return out2;
 }
+var LOOT_BY_KIND = { water: "blood", poison: "blood", heavy: "bone", bone: "bone", mist: "hide" };
+var LOOT_META = {
+  blood: { name: "\u517D\u8840", verb: "\u53D6\u4E86" },
+  hide: { name: "\u517D\u76AE", verb: "\u5265\u4E0B" },
+  bone: { name: "\u517D\u9AA8", verb: "\u6536\u4E86" }
+};
+function lootOf(b) {
+  const kind2 = b && b.beast && b.beast.kind;
+  const primary = LOOT_BY_KIND[kind2] || (Math.random() < 0.5 ? "blood" : "hide");
+  const drops = [{ id: primary, n: 1, ...LOOT_META[primary] }];
+  if (Math.random() < 0.45) {
+    const rest = ["blood", "hide", "bone"].filter((k) => k !== primary);
+    const extra = rest[Math.floor(Math.random() * rest.length)];
+    drops.push({ id: extra, n: 1, ...LOOT_META[extra] });
+  }
+  if ((b.danger || 0) >= 0.06 && Math.random() < 0.35) drops[0].n += 1;
+  return drops;
+}
 function settle(state, b) {
   const l = ensure(state);
   const lines = [];
   if (b.over === "win") {
     if (b.noEdge) {
       l.wu = (l.wu || 0) + 1;
-      lines.push("\u4F60\u7EC8\u7A76\u6CA1\u53D6\u5B83\u7684\u4E1C\u897F");
+      lines.push("\u4F60\u7EC8\u7A76\u6CA1\u53D6\u5B83\u7684\u4E1C\u897F\uFF08\u65E0\u950B\u4E0D\u67D3\u8840\uFF0C\u517D\u76AE\u4E5F\u5272\u4E0D\u4E0B\uFF09");
       lines.push("\u609F +1");
       log(state, "deed", `\u4F60\u7528\u4E00\u628A\u6CA1\u6709\u5203\u53E3\u7684\u5251\u6253\u9000\u4E86\u4E00\u5934${b.name}\uFF0C\u7136\u540E\u653E\u5B83\u8D70\u4E86\u3002`);
       return lines;
     }
-    const roll = Math.random();
-    if (roll < 0.5) {
-      addItem(state, "blood", 1);
-      lines.push("\u53D6\u4E86\u517D\u8840 \xD71");
-    } else if (roll < 0.8) {
-      addItem(state, "hide", 1);
-      lines.push("\u5265\u4E0B\u517D\u76AE \xD71");
-    } else {
-      addItem(state, "bone", 1);
-      lines.push("\u6536\u4E86\u517D\u9AA8 \xD71");
+    const drops = lootOf(b);
+    for (const d of drops) {
+      addItem(state, d.id, d.n);
+      lines.push(`${d.verb}${d.name} \xD7${d.n}`);
     }
     l.wu = (l.wu || 0) + 1;
     lines.push("\u609F +1");
-    log(state, "deed", `\u4F60\u5728\u96FE\u91CC\u6597\u5012\u4E86\u4E00\u5934${b.name}\u3002`);
+    log(state, "deed", `\u4F60\u5728\u96FE\u91CC\u6597\u5012\u4E86\u4E00\u5934${b.name}\u3002${drops.map((d) => `${d.name}\xD7${d.n}`).join("\u3001")}\u3002`);
   } else if (b.over === "lose") {
     spend(state, 3);
     lines.push("\u6298\u5BFF 3 \u5E74");
@@ -25349,7 +25367,6 @@ function schedule() {
   }
   timer = setTimeout(schedule, 260);
 }
-var amb = null;
 function startSynth() {
   if (running) return true;
   const AC = typeof window !== "undefined" && (window.AudioContext || window.webkitAudioContext);
@@ -25373,17 +25390,6 @@ function startSynth() {
   convolver.connect(wet);
   wet.connect(master2);
   master2.gain.setTargetAtTime(0.55 * Math.max(0.4, level / 0.42), ac2.currentTime, 2);
-  try {
-    if (!amb) {
-      amb = new Audio("./assets/voice/intro-amb.mp3");
-      amb.loop = true;
-    }
-    amb.volume = 0.14;
-    const ap = amb.play();
-    if (ap && ap.catch) ap.catch(() => {
-    });
-  } catch {
-  }
   running = true;
   pos = 0;
   nextBeatTime = ac2.currentTime + 0.35;
@@ -25408,10 +25414,6 @@ function stopSynth() {
     } catch {
     }
   }, 1600);
-  try {
-    if (amb) amb.pause();
-  } catch {
-  }
 }
 function mkAudio(name, loop) {
   const el = new Audio(DIR + name + ".mp3");
@@ -26912,9 +26914,11 @@ function showVoiceHint() {
 }
 function wakeVoice() {
   ambArmed = true;
-  try {
-    ambientStart();
-  } catch {
+  if (inIntro()) {
+    try {
+      ambientStart();
+    } catch {
+    }
   }
   const q = voiceRetry.splice(0);
   if (q.length) {
@@ -26966,10 +26970,14 @@ function playVoice(file, fallbackText) {
     speak(fallbackText);
   }
 }
-var amb2 = null;
+var amb = null;
 var ambArmed = false;
+function inIntro() {
+  return !ended && !!introEl && introEl.style.display !== "none";
+}
 function ambientStart() {
   if (settings.sound === false) return;
+  if (!inIntro()) return;
   if (!ambArmed) {
     const arm = () => {
       document.removeEventListener("pointerdown", arm);
@@ -26982,12 +26990,12 @@ function ambientStart() {
     return;
   }
   try {
-    if (!amb2) {
-      amb2 = new Audio("./assets/voice/intro-amb.mp3");
-      amb2.loop = true;
+    if (!amb) {
+      amb = new Audio("./assets/voice/intro-amb.mp3");
+      amb.loop = true;
     }
-    amb2.volume = 0.55 * volMul();
-    const p = amb2.play();
+    amb.volume = 0.55 * volMul();
+    const p = amb.play();
     if (p && p.catch) p.catch(() => {
     });
   } catch {
@@ -26995,7 +27003,7 @@ function ambientStart() {
 }
 function ambientStop() {
   try {
-    if (amb2) amb2.pause();
+    if (amb) amb.pause();
   } catch {
   }
 }

@@ -3991,8 +3991,7 @@ function ensureItems(state2) {
 }
 var count = (state2, id) => {
   const l = ensureItems(state2);
-  if (l.items[id]) return l.items[id];
-  return l.bag[id] || 0;
+  return (l.items[id] || 0) + (l.bag[id] || 0);
 };
 function add(state2, id, n = 1) {
   const l = ensureItems(state2);
@@ -4006,9 +4005,16 @@ function add(state2, id, n = 1) {
 function take(state2, id, n = 1) {
   const l = ensureItems(state2);
   if (BY_ID[id]) {
-    if ((l.items[id] || 0) < n) return false;
-    l.items[id] -= n;
-    if (l.items[id] <= 0) delete l.items[id];
+    const owned3 = l.items[id] || 0;
+    if (owned3 >= n) {
+      l.items[id] -= n;
+      if (l.items[id] <= 0) delete l.items[id];
+      return true;
+    }
+    const need = n - owned3;
+    if ((l.bag[id] || 0) < need) return false;
+    if (owned3) delete l.items[id];
+    l.bag[id] -= need;
     return true;
   }
   return takeItem(state2, id, n);
@@ -4101,12 +4107,8 @@ function owned(state2) {
   const l = ensure(state2);
   const groups = { pill: [], charm: [], array: [], other: [] };
   for (const it of ALL_ITEMS) {
-    const n = l.items[it.id] || 0;
+    const n = (l.items[it.id] || 0) + (l.bag[it.id] || 0);
     if (n > 0) (groups[it.kind] = groups[it.kind] || []).push({ item: it, n });
-  }
-  for (const it of GENERIC) {
-    const n = l.bag[it.id] || 0;
-    if (n > 0 && !(l.items[it.id] > 0)) (groups[it.kind] = groups[it.kind] || []).push({ item: it, n });
   }
   groups.other = BAG_ORDER.filter((k) => !["pill", "charm"].includes(k)).map((k) => ({ key: k, n: l.bag[k] || 0, item: ITEMS[k] })).filter((x) => x.n > 0);
   return groups;
@@ -7084,7 +7086,6 @@ function schedule() {
   }
   timer = setTimeout(schedule, 260);
 }
-var amb = null;
 function startSynth() {
   if (running) return true;
   const AC = typeof window !== "undefined" && (window.AudioContext || window.webkitAudioContext);
@@ -7108,17 +7109,6 @@ function startSynth() {
   convolver.connect(wet);
   wet.connect(master);
   master.gain.setTargetAtTime(0.55 * Math.max(0.4, level / 0.42), ac.currentTime, 2);
-  try {
-    if (!amb) {
-      amb = new Audio("./assets/voice/intro-amb.mp3");
-      amb.loop = true;
-    }
-    amb.volume = 0.14;
-    const ap = amb.play();
-    if (ap && ap.catch) ap.catch(() => {
-    });
-  } catch {
-  }
   running = true;
   pos = 0;
   nextBeatTime = ac.currentTime + 0.35;
@@ -7143,10 +7133,6 @@ function stopSynth() {
     } catch {
     }
   }, 1600);
-  try {
-    if (amb) amb.pause();
-  } catch {
-  }
 }
 function mkAudio(name, loop2) {
   const el = new Audio(DIR + name + ".mp3");
