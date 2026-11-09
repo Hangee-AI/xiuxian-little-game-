@@ -28148,6 +28148,15 @@ if (FORCE_INTRO) {
   settings.skipIntro = false;
   if (narrationEl) narrationEl.style.display = "";
   try {
+    const st0 = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
+    const lf0 = ensure(st0);
+    lf0.gender = "";
+    lf0.name = "";
+    localStorage.setItem(SAVE_KEY, JSON.stringify(st0));
+    saved = st0;
+  } catch {
+  }
+  try {
     localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
   } catch {
   }
@@ -28175,9 +28184,19 @@ function showGate() {
   const input = genderGate.querySelector("#gg-input");
   const go = genderGate.querySelector("#gg-go");
   let picked = "";
+  try {
+    const lf0 = saved && saved.life || {};
+    if (lf0.gender === "\u7537" || lf0.gender === "\u5973") {
+      picked = lf0.gender;
+      genderGate.querySelectorAll("[data-gender]").forEach((b) => b.classList.toggle("on", b.dataset.gender === picked));
+    }
+    if (input && lf0.name && lf0.name !== "\u65E0\u540D") input.value = lf0.name;
+  } catch {
+  }
   const refresh = () => {
     if (go) go.disabled = !picked;
   };
+  refresh();
   genderGate.querySelectorAll("[data-gender]").forEach((btn) => {
     btn.addEventListener("click", () => {
       picked = btn.dataset.gender;
@@ -28241,10 +28260,8 @@ if (skipVideo) {
   ended = true;
   if (needGender()) showGate();
   else scheduleMeet();
-} else if (needGender()) {
-  gateAfterIntro = true;
-  introTapGate(startIntro);
 } else {
+  gateAfterIntro = true;
   introTapGate(startIntro);
 }
 function tick2() {
