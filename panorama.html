@@ -85,6 +85,13 @@
     padding: 6px 14px; border: 1px solid var(--line); background: rgba(6,9,14,.5);
     color: rgba(240,224,190,.86); backdrop-filter: blur(6px); transition: .22s; }
   #btn-book:hover { border-color: var(--gold-hi); color: #fff6e2; background: rgba(216,184,119,.12); }
+  #btn-mind { font-family: var(--sans); font-size: 11.5px; letter-spacing: .18em; cursor: pointer;
+    padding: 6px 14px; border: 1px solid var(--line); background: rgba(6,9,14,.5);
+    color: rgba(240,224,190,.86); backdrop-filter: blur(6px); transition: .22s; }
+  #btn-mind:hover { border-color: var(--gold-hi); color: #fff6e2; background: rgba(216,184,119,.12); }
+  #mind-line { font-family: var(--sans); font-size: 10.5px; letter-spacing: .1em;
+    color: rgba(226,216,196,.55); text-align: right; max-width: 300px; line-height: 1.7; }
+  #mind-line b { color: rgba(240,224,190,.86); font-weight: 400; }
   /* 命簿面板：比普通面板宽，槽位一行放得下；滚动条接管，别露出白边 */
   .panel.book { width: min(760px, calc(100vw - 40px)); max-height: 86vh; overflow-y: auto;
     scrollbar-width: thin; scrollbar-color: rgba(216,184,119,.38) transparent; }
@@ -722,7 +729,9 @@
     <div class="hud-right">
       <div class="merit">道行<b id="merit-value">0</b></div>
       <div class="life-line"><span id="pano-age">年 16</span><em id="pano-left">寿元 64</em></div>
+      <div id="mind-line"></div>
       <button id="btn-book">命簿 · 设置</button>
+      <button id="btn-mind">心事</button>
     </div>
   </header>
 

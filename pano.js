@@ -22638,6 +22638,12 @@ function mindWho(state, m) {
   if (!def.npc) return { name: "\u81EA\u5DF1", role: "\u7B54\u5E94\u8FC7\u81EA\u5DF1\u7684\u4E8B" };
   return NPCS[def.npc] || { name: def.npc, role: "" };
 }
+function mindLeft(state, m) {
+  const l = ensure(state);
+  const def = mindDef(m.id);
+  if (!def) return 0;
+  return Math.max(0, (m.due ?? l.year) - l.year);
+}
 function mindNeed(state, m) {
   const def = mindDef(m.id);
   const l = ensure(state);
@@ -22661,6 +22667,12 @@ function mindCost(state, m) {
 }
 function mindReady(state, m) {
   return mindNeed(state, m).every((n) => n.ok) && mindCost(state, m).every((c) => c.ok);
+}
+function mindDo(state, key, n = 1) {
+  const l = ensure(state);
+  if (!key) return 0;
+  l.mindCount[key] = (l.mindCount[key] || 0) + n;
+  return l.mindCount[key];
 }
 function mindTick(state) {
   const l = ensure(state);
@@ -26763,6 +26775,26 @@ function writeSave(v) {
 }
 function syncMerit() {
   meritEl.textContent = lifeHudText();
+  syncMindLine();
+}
+function syncMindLine() {
+  const el = document.getElementById("mind-line");
+  if (!el) return;
+  const st = readSave();
+  const l = ensure(st);
+  const mins = l.mind || [];
+  if (!mins.length) {
+    el.innerHTML = "";
+    return;
+  }
+  const m = mins[0];
+  const who = mindWho(st, m);
+  if (mindReady(st, m)) {
+    el.innerHTML = `<b>${who.name}</b>\u6258\u7684\u4E8B\uFF0C\u53EF\u4EE5\u53BB\u4EA4\u5DEE\u4E86`;
+    return;
+  }
+  const left = mindLeft(st, m);
+  el.innerHTML = `\u5FC3\u4E0A\uFF1A<b>${who.name}</b>\u7684\u4E8B\uFF0C\u8FD8\u5269 ${left} \u5E74`;
 }
 function spiritCardHTML(sp) {
   const e = effects(sp);
@@ -27198,6 +27230,7 @@ function openHerb() {
   document.getElementById("pick-herb").addEventListener("click", () => {
     const cur = saveNow((c, lf22) => {
       addItem(c, "herb", 1);
+      mindDo(c, "herb", 1);
       spend(c, 1);
       log(c, "deed", "\u4F60\u5728\u8FF7\u96FE\u68EE\u6797\u91C7\u4E86\u4E00\u682A\u836F\uFF0C\u62AC\u5934\u7684\u65F6\u5019\uFF0C\u96FE\u91CC\u6709\u4EC0\u4E48\u52A8\u4E86\u4E00\u4E0B\u3002");
     });
@@ -27398,6 +27431,7 @@ function renderBattleEnd() {
   let lines = [];
   saveNow((c) => {
     lines = settle(c, B);
+    mindDo(c, "battle", 1);
   });
   const win = B.over === "win";
   const stNow = readSave();
@@ -27721,7 +27755,7 @@ var narrationEl = document.getElementById("narration");
 var titleEl = document.getElementById("intro-title");
 var skipBtn = document.getElementById("intro-skip");
 var genderGate = document.getElementById("gender-gate");
-if (settings.noNarration) narrationEl.style.display = "none";
+settings.noNarration = false;
 var LINES_A = [
   { t: 150, text: "\u4E09\u5E74\u4E86\u3002" },
   { t: 2620, text: "\u7FFB\u8FC7\u4E5D\u5341\u4E5D\u5EA7\u5C71\uFF0C" },
@@ -27795,7 +27829,7 @@ function volMul() {
   return settings.sound === false || !(vol > 0) ? 0 : vol / 100;
 }
 function playVoice(file, fallbackText) {
-  if (settings.noNarration || settings.voiceNarration === false) return;
+  if (settings.voiceNarration === false) return;
   if (volMul() <= 0) return;
   if (voiceFilesMissing) {
     speak(fallbackText);
@@ -28598,4 +28632,8 @@ document.getElementById("btn-book")?.addEventListener("click", () => {
   if (document.body.classList.contains("modal-lock")) return;
   bookConfirm = "";
   openBook();
+});
+document.getElementById("btn-mind")?.addEventListener("click", () => {
+  if (document.body.classList.contains("modal-lock")) return;
+  location.href = "./scenes.html?panel=mind";
 });

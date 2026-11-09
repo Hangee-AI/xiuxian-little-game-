@@ -4261,6 +4261,12 @@ function mindProgress(state2, m) {
   if (!parts.length) return 1;
   return parts.reduce((a, b) => a + b, 0) / parts.length;
 }
+function mindDo(state2, key, n = 1) {
+  const l = ensure(state2);
+  if (!key) return 0;
+  l.mindCount[key] = (l.mindCount[key] || 0) + n;
+  return l.mindCount[key];
+}
 function mindTick(state2) {
   const l = ensure(state2);
   const out = [];
@@ -6538,7 +6544,11 @@ function applyEff2(state2, eff = {}) {
   if (eff.bond) for (const [k, v] of Object.entries(eff.bond)) bond(state2, k, v);
   if (eff.wu) ensure(state2).wu += eff.wu;
   if (eff.karma) ensure(state2).karma += eff.karma;
-  if (eff.items) for (const it of eff.items) addItem(state2, it.id, it.n || 1);
+  if (eff.items) for (const it of eff.items) {
+    addItem(state2, it.id, it.n || 1);
+    if (it.id === "charm") mindDo(state2, "craft_fu", 1);
+    if (it.id === "pill") mindDo(state2, "brew", 1);
+  }
   if (eff.know) for (const k of [].concat(eff.know)) {
     ensureCraft(state2).known[k] = ensure(state2).year;
     const kn = KNOWLEDGE.find((x) => x.id === k);
@@ -8619,6 +8629,8 @@ function renderScene(id) {
   const sc = SCENES[id];
   if (!sc) return;
   cur = id;
+  mindDo(state, "visit_" + id, 1);
+  save();
   const back = document.getElementById("back-map");
   if (back) back.hidden = id === "map";
   const walkOut = document.getElementById("walk-out");
@@ -9284,6 +9296,7 @@ function bindAlchemy() {
       const first = !state.done.alchemy;
       addItem(state, "pill", n);
       notePill(state, perfect ? "\u4E0A\u54C1" : "\u4E2D\u54C1");
+      mindDo(state, "brew", 1);
       log(state, "deed", `\u7B2C ${l.year} \u5E74\uFF0C\u4E39\u6210\u3002\u4F60\u6536\u4E0B ${n} \u9897\u3002`);
       gain("alchemy", 22);
       toast(first ? `\u4E39\u6210 \xB7 \u5F97\u4E39 \xD7${n} \xB7 \u529F\u5FB7 +22` : `\u4E39\u6210 \xB7 \u5F97\u4E39 \xD7${n}${perfect ? "\uFF08\u706B\u5019\u5168\u4E2D\uFF09" : ""}`);
@@ -9907,6 +9920,7 @@ function bindLibrary() {
     onepage.addEventListener("click", () => {
       spend(state, 1);
       giveMerit(3);
+      mindDo(state, "copy", 1);
       const line = SCROLLS[Math.floor(Math.random() * SCROLLS.length)].line[0];
       log(state, "deed", `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u5728\u85CF\u7ECF\u9601\u6284\u4E86\u4E00\u9875\u3002\u7EB8\u4E0A\u5199\u7740\uFF1A${line}`);
       save();
@@ -10220,6 +10234,7 @@ function bindBio(tab) {
       takeItem(state, "blood", 1);
       takeItem(state, "hide", 1);
       addItem(state, "charm", 1);
+      mindDo(state, "craft_fu", 1);
       spend(state, 1);
       log(state, "deed", "\u4F60\u7528\u517D\u8840\u4E0E\u517D\u76AE\u753B\u4E86\u4E00\u5F20\u7B26\u3002\u667E\u5E72\u8981\u4E00\u5E74\u3002");
       save();
@@ -10944,7 +10959,6 @@ function panelArchive() {
     </div></div>`).join("");
   const settingsHtml = [
     { k: "skipIntro", name: "\u8DF3\u8FC7\u5165\u573A\u89C6\u9891", note: "\u6027\u522B\u4ECD\u4F1A\u5728\u8FDB\u95E8\u65F6\u9009\uFF1B\u53EA\u7701\u6389\u4E24\u6BB5\u89C6\u9891" },
-    { k: "noNarration", name: "\u9690\u85CF\u65C1\u767D\u5B57\u5E55", note: "\u5165\u573A\u753B\u9762\u4E0D\u663E\u793A\u65C1\u767D\u6587\u5B57" },
     { k: "sound", name: "\u97F3\u6548", note: "\u9762\u677F\u3001\u7ED3\u7B97\u3001\u7A7F\u96FE\u7684\u5408\u6210\u97F3\uFF0C\u4E0D\u52A0\u8F7D\u5916\u90E8\u7D20\u6750" },
     { k: "bgm", name: "\u80CC\u666F\u97F3\u4E50", note: "\u53E4\u98CE\u914D\u4E50\u57AB\u5728\u5E95\u4E0B\uFF1B\u6597\u6CD5\u6362\u6218\u6597\u66F2\uFF0C\u5927\u9650\u653E\u7ED3\u675F\u8BED" },
     { k: "voiceNarration", name: "\u65C1\u767D\u914D\u97F3", note: "\u5165\u573A\u65F6\u628A\u65C1\u767D\u5FF5\u51FA\u6765\uFF08\u7528\u7CFB\u7EDF\u8BED\u97F3\uFF0C\u4F4E\u6C89\uFF09" }
