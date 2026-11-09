@@ -544,6 +544,8 @@
   .bt-loot .bag-ico { width: 18px; height: 18px; }
   .bt-loot em { font-style: normal; color: #e8c98a; letter-spacing: .04em; }
   .bt-meta { margin-top: 12px; font-size: 12px; letter-spacing: .06em; color: rgba(217,211,198,.42); }
+  .bt-hint { margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(232,201,138,.16);
+    font-size: 13px; line-height: 1.8; color: rgba(232,201,138,.78); }
 
   /* 斗法时压一层雾与暗角，把注意力收到中间 */
   #bt-veil { position: fixed; inset: 0; z-index: 23; pointer-events: none; opacity: 0;
@@ -552,6 +554,19 @@
       radial-gradient(ellipse 62% 54% at 50% 46%, rgba(4,6,10,0) 40%, rgba(4,6,10,.55) 100%),
       linear-gradient(180deg, rgba(6,9,14,.5) 0%, rgba(6,9,14,0) 22%, rgba(6,9,14,0) 66%, rgba(6,9,14,.62) 100%); }
   body.in-battle #bt-veil { opacity: 1; }
+
+  /* 妖兽入场：从雾里显出来（眼睛先亮） */
+  @keyframes foeEnter { 0% { opacity: 0; filter: blur(9px) brightness(1.6); transform: translateY(10px) scale(.97); }
+    60% { opacity: .85; filter: blur(2px) brightness(1.1); }
+    100% { opacity: 1; filter: none; transform: none; } }
+  .ar-slot.entering .ar-body { animation: foeEnter .84s cubic-bezier(.2,.7,.3,1) both; }
+
+  /* 气血见底：屏幕边缘持续泛红，像失血 */
+  #low-hp { position: fixed; inset: 0; z-index: 22; pointer-events: none; opacity: 0;
+    transition: opacity .6s ease;
+    box-shadow: inset 0 0 190px 58px rgba(152,24,20,.62), inset 0 0 60px 10px rgba(120,16,14,.42); }
+  body.low-hp #low-hp { opacity: 1; animation: lowHp 2.6s ease-in-out infinite; }
+  @keyframes lowHp { 0%, 100% { opacity: .58; } 50% { opacity: .92; } }
 
   /* 玩家挨打：整块画面被撞一下 */
   @keyframes gotHit { 0% { transform: translate3d(0,0,0) scale(1); }
@@ -691,6 +706,7 @@
 </style>
 </head>
 <body>
+  <div id="low-hp"></div>
   <div id="bt-veil"></div>
   <div id="panel-root"><div class="panel" id="panel-body"></div></div>
 <div id="stage"></div>

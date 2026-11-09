@@ -26433,6 +26433,8 @@ function pushLog(text) {
 }
 function arenaSync(st, lf) {
   const hp = hpOf(st);
+  const lowRatio = hp / Math.max(1, hpMax(st));
+  document.body.classList.toggle("low-hp", !!B && !B.over && lowRatio <= 0.3);
   sync({
     me: {
       cur: hp,
@@ -26538,6 +26540,28 @@ function renderBattleEnd() {
     lines = settle(c, B);
   });
   const win = B.over === "win";
+  const stNow = readSave();
+  const realmName = (rankOf(stNow) || {}).name || "\u7EC3\u6C14";
+  const WIN_LINES = {
+    \u7EC3\u6C14: [
+      "\u96FE\u6563\u4E86\u4E00\u70B9\u3002\u4F60\u7AD9\u5728\u539F\u5730\uFF0C\u542C\u81EA\u5DF1\u5598\u6C14\u7684\u58F0\u97F3\u6162\u6162\u5E73\u4E0B\u6765\u3002",
+      "\u4F60\u628A\u5251\u5728\u8896\u5B50\u4E0A\u64E6\u4E86\u64E6\u3002\u624B\u8FD8\u5728\u6296\uFF0C\u4F46\u5DF2\u7ECF\u63E1\u5F97\u4F4F\u4E86\u3002",
+      "\u5B83\u5012\u4E0B\u53BB\u7684\u65F6\u5019\u6CA1\u6709\u58F0\u97F3\u3002\u5C71\u91CC\u7684\u591C\u53C8\u5408\u4E0A\u4E86\u3002"
+    ],
+    \u7B51\u57FA: [
+      "\u4F60\u6536\u5251\u7684\u65F6\u5019\uFF0C\u8863\u89D2\u4E0A\u8FD8\u6302\u7740\u4E00\u7247\u96FE\u3002",
+      "\u8FD9\u4E00\u591C\u53C8\u8FC7\u53BB\u4E86\u3002\u5C71\u91CC\u7684\u4E1C\u897F\u8BA4\u5F97\u4F60\u4E86\uFF0C\u4E0B\u6B21\u4F1A\u7ED5\u5F00\u3002",
+      "\u4F60\u6570\u4E86\u6570\u8EAB\u4E0A\u7684\u4F24\uFF0C\u6BD4\u4E0A\u56DE\u5C11\u4E86\u4E24\u5904\u3002"
+    ],
+    \u91D1\u4E39: [
+      "\u5251\u6CA1\u6709\u51FA\u9798\u3002\u5B83\u81EA\u5DF1\u9000\u7684\u3002",
+      "\u4F60\u7AD9\u5728\u539F\u5730\u6CA1\u52A8\uFF0C\u96FE\u5148\u6563\u4E86\u3002",
+      "\u5C71\u91CC\u7684\u4E1C\u897F\u5DF2\u7ECF\u5B66\u4F1A\u4E0D\u6321\u4F60\u7684\u8DEF\u3002"
+    ]
+  };
+  const winLine = (WIN_LINES[realmName] || WIN_LINES.\u7B51\u57FA)[B.turn % 3];
+  const lfNow = ensure(stNow);
+  const nextHint = !lfNow.bag?.pill && !stNow.done?.alchemy ? "\u4E39\u623F\u90A3\u8FB9\u7684\u7089\u5B50\u8FD8\u6E29\u7740\u2014\u2014\u836F\u4E0D\u591F\u7684\u8BDD\uFF0C\u5148\u5728\u6797\u5B50\u91CC\u91C7\u4E24\u682A\u3002" : !stNow.life?.craft?.paths ? "\u85CF\u7ECF\u9601\u7684\u7ECF\u6848\u4E0A\u538B\u7740\u4E00\u5377\u6CA1\u6284\u5B8C\u7684\u4E1C\u897F\uFF0C\u53BB\u6284\u4E00\u591C\uFF0C\u80FD\u5B66\u4E00\u95E8\u624B\u827A\u3002" : !stNow.done?.sword ? "\u5251\u51A2\u7684\u77F3\u4E2D\u5251\u8FD8\u63D2\u7740\u3002\u5B83\u52A8\u8FC7\u4E00\u4E0B\uFF0C\u4F60\u6CA1\u53BB\u770B\u3002" : "\u96FE\u66F4\u6D53\u4E86\u3002\u5F80\u6DF1\u5904\u8D70\uFF0C\u4F1A\u9047\u5230\u522B\u7684\u4E1C\u897F\u3002";
   const noteRe = /折寿|丢了|丢一件|没取|什么都没/;
   const penal = (lines || []).filter((t) => noteRe.test(t));
   const gains = (lines || []).filter((t) => !noteRe.test(t));
@@ -26551,13 +26575,10 @@ function renderBattleEnd() {
   panelBody.innerHTML = `<h2>\u6597 \u6CD5<span>${B.name}</span></h2>
     <div class="bt-result ${B.over}">
       <div class="bt-verdict">${win ? "\u5B83\u5012\u4E86\u3002" : B.over === "lose" ? "\u4F60\u88AB\u62AC\u4E86\u56DE\u53BB\u3002" : B.surrender ? "\u4F60\u8BA4\u4E86\u8F93\u3002" : "\u4F60\u9000\u4E86\u51FA\u53BB\u3002"}</div>
-      <div class="bt-flavor">${penal.length ? penal.join("\u3000") + "\u3000" : ""}${win ? [
-    "\u96FE\u6563\u4E86\u4E00\u70B9\u3002\u4F60\u7AD9\u5728\u539F\u5730\uFF0C\u542C\u81EA\u5DF1\u5598\u6C14\u7684\u58F0\u97F3\u6162\u6162\u5E73\u4E0B\u6765\u3002",
-    "\u4F60\u628A\u5251\u5728\u8896\u5B50\u4E0A\u64E6\u4E86\u64E6\u3002\u624B\u8FD8\u5728\u6296\uFF0C\u4F46\u5DF2\u7ECF\u63E1\u5F97\u4F4F\u4E86\u3002",
-    "\u5B83\u5012\u4E0B\u53BB\u7684\u65F6\u5019\u6CA1\u6709\u58F0\u97F3\u3002\u5C71\u91CC\u7684\u591C\u53C8\u5408\u4E0A\u4E86\u3002"
-  ][B.turn % 3] : "\u8FD9\u4E00\u591C\u4F60\u6CA1\u80FD\u8FC7\u53BB\u3002\u9192\u6765\u7684\u65F6\u5019\uFF0C\u5929\u5DF2\u7ECF\u4EAE\u4E86\u3002"}</div>
+      <div class="bt-flavor">${penal.length ? penal.join("\u3000") + "\u3000" : ""}${win ? winLine : "\u8FD9\u4E00\u591C\u4F60\u6CA1\u80FD\u8FC7\u53BB\u3002\u9192\u6765\u7684\u65F6\u5019\uFF0C\u5929\u5DF2\u7ECF\u4EAE\u4E86\u3002"}</div>
       <div class="bt-loot-row">${loot || '<div class="bt-loot"><b>\u4EC0\u4E48\u90FD\u6CA1\u7559\u4E0B</b></div>'}</div>
-      <div class="bt-meta">\u9053\u884C ${daoOf(readSave())} \xB7 \u7B2C ${ensure(readSave()).year} \u5E74</div>
+      <div class="bt-meta">${realmName} \xB7 \u9053\u884C ${daoOf(stNow)} \xB7 \u7B2C ${lfNow.year} \u5E74</div>
+      <div class="bt-hint">${nextHint}</div>
     </div>
     <button class="btn" data-close3>\u6536 \u8D77</button>`;
   panelBody.querySelector("[data-close3]").addEventListener("click", () => {
@@ -27317,6 +27338,10 @@ window.__pano = {
       B.over = over;
       renderBattleEnd();
     }
+  },
+  hp: (n) => {
+    saveNow((c) => hurt(c, Math.max(1, hpOf(c) - n), "\u8C03\u8BD5"));
+    if (B && !B.over) arenaSync(readSave(), ensure(readSave()));
   },
   lose: () => stamp("\u8D25", "lose"),
   book: (note) => openBook(note),
