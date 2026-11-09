@@ -27653,12 +27653,8 @@ var WANDER_PLACES = {
       l.wu = (l.wu || 0) + 1;
       return "{pr}\u66FF\u4F60\u770B\u4E86\u770B\u5929\u8272\u3002<br>\u609F +1";
     }
-  }
-};
-var WANDER_LINES = WANDER_PLACES.gate.lines;
-function openWander(place) {
-  const key = WANDER_PLACES[place] ? place : "forest";
-  const cfg = WANDER_PLACES[key] || {
+  },
+  forest: {
     name: "\u8FF7\u96FE\u68EE\u6797",
     tag: "wind",
     lines: [
@@ -27672,7 +27668,13 @@ function openWander(place) {
       l.wu = (l.wu || 0) + 1;
       return "\u4F60\u8BB0\u4E0B\u4E86{pr}\u8BF4\u7684\u534A\u53E5\u8BDD\u3002<br>\u609F +1";
     }
-  };
+  }
+};
+var WANDER_ALIAS = { "library-in": "library" };
+function openWander(place) {
+  const p0 = WANDER_ALIAS[place] || place;
+  const key = WANDER_PLACES[p0] ? p0 : "forest";
+  const cfg = WANDER_PLACES[key];
   const cur = readSave();
   const lf = ensure(cur);
   cur.wanderAt = cur.wanderAt || {};
@@ -27692,7 +27694,7 @@ function openWander(place) {
   }
   const pr = npc && npc.gender === "f" ? "\u5979" : "\u4ED6";
   const fem = (t) => String(t).split("\u5176\u4ED6").join("@@QITA@@").split("\u4ED6").join("\u5979").split("@@QITA@@").join("\u5176\u4ED6").split("{pr}").join("\u5979");
-  const lines = WANDER_PLACES[key] ? WANDER_PLACES[key].lines : WANDER_LINES;
+  const lines = cfg.lines;
   cur.lastLine = cur.lastLine || {};
   const pool2 = lines.filter((x) => x !== cur.lastLine[key]);
   const line0 = (pool2.length ? pool2 : lines)[Math.floor(Math.random() * (pool2.length || lines.length))];
