@@ -21856,6 +21856,7 @@ EVENTS.push(
   /* ---------- 白棠 · 剑修（追慕） ---------- */
   {
     id: "e_bt1",
+    once: true,
     scenes: ["sword", "forest"],
     ageMin: 18,
     art: "c_03.png",
@@ -21883,6 +21884,7 @@ EVENTS.push(
   },
   {
     id: "e_bt2",
+    once: true,
     scenes: ["map", "sword", "gate"],
     ageMin: 24,
     art: "c_03.png",
@@ -21916,6 +21918,7 @@ EVENTS.push(
   },
   {
     id: "e_bt3",
+    once: true,
     scenes: ["sword", "map"],
     ageMin: 34,
     art: "c_03.png",
@@ -21948,6 +21951,7 @@ EVENTS.push(
   /* ---------- 绛衣 · 魔道（同道） ---------- */
   {
     id: "e_jy1",
+    once: true,
     scenes: ["forest", "realm"],
     ageMin: 20,
     art: "c_04.png",
@@ -21975,6 +21979,7 @@ EVENTS.push(
   },
   {
     id: "e_jy2",
+    once: true,
     scenes: ["map", "forest"],
     ageMin: 26,
     art: "c_04.png",
@@ -22007,6 +22012,7 @@ EVENTS.push(
   },
   {
     id: "e_jy3",
+    once: true,
     scenes: ["realm", "map"],
     ageMin: 33,
     art: "c_04.png",
@@ -22040,6 +22046,7 @@ EVENTS.push(
   /* ---------- 裴七 · 同门宿敌 ---------- */
   {
     id: "e_pq1",
+    once: true,
     scenes: ["plaza", "map", "gate"],
     ageMin: 19,
     art: "b_01.png",
@@ -22069,6 +22076,7 @@ EVENTS.push(
   },
   {
     id: "e_pq2",
+    once: true,
     scenes: ["plaza", "map"],
     ageMin: 25,
     art: "b_01.png",
@@ -22104,6 +22112,7 @@ EVENTS.push(
   },
   {
     id: "e_pq3",
+    once: true,
     scenes: ["gate", "map", "plaza"],
     ageMin: 35,
     art: "b_01.png",

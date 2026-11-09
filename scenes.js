@@ -1560,10 +1560,11 @@ function drawEvent(state2, sceneId, force = false) {
   if (!force && Math.random() > chance) return null;
   l.seenYear = l.seenYear || {};
   const notTooRecent = (id) => !l.seen[id] || l.year - (l.seenYear[id] || 0) >= 8;
-  const fits = (e) => (e.scenes.includes(ANY) || e.scenes.includes(sceneId)) && (!e.cond || e.cond(state2)) && notTooRecent(e.id) && (!e.ageMin || l.year >= e.ageMin) && (!e.ageMax || l.year <= e.ageMax);
+  const fits = (e) => (e.scenes.includes(ANY) || e.scenes.includes(sceneId)) && (!e.cond || e.cond(state2)) && (!e.once || !l.seen[e.id]) && notTooRecent(e.id) && (!e.ageMin || l.year >= e.ageMin) && (!e.ageMax || l.year <= e.ageMax);
   const pick4 = (arr) => arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
   let card = null;
-  if (l.karma >= 2 && Math.random() < 0.25) card = pick4(KARMA_CARDS.filter(fits));
+  if (Math.random() < 0.55) card = pick4(EVENTS.filter((e) => e.cond && fits(e)));
+  if (!card && l.karma >= 2 && Math.random() < 0.25) card = pick4(KARMA_CARDS.filter(fits));
   if (!card && Math.random() < 0.3) {
     const ok = NPCCARDS.filter((e) => fits(e) && !isGone(l, e.npc || e.id.slice(2).replace(/\d+$/, "")));
     card = pick4(ok.filter((e) => e.stage === 3)) || pick4(ok.filter((e) => e.stage === 2)) || pick4(ok.filter((e) => !e.stage));
@@ -3450,6 +3451,7 @@ EVENTS.push(
   /* ---------- 白棠 · 剑修（追慕） ---------- */
   {
     id: "e_bt1",
+    once: true,
     scenes: ["sword", "forest"],
     ageMin: 18,
     art: "c_03.png",
@@ -3477,6 +3479,7 @@ EVENTS.push(
   },
   {
     id: "e_bt2",
+    once: true,
     scenes: ["map", "sword", "gate"],
     ageMin: 24,
     art: "c_03.png",
@@ -3510,6 +3513,7 @@ EVENTS.push(
   },
   {
     id: "e_bt3",
+    once: true,
     scenes: ["sword", "map"],
     ageMin: 34,
     art: "c_03.png",
@@ -3542,6 +3546,7 @@ EVENTS.push(
   /* ---------- 绛衣 · 魔道（同道） ---------- */
   {
     id: "e_jy1",
+    once: true,
     scenes: ["forest", "realm"],
     ageMin: 20,
     art: "c_04.png",
@@ -3569,6 +3574,7 @@ EVENTS.push(
   },
   {
     id: "e_jy2",
+    once: true,
     scenes: ["map", "forest"],
     ageMin: 26,
     art: "c_04.png",
@@ -3601,6 +3607,7 @@ EVENTS.push(
   },
   {
     id: "e_jy3",
+    once: true,
     scenes: ["realm", "map"],
     ageMin: 33,
     art: "c_04.png",
@@ -3634,6 +3641,7 @@ EVENTS.push(
   /* ---------- 裴七 · 同门宿敌 ---------- */
   {
     id: "e_pq1",
+    once: true,
     scenes: ["plaza", "map", "gate"],
     ageMin: 19,
     art: "b_01.png",
@@ -3663,6 +3671,7 @@ EVENTS.push(
   },
   {
     id: "e_pq2",
+    once: true,
     scenes: ["plaza", "map"],
     ageMin: 25,
     art: "b_01.png",
@@ -3698,6 +3707,7 @@ EVENTS.push(
   },
   {
     id: "e_pq3",
+    once: true,
     scenes: ["gate", "map", "plaza"],
     ageMin: 35,
     art: "b_01.png",

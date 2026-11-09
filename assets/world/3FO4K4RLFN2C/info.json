@@ -1,0 +1,26 @@
+{
+  "worldId": "3FO4K4RLFN2C",
+  "name": "world-a2",
+  "cover": null,
+  "scene": "outdoor",
+  "createTime": 1794066993000,
+  "updateTime": 1794068280000,
+  "status": "SUCCEEDED",
+  "progress": 1,
+  "assets": {
+    "splats": {
+      "urls": {
+        "plyPath": "https://holo-cos.aholo3d.cn/spatial-gen-3dgs/3FO4FOCLT1XR/aholo/output/ecb6ad2270664493b5e6f33d92d206d6-001150-b25b_MaaSReportFile-6bdc96a8a8385a22b4890d1ff98a0f99.ply",
+        "spzPath": "https://holo-cos.aholo3d.cn/splat-transform/3FO4FOCLT1XR/format/384fe77d70b940cf88c2965745f8e2ea.spz",
+        "lodMetaPath": "https://holo-cos.aholo3d.cn/splat-transform/3FO4FOCLT1XR/1794068266/lod-meta.json"
+      }
+    },
+    "imagery": {
+      "panoUrl": "https://holo-cos.aholo3d.cn/spatial-gen-3dgs/3FO4FOCLT1XR/aholo/output/ecb6ad2270664493b5e6f33d92d206d6-001150-b25b_MaaSReportFile-0fe4854c70981e1788095e0339c502f9.jpg"
+    },
+    "semanticsMetadata": {
+      "upAxis": "Z"
+    }
+  },
+  "downloadedAt": "2026-11-07T16:18:23.132Z"
+}

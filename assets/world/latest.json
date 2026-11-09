@@ -1,0 +1,14 @@
+{
+  "worldId": "3FO4K4RLT7UE",
+  "name": "world-dawn",
+  "status": "SUCCEEDED",
+  "files": {
+    "spz": "3FO4K4RLT7UE.spz",
+    "spzSize": "5.06 MB",
+    "ply": "3FO4K4RLT7UE.ply",
+    "plySize": "19.57 MB",
+    "pano": "3FO4K4RLT7UE-pano.jpg",
+    "panoSize": "0.65 MB"
+  },
+  "upAxis": "Z"
+}

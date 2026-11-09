@@ -1,0 +1,26 @@
+{
+  "worldId": "3FO4K4RLEB8X",
+  "name": "test-benign",
+  "cover": null,
+  "scene": "indoor",
+  "createTime": 1794066626000,
+  "updateTime": 1794067310000,
+  "status": "SUCCEEDED",
+  "progress": 1,
+  "assets": {
+    "splats": {
+      "urls": {
+        "plyPath": "https://holo-cos.aholo3d.cn/spatial-gen-3dgs/3FO4FOCLT1XR/aholo/output/81ab0ca0ea4d4e9d82b23f030b9d0ebe-235633-ffcd_MaaSReportFile-6bdc96a8a8385a22b4890d1ff98a0f99.ply",
+        "spzPath": "https://holo-cos.aholo3d.cn/splat-transform/3FO4FOCLT1XR/format/1da96bf862fc4cb092fb2139b4f6a4b5.spz",
+        "lodMetaPath": "https://holo-cos.aholo3d.cn/splat-transform/3FO4FOCLT1XR/1794067296/lod-meta.json"
+      }
+    },
+    "imagery": {
+      "panoUrl": "https://holo-cos.aholo3d.cn/spatial-gen-3dgs/3FO4FOCLT1XR/aholo/output/81ab0ca0ea4d4e9d82b23f030b9d0ebe-235633-ffcd_MaaSReportFile-0fe4854c70981e1788095e0339c502f9.jpg"
+    },
+    "semanticsMetadata": {
+      "upAxis": "Z"
+    }
+  },
+  "downloadedAt": "2026-11-07T16:02:03.820Z"
+}

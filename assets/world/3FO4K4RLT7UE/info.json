@@ -1,0 +1,26 @@
+{
+  "worldId": "3FO4K4RLT7UE",
+  "name": "world-dawn",
+  "cover": "https://holo-cos.aholo3d.cn/resource/platform/temp/2026/11/08/NLYDFUQKTKX72AABAAAAACQ8.jpg",
+  "scene": "outdoor",
+  "createTime": 1794126549000,
+  "updateTime": 1794127339000,
+  "status": "SUCCEEDED",
+  "progress": 1,
+  "assets": {
+    "splats": {
+      "urls": {
+        "plyPath": "https://holo-cos.aholo3d.cn/spatial-gen-3dgs/3FO4FOCLT1XR/aholo/output/e7247d1dd4854e41a0b0126e6555e6bf-163641-51bc_MaaSReportFile-6bdc96a8a8385a22b4890d1ff98a0f99.ply",
+        "spzPath": "https://holo-cos.aholo3d.cn/splat-transform/3FO4FOCLT1XR/format/872977fc280b4372b91350408702cb9a.spz",
+        "lodMetaPath": "https://holo-cos.aholo3d.cn/splat-transform/3FO4FOCLT1XR/1794127333/lod-meta.json"
+      }
+    },
+    "imagery": {
+      "panoUrl": "https://holo-cos.aholo3d.cn/spatial-gen-3dgs/3FO4FOCLT1XR/aholo/output/e7247d1dd4854e41a0b0126e6555e6bf-163641-51bc_MaaSReportFile-0fe4854c70981e1788095e0339c502f9.jpg"
+    },
+    "semanticsMetadata": {
+      "upAxis": "Z"
+    }
+  },
+  "downloadedAt": "2026-11-08T08:42:27.265Z"
+}
