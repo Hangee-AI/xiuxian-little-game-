@@ -8661,7 +8661,7 @@ function bindTrib() {
     again.addEventListener("click", () => {
       writeRelic(state);
       localStorage.removeItem(SAVE_KEY);
-      location.href = "./scenes.html?scene=map";
+      location.href = "./index.html?intro=1";
     });
   }
   panelRoot.querySelectorAll("[data-ans]").forEach((b) => {
@@ -9747,7 +9747,7 @@ function showDeath() {
   document.getElementById("reborn").addEventListener("click", () => {
     writeRelic(state);
     localStorage.removeItem(SAVE_KEY);
-    location.href = "./scenes.html?scene=map";
+    location.href = "./index.html?intro=1";
   });
 }
 var mx = 0;
@@ -10189,7 +10189,7 @@ function bindArchive() {
         console.warn("\u4E0A\u4E00\u4E16\u6B8B\u5FF5\u6CA1\u5199\u6210\uFF0C\u4E0D\u5F71\u54CD\u91CD\u6765\u3002", e);
       }
       localStorage.removeItem(SAVE_KEY);
-      location.href = "./scenes.html?scene=map";
+      location.href = "./index.html?intro=1";
       return;
     }
     if (c && c.startsWith("load:")) {

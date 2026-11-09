@@ -25145,7 +25145,7 @@ function stamp(text, kind = "win") {
   el.textContent = text;
   void el.offsetWidth;
   el.classList.add("on");
-  setTimeout(() => el.classList.remove("on"), 1500);
+  setTimeout(() => el.classList.remove("on"), 3300);
 }
 
 // src/bgm.js
@@ -27150,7 +27150,7 @@ function showGate() {
       localStorage.removeItem(SAVE_KEY);
     } catch {
     }
-    location.href = location.pathname + "?fresh=" + Date.now();
+    location.href = "./index.html?intro=1";
   });
 }
 function finishIntroAll() {

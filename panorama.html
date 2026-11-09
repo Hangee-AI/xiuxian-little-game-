@@ -409,6 +409,21 @@
     text-shadow: 0 0 10px #ff3b1f, 0 0 30px rgba(255,60,20,.9), 0 3px 0 rgba(70,10,4,.95), 0 6px 18px rgba(0,0,0,1); }
   .fx-num.crit::after { content: ' 暴'; font-size: 22px; letter-spacing: .1em; color: #ffd27a; }
 
+  /* 胜负印章 */
+  #ar-stamp { position: fixed; left: 50%; top: 34%; z-index: 26; pointer-events: none;
+    transform: translate(-50%, -50%) scale(.7); opacity: 0;
+    font-family: var(--serif); font-size: 132px; line-height: 1; letter-spacing: .1em;
+    color: #e8c98a; border: 3px solid rgba(232,201,138,.55); border-radius: 6px;
+    padding: 14px 26px; text-shadow: 0 0 34px rgba(232,201,138,.45);
+    background: rgba(10,10,14,.12); }
+  #ar-stamp.lose { color: #d5684f; border-color: rgba(213,104,79,.55); text-shadow: 0 0 34px rgba(200,60,40,.45); }
+  #ar-stamp.on { animation: stampIn 3.2s cubic-bezier(.16,.9,.2,1) forwards; }
+  @keyframes stampIn {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(1.5) rotate(-8deg); }
+    10% { opacity: 1; transform: translate(-50%, -50%) scale(.96) rotate(-3deg); }
+    84% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-3deg); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1.02) rotate(-3deg); }
+  }
   #crit-flash { position: fixed; inset: 0; z-index: 30; pointer-events: none; opacity: 0;
     background: radial-gradient(circle at 50% 46%, rgba(255,240,225,.5), rgba(255,120,80,.22) 42%, transparent 72%); }
   #crit-flash.on { animation: critFlash .26s ease-out; }
