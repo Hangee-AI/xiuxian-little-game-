@@ -25134,6 +25134,19 @@ function resize() {
   cv.width = Math.round(cv.clientWidth * dpr);
   cv.height = Math.round(cv.clientHeight * dpr);
 }
+function stamp(text, kind = "win") {
+  let el = document.getElementById("ar-stamp");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "ar-stamp";
+    document.body.appendChild(el);
+  }
+  el.className = kind;
+  el.textContent = text;
+  void el.offsetWidth;
+  el.classList.add("on");
+  setTimeout(() => el.classList.remove("on"), 1500);
+}
 
 // src/bgm.js
 var DIR = "./assets/voice/bgm/";
@@ -26522,6 +26535,7 @@ function renderBattle(msg) {
       });
       if (B.over === "win") {
         await fall("foe");
+        stamp("\u80DC", "win");
         victory();
         saveNow(() => {
         });
@@ -26557,6 +26571,7 @@ function renderBattle(msg) {
       });
       if (B.over === "lose") {
         await fall("me");
+        stamp("\u8D25", "lose");
         defeat();
         renderBattle("\u4F60\u5012\u4E0B\u4E86\u3002");
         return;
@@ -26736,14 +26751,14 @@ var skipBtn = document.getElementById("intro-skip");
 var genderGate = document.getElementById("gender-gate");
 if (settings.noNarration) narrationEl.style.display = "none";
 var LINES_A = [
-  { t: 300, text: "\u4E09\u5E74\u4E86\u3002" },
-  { t: 2700, text: "\u7FFB\u8FC7\u4E5D\u5341\u4E5D\u5EA7\u5C71\uFF0C" },
-  { t: 5700, text: "\u7EC8\u4E8E\u7AD9\u5728\u8FD9\u6761\u77F3\u9636\u5E95\u4E0B\u3002" }
+  { t: 150, text: "\u4E09\u5E74\u4E86\u3002" },
+  { t: 2620, text: "\u7FFB\u8FC7\u4E5D\u5341\u4E5D\u5EA7\u5C71\uFF0C" },
+  { t: 5620, text: "\u7EC8\u4E8E\u7AD9\u5728\u8FD9\u6761\u77F3\u9636\u5E95\u4E0B\u3002" }
 ];
 var LINES_B = [
-  { t: 400, text: "\u4ED6\u4EEC\u90FD\u8BF4\u662F\u5047\u7684\u3002" },
-  { t: 4e3, text: "\u53EF\u5C71\u98CE\u91CC\uFF0C\u786E\u5B9E\u6709\u677E\u9999\u4E0E\u949F\u58F0\u3002" },
-  { t: 7900, text: "\u539F\u6765\u4E16\u4E0A\uFF0C\u771F\u6709\u4FEE\u4ED9\u5B97\u95E8\u3002" }
+  { t: 200, text: "\u4ED6\u4EEC\u90FD\u8BF4\u662F\u5047\u7684\u3002" },
+  { t: 3950, text: "\u53EF\u5C71\u98CE\u91CC\uFF0C\u786E\u5B9E\u6709\u677E\u9999\u4E0E\u949F\u58F0\u3002" },
+  { t: 7850, text: "\u539F\u6765\u4E16\u4E0A\uFF0C\u771F\u6709\u4FEE\u4ED9\u5B97\u95E8\u3002" }
 ];
 var voice = null;
 function pickVoice() {
@@ -26823,6 +26838,7 @@ function playVoice(file, fallbackText) {
     };
     const blocked = (err) => {
       if (err && err.name === "NotAllowedError") {
+        voiceRetry.length = 0;
         voiceRetry.push(() => playVoice(file, fallbackText));
         showVoiceHint();
         return;
@@ -26903,8 +26919,6 @@ function narrate(lines, offset = 0, vkey = "") {
     timers.push(setTimeout(() => {
       narrationEl.textContent = text;
       narrationEl.classList.add("on");
-      if (vkey) playVoice(`${vkey}-${i + 1}`, text);
-      else speak(text);
     }, t + offset));
   });
   timers.push(setTimeout(() => narrationEl.classList.remove("on"), lines[lines.length - 1].t + 2600));
@@ -26933,27 +26947,29 @@ function playA() {
   video.src = "./assets/video/intro-a.mp4";
   video.currentTime = 0;
   try {
-    video.playbackRate = 1;
+    video.playbackRate = 0.97;
   } catch {
   }
   const p = video.play();
   if (p && p.catch) p.catch(() => showTap());
   ensurePlaying();
   ambientStart();
-  narrate(LINES_A, 0, "intro-a");
+  playVoice("intro-a-full", "");
+  narrate(LINES_A, 0, "");
 }
 function playB() {
   video.src = "./assets/video/intro-b.mp4";
   video.currentTime = 0;
   try {
-    video.playbackRate = 0.85;
+    video.playbackRate = 0.835;
   } catch {
   }
   const p = video.play();
   if (p && p.catch) p.catch(() => showTap());
   ensurePlaying();
   ambientStart();
-  narrate(LINES_B, 0, "intro-b");
+  playVoice("intro-b-full", "");
+  narrate(LINES_B, 0, "");
   titleEl.classList.remove("on");
 }
 var lastCT = -1;
@@ -27093,7 +27109,8 @@ function needGender() {
   const g2 = lf && lf.gender;
   return g2 !== "\u7537" && g2 !== "\u5973";
 }
-var skipVideo = qs.get("nointro") === "1" || !IS_GATE || !!settings.skipIntro;
+var FORCE_INTRO = qs.get("intro") === "1";
+var skipVideo = !FORCE_INTRO && (qs.get("nointro") === "1" || !IS_GATE || !!settings.skipIntro);
 var gateAfterIntro = false;
 function showGate() {
   if (!genderGate) {
@@ -27195,6 +27212,8 @@ window.__pano = {
   wander: (p) => openWander(p || PANO),
   observe: (s) => onSpot(s),
   battle: (i = 0) => openBattle(BEASTS[i] || BEASTS[0], { noEdge: true }),
+  win: () => stamp("\u80DC", "win"),
+  lose: () => stamp("\u8D25", "lose"),
   book: (note) => openBook(note),
   age: () => readSave().life && ensure(readSave()).year,
   pass: () => panoYearPass()
@@ -27351,7 +27370,7 @@ function showPanoDeath() {
   document.getElementById("pk-reborn").addEventListener("click", () => {
     writeRelic(readSave());
     localStorage.removeItem(SAVE_KEY);
-    location.href = "./panorama.html";
+    location.href = "./index.html?intro=1";
   });
 }
 var bookConfirm = "";
@@ -27440,7 +27459,7 @@ function openBook(note) {
         localStorage.removeItem(SAVE_KEY);
       } catch {
       }
-      location.href = "./panorama.html";
+      location.href = "./index.html?intro=1";
       return;
     }
     const i = Number(String(bookConfirm).split(":")[1]);
