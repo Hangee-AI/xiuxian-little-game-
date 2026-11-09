@@ -21465,7 +21465,10 @@ function initWorld(state) {
   const l = ensure(state);
   if (l.worldReady) {
     if (!Array.isArray(l.folk)) l.folk = makeFolk(l.seed || 1);
-    for (const f of l.folk) if (!f.file) f.file = faceFor(l.seed || 1, f);
+    for (const f of l.folk) {
+      if (!f.gender) f.gender = NAMES_F.includes(f.name) ? "\u5973" : "\u7537";
+      if (!f.file) f.file = faceFor(l.seed || 1, f);
+    }
     return l;
   }
   l.worldReady = 1;
@@ -27681,6 +27684,20 @@ function needGender() {
   return g2 !== "\u7537" && g2 !== "\u5973";
 }
 var FORCE_INTRO = qs.get("intro") === "1";
+if (FORCE_INTRO) {
+  settings.noNarration = false;
+  settings.voiceNarration = true;
+  settings.skipIntro = false;
+  if (narrationEl) narrationEl.style.display = "";
+  try {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  } catch {
+  }
+  try {
+    console.log("[\u7075\u589F] \u5165\u573A\u91CD\u770B\uFF1A\u5B57\u5E55", !settings.noNarration, "\u65C1\u767D", settings.voiceNarration);
+  } catch {
+  }
+}
 if (qs.get("reset") === "1") {
   try {
     localStorage.removeItem("lingxu.save.v1");

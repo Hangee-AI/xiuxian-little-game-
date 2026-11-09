@@ -2766,7 +2766,10 @@ function initWorld(state2) {
   const l = ensure(state2);
   if (l.worldReady) {
     if (!Array.isArray(l.folk)) l.folk = makeFolk(l.seed || 1);
-    for (const f of l.folk) if (!f.file) f.file = faceFor(l.seed || 1, f);
+    for (const f of l.folk) {
+      if (!f.gender) f.gender = NAMES_F.includes(f.name) ? "\u5973" : "\u7537";
+      if (!f.file) f.file = faceFor(l.seed || 1, f);
+    }
     return l;
   }
   l.worldReady = 1;
