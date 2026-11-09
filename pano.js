@@ -19518,7 +19518,9 @@ var MINDS = [
     pay: { bond: 1, merit: 6, log: "\u4F60\u628A\u4E24\u682A\u836F\u653E\u5728\u78BE\u5B50\u8FB9\u4E0A\u3002\u9648\u6267\u4E8B\u6CA1\u62AC\u5934\uFF0C\u53EA\u8BF4\u4E86\u4E00\u53E5\u300C\u706B\u8981\u5148\u5C0F\u540E\u5927\u300D\u3002" },
     due: 5,
     hint: "\u8FF7\u96FE\u68EE\u6797 \xB7 \u91C7\u836F",
-    weight: 9
+    weight: 9,
+    next: "chen_brew"
+    // 药采到了，他才肯教你点一次火
   },
   {
     id: "shen_plaza",
@@ -19551,7 +19553,9 @@ var MINDS = [
     pay: { bond: 1, merit: 5, log: "\u4F60\u628A\u7EB8\u70E7\u5B8C\u3002\u8001\u4EBA\u8E72\u7740\u770B\u706B\uFF0C\u8BF4\u8FD9\u5EA7\u53F0\u4E0A\u6B7B\u8FC7\u7684\u4EBA\uFF0C\u540D\u5B57\u4ED6\u90FD\u8BB0\u7740\u3002" },
     due: 7,
     hint: "\u8206\u56FE \xB7 \u6E21\u52AB\u53F0",
-    weight: 7
+    weight: 7,
+    next: "laozu_pill"
+    // 纸烧完了，他才会提起骨头是凉的
   },
   {
     id: "fu_charm",

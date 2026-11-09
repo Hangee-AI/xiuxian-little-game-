@@ -195,7 +195,9 @@ var MINDS = [
     pay: { bond: 1, merit: 6, log: "\u4F60\u628A\u4E24\u682A\u836F\u653E\u5728\u78BE\u5B50\u8FB9\u4E0A\u3002\u9648\u6267\u4E8B\u6CA1\u62AC\u5934\uFF0C\u53EA\u8BF4\u4E86\u4E00\u53E5\u300C\u706B\u8981\u5148\u5C0F\u540E\u5927\u300D\u3002" },
     due: 5,
     hint: "\u8FF7\u96FE\u68EE\u6797 \xB7 \u91C7\u836F",
-    weight: 9
+    weight: 9,
+    next: "chen_brew"
+    // 药采到了，他才肯教你点一次火
   },
   {
     id: "shen_plaza",
@@ -228,7 +230,9 @@ var MINDS = [
     pay: { bond: 1, merit: 5, log: "\u4F60\u628A\u7EB8\u70E7\u5B8C\u3002\u8001\u4EBA\u8E72\u7740\u770B\u706B\uFF0C\u8BF4\u8FD9\u5EA7\u53F0\u4E0A\u6B7B\u8FC7\u7684\u4EBA\uFF0C\u540D\u5B57\u4ED6\u90FD\u8BB0\u7740\u3002" },
     due: 7,
     hint: "\u8206\u56FE \xB7 \u6E21\u52AB\u53F0",
-    weight: 7
+    weight: 7,
+    next: "laozu_pill"
+    // 纸烧完了，他才会提起骨头是凉的
   },
   {
     id: "fu_charm",
@@ -4255,7 +4259,7 @@ function mindReady(state2, m) {
 }
 function mindProgress(state2, m) {
   const parts = [
-    ...mindNeed(state2, m).map((n) => n.have / n.n),
+    ...mindNeed(state2, m).map((n) => n.have / n.need),
     ...mindCost(state2, m).map((c) => Math.min(1, c.have / c.need))
   ];
   if (!parts.length) return 1;
@@ -4314,7 +4318,17 @@ function mindFinish(state2, id) {
   if (pay.karma) l.karma += pay.karma;
   if (pay.item) addItem(state2, pay.item[0], pay.item[1] || 1);
   if (pay.log) log(state2, "deed", pay.log, def.npc || null);
-  return { ok: true, text: pay.log || "\u8FD9\u4EF6\u4E8B\uFF0C\u7B97\u4E86\u4E86\u3002", merit: pay.merit || 0, bond: pay.bond || 0 };
+  let nextTitle = "";
+  if (def.next) {
+    const nx = MIND_BY_ID[def.next];
+    if (nx && !l.mindDone[def.next] && !l.mindLost[def.next] && !l.mind.some((x) => x.id === def.next) && l.mind.length < MIND_MAX) {
+      l.mind.push({ id: def.next, got: l.year, due: l.year + (nx.due || 8) });
+      const who = nx.npc ? (NPCS[nx.npc] || {}).name : "\u4F60\u81EA\u5DF1";
+      log(state2, "bond", `${who}\u53C8\u63D0\u8D77\u4E00\u4EF6\u4E8B\uFF1A${nx.title}\u3002`, nx.npc || null);
+      nextTitle = nx.title;
+    }
+  }
+  return { ok: true, text: pay.log || "\u8FD9\u4EF6\u4E8B\uFF0C\u7B97\u4E86\u4E86\u3002", merit: pay.merit || 0, bond: pay.bond || 0, next: nextTitle };
 }
 function mindDrop(state2, id) {
   const l = ensure(state2);
@@ -4325,6 +4339,109 @@ function mindDrop(state2, id) {
   l.mindLost[id] = l.year;
   log(state2, "omen", `\u4F60\u628A\u300C${def ? def.title : "\u90A3\u4EF6\u4E8B"}\u300D\u653E\u4E0B\u4E86\u3002`, def && def.npc || null);
   return true;
+}
+var YEAR_POOL = [
+  {
+    id: "seclude",
+    t: "\u95ED\u5173\u6253\u5750",
+    s: "\u4E00\u5E74\u4E0D\u95FB\u7A97\u5916\u4E8B",
+    run: (s) => {
+      const l = ensure(s);
+      l.wu += 1;
+      log(s, "deed", "\u4F60\u5728\u6D1E\u91CC\u5750\u4E86\u4E00\u5E74\u3002\u4EC0\u4E48\u90FD\u6CA1\u53D1\u751F\uFF0C\u4F46\u4F60\u77E5\u9053\u6709\u4E9B\u4E1C\u897F\u53D8\u4E86\u3002");
+      return ["\u609F +1", "\u4EC0\u4E48\u90FD\u6CA1\u53D1\u751F\u3002\u8FD9\u662F\u6700\u597D\u7684\u4E00\u5E74\u3002"];
+    }
+  },
+  {
+    id: "gather",
+    t: "\u540E\u5C71\u91C7\u836F",
+    s: "\u4E24\u682A\u836F\uFF0C\u53EF\u80FD\u6709\u522B\u7684\u4E1C\u897F",
+    run: (s) => {
+      const l = ensure(s);
+      if (Math.random() < 0.16) {
+        spend(s, 2);
+        l.flags = l.flags || {};
+        log(s, "evil", "\u540E\u5C71\u91C7\u836F\u65F6\u649E\u4E0A\u4E86\u4E1C\u897F\u3002\u4F60\u4E22\u4E86\u4E24\u5E74\u3002");
+        return ["\u836F +1", "\u4F60\u5728\u77F3\u7F1D\u91CC\u770B\u89C1\u4E00\u53CC\u773C\u775B\u3002\u8DD1\u56DE\u6765\u7684\u65F6\u5019\uFF0C\u978B\u6389\u4E86\u4E00\u53EA\u3002\uFF08\u6298\u5BFF 2 \u5E74\uFF09"];
+      }
+      addItem(s, "herb", 2);
+      log(s, "deed", "\u4F60\u5728\u540E\u5C71\u91C7\u4E86\u4E24\u682A\u836F\u3002\u77F3\u7F1D\u91CC\u7684\u8349\u6BD4\u53BB\u5E74\u5C11\u3002");
+      return ["\u836F +2", "\u96FE\u5F88\u91CD\uFF0C\u4F60\u53EA\u91C7\u5230\u4E24\u682A\u3002\u591F\u4E00\u56DE\u7089\u4E86\u3002"];
+    }
+  },
+  {
+    id: "errand",
+    t: "\u66FF\u5B97\u95E8\u8DD1\u817F",
+    s: "\u529F\u5FB7\uFF0C\u4E0D\u95EE\u7F18\u7531",
+    run: (s) => {
+      s.merit = (s.merit || 0) + 8;
+      log(s, "deed", "\u4F60\u66FF\u5B97\u95E8\u8DD1\u4E86\u4E00\u5E74\u817F\u3002\u6CA1\u4EBA\u8BB0\u5F97\u4F60\u8DD1\u8FC7\u54EA\u513F\u3002");
+      return ["\u529F\u5FB7 +8", "\u4E8B\u5F88\u6742\uFF0C\u4E5F\u5F88\u7410\u788E\u3002\u505A\u5B8C\u6CA1\u6709\u4EBA\u8BF4\u8C22\u3002"];
+    }
+  },
+  {
+    id: "copy",
+    t: "\u6284\u4E00\u591C\u7ECF",
+    s: "\u609F\uFF0C\u4F46\u5B57\u4F1A\u6B6A",
+    run: (s) => {
+      const l = ensure(s);
+      if (Math.random() < 0.22) {
+        l.wu = Math.max(0, l.wu - 1);
+        log(s, "omen", "\u4F60\u6284\u5C94\u4E86\u4E00\u5377\u7ECF\u3002\u591C\u91CC\u505A\u68A6\uFF0C\u68A6\u91CC\u90A3\u4E2A\u5B57\u4E00\u76F4\u5728\u8D70\u3002");
+        return ["\u609F \u22121", "\u6284\u5230\u540E\u534A\u591C\uFF0C\u4F60\u53D1\u73B0\u81EA\u5DF1\u628A\u4E00\u6574\u5377\u90FD\u6284\u53CD\u4E86\u3002"];
+      }
+      l.wu += 2;
+      log(s, "deed", "\u4F60\u6284\u4E86\u4E00\u591C\u7ECF\u3002\u706F\u82AF\u77ED\u4E86\u4E00\u5BF8\u3002");
+      return ["\u609F +2", "\u624B\u662F\u9178\u7684\uFF0C\u5FC3\u662F\u9759\u7684\u3002"];
+    }
+  },
+  {
+    id: "visit",
+    t: "\u53BB\u8BBF\u4E00\u4E2A\u4EBA",
+    s: "\u4EBA\u60C5\uFF0C\u672A\u5FC5\u6709\u56DE\u62A5",
+    run: (s) => {
+      const l = ensure(s);
+      const folk = (l.folk || []).filter((f2) => f2.state === "\u5728\u5C71\u91CC");
+      if (!folk.length) {
+        addItem(s, "pill", 1);
+        log(s, "deed", "\u4F60\u60F3\u53BB\u8BBF\u4E00\u4E2A\u4EBA\uFF0C\u8D70\u4E86\u4E00\u5708\uFF0C\u95E8\u90FD\u5173\u7740\u3002\u56DE\u6765\u65F6\u4E70\u5230\u4E86\u4E00\u9897\u4E39\u3002");
+        return ["\u4E39 +1", "\u4F60\u60F3\u627E\u7684\u4EBA\u90FD\u4E0D\u5728\u3002\u5012\u662F\u4E0B\u5C71\u65F6\u5728\u644A\u4E0A\u6361\u4E86\u9897\u4FBF\u5B9C\u7684\u4E39\u3002"];
+      }
+      const f = folk[Math.floor(Math.random() * folk.length)];
+      f.bond = (f.bond || 0) + 2;
+      log(s, "bond", `\u4F60\u53BB\u770B\u4E86\u4E00\u6B21${f.name}\u3002`, f.id);
+      return [`${f.name} \u4EBA\u60C5 +2`, "\u8BDD\u4E0D\u591A\u3002\u8D70\u7684\u65F6\u5019\u4ED6\u9001\u4E86\u4F60\u4E24\u6B65\u3002"];
+    }
+  },
+  {
+    id: "sleep",
+    t: "\u7761\u4E00\u5E74",
+    s: "\u4EC0\u4E48\u90FD\u4E0D\u505A",
+    run: (s) => {
+      log(s, "deed", "\u4F60\u7761\u4E86\u4E00\u5E74\u3002\u9192\u6765\u7684\u65F6\u5019\uFF0C\u7A97\u7EB8\u6362\u8FC7\u4E86\u3002");
+      return ["\u6C14\u8840\u56DE\u6EE1", "\u8FD9\u4E00\u5E74\u4F60\u4EC0\u4E48\u90FD\u6CA1\u505A\u3002\u4E5F\u7B97\u4E00\u79CD\u8FC7\u6CD5\u3002"];
+    }
+  }
+];
+function yearChoices(state2) {
+  const l = ensure(state2);
+  const last = l.flags && l.flags.lastChoices || [];
+  const pool = YEAR_POOL.filter((c) => !last.includes(c.id));
+  const src = pool.length >= 3 ? pool : YEAR_POOL.slice();
+  const picked = [];
+  while (picked.length < 3 && src.length) {
+    const i = Math.floor(Math.random() * src.length);
+    picked.push(src.splice(i, 1)[0]);
+  }
+  l.flags = l.flags || {};
+  l.flags.lastChoices = picked.map((c) => c.id);
+  return picked.map((c) => ({ id: c.id, t: c.t, s: c.s }));
+}
+function pickYear(state2, id) {
+  const c = YEAR_POOL.find((x) => x.id === id);
+  if (!c) return { lines: ["\u8FD9\u4E00\u5E74\u767D\u8FC7\u4E86\u3002"] };
+  const lines = c.run(state2) || [];
+  return { lines };
 }
 
 // src/vitals.js
@@ -8540,6 +8657,14 @@ function syncHud() {
   if (mindBtn) {
     const ms = l.mind || [];
     const readyN = ms.filter((m) => mindReady(state, m)).length;
+    const lostN = Object.keys(l.mindLost || {}).length;
+    if (syncHud._lost !== void 0 && lostN > syncHud._lost) toast("\u6709\u4E00\u4EF6\u4E8B\uFF0C\u4F60\u6CA1\u80FD\u4E86\u7ED3\u3002");
+    syncHud._lost = lostN;
+    if (syncHud._mindN !== void 0 && ms.length > syncHud._mindN) {
+      const lastM = ms[ms.length - 1];
+      toast(`\u5FC3\u4E0A\u591A\u4E86\u4E00\u4EF6\u4E8B\uFF1A${(mindDef(lastM.id) || {}).title || ""}`);
+    }
+    syncHud._mindN = ms.length;
     mindBtn.innerHTML = ms.length ? `\u5FC3\u4E8B<span class="mind-n${readyN ? " hot" : ""}">${readyN || ms.length}</span>` : "\u5FC3\u4E8B";
     mindBtn.title = ms.length ? readyN ? `${readyN} \u4EF6\u53EF\u4EE5\u53BB\u4EA4\u5DEE` : `\u5FC3\u4E0A\u6302\u7740 ${ms.length} \u4EF6\u4E8B` : "\u6682\u65F6\u6CA1\u6709\u5FC3\u4E8B";
   }
@@ -8579,24 +8704,40 @@ function updateDock() {
   const nl = document.getElementById("dock-next-label");
   const ns = document.getElementById("dock-next-sub");
   if (nl) nl.textContent = nx.label;
-  if (ns) ns.textContent = nx.sub;
+  if (ns) ns.textContent = "";
   document.getElementById("dock-next").dataset.panel = nx.panel;
+}
+function showYearChoice(done) {
+  if (isDead(state)) return showDeath();
+  const l = ensure(state);
+  const opts = yearChoices(state);
+  const left = yearsLeft(state);
+  panelRoot.dataset.pid = "year";
+  panelBody.innerHTML = `<div class="ev-kicker">\u7B2C ${l.year} \u5E74 \xB7 \u4E00\u5E74\u53EA\u591F\u505A\u4E00\u4EF6</div>
+    <div class="ev-age">${numCn(l.year)}\u5C81${left <= 15 ? `<b>\u53EA\u5269 ${left} \u5E74</b>` : ""}</div>
+    <div class="ev-title" style="margin-top:10px">\u4ECA\u5E74\u505A\u4EC0\u4E48</div>
+    <div class="ev-opts">${opts.map((o, i) => `<button class="btn ${i === 0 ? "gold" : "ghost"}" data-y="${o.id}">${o.t}<i class="ev-chip">${o.s}</i></button>`).join("")}</div>`;
+  panelRoot.classList.add("open");
+  panelBody.querySelectorAll("[data-y]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const r = pickYear(state, b.dataset.y);
+      spend(state, 0) || 0;
+      save();
+      syncHud();
+      closePanel();
+      if (r.lines && r.lines.length) toast(r.lines.join(" \xB7 "));
+      if (isDead(state)) return showDeath();
+      if (done) done();
+    });
+  });
 }
 function doYear() {
   if (isDead(state)) return showDeath();
   spend(state, 1);
-  const card = drawEvent(state, cur === "map" ? "map" : cur);
   save();
   syncHud();
   if (isDead(state)) return showDeath();
-  if (card) {
-    showEventCard(card, () => {
-      save();
-      syncHud();
-    });
-  } else {
-    toast(`\u7B2C ${ensure(state).year} \u5E74 \xB7 \u5BFF\u5143\u5269 ${yearsLeft(state)} \u5E74`);
-  }
+  showYearChoice();
 }
 function showMoment(kind, title, line, done) {
   if (typeof document === "undefined" || !document.body) return done && done();
@@ -10810,22 +10951,13 @@ function loop(ts) {
     if (realAcc >= MS_PER_YEAR) {
       realAcc -= MS_PER_YEAR;
       spend(state, 1);
-      const yearCard = isDead(state) ? null : drawEvent(state, cur === "map" ? "map" : cur);
       save();
       syncHud();
-      if (!isDead(state)) {
-        const ll = ensure(state);
-        toast(`\u53C8\u8FC7\u4E00\u5E74 \xB7 \u7B2C ${ll.year} \u5E74 \xB7 \u5BFF\u5143\u5269 ${yearsLeft(state)}`);
-      }
       if (isDead(state)) {
         realAcc = 0;
         showDeath();
-      } else if (yearCard) {
-        showEventCard(yearCard, () => {
-          save();
-          syncHud();
-          if (isDead(state)) showDeath();
-        });
+      } else {
+        showYearChoice();
       }
     }
   }
@@ -11394,9 +11526,19 @@ function panelMind() {
   const body = mins.length ? mins.map(mindCardHtml).join("") : `<div class="panel-text">\u5FC3\u4E0A\u6682\u65F6\u6CA1\u6709\u4E8B\u3002\u53BB\u8206\u56FE\u4E0A\u8D70\u8D70\uFF0C\u548C\u4EBA\u8BF4\u8BF4\u8BDD\u2014\u2014\u4E8B\u4F1A\u81EA\u5DF1\u627E\u4E0A\u6765\u3002</div>
        <div class="panel-text" style="opacity:.5">\u6BCF\u8FC7\u4E00\u5E74\uFF0C\u6700\u591A\u4F1A\u6709\u4E00\u4EF6\u4E8B\u843D\u5230\u4F60\u5FC3\u4E0A\u3002</div>`;
   const readyN = mins.filter((m) => mindReady(state, m)).length;
+  const metIds = Object.keys(l.met || {}).filter((id) => NPCS[id]);
+  const metRow = metIds.length ? `<div class="panel-text" style="opacity:.55">\u8FD9\u4E00\u4E16\u6253\u8FC7\u4EA4\u9053\uFF1A${metIds.map((id) => `${NPCS[id].name}\uFF08${bondTier(state, id).name}\uFF09`).join("\u3001")}</div>` : "";
+  const titles = (obj) => Object.keys(obj || {}).map((id) => (mindDef(id) || {}).title).filter(Boolean);
+  const doneTitles = titles(l.mindDone);
+  const lostTitles = titles(l.mindLost);
+  const doneRow = doneTitles.length ? `<div class="panel-text" style="opacity:.5">\u4E86\u7ED3\u8FC7\u7684\uFF1A${doneTitles.join("\u3001")}</div>` : "";
+  const lostRow = lostTitles.length ? `<div class="panel-text" style="opacity:.36">\u6CA1\u80FD\u4E86\u7ED3\u7684\uFF1A${lostTitles.slice(-8).join("\u3001")}</div>` : "";
   const head = `<div class="panel-title">\u5FC3\u4E8B<span>\u7B54\u5E94\u8FC7\u7684\u4EBA\uFF0C\u548C\u7B54\u5E94\u8FC7\u81EA\u5DF1\u7684\u4E8B</span></div>
     ${viewHtml}
-    <div class="panel-text">\u8FD9\u4E00\u4E16\u4E86\u7ED3 <b>${doneN}</b> \u4EF6\uFF0C\u672A\u4E86 <b>${lostN}</b> \u4EF6\u3002${mins.length ? `\u5FC3\u4E0A\u8FD8\u6302\u7740 ${mins.length} \u4EF6${readyN ? `\uFF0C\u5176\u4E2D ${readyN} \u4EF6\u53EF\u4EE5\u53BB\u4EA4\u5DEE\u4E86` : ""}\u3002` : ""}</div>`;
+    <div class="panel-text">\u8FD9\u4E00\u4E16\u4E86\u7ED3 <b>${doneN}</b> \u4EF6\uFF0C\u672A\u4E86 <b>${lostN}</b> \u4EF6\u3002${mins.length ? `\u5FC3\u4E0A\u8FD8\u6302\u7740 ${mins.length} \u4EF6${readyN ? `\uFF0C\u5176\u4E2D ${readyN} \u4EF6\u53EF\u4EE5\u53BB\u4EA4\u5DEE\u4E86` : ""}\u3002` : ""}</div>
+    ${metRow}
+    ${doneRow}
+    ${lostRow}`;
   return `${head}
     ${body}
     <div class="panel-text" style="opacity:.42">\u91C7\u8FC7\u7684\u836F\u3001\u70BC\u8FC7\u7684\u4E39\u3001\u53BB\u8FC7\u7684\u5C71\u5934\uFF0C\u90FD\u8BB0\u5728\u8FD9\u4E9B\u4E8B\u4E0A\u3002\u671F\u9650\u4E00\u8FC7\uFF0C\u5C31\u53D8\u6210"\u6CA1\u505A\u6210\u7684\u4E8B"\u3002</div>
@@ -11405,7 +11547,7 @@ function panelMind() {
 function bindMind() {
   panelRoot.querySelectorAll("[data-mind-done]").forEach((b) => b.addEventListener("click", () => {
     const r = mindFinish(state, b.dataset.mindDone);
-    MIND_VIEW = r.ok ? `${r.text}${r.merit ? `\uFF08\u9053\u884C +${r.merit}\uFF09` : ""}` : r.why;
+    MIND_VIEW = r.ok ? `${r.text}${r.merit ? `\uFF08\u9053\u884C +${r.merit}\uFF09` : ""}${r.next ? `<br>\u5FC3\u4E0A\u53C8\u591A\u4E86\u4E00\u4EF6\u4E8B\uFF1A${r.next}\u3002` : ""}` : r.why;
     if (r.ok) {
       sfx("good", true);
       toast(`\u4E86\u4E86\u4E00\u4EF6\u4E8B${r.merit ? ` \xB7 \u9053\u884C +${r.merit}` : ""}`);
