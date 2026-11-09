@@ -402,6 +402,23 @@ function daoOf(state2) {
   if (l.bag.sword) v += 3;
   return Math.max(0, Math.round(v));
 }
+function daoCap(state2) {
+  const l = ensure(state2);
+  const r = l.realm || 0;
+  if (r >= RANKS.length - 1) return Infinity;
+  return RANKS[r + 1].at;
+}
+function gainMerit(state2, n) {
+  const cur2 = state2.merit || 0;
+  if (n < 0) {
+    state2.merit = Math.max(0, cur2 + n);
+    return n;
+  }
+  const cap = daoCap(state2);
+  const add2 = Math.max(0, Math.min(n, cap - cur2));
+  state2.merit = cur2 + add2;
+  return add2;
+}
 function rankOf(state2) {
   return RANKS[realmIndex(state2)];
 }
@@ -542,7 +559,7 @@ function seclude(state2, years, mul) {
     }
   }
   if (secBonus) got = Math.round(got * (1 + secBonus));
-  state2.merit = (state2.merit || 0) + got;
+  gainMerit(state2, got);
   if (broke) l.span -= Math.max(1, Math.round(2 * (l.artBonus && l.artBonus.pen || 1)));
   log(
     state2,
@@ -2521,10 +2538,10 @@ var DIFFICULTIES = [
 var diffOf = (state2) => DIFFICULTIES.find((d) => d.k === ensure(state2).difficulty) || DIFFICULTIES[1];
 var REALMS = [
   { name: "\u7EC3\u6C14", span: 80, cost: 0, risk: 0, dao: 0, tier: "\u5916\u5C42", note: "\u5BFF\u516B\u5341\uFF0C\u591F\u8D70\u5B8C\u4E00\u7532\u5B50\u3002" },
-  { name: "\u7B51\u57FA", span: 200, cost: 15, risk: 0.12, dao: 40, tier: "\u4E2D\u5C42", note: "\u5BFF\u4E8C\u767E\uFF0C\u80FD\u7B49\u7B2C\u4E8C\u8F6E\u6F6E\u6C50\u3002" },
-  { name: "\u91D1\u4E39", span: 500, cost: 30, risk: 0.2, dao: 100, tier: "\u5185\u5C42", note: "\u5BFF\u4E94\u767E\uFF0C\u540C\u8F88\u591A\u5DF2\u4F5C\u53E4\u3002" },
-  { name: "\u5143\u5A74", span: 900, cost: 50, risk: 0.28, dao: 190, tier: "\u6DF1\u5904", note: "\u5BFF\u4E5D\u767E\uFF0C\u5C71\u95E8\u6362\u4E86\u4E09\u56DE\u4EBA\u3002" },
-  { name: "\u5316\u795E", span: 1500, cost: 80, risk: 0.35, dao: 280, tier: "\u95E8\u540E", note: "\u5BFF\u5343\u4E94\uFF0C\u8BA4\u5F97\u4F60\u7684\u4EBA\u90FD\u6CA1\u4E86\u3002" }
+  { name: "\u7B51\u57FA", span: 200, cost: 15, risk: 0.12, dao: 80, tier: "\u4E2D\u5C42", note: "\u5BFF\u4E8C\u767E\uFF0C\u80FD\u7B49\u7B2C\u4E8C\u8F6E\u6F6E\u6C50\u3002" },
+  { name: "\u91D1\u4E39", span: 500, cost: 30, risk: 0.2, dao: 200, tier: "\u5185\u5C42", note: "\u5BFF\u4E94\u767E\uFF0C\u540C\u8F88\u591A\u5DF2\u4F5C\u53E4\u3002" },
+  { name: "\u5143\u5A74", span: 900, cost: 50, risk: 0.28, dao: 380, tier: "\u6DF1\u5904", note: "\u5BFF\u4E5D\u767E\uFF0C\u5C71\u95E8\u6362\u4E86\u4E09\u56DE\u4EBA\u3002" },
+  { name: "\u5316\u795E", span: 1500, cost: 80, risk: 0.35, dao: 560, tier: "\u95E8\u540E", note: "\u5BFF\u5343\u4E94\uFF0C\u8BA4\u5F97\u4F60\u7684\u4EBA\u90FD\u6CA1\u4E86\u3002" }
 ];
 var ARCHETYPES = [
   { k: "climber", name: "\u6500\u9644\u8005", want: "\u501F\u4F60\u7684\u52BF", tell: "\u4F60\u88AB\u53EB\u8FDB\u5185\u95E8\u90A3\u5929\uFF0C\u4ED6\u4E00\u5B9A\u5728\u3002" },
@@ -2716,15 +2733,9 @@ function enterJiazi(state2) {
   log(state2, "deed", `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u4ECE\u7532\u5B50\u6F6E\u6C50\u7684${r.tier}\u51FA\u6765\u3002${gifts.t} \xD7${gifts.n}\u3002`);
   return { realm: r, gifts, lines, tier };
 }
-function daoRankIndex(state2) {
-  const v = daoOf(state2);
-  let i = 0;
-  for (let k = 0; k < RANKS.length; k += 1) if (v >= RANKS[k].at) i = k;
-  return i;
-}
 function realmIndex(state2) {
   const l = ensure(state2);
-  return Math.min(RANKS.length - 1, Math.max(daoRankIndex(state2), l.realm || 0));
+  return Math.min(RANKS.length - 1, Math.max(0, l.realm || 0));
 }
 function minorTribRisk(state2, at = realmIndex(state2)) {
   const l = ensure(state2);
@@ -2737,6 +2748,9 @@ function breakthrough(state2) {
   const next = REALMS[cur2 + 1];
   if (daoOf(state2) < (next.dao || 0)) {
     return { ok: false, line: `\u6839\u57FA\u8FD8\u5DEE\u5F97\u8FDC\u3002\u9053\u884C\u4E0D\u5230 ${next.dao}\uFF0C${next.name}\u8FD9\u4E00\u5173\u95ED\u4E0D\u5F00\u3002` };
+  }
+  if (next.name === "\u5143\u5A74" && !(state2.tribulation && state2.tribulation.ok)) {
+    return { ok: false, line: "\u91D1\u4E39\u7684\u9876\u4E0D\u5728\u6D1E\u91CC\u3002\u5148\u53BB\u6E21\u52AB\u53F0\u7AD9\u4E00\u6B21\u2014\u2014\u90A3\u9053\u96F7\u4E0D\u5E94\uFF0C\u5143\u5A74\u51FA\u4E0D\u6765\u3002" };
   }
   if (yearsLeft(state2) <= next.cost) return { ok: false, line: "\u4F59\u5BFF\u4E0D\u591F\u95ED\u8FD9\u4E00\u5173\u3002" };
   spend(state2, next.cost);
@@ -2859,7 +2873,7 @@ function dualCultivate(state2) {
   l.lastShuang = l.year;
   f.bond += 1;
   const gain2 = 6 + 2 * Math.max(0, RANKS.indexOf(rankOf(state2)));
-  state2.merit += gain2;
+  gainMerit(state2, gain2);
   f.last = `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u4EEC\u95ED\u95E8\u53CC\u4FEE\u4E86\u4E00\u56DE\u3002${bondTierOf(f)}\u3002`;
   log(state2, "bond", `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u548C${f.name}\u53CC\u4FEE\u4E86\u4E00\u56DE\u3002\u9053\u884C +${gain2}\u3002`);
   return { ok: true, why: f.last, gain: gain2, folk: f };
@@ -2997,7 +3011,7 @@ function annualTick(state2) {
   const out = [];
   if (l.elder && l.elder.bonus) {
     const b = l.elder.bonus;
-    if (b.dao) state2.merit += b.dao;
+    if (b.dao) gainMerit(state2, b.dao);
     if (b.karma) l.karma = Math.max(0, (l.karma || 0) + b.karma);
   }
   if (l.disciple && l.disciple.alive) {
@@ -5718,12 +5732,12 @@ function gather(state2, sceneId) {
     extra = roll(0.35) ? 2 : 1;
   }
   for (let i = 0; i < extra; i++) {
-    const bag = pool.filter((m) => !got.includes(m.id));
-    if (!bag.length) break;
-    const total = bag.reduce((a, m) => a + (m.w || 1), 0);
+    const bag2 = pool.filter((m) => !got.includes(m.id));
+    if (!bag2.length) break;
+    const total = bag2.reduce((a, m) => a + (m.w || 1), 0);
     let r = Math.random() * total;
-    let pickM = bag[0];
-    for (const m of bag) {
+    let pickM = bag2[0];
+    for (const m of bag2) {
       r -= m.w || 1;
       if (r <= 0) {
         pickM = m;
@@ -5894,12 +5908,12 @@ function harvest(state2, sceneId) {
   const got = [];
   const n = roll(0.4) ? 2 : 1;
   for (let i = 0; i < n; i++) {
-    const bag = pool.filter((m) => !got.includes(m.id));
-    if (!bag.length) break;
-    const total = bag.reduce((a, m) => a + (m.w || 1), 0);
+    const bag2 = pool.filter((m) => !got.includes(m.id));
+    if (!bag2.length) break;
+    const total = bag2.reduce((a, m) => a + (m.w || 1), 0);
     let r = Math.random() * total;
-    let pickM = bag[0];
-    for (const m of bag) {
+    let pickM = bag2[0];
+    for (const m of bag2) {
       r -= m.w || 1;
       if (r <= 0) {
         pickM = m;
@@ -5948,7 +5962,7 @@ function seenAt(state2, id) {
 }
 function rewardFor(id) {
   const h = hash2(id);
-  const merit = 2 + h % 5;
+  const merit = 1 + h % 3;
   const notes = [`\u9053\u884C +${merit}`];
   let wu = 0;
   let herb = 0;
@@ -6906,7 +6920,7 @@ function drawExpedition(state2) {
 
 // src/bgm.js
 var DIR = "./assets/voice/bgm/";
-var TRACKS = ["bgm-1", "bgm-2", "bgm-3", "bgm-4", "bgm-5"];
+var TRACKS = ["bgm-1", "bgm-2", "bgm-3", "bgm-4", "bgm-5", "bgm-6"];
 var ENDING = "ending";
 var running = false;
 var pick3 = "random";
@@ -7164,8 +7178,29 @@ function pauseIt(a) {
   } catch {
   }
 }
+var bag = [];
+var bagLast = -1;
+function nextRandomTrack() {
+  if (!bag.length) {
+    bag = TRACKS.map((_, k) => k);
+    for (let i = bag.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = bag[i];
+      bag[i] = bag[j];
+      bag[j] = t;
+    }
+    if (bag.length > 1 && bag[bag.length - 1] === bagLast) {
+      const t = bag[bag.length - 1];
+      bag[bag.length - 1] = bag[0];
+      bag[0] = t;
+    }
+  }
+  const idx = bag.pop();
+  bagLast = idx;
+  return idx;
+}
 function pickTrack() {
-  const i = pick3 === "random" ? Math.floor(Math.random() * TRACKS.length) : Number(pick3) % TRACKS.length;
+  const i = pick3 === "random" ? nextRandomTrack() : Number(pick3) % TRACKS.length;
   return TRACKS[i] || TRACKS[0];
 }
 function start(opts = {}) {
@@ -7275,9 +7310,7 @@ var SCENES = {
       { x: 57.5, y: 22, label: "\u540E\u5C71\u79D8\u5883", act: "realm", plaque: true },
       { x: 78, y: 13, label: "\u6E21\u52AB\u53F0", act: "tribulation", plaque: true },
       { x: 9, y: 84, label: "\u5916\u56F4\u8FF7\u96FE\u68EE\u6797", act: "forest", plaque: true },
-      { x: 88, y: 77, label: "\u6D1E\u5E9C \xB7 \u4F60\u7684\u5730\u65B9", act: "cave", plaque: true },
-      { x: 20, y: 30, label: "\u4E91\u6D77 \xB7 \u6D6E\u5C9B", act: "look", id: "map_cloud", text: "\u4E91\u6D77\u91CC\u6D6E\u7740\u51E0\u5757\u77F3\u5934\uFF0C\u77F3\u4E0A\u6709\u5C4B\u6A90\u7684\u89D2\u3002\u4E0D\u77E5\u9053\u662F\u8C01\u7684\u6D1E\u5E9C\uFF0C\u4E5F\u4E0D\u77E5\u9053\u79BB\u8FD9\u513F\u591A\u8FDC\u3002" },
-      { x: 61, y: 89, label: "\u5C71\u9053 \xB7 \u8F66\u8F99", act: "look", id: "map_road", text: "\u5C71\u9053\u4E0A\u6709\u4E24\u9053\u65E7\u8F66\u8F99\uFF0C\u4E00\u76F4\u901A\u8FDB\u96FE\u91CC\u3002\u5B97\u95E8\u91CC\u6CA1\u6709\u8F66\uFF0C\u8FD9\u8F99\u662F\u5916\u9762\u6765\u7684\u3002" }
+      { x: 88, y: 77, label: "\u6D1E\u5E9C \xB7 \u4F60\u7684\u5730\u65B9", act: "cave", plaque: true }
     ]
   },
   plaza: {
@@ -7286,8 +7319,7 @@ var SCENES = {
     img: "./assets/scenes/plaza.jpg",
     spots: [
       { x: 50, y: 58, label: "\u6D4B\u7075\u77F3 \xB7 \u6309\u624B\u5176\u4E0A", act: "gate" },
-      { x: 21, y: 31, label: "\u77F3\u680F \xB7 \u523B\u5B57", act: "look", id: "plaza_rail", text: "\u680F\u4E0A\u523B\u4E86\u4E00\u6392\u540D\u5B57\uFF0C\u4ECE\u4E0B\u5F80\u4E0A\uFF0C\u8D8A\u5F80\u4E0A\u8D8A\u6D45\u3002\u6700\u4E0A\u9762\u90A3\u51E0\u4E2A\u51E0\u4E4E\u6478\u4E0D\u51FA\u6765\u4E86\u3002" },
-      { x: 79, y: 74, label: "\u9999\u7089 \xB7 \u4F59\u70EC", act: "look", id: "plaza_incense", text: "\u9999\u7089\u91CC\u7684\u7070\u6709\u4E00\u6307\u539A\u3002\u6709\u4EBA\u5728\u5F88\u65E9\u4EE5\u524D\u63D2\u8FC7\u4E00\u70B7\u9999\uFF0C\u540E\u6765\u5C31\u6CA1\u4EBA\u518D\u6DFB\u4E86\u3002" }
+      { x: 21, y: 31, label: "\u77F3\u680F \xB7 \u523B\u5B57", act: "look", id: "plaza_rail", text: "\u680F\u4E0A\u523B\u4E86\u4E00\u6392\u540D\u5B57\uFF0C\u4ECE\u4E0B\u5F80\u4E0A\uFF0C\u8D8A\u5F80\u4E0A\u8D8A\u6D45\u3002\u6700\u4E0A\u9762\u90A3\u51E0\u4E2A\u51E0\u4E4E\u6478\u4E0D\u51FA\u6765\u4E86\u3002" }
     ]
   },
   library: {
@@ -7296,8 +7328,7 @@ var SCENES = {
     img: "./assets/pano/library.jpg",
     spots: [
       { x: 50, y: 58, label: "\u53D6\u4E00\u5377\u7ECF", act: "readlib" },
-      { x: 18, y: 22, label: "\u7A97 \xB7 \u4E00\u7EBF\u5929\u5149", act: "look", id: "library_window", text: "\u7A97\u5F00\u5728\u5F88\u9AD8\u7684\u5730\u65B9\uFF0C\u5149\u53EA\u5728\u6B63\u5348\u843D\u4E0B\u6765\u4E00\u5C0F\u7247\u3002\u4ED6\u4EEC\u8BF4\uFF0C\u6284\u7ECF\u8981\u770B\u8FD9\u4E00\u7247\u5149\u8D70\u5230\u54EA\u513F\u3002" },
-      { x: 81, y: 71, label: "\u7ECF\u67B6 \xB7 \u843D\u7070", act: "look", id: "library_shelf", text: "\u67B6\u4E0A\u843D\u4E86\u7070\uFF0C\u53EA\u6709\u4E00\u683C\u662F\u5E72\u51C0\u7684\u3002\u90A3\u4E00\u683C\u73B0\u5728\u7A7A\u7740\u2014\u2014\u539F\u672C\u653E\u7740\u4EC0\u4E48\uFF0C\u6CA1\u4EBA\u8BF4\u3002" }
+      { x: 18, y: 22, label: "\u7A97 \xB7 \u4E00\u7EBF\u5929\u5149", act: "look", id: "library_window", text: "\u7A97\u5F00\u5728\u5F88\u9AD8\u7684\u5730\u65B9\uFF0C\u5149\u53EA\u5728\u6B63\u5348\u843D\u4E0B\u6765\u4E00\u5C0F\u7247\u3002\u4ED6\u4EEC\u8BF4\uFF0C\u6284\u7ECF\u8981\u770B\u8FD9\u4E00\u7247\u5149\u8D70\u5230\u54EA\u513F\u3002" }
     ]
   },
   forest: {
@@ -7306,8 +7337,7 @@ var SCENES = {
     img: "./assets/pano/forest.jpg",
     spots: [
       { x: 50, y: 60, label: "\u5FAA\u58F0\u6DF1\u5165", act: "listen" },
-      { x: 19, y: 76, label: "\u754C\u77F3 \xB7 \u5165\u8005\u81EA\u614E", act: "look", id: "forest_stone", text: "\u754C\u77F3\u4E0A\u523B\u7740\u300C\u5165\u8005\u81EA\u614E\u300D\u56DB\u4E2A\u5B57\u3002\u4E0B\u9762\u6709\u4EBA\u7528\u70AD\u6DFB\u4E86\u4E00\u53E5\uFF1A\u300C\u4E0D\u6562\u3002\u300D" },
-      { x: 83, y: 27, label: "\u67AF\u6728 \xB7 \u6302\u7740\u7684\u94C3", act: "look", id: "forest_bell", text: "\u67AF\u679D\u4E0A\u6302\u7740\u4E00\u679A\u94C3\uFF0C\u94C3\u820C\u88AB\u53D6\u8D70\u4E86\u3002\u98CE\u518D\u5927\u5B83\u4E5F\u53EA\u4F1A\u6643\uFF0C\u4E0D\u4F1A\u54CD\u3002" }
+      { x: 19, y: 76, label: "\u754C\u77F3 \xB7 \u5165\u8005\u81EA\u614E", act: "look", id: "forest_stone", text: "\u754C\u77F3\u4E0A\u523B\u7740\u300C\u5165\u8005\u81EA\u614E\u300D\u56DB\u4E2A\u5B57\u3002\u4E0B\u9762\u6709\u4EBA\u7528\u70AD\u6DFB\u4E86\u4E00\u53E5\uFF1A\u300C\u4E0D\u6562\u3002\u300D" }
     ]
   },
   alchemy: {
@@ -7316,8 +7346,7 @@ var SCENES = {
     img: "./assets/pano/alchemy.jpg",
     spots: [
       { x: 50, y: 60, label: "\u7089\u524D \xB7 \u843D\u836F", act: "alchemy" },
-      { x: 20, y: 72, label: "\u836F\u5703 \xB7 \u65AD\u9504", act: "look", id: "alchemy_hoe", text: "\u4E00\u628A\u65AD\u9504\u63D2\u5728\u5784\u8FB9\uFF0C\u67C4\u4E0A\u7F20\u7740\u5E03\u3002\u5E03\u5DF2\u7ECF\u70C2\u4E86\uFF0C\u7F20\u4E86\u4E0D\u6B62\u4E00\u9053\u2014\u2014\u6709\u4EBA\u5728\u8FD9\u513F\u79CD\u4E86\u5F88\u591A\u5E74\u3002" },
-      { x: 79, y: 23, label: "\u5899 \xB7 \u4E00\u9053\u9053\u5212\u75D5", act: "look", id: "alchemy_wall", text: "\u5899\u4E0A\u662F\u4E00\u9053\u4E00\u9053\u7684\u6A2A\u5212\uFF0C\u6570\u5230\u4E24\u767E\u591A\u5C31\u4E71\u4E86\u3002\u6709\u4EBA\u5728\u8BB0\u8D26\uFF0C\u8BB0\u7684\u662F\u7089\uFF0C\u4E0D\u662F\u5E74\u3002" }
+      { x: 20, y: 72, label: "\u836F\u5703 \xB7 \u65AD\u9504", act: "look", id: "alchemy_hoe", text: "\u4E00\u628A\u65AD\u9504\u63D2\u5728\u5784\u8FB9\uFF0C\u67C4\u4E0A\u7F20\u7740\u5E03\u3002\u5E03\u5DF2\u7ECF\u70C2\u4E86\uFF0C\u7F20\u4E86\u4E0D\u6B62\u4E00\u9053\u2014\u2014\u6709\u4EBA\u5728\u8FD9\u513F\u79CD\u4E86\u5F88\u591A\u5E74\u3002" }
     ]
   },
   sword: {
@@ -7346,8 +7375,7 @@ var SCENES = {
     img: "./assets/scenes/tribulation.jpg",
     spots: [
       { x: 50, y: 55, label: "\u767B\u53F0", act: "tribulation" },
-      { x: 21, y: 36, label: "\u65AD\u67F1 \xB7 \u7126\u9ED1", act: "look", id: "trib_pillar", text: "\u65AD\u67F1\u7684\u65AD\u53E3\u662F\u7126\u7684\uFF0C\u6478\u4E0A\u53BB\u8FD8\u5E26\u7740\u4E00\u70B9\u6E29\u3002\u6709\u4EBA\u8BD5\u8FC7\uFF0C\u6CA1\u7AD9\u4F4F\u3002" },
-      { x: 81, y: 62, label: "\u680F\u6746 \xB7 \u4E91\u6D77", act: "look", id: "trib_rail", text: "\u680F\u6746\u5916\u5C31\u662F\u4E91\u6D77\u3002\u5F80\u4E0B\u770B\u4E0D\u89C1\u5E95\uFF0C\u53EA\u6709\u95EA\u7535\u5728\u4E91\u91CC\u4E00\u5C42\u5C42\u4EAE\uFF0C\u50CF\u6709\u4EBA\u5728\u4E0B\u9762\u7FFB\u4E66\u3002" }
+      { x: 21, y: 36, label: "\u65AD\u67F1 \xB7 \u7126\u9ED1", act: "look", id: "trib_pillar", text: "\u65AD\u67F1\u7684\u65AD\u53E3\u662F\u7126\u7684\uFF0C\u6478\u4E0A\u53BB\u8FD8\u5E26\u7740\u4E00\u70B9\u6E29\u3002\u6709\u4EBA\u8BD5\u8FC7\uFF0C\u6CA1\u7AD9\u4F4F\u3002" }
     ]
   }
 };
@@ -7575,6 +7603,11 @@ function lifeFx(n) {
     }, 1750);
   }, 320);
 }
+function giveMerit(n) {
+  const got = gainMerit(state, n);
+  if (got < n) toast("\u9053\u884C\u5230\u4E86\u8FD9\u4E00\u5883\u7684\u9876\u3002\u518D\u5F80\u4E0A\uFF0C\u5F97\u5148\u53BB\u7834\u5883\u3002");
+  return got;
+}
 function syncHud() {
   const spent = takeSpent();
   if (spent) lifeFx(spent);
@@ -7586,7 +7619,9 @@ function syncHud() {
   lastYearShown = l.year;
   const jz = jiaziInfo(state);
   const tide = jz.open ? jz.entered ? "\u6F6E\u6C50\u5DF2\u5165" : "\u6F6E\u6C50\u5F00\u7A97" : `\u6F6E\u6C50 ${Math.max(0, jz.openAt - l.year)} \u5E74\u540E`;
-  meritEl.textContent = `\u9053\u884C ${daoOf(state)} \xB7 ${rankOf(state).name} \xB7 ${tide}`;
+  const capNow = daoCap(state);
+  const atCap = capNow !== Infinity && daoOf(state) >= capNow - 1;
+  meritEl.textContent = `\u9053\u884C ${daoOf(state)} \xB7 ${rankOf(state).name}${atCap ? " \xB7 \u53EF\u7834\u5883" : ""} \xB7 ${tide}`;
   renderVitals();
   if (ageEl) ageEl.textContent = `\u5E74 ${l.year}`;
   if (leftEl) {
@@ -8010,7 +8045,7 @@ function openPanel(id, arg) {
 function gain(id, n) {
   if (state.done[id]) return;
   state.done[id] = true;
-  state.merit += n;
+  giveMerit(n);
   sfx("good", true);
   save();
   syncHud();
@@ -8855,7 +8890,7 @@ function bindForest() {
         log(state, "deed", `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u4ECE\u8FF7\u96FE\u68EE\u6797\u91CC\u51FA\u6765\uFF0C\u5E26\u51FA ${FOREST.got} \u682A\u836F\u3002`);
         if (!state.done.forest) {
           state.done.forest = true;
-          state.merit += 12;
+          giveMerit(12);
         }
         save();
         syncHud();
@@ -8906,7 +8941,7 @@ function bindLibrary() {
   if (onepage) {
     onepage.addEventListener("click", () => {
       spend(state, 1);
-      state.merit += 3;
+      giveMerit(3);
       const line = SCROLLS[Math.floor(Math.random() * SCROLLS.length)].line[0];
       log(state, "deed", `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u5728\u85CF\u7ECF\u9601\u6284\u4E86\u4E00\u9875\u3002\u7EB8\u4E0A\u5199\u7740\uFF1A${line}`);
       save();
@@ -8926,7 +8961,7 @@ function bindLibrary() {
         log(state, "deed", `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u6284\u5B8C\u300A${s.name}\u300B\u3002${s.note}`);
         if (!state.done.library) {
           state.done.library = true;
-          state.merit += 10;
+          giveMerit(10);
         }
       } else {
         log(state, "omen", `\u7B2C ${l.year} \u5E74\uFF0C\u4F60\u53C8\u6284\u4E86\u4E00\u904D\u300A${s.name}\u300B\u3002\u8FD9\u6B21\u4EC0\u4E48\u4E5F\u6CA1\u6709\u3002`);
@@ -9413,7 +9448,7 @@ function caveMeditateTick() {
     return;
   }
   spend(state, 1);
-  state.merit += per;
+  giveMerit(per);
   MEDITATE.years += 1;
   MEDITATE.got += per;
   save();
@@ -10407,13 +10442,17 @@ function panelBreakthrough() {
     </div>
     <div class="panel-text" style="opacity:.6">\u95ED\u5173 ${next.cost} \u5E74\uFF0C\u8D70\u706B\u4E4B\u9669\u7EA6 ${Math.round(next.risk * 100)}%${l.karma ? `\uFF08\u4E1A\u529B\u7F20\u8EAB\uFF0C\u8FD8\u4F1A\u66F4\u9AD8\uFF09` : ""}\u3002\u5230\u5883\u8FD8\u8981\u6E21\u4E00\u9053\u5C0F\u52AB\uFF1A\u7EA6 ${Math.round(minorTribRisk(state) * 100)}% \u7684\u65F6\u5019\u53EA\u6328\u4E00\u534A\uFF0C\u5BFF\u5143\u957F\u4E0D\u6EE1\u2014\u2014\u5BFF\u5143\u5806\u518D\u539A\u4E5F\u7ED5\u4E0D\u8FC7\u53BB\u3002</div>
     <div class="panel-text" style="opacity:.42">\u9760\u4E39\u7EED\u7684\u547D\u53EA\u62D6\u65F6\u95F4\u3001\u4E0D\u6DA8\u4FEE\u4E3A\u3002\u6D3B\u5F97\u4E45\u548C\u6D3B\u5F97\u6DF1\uFF0C\u662F\u4E24\u6761\u5206\u5F00\u7684\u8DEF\u3002</div>
-    ${daoOf(state) < (next.dao || 0) ? `<div class="panel-text" style="color:#e0a08a">\u6839\u57FA\u672A\u8DB3\uFF1A${next.name}\u8FD9\u4E00\u5883\u8981\u9053\u884C ${next.dao}\uFF0C\u4F60\u73B0\u5728 ${daoOf(state)}\u3002</div>` : left > next.cost ? `<button class="btn gold" id="bt-go">\u95ED\u5173\u7834\u5883\uFF08${next.cost} \u5E74\uFF09</button>` : '<div class="panel-text" style="color:#e0a08a">\u4F59\u5BFF\u4E0D\u591F\u95ED\u8FD9\u4E00\u5173\u3002</div>'}
+    ${next.name === "\u5143\u5A74" && !(state.tribulation && state.tribulation.ok) ? `<div class="panel-text" style="color:#e0a08a">\u91D1\u4E39\u7684\u9876\u4E0D\u5728\u6D1E\u91CC\u3002\u5148\u53BB\u6E21\u52AB\u53F0\u7AD9\u4E00\u6B21\u2014\u2014\u90A3\u9053\u96F7\u5E94\u4E86\uFF0C\u5143\u5A74\u624D\u51FA\u5F97\u6765\u3002</div>
+         <button class="btn gold" data-goto="tribulation">\u53BB\u6E21\u52AB\u53F0</button>` : daoOf(state) < (next.dao || 0) ? `<div class="panel-text" style="color:#e0a08a">\u6839\u57FA\u672A\u8DB3\uFF1A${next.name}\u8FD9\u4E00\u5883\u8981\u9053\u884C ${next.dao}\uFF0C\u4F60\u73B0\u5728 ${daoOf(state)}\u3002</div>` : left > next.cost ? `<button class="btn gold" id="bt-go">\u95ED\u5173\u7834\u5883\uFF08${next.cost} \u5E74\uFF09</button>` : '<div class="panel-text" style="color:#e0a08a">\u4F59\u5BFF\u4E0D\u591F\u95ED\u8FD9\u4E00\u5173\u3002</div>'}
     <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
 }
 function bindBreakthrough() {
   document.getElementById("bt-go")?.addEventListener("click", () => {
     BREAK_VIEW = breakthrough(state);
     if (!afterYears()) openPanel("breakthrough");
+  });
+  document.querySelectorAll("[data-goto]").forEach((b) => {
+    b.addEventListener("click", () => openPanel(b.dataset.goto));
   });
   document.getElementById("bt-clear")?.addEventListener("click", () => {
     BREAK_VIEW = null;

@@ -19690,6 +19690,23 @@ function daoOf(state) {
   if (l.bag.sword) v += 3;
   return Math.max(0, Math.round(v));
 }
+function daoCap(state) {
+  const l = ensure(state);
+  const r = l.realm || 0;
+  if (r >= RANKS.length - 1) return Infinity;
+  return RANKS[r + 1].at;
+}
+function gainMerit(state, n) {
+  const cur = state.merit || 0;
+  if (n < 0) {
+    state.merit = Math.max(0, cur + n);
+    return n;
+  }
+  const cap = daoCap(state);
+  const add2 = Math.max(0, Math.min(n, cap - cur));
+  state.merit = cur + add2;
+  return add2;
+}
 function rankOf(state) {
   return RANKS[realmIndex(state)];
 }
@@ -21405,15 +21422,9 @@ function jiaziInfo(state) {
     year: l.year
   };
 }
-function daoRankIndex(state) {
-  const v = daoOf(state);
-  let i = 0;
-  for (let k = 0; k < RANKS.length; k += 1) if (v >= RANKS[k].at) i = k;
-  return i;
-}
 function realmIndex(state) {
   const l = ensure(state);
-  return Math.min(RANKS.length - 1, Math.max(daoRankIndex(state), l.realm || 0));
+  return Math.min(RANKS.length - 1, Math.max(0, l.realm || 0));
 }
 var folkOf = (state, id) => initWorld(state).folk.find((f) => f.id === id) || null;
 function folkTick(state) {
@@ -21472,7 +21483,7 @@ function annualTick(state) {
   const out2 = [];
   if (l.elder && l.elder.bonus) {
     const b = l.elder.bonus;
-    if (b.dao) state.merit += b.dao;
+    if (b.dao) gainMerit(state, b.dao);
     if (b.karma) l.karma = Math.max(0, (l.karma || 0) + b.karma);
   }
   if (l.disciple && l.disciple.alive) {
@@ -24332,7 +24343,7 @@ function seenAt(state, id) {
 }
 function rewardFor(id) {
   const h = hash(id);
-  const merit = 2 + h % 5;
+  const merit = 1 + h % 3;
   const notes = [`\u9053\u884C +${merit}`];
   let wu = 0;
   let herb = 0;
@@ -24729,6 +24740,17 @@ async function perform(variant, at) {
     r = at ? at() : {};
   }
   return r;
+}
+async function entrance() {
+  if (!root || !F) return;
+  const p = point(F);
+  F.el.classList.add("entering");
+  for (let i = 0; i < 2; i += 1) {
+    P({ k: "mote", x: p.x + (i ? 10 : -10), y: p.y - 46, r: 2.4, life: 900, c: "214,96,72" });
+  }
+  dust(p.x, p.y + 44, 8);
+  await wait(860);
+  F.el.classList.remove("entering");
 }
 async function foeStrike(at, o = {}) {
   if (!root) return at ? at() : {};
@@ -25163,7 +25185,7 @@ function stamp(text, kind2 = "win") {
 
 // src/bgm.js
 var DIR = "./assets/voice/bgm/";
-var TRACKS = ["bgm-1", "bgm-2", "bgm-3", "bgm-4", "bgm-5"];
+var TRACKS = ["bgm-1", "bgm-2", "bgm-3", "bgm-4", "bgm-5", "bgm-6"];
 var ENDING = "ending";
 var running = false;
 var pick3 = "random";
@@ -25421,8 +25443,29 @@ function pauseIt(a) {
   } catch {
   }
 }
+var bag = [];
+var bagLast = -1;
+function nextRandomTrack() {
+  if (!bag.length) {
+    bag = TRACKS.map((_, k) => k);
+    for (let i = bag.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = bag[i];
+      bag[i] = bag[j];
+      bag[j] = t;
+    }
+    if (bag.length > 1 && bag[bag.length - 1] === bagLast) {
+      const t = bag[bag.length - 1];
+      bag[bag.length - 1] = bag[0];
+      bag[0] = t;
+    }
+  }
+  const idx = bag.pop();
+  bagLast = idx;
+  return idx;
+}
 function pickTrack() {
-  const i = pick3 === "random" ? Math.floor(Math.random() * TRACKS.length) : Number(pick3) % TRACKS.length;
+  const i = pick3 === "random" ? nextRandomTrack() : Number(pick3) % TRACKS.length;
   return TRACKS[i] || TRACKS[0];
 }
 function start(opts = {}) {
@@ -26321,6 +26364,7 @@ function openBeast() {
     <div id="beast-out" class="lede" style="color:#e8c98a"></div>`;
   panelRoot.classList.add("open");
   mount({ meName: lf.name || "\u65E0\u540D", foeName: beast.name, kind: beast.kind, portrait: beast.file || `${beast.key}.png`, plate: !!beast.plate, foeText: "\u5B83\u8FD8\u6CA1\u52A8" });
+  entrance();
   document.body.classList.add("in-beast", "modal-lock");
   const roll = (label, ok, text) => {
     const cur = saveNow((c, l) => {
@@ -26433,9 +26477,11 @@ function openBattle(beast, opt = {}) {
   const st0 = beastStat(beast, realmIndex(st));
   B = newBattle({ name: beast.name, hp: st0.hp, atk: st0.atk, portrait: beast.file || `${beast.key}.png`, plate: !!beast.plate, danger: beast.danger || 0 });
   B.beast = beast;
+  B.kind = beast.kind;
   B.noEdge = !!opt.noEdge;
   B.foe0 = B.foe;
   mount({ meName: lf.name || "\u65E0\u540D", foeName: beast.name, kind: B.kind, portrait: B.portrait, plate: B.plate });
+  entrance();
   document.body.classList.remove("in-beast");
   document.body.classList.add("in-battle", "modal-lock");
   renderBattle();
