@@ -3022,6 +3022,14 @@ function dslCheckMiss(state2) {
   log(state2, "omen", `\u7B2C ${dueYear} \u5E74\u7684\u5B97\u95E8\u5927\u6BD4\u4F60\u6CA1\u53BB\u3002\u6267\u4E8B\u623F\u6309\u4F8B\u7F5A\u4E86 ${fine} \u679A\u7075\u77F3${fine ? "" : "\u2014\u2014\u4F60\u8EAB\u4E0A\u4E00\u679A\u90FD\u6CA1\u6709\uFF0C\u8BB0\u5728\u4E86\u8D26\u4E0A"}`);
   return fine;
 }
+function dslFinish(state2, won, total) {
+  const l = ensure(state2);
+  l.dsl.due = 0;
+  l.dsl.poked = 0;
+  l.dsl.last = l.year;
+  l.dsl.done = (l.dsl.done || 0) + 1;
+  if (won > (l.dsl.best || 0)) l.dsl.best = won;
+}
 var PILL_LADDER = ["\u4E0B\u54C1", "\u4E2D\u54C1", "\u4E0A\u54C1", "\u6781\u54C1"];
 var PILL_YEARS = { \u4E0B\u54C1: 0.6, \u4E2D\u54C1: 1, \u4E0A\u54C1: 1.4, \u6781\u54C1: 1.8 };
 var PILL_TRIB = { \u4E0B\u54C1: 0.04, \u4E2D\u54C1: 0.08, \u4E0A\u54C1: 0.13, \u6781\u54C1: 0.18 };
@@ -3059,15 +3067,15 @@ function daoCap(state2) {
   return RANKS[r + 1].at;
 }
 function gainMerit(state2, n) {
-  const cur2 = state2.merit || 0;
+  const cur3 = state2.merit || 0;
   if (n < 0) {
-    state2.merit = Math.max(0, cur2 + n);
+    state2.merit = Math.max(0, cur3 + n);
     return n;
   }
   const cap = daoCap(state2);
   const withParty = n + Math.round(n * 0.1 * partyOf(state2).length);
-  const add2 = Math.max(0, Math.min(withParty, cap - cur2));
-  state2.merit = cur2 + add2;
+  const add2 = Math.max(0, Math.min(withParty, cap - cur3));
+  state2.merit = cur3 + add2;
   return add2;
 }
 function rankOf(state2) {
@@ -5612,9 +5620,9 @@ function minorTribRisk(state2, at = realmIndex(state2)) {
 }
 function breakthrough(state2) {
   const l = initWorld(state2);
-  const cur2 = realmIndex(state2);
-  if (cur2 >= REALMS.length - 1) return { ok: false, line: "\u5DF2\u81F3\u9876\u5883\u3002\u518D\u5F80\u4E0A\uFF0C\u6CA1\u6709\u8DEF\u4E86\u3002" };
-  const next = REALMS[cur2 + 1];
+  const cur3 = realmIndex(state2);
+  if (cur3 >= REALMS.length - 1) return { ok: false, line: "\u5DF2\u81F3\u9876\u5883\u3002\u518D\u5F80\u4E0A\uFF0C\u6CA1\u6709\u8DEF\u4E86\u3002" };
+  const next = REALMS[cur3 + 1];
   if (daoOf(state2) < (next.dao || 0)) {
     return { ok: false, line: `\u6839\u57FA\u8FD8\u5DEE\u5F97\u8FDC\u3002\u9053\u884C\u4E0D\u5230 ${next.dao}\uFF0C${next.name}\u8FD9\u4E00\u5173\u95ED\u4E0D\u5F00\u3002` };
   }
@@ -5631,9 +5639,9 @@ function breakthrough(state2) {
     log(state2, "evil", `\u7B2C ${l.year} \u5E74\uFF0C\u7834\u5883\u8D70\u706B\u3002\u6298\u4E86 ${lost} \u5E74\u5BFF\u5143\u3002`);
     return { ok: false, line: `\u7ECF\u8109\u91CC\u6709\u522B\u4EBA\u7684\u58F0\u97F3\u3002\u8FD9\u4E00\u5173\u767D\u95ED\u4E86\uFF0C\u8FD8\u6298\u4E86 ${lost} \u5E74\u3002` };
   }
-  l.realm = cur2 + 1;
-  const half = Math.round((REALMS[cur2].span + next.span) / 2);
-  const jie = Math.random() >= minorTribRisk(state2, cur2);
+  l.realm = cur3 + 1;
+  const half = Math.round((REALMS[cur3].span + next.span) / 2);
+  const jie = Math.random() >= minorTribRisk(state2, cur3);
   l.span = Math.max(l.span, jie ? next.span : half);
   log(
     state2,
@@ -5893,10 +5901,15 @@ function annualTick(state2) {
       log(state2, "bond", nm, d.id);
       out.push(`${d.name}\uFF1A${nm}`);
     }
+    if (d.mission && l.year >= d.mission.due) {
+      const line = missionSettle(state2, d);
+      if (line) out.push(line);
+    }
   }
   if (dslOpen(state2) && !l.dsl.due && l.year - (l.dsl.last || 0) >= DSL_EVERY) {
     l.dsl.due = 1;
     l.dsl.dueYear = l.year;
+    l.dsl.poked = 0;
     out.push("\u5B97\u95E8\u5927\u6BD4\uFF1A\u6267\u4E8B\u623F\u628A\u4F60\u7684\u540D\u5B57\u8D34\u4E0A\u4E86\u5899");
   }
   return out;
@@ -5932,6 +5945,72 @@ function setDisciple(state2, cand, stageNames) {
   l.met[cand.id] = 1;
   log(state2, "bond", `${cand.name}\u78D5\u4E86\u5934\uFF0C\u53EB\u4F60\u5E08\u7236\u3002`, cand.id);
   return l.disciple;
+}
+var MISSIONS = {
+  gather: { name: "\u91C7\u836F", yrs: 2, line: "\u5357\u5761\u836F\u5703\u8BE5\u8FFD\u80A5\u4E86\uFF0C\u8BA9\u4ED6\u53BB" },
+  deliver: { name: "\u9001\u4FE1", yrs: 1, line: "\u9694\u58C1\u5C71\u95E8\u7684\u5E16\u5B50\u8981\u4EBA\u5F53\u9762\u9001\u5230" },
+  trial: { name: "\u5386\u7EC3", yrs: 3, line: "\u5C71\u5916\u7684\u8D26\uFF0C\u5F97\u4ED6\u81EA\u5DF1\u53BB\u5BF9\u4E00\u56DE" }
+};
+function dispatch(state2, kind) {
+  const l = ensure(state2);
+  const d = l.disciple;
+  if (!d || !d.alive) return { ok: false, why: "\u6CA1\u6709\u53EF\u9063\u7684\u5F92\u5F1F\u3002" };
+  if (RANKS.indexOf(rankOf(state2)) < 2) return { ok: false, why: "\u91D1\u4E39\u4E4B\u524D\uFF0C\u4F60\u81EA\u5DF1\u90FD\u662F\u88AB\u4EBA\u9063\u7684\u3002" };
+  if (d.mission) return { ok: false, why: `${d.name}\u8FD8\u5728\u5916\u5934\uFF0C\u6CA1\u5230\u4EA4\u8D26\u7684\u65E5\u5B50\u3002` };
+  const m = MISSIONS[kind];
+  if (!m) return { ok: false, why: "\u6CA1\u8FD9\u6869\u5DEE\u4E8B\u3002" };
+  d.mission = { kind, at: l.year, due: l.year + m.yrs };
+  log(state2, "bond", `\u4F60\u628A${m.name}\u7684\u5DEE\u4E8B\u4EA4\u7ED9\u4E86${d.name}\u3002`, d.id);
+  return { ok: true, m };
+}
+function missionSettle(state2, d) {
+  const l = ensure(state2);
+  const m = l.disciple.mission;
+  d.mission = null;
+  const kind = m.kind;
+  const hurt2 = Math.random() < 0.18;
+  if (kind === "gather") {
+    if (hurt2) {
+      addItem(state2, "herb", 2);
+      addLingshi(state2, 2);
+      d.need = (d.need || 0) + 1;
+      log(state2, "omen", `${d.name}\u91C7\u836F\u56DE\u6765\uFF0C\u7B50\u662F\u534A\u7A7A\u7684\uFF0C\u817F\u5012\u662F\u8DDB\u4E86\u3002\u4F60\u8BA9\u4ED6\u53BB\u517B\u7740\u3002`, d.id);
+      return `${d.name}\uFF1A\u91C7\u836F\u56DE\u6765\u4E86\uFF0C\u5E26\u4F24`;
+    }
+    const ls2 = 4 + Math.floor(Math.random() * 7);
+    addItem(state2, "herb", 6);
+    addLingshi(state2, ls2);
+    log(state2, "bond", `${d.name}\u91C7\u836F\u56DE\u6765\uFF0C\u516D\u6346\u836F\u6652\u5728\u4F60\u9662\u91CC\uFF0C\u53E6\u5E26\u56DE\u6765 ${ls2} \u679A\u7075\u77F3\u2014\u2014\u836F\u5703\u4E3B\u4EBA\u7ED9\u7684\u5DE5\u94B1\u3002`, d.id);
+    return `${d.name}\uFF1A\u91C7\u836F\u56DE\u6765\u4E86\uFF08\u836F \xD76 \xB7 \u7075\u77F3 +${ls2}\uFF09`;
+  }
+  if (kind === "deliver") {
+    if (hurt2) {
+      addLingshi(state2, 3);
+      d.need = (d.need || 0) + 1;
+      log(state2, "omen", `${d.name}\u628A\u4FE1\u9001\u5230\u4E86\uFF0C\u56DE\u7A0B\u53EB\u4EBA\u622A\u4E86\u534A\u7A0B\uFF0C\u7075\u77F3\u53EA\u62A2\u56DE\u6765\u4E09\u679A\u3002\u4ED6\u6CA1\u8BF4\u6328\u4E86\u51E0\u4E0B\u3002`, d.id);
+      return `${d.name}\uFF1A\u9001\u4FE1\u56DE\u6765\u4E86\uFF0C\u5E26\u4F24`;
+    }
+    const ls2 = 8 + Math.floor(Math.random() * 8);
+    addLingshi(state2, ls2);
+    log(state2, "bond", `${d.name}\u9001\u4FE1\u56DE\u6765\uFF0C\u56DE\u5E16\u538B\u5728\u5323\u5E95\u2014\u2014\u5BF9\u9762\u5B97\u95E8\u8D4F\u4E86 ${ls2} \u679A\u811A\u94B1\u3002`, d.id);
+    return `${d.name}\uFF1A\u9001\u4FE1\u56DE\u6765\u4E86\uFF08\u7075\u77F3 +${ls2}\uFF09`;
+  }
+  const found = Math.random() < 0.3;
+  if (hurt2 && !found) {
+    d.stage = Math.max(0, (d.stage || 0) - 1);
+    log(state2, "omen", `${d.name}\u5386\u7EC3\u56DE\u6765\uFF0C\u5883\u754C\u9000\u4E86\u4E00\u5C42\u3002\u4ED6\u5728\u9662\u95E8\u53E3\u7AD9\u4E86\u534A\u5BBF\uFF0C\u6CA1\u8FDB\u6765\u3002`, d.id);
+    return `${d.name}\uFF1A\u5386\u7EC3\u56DE\u6765\u4E86\uFF0C\u5883\u754C\u9000\u4E86\u4E00\u5C42`;
+  }
+  const ls = 15 + Math.floor(Math.random() * 11);
+  addLingshi(state2, ls);
+  d.stage = Math.min((d.stageNames || []).length - 1, (d.stage || 0) + 1);
+  if (found) {
+    addItem(state2, "tally", 1);
+    log(state2, "bond", `${d.name}\u5386\u7EC3\u56DE\u6765\uFF0C\u5883\u754C\u8FDB\u4E86\u4E00\u5C42\uFF0C\u6000\u91CC\u8FD8\u6478\u51FA\u4E00\u679A\u6765\u5386\u8BF4\u4E0D\u6E05\u7684\u65E7\u4FE1\u7269\u3002\u7075\u77F3 ${ls} \u679A\u662F\u8DEF\u4E0A\u8D62\u7684\u3002`, d.id);
+    return `${d.name}\uFF1A\u5386\u7EC3\u56DE\u6765\u4E86\uFF08\u7075\u77F3 +${ls} \xB7 \u4FE1\u7269 \xD71\uFF09`;
+  }
+  log(state2, "bond", `${d.name}\u5386\u7EC3\u56DE\u6765\uFF0C\u5883\u754C\u8FDB\u4E86\u4E00\u5C42\uFF0C\u6652\u9ED1\u4E86\u4E0D\u5C11\u3002\u5E26\u56DE\u6765 ${ls} \u679A\u7075\u77F3\uFF0C\u8BF4\u662F\u4E00\u8DEF\u66FF\u4EBA\u505A\u5DE5\u6323\u7684\u3002`, d.id);
+  return `${d.name}\uFF1A\u5386\u7EC3\u56DE\u6765\u4E86\uFF08\u7075\u77F3 +${ls}\uFF09`;
 }
 function interruptAt(state2, year) {
   const l = ensure(state2);
@@ -9869,10 +9948,10 @@ function pluck(freq, when, dur, vel, bright) {
   let idx = 0;
   const damp = 0.9955 + Math.random() * 25e-4;
   for (let i = 0; i < len; i += 1) {
-    const cur2 = ring[idx];
+    const cur3 = ring[idx];
     const nxt = ring[(idx + 1) % N];
-    d[i] = cur2;
-    ring[idx] = (cur2 * 0.5 + nxt * 0.5) * damp;
+    d[i] = cur3;
+    ring[idx] = (cur3 * 0.5 + nxt * 0.5) * damp;
     idx = (idx + 1) % N;
   }
   const src = ac.createBufferSource();
@@ -10151,6 +10230,354 @@ function sell(state2, id) {
   return { ok: true, name: itemName(id), price };
 }
 
+// src/power.js
+var WEAPON = { none: 0, duanshui: 30, fenxin: 40, wufeng: 52 };
+function weaponValue(state2) {
+  const id = ensure(state2).bag.sword;
+  return WEAPON[id || "none"] ?? (id ? 24 : 0);
+}
+function powerOf(state2) {
+  const sp = state2.spirit;
+  const grades = sp ? effects(sp).grades : 0;
+  const l = ensure(state2);
+  const base = daoOf(state2) * 0.6 + grades * 0.25 + weaponValue(state2) * 0.15;
+  return Math.round(base * (1 + (l.artBonus && l.artBonus.power || 0) + (l.relicAtk || 0)));
+}
+function foePower(foe, depth = 0) {
+  return Math.round(24 + (foe && foe.danger ? foe.danger * 60 : 0) + depth * 8);
+}
+function foeHpOf(foe) {
+  return Math.round(20 + foe * 2);
+}
+function boutHurt(my2, foe, hpMaxValue) {
+  return Math.max(3, Math.min(Math.round(hpMaxValue * 0.3), Math.round(foe * 0.25 + hpMaxValue * 0.05 - (my2 - foe) * 0.06)));
+}
+function swing(my2) {
+  return Math.max(3, Math.round(6 + my2 * 0.22));
+}
+
+// src/battle.js
+function newBattle(opts) {
+  const { name, hp, atk, portrait = "", plate = false, danger = 0, depth = 0 } = opts;
+  const foe = Number.isFinite(danger) ? foePower({ danger }, depth) : Math.max(6, Math.round((atk || 8) * 1.6));
+  const foeHp = Number.isFinite(danger) ? foeHpOf(foe) : Math.max(12, Math.round(hp || 30));
+  return {
+    name,
+    portrait,
+    plate,
+    enemyHp: foeHp,
+    enemyMax: foeHp,
+    foe,
+    // 它的战力：算伤害用，踏阵削的也是这个
+    enemyAtk: foe,
+    danger,
+    turn: 0,
+    log: [],
+    over: null
+    // 'win' | 'lose' | 'flee'
+  };
+}
+function act(state2, b, kind) {
+  const l = ensure(state2);
+  const out = { text: "", dmg: 0, heal: 0 };
+  if (b.over) return out;
+  const my2 = powerOf(state2);
+  const sw = swing(my2);
+  if (kind === "sword") {
+    const crit = Math.random() < 0.18;
+    const swB = sw + (b.atkBonus || 0);
+    const dmg = Math.max(1, Math.round(swB * (0.85 + Math.random() * 0.35) * (crit ? 1.8 : 1)));
+    b.enemyHp = Math.max(b.noEdge ? 1 : 0, b.enemyHp - dmg);
+    out.dmg = dmg;
+    out.crit = crit;
+    out.text = crit ? `\u4E00\u5251\u65A9\u5728\u5B83\u9888\u4FA7\uFF0C\u8840\u6E85\u4E86\u4F60\u534A\u8EAB\u3002\uFF08\u66B4\u51FB ${dmg}\uFF09` : `\u5251\u950B\u5212\u8FC7\uFF0C\u4F24\u4E86\u5B83 ${dmg} \u5206\u3002`;
+  } else if (kind === "fu") {
+    if (!l.bag.charm) {
+      out.text = "\u888B\u91CC\u7684\u7B26\u7528\u5B8C\u4E86\u3002";
+      return out;
+    }
+    takeItem(state2, "charm", 1);
+    const dmg = Math.round(sw * 1.5 + 10 + Math.random() * 8);
+    b.enemyHp = Math.max(b.noEdge ? 1 : 0, b.enemyHp - dmg);
+    out.dmg = dmg;
+    out.text = `\u4F60\u6296\u5F00\u4E00\u5F20\u7B26\uFF0C\u8D34\u5728\u5B83\u8EAB\u4E0A\u3002\u7B26\u7EB8\u70E7\u5C3D\uFF0C\u5B83\u9000\u4E86\u534A\u6B65\u3002\uFF08${dmg}\uFF09`;
+  } else if (kind === "herb") {
+    if (!l.bag.herb) {
+      out.text = "\u6CA1\u6709\u836F\u4E86\u3002";
+      return out;
+    }
+    takeItem(state2, "herb", 1);
+    const healed = heal(state2, 8);
+    out.heal = healed;
+    out.text = healed ? `\u4F60\u54AC\u4E86\u4E24\u53E3\u751F\u836F\uFF0C\u82E6\u5F97\u820C\u6839\u53D1\u9EBB\u3002\uFF08\u6C14\u8840 +${healed}\uFF09` : "\u836F\u56BC\u788E\u4E86\uFF0C\u53EF\u4F60\u5DF2\u7ECF\u4E0D\u9700\u8981\u5B83\u3002";
+  } else if (kind === "dan") {
+    if (!l.bag.pill) {
+      out.text = "\u6CA1\u6709\u4E39\u4E86\u3002";
+      return out;
+    }
+    takeItem(state2, "pill", 1);
+    const healed = heal(state2, Math.max(18, Math.round(hpMax(state2) * 0.2)));
+    out.heal = healed;
+    out.text = healed ? `\u4F60\u54AC\u788E\u4E00\u9897\u4E39\uFF0C\u8840\u6C14\u7FFB\u4E0A\u6765\u3002\uFF08\u6C14\u8840 +${healed}\uFF09` : "\u4E39\u541E\u4E0B\u53BB\u4E86\uFF0C\u53EF\u4F60\u5DF2\u7ECF\u4E0D\u9700\u8981\u5B83\u3002";
+  } else if (kind === "art") {
+    const arts = [];
+    if (hasPath(state2, "fu")) arts.push("fu");
+    if (hasPath(state2, "zhen")) arts.push("zhen");
+    if (hasPath(state2, "dan")) arts.push("dan");
+    if (!arts.length) {
+      out.text = "\u4F60\u8FD8\u6CA1\u6709\u5B66\u8FC7\u4EFB\u4F55\u4E00\u95E8\u624B\u6BB5\u3002";
+      return out;
+    }
+    const pick4 = arts[b.turn % arts.length];
+    if (pick4 === "fu") {
+      const dmg = Math.round(sw * 1.25 + my2 * 0.1);
+      b.enemyHp = Math.max(b.noEdge ? 1 : 0, b.enemyHp - dmg);
+      out.dmg = dmg;
+      out.text = `\u4F60\u4EE5\u6307\u70B9\u7A7A\uFF0C\u753B\u4E86\u4E00\u9053\u865A\u7B26\u3002\u7B26\u6210\u5373\u71C3\uFF0C\u706B\u820C\u5377\u8FC7\u53BB\u3002\uFF08${dmg}\uFF09`;
+    } else if (pick4 === "zhen") {
+      b.foe = Math.max(6, b.foe - 5);
+      b.enemyAtk = b.foe;
+      out.text = "\u4F60\u9000\u534A\u6B65\uFF0C\u811A\u4E0B\u4E00\u8E0F\uFF0C\u9635\u7EB9\u4ECE\u978B\u5E95\u94FA\u5F00\u3002\u5B83\u7684\u52A8\u4F5C\u6162\u4E86\u4E0B\u6765\u3002\uFF08\u5B83\u6218\u529B \u22125\uFF09";
+    } else {
+      const healed = heal(state2, Math.max(10, Math.round(hpMax(state2) * 0.1)));
+      const dmg = Math.max(2, Math.round(sw * 0.45));
+      b.enemyHp = Math.max(b.noEdge ? 1 : 0, b.enemyHp - dmg);
+      out.heal = healed;
+      out.dmg = dmg;
+      out.text = `\u4E39\u6C14\u4ECE\u638C\u5FC3\u6563\u51FA\u53BB\uFF0C\u542B\u7740\u4E00\u70B9\u836F\u529B\u3002\uFF08\u6C14\u8840 +${healed}\uFF0C\u654C ${dmg}\uFF09`;
+    }
+  } else if (kind === "flee") {
+    const p = Math.max(0.15, 0.55 - b.danger * 0.5);
+    if (Math.random() < p) {
+      b.over = "flee";
+      out.text = "\u4F60\u9000\u8FDB\u96FE\u91CC\u3002\u5B83\u6CA1\u6709\u8FFD\u3002";
+      return out;
+    }
+    out.text = "\u4F60\u8F6C\u8EAB\u60F3\u8D70\uFF0C\u5B83\u6BD4\u4F60\u5FEB\u3002";
+  }
+  if (b.enemyHp <= 0) {
+    b.over = "win";
+    out.text += "\u3000\u5B83\u5012\u4E86\u3002";
+    return out;
+  }
+  if (b.noEdge && b.enemyHp <= 1) {
+    b.over = "win";
+    out.text += "\u3000\u5B83\u722C\u8D77\u6765\uFF0C\u8DD1\u4E86\u3002";
+    return out;
+  }
+  return out;
+}
+function enemyTurn(state2, b) {
+  const out = { text: "", dmg: 0, dead: false };
+  if (b.over) return out;
+  b.turn += 1;
+  const my2 = powerOf(state2);
+  const hpm = hpMax(state2);
+  if (b.enemyMiss) {
+    b.enemyMiss = false;
+    out.text = "\u5B83\u5728\u9635\u91CC\u7ED5\u4E86\u4E00\u5708\uFF0C\u6251\u4E86\u4E2A\u7A7A\u3002";
+    return out;
+  }
+  const hits = b.turn % 3 === 0 ? 2 : 1;
+  const foeDown = Math.max(1, b.foe - (b.enemyAtkDown || 0));
+  let total = 0;
+  for (let i = 0; i < hits; i += 1) {
+    total += boutHurt(my2, foeDown, hpm) * (0.8 + Math.random() * 0.4);
+  }
+  let reduced = Math.max(1, Math.round(total));
+  let absorbed = 0;
+  if (b.guard > 0) {
+    absorbed = Math.min(b.guard, reduced);
+    b.guard -= absorbed;
+    reduced -= absorbed;
+  }
+  if (reduced <= 0) {
+    out.text = `\u62A4\u4F53\u66FF\u4F60\u6321\u4F4F\u4E86\u8FD9\u4E00\u4E0B\u3002\uFF08\u62A4\u4F53 \u2212${absorbed}\uFF0C\u5269 ${b.guard}\uFF09`;
+    if (b.guard <= 0) out.text += "\u3000\u62A4\u4F53\u6563\u4E86\u3002";
+    return out;
+  }
+  const res = hurt(state2, reduced, `\u6597${b.name}`);
+  out.dmg = res.dmg;
+  out.dead = res.dead;
+  const shield = absorbed ? `\u62A4\u4F53\u6321\u4F4F ${absorbed}\uFF0C` : "";
+  out.text = hits > 1 ? `${shield}\u5B83\u6251\u4E0A\u6765\u8FDE\u6495\u4E24\u4E0B\uFF0C\u4F60\u88AB\u649E\u9000\u3002\uFF08\u6C14\u8840 \u2212${res.dmg}\uFF09` : `${shield}\u5B83\u649E\u8FC7\u6765\uFF0C\u4F60\u6321\u4E86\u4E00\u4E0B\u3002\uFF08\u6C14\u8840 \u2212${res.dmg}\uFF09`;
+  if (res.dead) {
+    b.over = "lose";
+    out.text += "\u3000\u89C6\u7EBF\u9ED1\u4E86\u4E0B\u53BB\u3002";
+  }
+  return out;
+}
+
+// src/data_dsl.js
+var DSL_POOL = [
+  { id: "d_litie", name: "\u674E\u94C1", cult: "\u7EC3\u6C14\u4E94\u5C42", root: "\u91D1\u7075\u6839", weapon: "\u7F3A\u53E3\u9614\u5251", relic: "\u94C1\u58F3\u7B26", relicKind: "guard", pill: "\u56DE\u6C14\u4E39", tier: 0, bias: 0.02 },
+  { id: "d_wangxiaoshun", name: "\u738B\u5C0F\u987A", cult: "\u7EC3\u6C14\u4E09\u5C42", root: "\u6C34\u7075\u6839", weapon: "\u6E14\u7F51", relic: "", relicKind: "", pill: "", tier: 0, bias: -0.04 },
+  { id: "d_zhoumanzi", name: "\u5468\u6EE1\u5B50", cult: "\u7EC3\u6C14\u56DB\u5C42", root: "\u571F\u7075\u6839", weapon: "\u77ED\u9504", relic: "", relicKind: "", pill: "\u795B\u5BD2\u4E39", tier: 0, bias: 0 },
+  { id: "d_wujiuniang", name: "\u5434\u4E5D\u5A18", cult: "\u7EC3\u6C14\u516D\u5C42", root: "\u6728\u7075\u6839", weapon: "\u94F6\u9488", relic: "\u7A7F\u661F\u9488", relicKind: "atk", pill: "", tier: 0, bias: 0.04 },
+  { id: "d_zhengdachu", name: "\u90D1\u5927\u67F1", cult: "\u7EC3\u6C14\u4E03\u5C42", root: "\u706B\u571F\u53CC\u7075\u6839", weapon: "\u94C1\u6756", relic: "", relicKind: "", pill: "\u71C3\u8840\u4E39", tier: 0, bias: 0.06 },
+  { id: "d_sunxiaoer", name: "\u5B59\u5C0F\u4E8C", cult: "\u7EC3\u6C14\u4E8C\u5C42", root: "\u91D1\u6728\u53CC\u7075\u6839", weapon: "\u53CC\u77ED\u5200", relic: "", relicKind: "miss", pill: "", tier: 0, bias: -0.06 },
+  { id: "d_baijing", name: "\u767D\u749F", cult: "\u7B51\u57FA\u521D\u671F", root: "\u91D1\u7075\u6839", weapon: "\u7D20\u9762\u5251", relic: "\u7167\u5F71\u955C", relicKind: "guard", pill: "\u7834\u969C\u4E39", tier: 1, bias: 0.02 },
+  { id: "d_hejiujin", name: "\u4F55\u4E5D\u65A4", cult: "\u7B51\u57FA\u521D\u671F", root: "\u571F\u7075\u6839", weapon: "\u77F3\u9524", relic: "\u538B\u6D6A\u9524", relicKind: "atk", pill: "", tier: 1, bias: 0.05 },
+  { id: "d_lanyipin", name: "\u84DD\u4E00\u54C1", cult: "\u7B51\u57FA\u4E2D\u671F", root: "\u6C34\u7075\u6839", weapon: "\u6B8B\u7434", relic: "\u5B9A\u5FC3\u9635\u76D8", relicKind: "miss", pill: "\u56FA\u5143\u4E39", tier: 1, bias: 0.08 },
+  { id: "d_qinsanlang", name: "\u79E6\u4E09\u90CE", cult: "\u7B51\u57FA\u521D\u671F", root: "\u706B\u7075\u6839", weapon: "\u73AF\u9996\u5200", relic: "", relicKind: "", pill: "\u6D17\u9AD3\u4E39", tier: 1, bias: 0 }
+];
+
+// src/dsl.js
+function seededShuffle(arr, seed) {
+  const a = arr.slice();
+  let s = (seed || 1) * 2654435761 % 4294967296;
+  const rnd = () => {
+    s = (s * 1664525 + 1013904223) % 4294967296;
+    return s / 4294967296;
+  };
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function roster(state2) {
+  const l = ensure(state2);
+  const tier = rankOf(state2).name === "\u7EC3\u6C14" ? 0 : 1;
+  const rounds = tier >= 1 ? 3 : 2;
+  const seed = l.year * 7 + (l.dsl.done || 0) * 13 + 1;
+  const met = seededShuffle(
+    Object.keys(l.met || {}).filter((id) => l.met[id] && PEOPLE[id] && PEOPLE[id].dsl && !isGone(l, id)),
+    seed
+  );
+  const pool = seededShuffle(DSL_POOL.filter((p) => p.tier === tier), seed + 1);
+  const out = [];
+  const takeMet = Math.min(met.length, 2);
+  for (let i = 0; i < takeMet; i++) {
+    const p = PEOPLE[met[i]].dsl;
+    out.push({
+      who: met[i],
+      name: PEOPLE[met[i]].name,
+      shadow: false,
+      cult: p.cult,
+      root: p.root,
+      weapon: p.weapon,
+      relic: p.relic || "",
+      relicKind: p.relicKind || "",
+      pill: p.pill || ""
+    });
+  }
+  while (out.length < rounds && pool.length) {
+    const p = pool.pop();
+    out.push({
+      who: p.id,
+      name: p.name,
+      shadow: true,
+      cult: p.cult,
+      root: p.root,
+      weapon: p.weapon,
+      relic: p.relic,
+      relicKind: p.relicKind,
+      pill: p.pill,
+      bias: p.bias
+    });
+  }
+  out.sort((a, b) => (a.bias || 0) - (b.bias || 0));
+  const base = tier >= 1 ? 0.04 : 0;
+  return out.slice(0, rounds).map((p, i) => ({ ...p, danger: base - 0.06 + i * 0.06 + (p.bias || 0) }));
+}
+var D = null;
+var cur = () => D;
+function start2(state2) {
+  D = { list: roster(state2), round: -1, b: null, lines: [], phase: "intro", won: 0, purse: 0 };
+  return D;
+}
+function foeName(p) {
+  return p.shadow ? `\u9ED1\u5F71 \xB7 ${p.name}` : `\u9ED1\u5F71 \xB7 ${p.name}`;
+}
+function beginRound(state2) {
+  if (!D || D.round + 1 >= D.list.length) {
+    D && (D.phase = "done");
+    return;
+  }
+  D.round += 1;
+  const p = D.list[D.round];
+  const b = newBattle({ name: foeName(p), portrait: "", danger: p.danger });
+  b.relicMiss = p.relicKind === "miss";
+  if (p.relicKind === "guard") b.guard = 18;
+  if (p.relicKind === "atk") {
+    b.foe += 5;
+    b.enemyAtk = b.foe;
+  }
+  D.b = b;
+  D.phase = "fight";
+  D.lines.push(`${foeName(p)}\u4E0A\u4E86\u53F0\u3002${p.cult}\uFF0C${p.root}\uFF0C\u624B\u91CC\u662F${p.weapon}\u3002`);
+  if (p.relic) D.lines.push(p.relicKind === "guard" ? `${p.relic}\u5728\u4ED6\u8EAB\u4E0A\u7F69\u51FA\u4E00\u5C42\u6697\u5149\u3002` : p.relicKind === "atk" ? `${p.relic}\u51FA\u9798\uFF0C\u6BD4\u4EBA\u5148\u52A8\u4E86\u534A\u5BF8\u3002` : `\u4ED6\u8896\u91CC\u90A3\u4EF6${p.relic}\u4F60\u6CA1\u89C1\u8FC7\u7B2C\u4E8C\u6B21\u3002`);
+  return D;
+}
+function act2(state2, kind) {
+  const out = { texts: [], dead: false };
+  if (!D || !D.b || D.b.over) return out;
+  const b = D.b;
+  const r = act(state2, b, kind);
+  out.texts.push(r.text);
+  if (!b.over) {
+    if (b.relicMiss && b.turn === 1) {
+      b.enemyMiss = true;
+      b.relicMiss = false;
+    }
+    const e = enemyTurn(state2, b);
+    out.texts.push(e.text);
+    out.dead = !!e.dead;
+    if (!b.over && b.enemyHp > 0 && b.enemyHp <= b.enemyMax * 0.3) {
+      const p = D.list[D.round];
+      if (p.pill && !b.pillUsed) {
+        b.pillUsed = true;
+        b.enemyHp = Math.min(b.enemyMax, b.enemyHp + Math.round(b.enemyMax * 0.25));
+        out.texts.push(`${foeName(p)}\u9000\u5F00\u534A\u6B65\uFF0C\u54AC\u4E86\u4E00\u679A${p.pill}\u3002\u9ED1\u5F71\u7684\u989C\u8272\u6C89\u4E86\u4E0B\u53BB\u3002`);
+      }
+    }
+  }
+  D.lines.push(...out.texts);
+  if (D.lines.length > 40) D.lines.splice(0, D.lines.length - 40);
+  if (b.over === "win") {
+    const p = D.list[D.round];
+    const gain2 = 6 + D.round * 4;
+    addLingshi(state2, gain2);
+    D.won += 1;
+    D.purse += gain2;
+    out.texts.push(`${foeName(p)}\u6563\u4E86\u3002\u53F0\u4E0B\u7684\u540D\u518C\u4E0A\uFF0C\u4F60\u7684\u540D\u5B57\u5F80\u524D\u632A\u4E86\u4E00\u683C\u3002\u5F97\u7075\u77F3 ${gain2} \u679A\u3002`);
+    if (p.who && PEOPLE[p.who]) addFavor(state2, p.who, 1);
+    if (D.round + 1 >= D.list.length) {
+      D.phase = "done";
+      const dao = 6 + D.won * 2;
+      gainMerit(state2, dao);
+      log(state2, "deed", `\u7B2C ${ensure(state2).year} \u5E74\uFF0C\u5B97\u95E8\u5927\u6BD4\uFF0C\u4F60\u8FDE\u80DC ${D.won} \u573A\uFF0C\u6536\u4E86 ${D.purse} \u679A\u7075\u77F3\u5F69\u5934\u3002\u9053\u884C +${dao}\u3002`);
+      dslFinish(state2, D.won, D.list.length);
+    } else {
+      D.phase = "rest";
+    }
+  } else if (b.over === "lose" || b.over === "flee") {
+    D.phase = "done";
+    log(state2, "deed", `\u7B2C ${ensure(state2).year} \u5E74\uFF0C\u5B97\u95E8\u5927\u6BD4\uFF0C\u4F60\u505C\u5728\u4E86\u7B2C ${D.round + 1} \u573A\u3002\u5F69\u5934 ${D.purse} \u679A\u7075\u77F3\u3002`);
+    dslFinish(state2, D.won, D.list.length);
+  }
+  return out;
+}
+function yield_(state2) {
+  if (!D || !D.b || D.b.over) return;
+  D.b.over = "lose";
+  D.phase = "done";
+  log(state2, "deed", `\u7B2C ${ensure(state2).year} \u5E74\uFF0C\u5B97\u95E8\u5927\u6BD4\uFF0C\u4F60\u5728\u7B2C ${D.round + 1} \u573A\u8BA4\u4E86\u8F93\u3002\u5F69\u5934 ${D.purse} \u679A\u7075\u77F3\u3002`);
+  dslFinish(state2, D.won, D.list.length);
+}
+function retire(state2) {
+  if (!D) return;
+  if (D.phase === "rest" || D.phase === "intro") {
+    log(state2, "deed", `\u7B2C ${ensure(state2).year} \u5E74\uFF0C\u5B97\u95E8\u5927\u6BD4\uFF0C\u4F60\u6253\u4E86 ${D.won} \u573A\u5C31\u4E0B\u4E86\u53F0\u3002\u5F69\u5934 ${D.purse} \u679A\u7075\u77F3\u3002`);
+    dslFinish(state2, D.won, D.list.length);
+  }
+  D = null;
+}
+function finish() {
+  D = null;
+}
+
 // src/scenes.js
 var SCENES = {
   gate: {
@@ -10192,7 +10619,8 @@ var SCENES = {
     img: "./assets/scenes/plaza.jpg",
     spots: [
       { x: 50, y: 58, label: "\u6D4B\u7075\u77F3 \xB7 \u6309\u624B\u5176\u4E0A", act: "gate" },
-      { x: 21, y: 31, label: "\u77F3\u680F \xB7 \u523B\u5B57", act: "look", id: "plaza_rail", text: "\u680F\u4E0A\u523B\u4E86\u4E00\u6392\u540D\u5B57\uFF0C\u4ECE\u4E0B\u5F80\u4E0A\uFF0C\u8D8A\u5F80\u4E0A\u8D8A\u6D45\u3002\u6700\u4E0A\u9762\u90A3\u51E0\u4E2A\u51E0\u4E4E\u6478\u4E0D\u51FA\u6765\u4E86\u3002" }
+      { x: 21, y: 31, label: "\u77F3\u680F \xB7 \u523B\u5B57", act: "look", id: "plaza_rail", text: "\u680F\u4E0A\u523B\u4E86\u4E00\u6392\u540D\u5B57\uFF0C\u4ECE\u4E0B\u5F80\u4E0A\uFF0C\u8D8A\u5F80\u4E0A\u8D8A\u6D45\u3002\u6700\u4E0A\u9762\u90A3\u51E0\u4E2A\u51E0\u4E4E\u6478\u4E0D\u51FA\u6765\u4E86\u3002" },
+      { x: 72, y: 30, label: "\u5927\u6BD4 \xB7 \u540D\u518C", act: "dsl" }
     ]
   },
   library: {
@@ -10430,7 +10858,7 @@ document.getElementById("btn-travel")?.addEventListener("click", () => {
     }
   );
 });
-var cur = "gate";
+var cur2 = "gate";
 var zoomT = 0;
 var pushTarget = 0;
 var pushZ = 0;
@@ -10663,6 +11091,19 @@ function doYear() {
   syncHud();
   if (isDead(state)) return showDeath();
   toast("\u9759\u4FEE\u4E00\u5E74\uFF1A\u6C14\u8840\u56DE\u6EE1\uFF0C\u9053\u884C +1");
+  dslNudge();
+}
+function dslNudge() {
+  try {
+    const l = ensure(state);
+    if (!l.dsl.due || l.dsl.poked || !dslOpen(state)) return;
+    if (l.alive === false) return;
+    if (panelRoot.classList.contains("open")) return;
+    l.dsl.poked = 1;
+    save();
+    openPanel("dsl");
+  } catch {
+  }
 }
 function showMoment(kind, title, line, done) {
   if (typeof document === "undefined" || !document.body) return done && done();
@@ -10745,7 +11186,7 @@ function showMindCall(scene) {
 function renderScene(id) {
   const sc = SCENES[id];
   if (!sc) return;
-  cur = id;
+  cur2 = id;
   mindDo(state, "visit_" + id, 1);
   save();
   const back = document.getElementById("back-map");
@@ -10920,6 +11361,10 @@ function onSpot(s, noFate) {
     pushTo(s, () => openPanel("zhen"));
     return;
   }
+  if (s.act === "dsl") {
+    pushTo(s, () => openPanel("dsl"));
+    return;
+  }
   if (s.act === "sword" || s.act === "alchemy" || s.act === "tribulation" || s.act === "cave") {
     tryPano(s.act, () => pushTo(s, () => openPanel(s.act)));
     return;
@@ -10974,7 +11419,7 @@ document.addEventListener("click", async (e) => {
   const b = e.target.closest && e.target.closest("#back-map");
   if (!b) return;
   e.preventDefault();
-  if (cur !== "map") fogTo("map", "\u5B97\u95E8 \xB7 \u8206\u56FE");
+  if (cur2 !== "map") fogTo("map", "\u5B97\u95E8 \xB7 \u8206\u56FE");
 });
 function fogTo(targetId, tip, skipEvent) {
   sfx("fog");
@@ -11088,6 +11533,24 @@ function closePanel() {
   pullBack();
   if (BREW.phase === "brewing") BREW.phase = "idle";
   if (REALM.phase === "board") REALM.phase = "idle";
+  if (FU.phase === "go") {
+    cancelAnimationFrame(FU.raf);
+    FU.raf = 0;
+    FU.phase = "idle";
+  }
+  if (ZHEN.phase === "go") {
+    cancelAnimationFrame(ZHEN.raf);
+    ZHEN.raf = 0;
+    ZHEN.phase = "idle";
+  }
+  if (panelRoot.dataset.pid === "dsl") {
+    const D2 = cur();
+    if (D2) {
+      if (D2.phase === "fight") yield_(state);
+      retire(state);
+      save();
+    }
+  }
   panelRoot.classList.remove("open");
   panelRoot.innerHTML = "";
   document.removeEventListener("keydown", onEsc);
@@ -11136,7 +11599,8 @@ function openPanel(id, arg) {
     codex: panelCodex,
     shop: panelShop,
     fu: panelFu,
-    zhen: panelZhen
+    zhen: panelZhen,
+    dsl: panelDsl
   };
   const fn = fns[id];
   if (typeof fn !== "function") {
@@ -11148,7 +11612,7 @@ function openPanel(id, arg) {
   }
   const html = fn(arg);
   lastPanel = { id, arg };
-  const wide = ["realm", "tribulation", "bio", "seclude", "craft", "world", "folk", "mind", "person", "jiazi", "breakthrough", "mount", "archive", "sect", "cave", "codex", "shop"].includes(id);
+  const wide = ["realm", "tribulation", "bio", "seclude", "craft", "world", "folk", "mind", "person", "jiazi", "breakthrough", "mount", "archive", "sect", "cave", "codex", "shop", "dsl"].includes(id);
   panelRoot.innerHTML = `<div class="panel ${wide ? "wide" : ""}">${html}</div>`;
   panelRoot.classList.add("open");
   document.addEventListener("keydown", onEsc);
@@ -11259,6 +11723,7 @@ function bindPanel(id, arg) {
   if (id === "shop") bindShop();
   if (id === "fu") bindTiming(FU, FU_CFG);
   if (id === "zhen") bindTiming(ZHEN, ZHEN_CFG);
+  if (id === "dsl") bindDsl();
   if (id === "jiazi") bindJiazi();
   if (id === "breakthrough") bindBreakthrough();
   if (id === "mount") bindMount();
@@ -11313,6 +11778,126 @@ function bindShop() {
       syncHud();
       toast(`${r.name} \u22121\uFF08+${r.price} \u679A\u7075\u77F3\uFF09`);
       openPanel("shop");
+    });
+  });
+}
+function dslPlate(p, i, cur0) {
+  return `<div class="craft-row">
+    <div><b>\u9ED1\u5F71 \xB7 ${p.name}</b><em>${p.cult} \xB7 ${p.root} \xB7 \u6B66\u5668\uFF1A${p.weapon}${p.relic ? ` \xB7 \u6CD5\u5B9D\uFF1A${p.relic}` : ""}${p.pill ? ` \xB7 \u4E39\u836F\uFF1A${p.pill}` : ""}</em></div>
+    ${cur0 ? '<span style="color:#e8c87a">\u5F53\u524D</span>' : `<span style="opacity:.5">\u7B2C ${i + 1} \u573A</span>`}
+  </div>`;
+}
+function panelDsl() {
+  const l = ensure(state);
+  const D2 = cur();
+  if (!D2) {
+    if (!l.dsl.due) {
+      const next = (l.dsl.last || 0) + DSL_EVERY;
+      return `<div class="panel-title">\u5B97\u95E8\u5927\u6BD4 \xB7 \u540D\u518C</div>
+        <div class="panel-text">\u53F0\u4E0A\u6302\u7740\u672C\u5C4A\u7684\u540D\u518C\uFF0C\u4F60\u7684\u540D\u5B57\u4E0D\u5728\u4E0A\u9762\u3002</div>
+        <div class="panel-text" style="opacity:.62">${dslOpen(state) ? `\u4E0B\u4E00\u6B21\u70B9\u540D\u5728\u7B2C ${next} \u5E74\u3002\u91D1\u4E39\u4E4B\u524D\uFF0C\u5C4A\u5C4A\u90FD\u8981\u5230\uFF1B\u7F3A\u5E2D\u4E00\u6B21\uFF0C\u6267\u4E8B\u623F\u7F5A\u7075\u77F3\u5341\u4E8C\u679A\u4EE5\u5185\u3002` : "\u4F60\u5DF2\u91D1\u4E39\u3002\u540D\u518C\u8FB9\u4E0A\u8D34\u7740\u4E00\u884C\u5C0F\u5B57\uFF1A\u300C\u91D1\u4E39\u4EE5\u4E0A\uFF0C\u5217\u5E2D\u89C2\u6218\u3002\u300D"}</div>
+        ${l.dsl.done ? `<div class="panel-text" style="opacity:.55">\u4F60\u6253\u8FC7 ${l.dsl.done} \u5C4A\uFF0C\u6700\u597D\u4E00\u573A\u8FDE\u80DC ${l.dsl.best} \u4EBA\u3002</div>` : ""}
+        <button class="btn ghost" data-close>\u4E0B\u53F0\uFF08Esc\uFF09</button>`;
+    }
+    const list = roster(state);
+    return `<div class="panel-title">\u5B97\u95E8\u5927\u6BD4 \xB7 \u7B2C ${l.dsl.dueYear} \u5E74</div>
+      <div class="panel-text">\u6267\u4E8B\u623F\u628A\u540D\u518C\u62CD\u5728\u8BBA\u9053\u53F0\u4E0A\uFF1A\u300C${l.dsl.dueYear === l.year ? "\u4ECA\u5E74" : "\u53BB\u5E74"}\u70B9\u4F60\u7684\u540D\u3002\u4E0A\u53F0\uFF0C\u6216\u8005\u56DE\u53BB\u7B49\u7740\u6328\u7F5A\u3002\u300D</div>
+      <div class="bio-sec">\u672C\u5C4A\u540D\u518C \xB7 ${list.length} \u573A</div>
+      <div class="craft">${list.map((p2, i) => dslPlate(p2, i, false)).join("")}</div>
+      <div class="panel-text" style="opacity:.6">\u53F0\u4E0A\u90FD\u662F\u9ED1\u5F71\uFF0C\u53EF\u540D\u5B57\u3001\u4FEE\u4E3A\u3001\u6CD5\u5B9D\u3001\u4E39\u836F\uFF0C\u4E00\u6837\u4E0D\u7F3A\u3002\u6253\u8D62\u6709\u5F69\u5934\uFF0C\u6253\u6EE1\u6709\u9053\u884C\u3002</div>
+      <button class="btn gold" id="dsl-go">\u4E0A\u53F0</button>
+      <button class="btn ghost" data-close>\u4E0D\u53BB\uFF08\u660E\u5E74\u7F5A\u7075\u77F3\uFF09</button>`;
+  }
+  if (D2.phase === "intro") {
+    return `<div class="panel-title">\u5B97\u95E8\u5927\u6BD4 \xB7 \u5019\u573A</div>
+      <div class="panel-text">\u7B2C\u4E00\u4E2A\u9ED1\u5F71\u5DF2\u7ECF\u7AD9\u4E0A\u53F0\u4E86\u3002\u540D\u518C\u5728\u4ED6\u624B\u91CC\u7FFB\u5F97\u54D7\u5566\u54CD\u3002</div>
+      <div class="craft">${D2.list.map((p2, i) => dslPlate(p2, i, i === 0)).join("")}</div>
+      <button class="btn gold" id="dsl-go">\u4E0A\u53F0 \xB7 \u7B2C\u4E00\u573A</button>
+      <button class="btn ghost" data-close>\u4E0D\u4E0B\u53F0\u4E5F\u7B97\u9519\u8FC7</button>`;
+  }
+  if (D2.phase === "rest") {
+    const next = D2.list[D2.round + 1];
+    return `<div class="panel-title">\u5B97\u95E8\u5927\u6BD4 \xB7 \u573A\u95F4</div>
+      <div class="panel-text">${D2.lines.slice(-3).join("<br>")}</div>
+      <div class="bio-sec">\u4E0B\u4E00\u573A</div>
+      ${next ? dslPlate(next, D2.round + 1, true) : ""}
+      <button class="btn gold" id="dsl-next">\u4E0A\u573A \xB7 \u7B2C ${D2.round + 2} \u573A</button>`;
+  }
+  if (D2.phase === "done") {
+    const full = D2.won >= D2.list.length;
+    return `<div class="panel-title">\u5B97\u95E8\u5927\u6BD4 \xB7 \u6536\u53F0</div>
+      <div class="panel-text">${D2.lines.slice(-4).join("<br>")}</div>
+      <div class="tb-merit" style="margin-top:12px">${full ? `\u8FDE\u80DC ${D2.won} \u573A \xB7 \u5F69\u5934 ${D2.purse} \u679A\u7075\u77F3 \xB7 \u9053\u884C\u5DF2\u5165\u8D26` : `\u505C\u5728\u7B2C ${D2.won + (D2.b && D2.b.over === "win" ? 0 : 1)} \u573A \xB7 \u5F69\u5934 ${D2.purse} \u679A\u7075\u77F3`}</div>
+      <button class="btn gold" id="dsl-out">\u4E0B\u53F0</button>`;
+  }
+  const b = D2.b;
+  const p = D2.list[D2.round];
+  const hpPct = Math.max(0, Math.round(b.enemyHp / b.enemyMax * 100));
+  const charm = l.bag.charm || 0;
+  const pill = l.bag.pill || 0;
+  const arts = ["fu", "zhen", "dan"].some((k) => hasPath(state, k));
+  return `<div class="panel-title">\u5B97\u95E8\u5927\u6BD4 \xB7 \u7B2C ${D2.round + 1}/${D2.list.length} \u573A</div>
+    <div class="panel-text"><b style="color:#cfd6e6">\u9ED1\u5F71 \xB7 ${p.name}</b>\u3000${p.cult} \xB7 ${p.root} \xB7 ${p.weapon}${p.relic ? ` \xB7 \u6CD5\u5B9D ${p.relic}` : ""}${p.pill ? ` \xB7 \u6000\u6709 ${p.pill}` : ""}</div>
+    <div class="brew-bar" style="height:10px"><div class="brew-zone" style="left:0;width:${hpPct}%;background:#8a3b34"></div></div>
+    <div class="panel-text" style="opacity:.62">\u5B83\u7684\u6C14\u8840 ${b.enemyHp}/${b.enemyMax}${b.guard ? ` \xB7 \u62A4\u4F53 ${b.guard}` : ""}</div>
+    <div class="chron" style="max-height:150px;overflow:auto">${D2.lines.slice(-6).map((t) => `<div class="chron-row"><span class="ct">${t}</span></div>`).join("")}</div>
+    <div class="craft-row" style="gap:8px;flex-wrap:wrap">
+      <button class="btn gold" data-dsl="sword">\u51FA\u5251</button>
+      ${arts ? '<button class="btn" data-dsl="art">\u65BD\u4E3A</button>' : ""}
+      ${charm ? `<button class="btn" data-dsl="fu">\u7528\u7B26 \xD7${charm}</button>` : ""}
+      ${pill ? `<button class="btn" data-dsl="dan">\u7528\u4E39 \xD7${pill}</button>` : ""}
+      <button class="btn ghost" id="dsl-yield">\u8BA4\u8F93</button>
+    </div>`;
+}
+function bindDsl() {
+  const go = document.getElementById("dsl-go");
+  if (go) {
+    go.addEventListener("click", () => {
+      const D2 = cur() || start2(state);
+      beginRound(state);
+      save();
+      openPanel("dsl");
+    });
+    return;
+  }
+  const next = document.getElementById("dsl-next");
+  if (next) {
+    next.addEventListener("click", () => {
+      beginRound(state);
+      save();
+      openPanel("dsl");
+    });
+    return;
+  }
+  const out = document.getElementById("dsl-out");
+  if (out) {
+    out.addEventListener("click", () => {
+      finish();
+      closePanel();
+      save();
+      syncHud();
+    });
+    return;
+  }
+  const yy = document.getElementById("dsl-yield");
+  if (yy) {
+    yy.addEventListener("click", () => {
+      yield_(state);
+      save();
+      syncHud();
+      openPanel("dsl");
+    });
+  }
+  panelRoot.querySelectorAll("[data-dsl]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const r = act2(state, btn.dataset.dsl);
+      save();
+      syncHud();
+      if (r.dead || isDead(state)) {
+        closePanel();
+        return showDeath();
+      }
+      openPanel("dsl");
     });
   });
 }
@@ -11937,7 +12522,7 @@ function bindRealm() {
   if (REALM.phase !== "board") return;
   const need = l.bag.sword === "duanshui" ? 2 : 3;
   const tip = document.getElementById("realm-tip");
-  const finish = () => {
+  const finish2 = () => {
     REALM.phase = "idle";
     const first = !state.done.realm;
     const over = (l.bag.tally || 0) >= 3;
@@ -11963,7 +12548,7 @@ function bindRealm() {
         t.textContent = "\u2726";
         REALM.found += 1;
         if (tip) tip.textContent = `\u5DF2\u5BFB ${REALM.found}/${need}`;
-        if (REALM.found >= need) return finish();
+        if (REALM.found >= need) return finish2();
         return;
       }
       if (what === "d") {
@@ -12031,7 +12616,7 @@ function bindRealm() {
         t.textContent = "\u2726";
       }
       if (tip) tip.textContent = `\u5DF2\u5BFB ${REALM.found}/${need}\uFF08\u795E\u8BC6\u5148\u89C9\uFF09`;
-      if (REALM.found >= need) finish();
+      if (REALM.found >= need) finish2();
     }
   }
 }
@@ -12756,7 +13341,8 @@ function panelSeclude() {
     return `<div class="panel-title">\u6E05\u4FEE\u8D26\u672C</div>
       <div class="panel-text">\u4F60\u4ECE\u6D1E\u91CC\u51FA\u6765\u7684\u65F6\u5019\uFF0C\u5916\u9762\u7684\u6811\u9AD8\u4E86\u3002${SECLUDE.broke ? "\u4F60\u4E0D\u592A\u8BB0\u5F97\u81EA\u5DF1\u662F\u54EA\u4E00\u5E74\u8D70\u706B\u7684\u3002" : ""}</div>
       <div class="chron">${rows}</div>
-      ${SECLUDE.interrupted ? `<div class="panel-text" style="color:#e8a08a;opacity:.9">\u7B2C ${l.year} \u5E74\uFF0C\u5916\u9762\u6709\u4EBA\u53EB\u4F60\u3002\u4F60\u7741\u5F00\u773C\u2014\u2014\u95ED\u5173\u662F\u53EF\u4EE5\u88AB\u6253\u65AD\u7684\u3002</div>` : ""}
+      ${SECLUDE.interrupted ? `<div class="panel-text" style="color:#e8a08a;opacity:.9">\u7B2C ${l.year} \u5E74\uFF0C\u5916\u9762\u6709\u4EBA\u53EB\u4F60\u3002\u4F60\u7741\u5F00\u773C\u2014\u2014\u95ED\u5173\u662F\u53EF\u4EE5\u88AB\u6253\u65AD\u7684\u3002${SECLUDE.interrupted.kind === "dsl" ? "\u662F\u6267\u4E8B\u623F\uFF1A\u5B97\u95E8\u5927\u6BD4\u5F00\u4E86\uFF0C\u70B9\u540D\u70B9\u5230\u4F60\u3002" : ""}</div>` : ""}
+      ${SECLUDE.interrupted && SECLUDE.interrupted.kind === "dsl" ? '<button class="btn gold" id="sec-dsl">\u53BB\u64C2\u53F0</button>' : ""}
       ${SECLUDE.world && SECLUDE.world.length ? `<div class="bio-sec">\u51FA\u5173\u4E4B\u540E</div>
       <div class="panel-text" style="opacity:.78;line-height:2">${SECLUDE.world.map((t) => "\xB7 " + t).join("<br>")}</div>` : ""}
       <div class="bio-sec">\u8FD9\u4E00\u5E74 \xB7 \u7B2C${l.year}\u5E74</div>
@@ -12791,6 +13377,14 @@ function panelSeclude() {
     <button class="btn ghost" data-close>\u7B97\u4E86\uFF08Esc\uFF09</button>`;
 }
 function bindSeclude() {
+  const toDsl = document.getElementById("sec-dsl");
+  if (toDsl) {
+    toDsl.addEventListener("click", () => {
+      closePanel();
+      openPanel("dsl");
+    });
+    return;
+  }
   const out = document.getElementById("sec-out");
   if (out) {
     out.addEventListener("click", () => {
@@ -13001,8 +13595,19 @@ function panelSect() {
       <button class="btn ghost" data-disc="${c.id}">\u6536\u4E0B</button>
     </div>`
   ).join("") : "";
+  const jindan = RANKS.indexOf(rankOf(state)) >= 2;
+  const mis = d && d.mission ? MISSIONS[d.mission.kind] : null;
   const dline = d ? `<div class="bio-sec">\u5F92\u5F1F</div>
-      <div class="panel-text">${d.name} \xB7 ${(d.stageNames || [])[d.stage || 0] || ""} \xB7 ${l.year - d.at} \u5E74\u524D\u78D5\u7684\u5934${d.alive ? "" : "\uFF08\u5DF2\u7ECF\u4E0D\u5728\u4E86\uFF09"}</div>` : "";
+      <div class="panel-text">${d.name} \xB7 ${(d.stageNames || [])[d.stage || 0] || ""} \xB7 ${l.year - d.at} \u5E74\u524D\u78D5\u7684\u5934${d.alive ? "" : "\uFF08\u5DF2\u7ECF\u4E0D\u5728\u4E86\uFF09"}</div>
+      ${d.alive && mis ? `<div class="panel-text" style="opacity:.75">\u4ED6\u4E0B\u5C71\u529E${mis.name}\u7684\u5DEE\u4E8B\u53BB\u4E86\uFF0C\u7B2C ${d.mission.due} \u5E74\u4EA4\u8D26\u3002</div>` : ""}
+      ${d.alive && !mis && jindan ? `<div class="bio-sec">\u6D3E\u9063\u4E0B\u5C71\uFF08\u91D1\u4E39\u4E4B\u540E\uFF09</div>
+          ${Object.entries(MISSIONS).map(
+    ([k, m]) => `<div class="craft-row">
+                <div><b>${m.name}</b><em>${m.yrs} \u5E74 \xB7 ${m.line}</em></div>
+                <button class="btn" data-mis="${k}">\u9063\u4ED6\u53BB</button>
+              </div>`
+  ).join("")}` : ""}
+      ${d.alive && !mis && !jindan ? '<div class="panel-text" style="opacity:.55">\u6267\u4E8B\u623F\u7684\u89C4\u77E9\uFF1A\u91D1\u4E39\u4E4B\u524D\uFF0C\u4F60\u81EA\u5DF1\u90FD\u662F\u88AB\u4EBA\u9063\u7684\u3002</div>' : ""}` : "";
   return `<div class="panel-title">${l.elder.name}</div>
     <div class="panel-text">\u4F60\u5750\u7684\u8FD9\u4E2A\u4F4D\u5B50\u7BA1\u7740${l.elder.duty || "\u5C71\u95E8\u91CC\u7684\u4E00\u4E9B\u4E8B"}\u3002\u6BCF\u5E74\u6709\u5E74\u4FF8\uFF0C\u4E5F\u8981\u62FF\u65F6\u95F4\u53BB\u6362\u3002</div>
     ${dline}
@@ -13026,6 +13631,16 @@ function bindSect() {
       const r = takeDisciple(state, b.dataset.disc);
       if (!r.ok) return toastText(r.why);
       toastText(`${r.disciple.name}\u78D5\u4E86\u5934\u3002`);
+      save();
+      syncHud();
+      openPanel("sect");
+    })
+  );
+  panelRoot.querySelectorAll("[data-mis]").forEach(
+    (b) => b.addEventListener("click", () => {
+      const r = dispatch(state, b.dataset.mis);
+      if (!r.ok) return toastText(r.why);
+      toastText(`${ensure(state).disciple.name}\u4E0B\u5C71\u53BB\u4E86\uFF0C${r.m.yrs} \u5E74\u540E\u4EA4\u8D26\u3002`);
       save();
       syncHud();
       openPanel("sect");
@@ -13067,8 +13682,8 @@ function showEventCard(card, done, onCancel) {
     syncHud();
     if (onCancel) onCancel();
   };
-  const act = card.act ? ACTS[card.act - 1] : null;
-  const kicker = card.card === "path" ? card.path === "shu" ? "\u8DEF\u4E0A \xB7 \u6709\u4EBA\u80AF\u5F80\u4E0B\u8BF4" : "\u4E0D\u662F\u5DE7\u5408 \xB7 \u6709\u4EBA\u770B\u89C1\u4F60\u4E86" : act ? `\u7B2C${"\u4E00\u4E8C\u4E09\u56DB"[card.act - 1]}\u5E55 \xB7 ${act.name}` : card.kicker || "\u8DEF\u4E0A";
+  const act3 = card.act ? ACTS[card.act - 1] : null;
+  const kicker = card.card === "path" ? card.path === "shu" ? "\u8DEF\u4E0A \xB7 \u6709\u4EBA\u80AF\u5F80\u4E0B\u8BF4" : "\u4E0D\u662F\u5DE7\u5408 \xB7 \u6709\u4EBA\u770B\u89C1\u4F60\u4E86" : act3 ? `\u7B2C${"\u4E00\u4E8C\u4E09\u56DB"[card.act - 1]}\u5E55 \xB7 ${act3.name}` : card.kicker || "\u8DEF\u4E0A";
   const voice = !card.act && card.card !== "path" ? voiceOf(state, card) : null;
   const leftNow = yearsLeft(state);
   const ageLine = `<div class="ev-age">${numCn(lNow.year)}\u5C81${leftNow <= 15 ? `<b>\u53EA\u5269 ${leftNow} \u5E74</b>` : ""}</div>`;
@@ -13324,6 +13939,7 @@ function loop(ts) {
         showDeath();
       } else {
         showYearChoice();
+        dslNudge();
       }
     }
   }
@@ -13355,7 +13971,7 @@ if (qsPanel) {
 }
 syncHud();
 save();
-window.__scene = { render: renderScene, open: openPanel, state: () => state, card: showEventCard, close: closePanel, panel: () => panelRoot.innerHTML, go: fogTo, decade: showDecadeCard, trib: () => TRIB, moment: showMoment, spot: onSpot, scenes: SCENES, death: () => showDeath() };
+window.__scene = { render: renderScene, open: openPanel, state: () => state, card: showEventCard, close: closePanel, panel: () => panelRoot.innerHTML, go: fogTo, decade: showDecadeCard, trib: () => TRIB, moment: showMoment, spot: onSpot, scenes: SCENES, death: () => showDeath(), timing: () => ({ fu: FU, zhen: ZHEN }) };
 document.getElementById("btn-archive")?.addEventListener("click", () => openPanel("archive"));
 var ARCHIVE_VIEW = "";
 var ARCHIVE_CONFIRM = "";
@@ -14211,9 +14827,9 @@ function panelBreakthrough() {
       <div class="panel-text" style="opacity:.5">${BREAK_VIEW.ok ? "\u5BFF\u5143\u957F\u4E86\uFF0C\u80FD\u591A\u7B49\u51E0\u8F6E\u6F6E\u6C50\u2014\u2014\u4F46\u76EF\u4E0A\u4F60\u7684\u4EBA\u4E5F\u591A\u4E86\u3002" : "\u7834\u5883\u4E0D\u662F\u767D\u62FF\u7684\u3002\u95ED\u5173\u90A3\u5341\u51E0\u5E74\uFF0C\u5916\u9762\u7167\u6837\u5728\u8D70\u3002"}</div>
       <button class="btn gold" id="bt-clear">\u77E5\u9053\u4E86</button>`;
   }
-  const cur2 = realmIndex(state);
-  const now = REALMS[cur2];
-  const next = REALMS[cur2 + 1];
+  const cur3 = realmIndex(state);
+  const now = REALMS[cur3];
+  const next = REALMS[cur3 + 1];
   if (!next) {
     return `<div class="panel-title">\u7834\u5883 \xB7 ${now.name}</div>
       <div class="panel-text">\u5DF2\u81F3\u9876\u5883\u3002\u518D\u5F80\u4E0A\uFF0C\u6CA1\u6709\u8DEF\u4E86\u3002</div>

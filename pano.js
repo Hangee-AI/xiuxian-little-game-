@@ -24271,13 +24271,67 @@ function annualTick(state) {
       log(state, "bond", nm, d.id);
       out2.push(`${d.name}\uFF1A${nm}`);
     }
+    if (d.mission && l.year >= d.mission.due) {
+      const line = missionSettle(state, d);
+      if (line) out2.push(line);
+    }
   }
   if (dslOpen(state) && !l.dsl.due && l.year - (l.dsl.last || 0) >= DSL_EVERY) {
     l.dsl.due = 1;
     l.dsl.dueYear = l.year;
+    l.dsl.poked = 0;
     out2.push("\u5B97\u95E8\u5927\u6BD4\uFF1A\u6267\u4E8B\u623F\u628A\u4F60\u7684\u540D\u5B57\u8D34\u4E0A\u4E86\u5899");
   }
   return out2;
+}
+function missionSettle(state, d) {
+  const l = ensure(state);
+  const m = l.disciple.mission;
+  d.mission = null;
+  const kind2 = m.kind;
+  const hurt2 = Math.random() < 0.18;
+  if (kind2 === "gather") {
+    if (hurt2) {
+      addItem(state, "herb", 2);
+      addLingshi(state, 2);
+      d.need = (d.need || 0) + 1;
+      log(state, "omen", `${d.name}\u91C7\u836F\u56DE\u6765\uFF0C\u7B50\u662F\u534A\u7A7A\u7684\uFF0C\u817F\u5012\u662F\u8DDB\u4E86\u3002\u4F60\u8BA9\u4ED6\u53BB\u517B\u7740\u3002`, d.id);
+      return `${d.name}\uFF1A\u91C7\u836F\u56DE\u6765\u4E86\uFF0C\u5E26\u4F24`;
+    }
+    const ls2 = 4 + Math.floor(Math.random() * 7);
+    addItem(state, "herb", 6);
+    addLingshi(state, ls2);
+    log(state, "bond", `${d.name}\u91C7\u836F\u56DE\u6765\uFF0C\u516D\u6346\u836F\u6652\u5728\u4F60\u9662\u91CC\uFF0C\u53E6\u5E26\u56DE\u6765 ${ls2} \u679A\u7075\u77F3\u2014\u2014\u836F\u5703\u4E3B\u4EBA\u7ED9\u7684\u5DE5\u94B1\u3002`, d.id);
+    return `${d.name}\uFF1A\u91C7\u836F\u56DE\u6765\u4E86\uFF08\u836F \xD76 \xB7 \u7075\u77F3 +${ls2}\uFF09`;
+  }
+  if (kind2 === "deliver") {
+    if (hurt2) {
+      addLingshi(state, 3);
+      d.need = (d.need || 0) + 1;
+      log(state, "omen", `${d.name}\u628A\u4FE1\u9001\u5230\u4E86\uFF0C\u56DE\u7A0B\u53EB\u4EBA\u622A\u4E86\u534A\u7A0B\uFF0C\u7075\u77F3\u53EA\u62A2\u56DE\u6765\u4E09\u679A\u3002\u4ED6\u6CA1\u8BF4\u6328\u4E86\u51E0\u4E0B\u3002`, d.id);
+      return `${d.name}\uFF1A\u9001\u4FE1\u56DE\u6765\u4E86\uFF0C\u5E26\u4F24`;
+    }
+    const ls2 = 8 + Math.floor(Math.random() * 8);
+    addLingshi(state, ls2);
+    log(state, "bond", `${d.name}\u9001\u4FE1\u56DE\u6765\uFF0C\u56DE\u5E16\u538B\u5728\u5323\u5E95\u2014\u2014\u5BF9\u9762\u5B97\u95E8\u8D4F\u4E86 ${ls2} \u679A\u811A\u94B1\u3002`, d.id);
+    return `${d.name}\uFF1A\u9001\u4FE1\u56DE\u6765\u4E86\uFF08\u7075\u77F3 +${ls2}\uFF09`;
+  }
+  const found = Math.random() < 0.3;
+  if (hurt2 && !found) {
+    d.stage = Math.max(0, (d.stage || 0) - 1);
+    log(state, "omen", `${d.name}\u5386\u7EC3\u56DE\u6765\uFF0C\u5883\u754C\u9000\u4E86\u4E00\u5C42\u3002\u4ED6\u5728\u9662\u95E8\u53E3\u7AD9\u4E86\u534A\u5BBF\uFF0C\u6CA1\u8FDB\u6765\u3002`, d.id);
+    return `${d.name}\uFF1A\u5386\u7EC3\u56DE\u6765\u4E86\uFF0C\u5883\u754C\u9000\u4E86\u4E00\u5C42`;
+  }
+  const ls = 15 + Math.floor(Math.random() * 11);
+  addLingshi(state, ls);
+  d.stage = Math.min((d.stageNames || []).length - 1, (d.stage || 0) + 1);
+  if (found) {
+    addItem(state, "tally", 1);
+    log(state, "bond", `${d.name}\u5386\u7EC3\u56DE\u6765\uFF0C\u5883\u754C\u8FDB\u4E86\u4E00\u5C42\uFF0C\u6000\u91CC\u8FD8\u6478\u51FA\u4E00\u679A\u6765\u5386\u8BF4\u4E0D\u6E05\u7684\u65E7\u4FE1\u7269\u3002\u7075\u77F3 ${ls} \u679A\u662F\u8DEF\u4E0A\u8D62\u7684\u3002`, d.id);
+    return `${d.name}\uFF1A\u5386\u7EC3\u56DE\u6765\u4E86\uFF08\u7075\u77F3 +${ls} \xB7 \u4FE1\u7269 \xD71\uFF09`;
+  }
+  log(state, "bond", `${d.name}\u5386\u7EC3\u56DE\u6765\uFF0C\u5883\u754C\u8FDB\u4E86\u4E00\u5C42\uFF0C\u6652\u9ED1\u4E86\u4E0D\u5C11\u3002\u5E26\u56DE\u6765 ${ls} \u679A\u7075\u77F3\uFF0C\u8BF4\u662F\u4E00\u8DEF\u66FF\u4EBA\u505A\u5DE5\u6323\u7684\u3002`, d.id);
+  return `${d.name}\uFF1A\u5386\u7EC3\u56DE\u6765\u4E86\uFF08\u7075\u77F3 +${ls}\uFF09`;
 }
 EVENTS.push(
   {
