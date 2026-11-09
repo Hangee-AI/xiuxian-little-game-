@@ -11674,9 +11674,69 @@ function panelBreakthrough() {
          <button class="btn gold" data-goto="tribulation">\u53BB\u6E21\u52AB\u53F0</button>` : daoOf(state) < (next.dao || 0) ? `<div class="panel-text" style="color:#e0a08a">\u6839\u57FA\u672A\u8DB3\uFF1A${next.name}\u8FD9\u4E00\u5883\u8981\u9053\u884C ${next.dao}\uFF0C\u4F60\u73B0\u5728 ${daoOf(state)}\u3002</div>` : left > next.cost ? `<button class="btn gold" id="bt-go">\u95ED\u5173\u7834\u5883\uFF08${next.cost} \u5E74\uFF09</button>` : '<div class="panel-text" style="color:#e0a08a">\u4F59\u5BFF\u4E0D\u591F\u95ED\u8FD9\u4E00\u5173\u3002</div>'}
     <button class="btn ghost" data-close>\u6536\u8D77\uFF08Esc\uFF09</button>`;
 }
+function playBreak(nextName, gains, done) {
+  if (typeof document === "undefined") return done && done();
+  const el = document.createElement("div");
+  el.id = "break-cine";
+  el.innerHTML = `<div class="bc-flash"></div>
+    <div class="bc-kicker">\u51FA \u5173</div>
+    <div class="bc-rank">${nextName}</div>
+    <div class="bc-gains">${gains.map((g) => `<div class="bc-gain">${g[0]}<b>${g[1]}</b></div>`).join("")}</div>
+    <div class="bc-hint">\u70B9\u4E00\u4E0B\u7EE7\u7EED</div>`;
+  document.body.appendChild(el);
+  requestAnimationFrame(() => el.classList.add("on"));
+  const flash = el.querySelector(".bc-flash");
+  const bang = () => {
+    flash.classList.remove("on");
+    void flash.offsetWidth;
+    flash.classList.add("on");
+    sfx("thunder", true);
+  };
+  setTimeout(bang, 240);
+  setTimeout(() => el.querySelector(".bc-rank")?.classList.add("on"), 420);
+  setTimeout(bang, 700);
+  setTimeout(() => el.querySelector(".bc-gains")?.classList.add("on"), 900);
+  let closed = false;
+  const shut = () => {
+    if (closed) return;
+    closed = true;
+    el.classList.add("out");
+    setTimeout(() => el.remove(), 520);
+    done && done();
+  };
+  setTimeout(shut, 3400);
+  el.addEventListener("click", shut);
+  document.addEventListener("keydown", function once(e) {
+    if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
+      document.removeEventListener("keydown", once);
+      shut();
+    }
+  });
+}
 function bindBreakthrough() {
   document.getElementById("bt-go")?.addEventListener("click", () => {
+    const before = {
+      rank: rankOf(state).name,
+      span: ensure(state).span,
+      hp: hpMax(state)
+    };
     BREAK_VIEW = breakthrough(state);
+    const after = {
+      rank: rankOf(state).name,
+      span: ensure(state).span,
+      hp: hpMax(state)
+    };
+    if (BREAK_VIEW && BREAK_VIEW.ok) {
+      save();
+      syncHud();
+      const gains = [];
+      if (after.rank !== before.rank) gains.push(["\u5883\u754C", `${before.rank} \u2192 ${after.rank}`]);
+      if (after.span !== before.span) gains.push(["\u5BFF\u5143", `${before.span} \u2192 ${after.span} \u5E74`]);
+      if (after.hp !== before.hp) gains.push(["\u6C14\u8840\u4E0A\u9650", `${before.hp} \u2192 ${after.hp}`]);
+      if (!gains.length) gains.push(["\u4FEE\u4E3A", "\u53C8\u6DF1\u4E86\u4E00\u5C42"]);
+      playBreak(after.rank, gains, () => openPanel("breakthrough"));
+      return;
+    }
     if (!afterYears()) openPanel("breakthrough");
   });
   document.querySelectorAll("[data-goto]").forEach((b) => {

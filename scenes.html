@@ -413,6 +413,29 @@
       /* 选项上先给代价：年数在正文里，能算出来的（东西、悟、业力、好感）挂在这儿 */
       .ev-chip { font-style: normal; font-size: 10.5px; letter-spacing: 0.06em; opacity: .62; margin-left: 10px; }
       .ev-chip::before { content: '· '; opacity: .6; }
+      /* 破境：全屏雷 + 字卡 */
+      #break-cine { position: fixed; inset: 0; z-index: 46; display: none; background: #05070b;
+        align-items: center; justify-content: center; flex-direction: column; }
+      #break-cine.on { display: flex; animation: bcIn .46s ease both; }
+      #break-cine.out { animation: bcOut .5s ease both; }
+      @keyframes bcIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes bcOut { from { opacity: 1; } to { opacity: 0; } }
+      #break-cine .bc-flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+      #break-cine .bc-flash.on { animation: bcFlash .34s ease-out; }
+      @keyframes bcFlash { 0% { opacity: 0; } 12% { opacity: .92; } 100% { opacity: 0; } }
+      #break-cine .bc-rank { font-family: var(--serif); font-size: 126px; letter-spacing: .22em; color: #f4e3b6;
+        text-indent: .22em; opacity: 0; text-shadow: 0 0 42px rgba(240,206,140,.35); }
+      #break-cine .bc-rank.on { animation: bcRank 1.1s cubic-bezier(.16,.9,.2,1) both; }
+      @keyframes bcRank { 0% { opacity: 0; transform: scale(1.7); filter: blur(9px); }
+        40% { opacity: 1; transform: scale(.98); filter: blur(0); } 100% { opacity: 1; transform: scale(1); } }
+      #break-cine .bc-kicker { font-size: 11.5px; letter-spacing: .42em; color: rgba(232,201,138,.66); opacity: 0; margin-bottom: 6px; }
+      #break-cine.on .bc-kicker { animation: bcFade .7s ease .12s both; }
+      #break-cine .bc-gains { margin-top: 26px; opacity: 0; text-align: center; }
+      #break-cine .bc-gains.on { animation: bcFade .8s ease .1s both; }
+      @keyframes bcFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+      #break-cine .bc-gain { font-size: 13px; letter-spacing: .1em; color: rgba(233,227,211,.8); margin: 7px 0; }
+      #break-cine .bc-gain b { color: #f2dfb2; font-weight: 500; margin-left: 8px; }
+      #break-cine .bc-hint { position: absolute; bottom: 34px; font-size: 11px; letter-spacing: .26em; color: rgba(233,227,211,.35); }
       /* 岁数：标题之前，最显眼的一行 */
       .ev-age { font-size: 15px; letter-spacing: 0.2em; color: rgba(242, 223, 178, 0.66); margin-top: 4px; }
       .ev-age b { font-size: 11px; font-weight: 400; letter-spacing: 0.12em; color: #d0715e; margin-left: 10px; }
