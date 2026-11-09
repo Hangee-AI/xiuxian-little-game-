@@ -28006,7 +28006,9 @@ function playB() {
 }
 var lastCT = -1;
 var stallTicks = 0;
+var introStarted = false;
 setInterval(() => {
+  if (!introStarted) return;
   if (ended || introEl.style.display === "none") return;
   if (genderGate && genderGate.classList.contains("on")) return;
   const ct = video.currentTime;
@@ -28118,6 +28120,7 @@ if (!IS_GATE) {
   });
 }
 function startIntro() {
+  introStarted = true;
   setTimeout(() => titleEl.classList.add("on"), 1200);
   setTimeout(() => {
     if (!ended && stageNo === 1) titleEl.classList.remove("on");
@@ -28143,6 +28146,7 @@ function needGender() {
 }
 var FORCE_INTRO = qs.get("intro") === "1";
 if (FORCE_INTRO) {
+  introStarted = false;
   settings.noNarration = false;
   settings.voiceNarration = true;
   settings.skipIntro = false;
