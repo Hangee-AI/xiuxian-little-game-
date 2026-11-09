@@ -8751,10 +8751,12 @@ function showYearChoice(done) {
 function doYear() {
   if (isDead(state)) return showDeath();
   spend(state, 1);
+  heal(state, 999);
+  giveMerit(1);
   save();
   syncHud();
   if (isDead(state)) return showDeath();
-  showYearChoice();
+  toast("\u9759\u4FEE\u4E00\u5E74\uFF1A\u6C14\u8840\u56DE\u6EE1\uFF0C\u9053\u884C +1");
 }
 function showMoment(kind, title, line, done) {
   if (typeof document === "undefined" || !document.body) return done && done();
@@ -10572,6 +10574,9 @@ function panelCave() {
     <div class="panel-text" style="opacity:.62">\u4ECA\u5E74 ${l.year} \u5C81 \xB7 \u5BFF\u5143\u5269 ${left} \u5E74 \xB7 \u9053\u884C ${daoOf(state)}\uFF08${rankOf(state).name}\uFF09\xB7 \u7075\u6839 \xD7${mul.toFixed(2)}</div>
     <div class="bio-sec">\u80FD\u505A\u7684\u4E8B</div>
     <div class="craft-row"><div><b>\u95ED\u5173</b><span>\u4E00\u53E3\u6C14\u95ED\u51E0\u5E74\u3002\u51FA\u6765\u624D\u77E5\u9053\u5916\u9762\u53D8\u4E86\u4EC0\u4E48\u3002</span></div><button class="btn ghost" id="cave-seclude">\u95ED\u5173</button></div>
+    ${(YEAR_POOL || []).map(
+    (c) => `<div class="craft-row"><div><b>${c.t}</b><span>${c.s} \xB7 \u4E00\u5E74</span></div><button class="btn ghost" data-year="${c.id}">\u53BB\u505A</button></div>`
+  ).join("")}
     <div class="craft-row"><div><b>\u6253\u5750</b><span>\u4E0D\u9009\u5E74\u6570\uFF1A\u73B0\u5B9E\u91CC\u6BCF\u8FC7\u4E00\u9635\uFF0C\u4F60\u5C31\u8001\u4E00\u5C81\uFF0C\u5BFF\u5143\u8DDF\u7740\u5C11\u3002\u60F3\u505C\u5C31\u8D77\u8EAB\u3002</span></div><button class="btn ghost" id="cave-meditate">\u6253\u5750</button></div>
     <div class="craft-row"><div><b>\u7834\u5883</b><span>${rankOf(state).name} \xB7 \u9053\u884C ${daoOf(state)}</span></div><button class="btn ghost" id="cave-break">\u770B\u770B</button></div>
     <button class="btn ghost" data-close>\u51FA\u95E8\uFF08Esc\uFF09</button>`;
@@ -10605,6 +10610,18 @@ function caveMeditateTick() {
   }
 }
 function bindCave() {
+  document.querySelectorAll("[data-year]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const id = b.dataset.year;
+      spend(state, 1);
+      const r = pickYear(state, id);
+      save();
+      syncHud();
+      if (isDead(state)) return showDeath();
+      toast(r && r.lines && r.lines[0] || "\u8FD9\u4E00\u5E74\u8FC7\u53BB\u4E86\u3002");
+      openPanel("cave");
+    });
+  });
   document.getElementById("cave-seclude")?.addEventListener("click", () => openPanel("seclude"));
   document.getElementById("cave-break")?.addEventListener("click", () => openPanel("breakthrough"));
   document.getElementById("cave-meditate")?.addEventListener("click", () => {
