@@ -7294,7 +7294,7 @@ function mindSceneCall(state2, scene) {
   }
   const hang = l.mind.find((m) => {
     const d = mindDef(m.id);
-    return d && d.scene === scene && !mindReady(state2, m);
+    return d && d.scene === scene && (!mindReady(state2, m) || !partyReady(state2, d));
   });
   if (hang) {
     const d = mindDef(hang.id);
@@ -7404,7 +7404,7 @@ function personList(state2) {
       gone: isGone(l, id),
       inParty: l.party.ids.includes(id),
       active,
-      ready: active.some((m) => mindReady(state2, m)),
+      ready: active.some((m) => mindReady(state2, m) && partyReady(state2, defOf(m.id))),
       done,
       lost,
       keeps
