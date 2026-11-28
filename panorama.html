@@ -791,5 +791,6 @@
   </div>
 
   <script type="module" src="./pano.js"></script>
+<script>(function(){var a=document.getElementById('intro-video');if(!a)return;var pre=document.createElement('video');pre.muted=true;pre.setAttribute('playsinline','');pre.setAttribute('preload','auto');pre.style.display='none';var started=false;function once(){if(started)return;started=true;pre.src='./assets/video/intro-b.mp4';pre.load();}if(a.readyState>=2){once()}else{a.addEventListener('playing',once,{once:true});a.addEventListener('loadeddata',once,{once:true})}})();</script>
 </body>
 </html>

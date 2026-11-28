@@ -2206,8 +2206,21 @@
         .lx-stamp, .lx-result, .lx-entry-in, .lx-card-out { animation: none !important; }
       }
     </style>
+<style>
+#boot{position:fixed;inset:0;z-index:9999;background:#05060a;display:flex;align-items:center;justify-content:center;transition:opacity .55s ease}
+#boot.out{opacity:0;pointer-events:none}
+#boot .b-in{text-align:center;font-family:var(--serif,serif);color:#e8d9b4}
+#boot .b-seal{width:64px;height:64px;margin:0 auto 18px;border:1px solid rgba(216,184,119,.45);color:#f2dfb2;font-size:30px;line-height:64px;letter-spacing:.1em;box-shadow:inset 0 0 40px rgba(216,184,119,.18)}
+#boot .b-txt{font-size:12px;letter-spacing:.42em;color:rgba(226,213,183,.68)}
+#boot .b-bar{width:150px;height:1px;margin:18px auto 0;background:rgba(216,184,119,.18);overflow:hidden}
+#boot .b-bar i{display:block;width:40%;height:100%;background:linear-gradient(90deg,transparent,#e8c98a,transparent);animation:bootSlide 1.5s ease-in-out infinite}
+@keyframes bootSlide{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+@media (prefers-reduced-motion: reduce){#boot .b-bar i{animation:none}}
+</style>
   </head>
   <body>
+    <div id="boot"><div class="b-in"><div class="b-seal">墟</div><div class="b-txt">入山门 · 载入中</div><div class="b-bar"><i></i></div></div></div>
+
     <a id="back-map" class="back-map" href="#" hidden>‹ 回舆图 · Esc</a>
     <div id="map-dock" hidden>
       <div class="dock-card">
@@ -2279,19 +2292,6 @@
     <div id="panel-root"></div>
     <div id="fog"></div>
 
-    <!-- 入场动画：山门石阶·第一人称推进（已去水印，H.264） -->
-    <div id="intro">
-      <video id="intro-video" muted playsinline preload="auto"
-             poster="./assets/video/intro-a-poster.jpg?v=2" src="./assets/video/intro-a.mp4?v=2"></video>
-      <div class="intro-shade"></div>
-      <div class="intro-title">
-        <div class="it-cn">灵墟</div>
-        <div class="it-line"></div>
-        <div class="it-sub">入此墟者 · 各凭灵根</div>
-      </div>
-      <button id="intro-skip">跳过 ▸</button>
-    </div>
-
     <div id="toast"></div>
     <!-- 年结：这一格换来了什么 -->
     <div id="year-result"></div>
@@ -2312,5 +2312,6 @@
       <div class="pr-foot">点一个人，看看他是谁</div>
     </aside>
     <script type="module" src="./scenes.js?v=20261124"></script>
-  </body>
+    <script>(function(){var b=document.getElementById('boot');if(!b)return;function h(){if(!b||!b.parentNode)return;b.classList.add('out');setTimeout(function(){if(b.parentNode)b.parentNode.removeChild(b)},700)}if(document.readyState==='complete'){h()}else{window.addEventListener('load',h)}setTimeout(h,15000)})();</script>
+</body>
 </html>
